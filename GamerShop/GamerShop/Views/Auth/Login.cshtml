@@ -1,0 +1,18 @@
+﻿@model AuthViewModel
+
+@using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+{
+    <div>
+        <div>
+            Login
+            @Html.TextBoxFor(model => model.Login)
+        </div>
+        <div>
+            Password
+            @Html.TextBoxFor(model => model.Password)
+        </div>
+        <div>
+            <input type="submit" value="Войти" />
+        </div>
+    </div>
+}
