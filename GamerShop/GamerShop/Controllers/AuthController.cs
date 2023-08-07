@@ -16,6 +16,11 @@ namespace GamerShop.Controllers
         [HttpPost]
         public IActionResult Login(AuthViewModel authViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(authViewModel);
+            }
+
             if (authViewModel.Password == "123")
             {
                 _names.Add(authViewModel.Login);
@@ -23,5 +28,6 @@ namespace GamerShop.Controllers
 
             return View();
         }
+
     }
 }
