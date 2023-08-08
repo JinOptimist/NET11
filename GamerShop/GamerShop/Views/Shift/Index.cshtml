@@ -1,0 +1,32 @@
+﻿@model List<ShiftViewModel>
+
+<div>
+    <h2>List of work shifts</h2>
+</div>
+
+@{
+    if (Model.Count == 0)
+    {
+        <div>
+            <h3>No shifts have been added yet.</h3>
+            @Html.ActionLink("Add shift", "Add", "Shift")
+        </div>
+    }
+    else
+    {
+        <div>
+            @foreach (var shift in Model)
+            {
+                <div>
+                    @shift.Date
+                    @shift.ShiftStart
+                    @shift.ShiftFinish
+                    @shift.Salary
+                     @Html.ActionLink("Delete", "Delete", "Shift", new {id = shift.Id})
+                </div>
+            }
+        </div>
+    }
+}
+
+
