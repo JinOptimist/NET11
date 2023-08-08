@@ -1,0 +1,18 @@
+﻿@model FootballClub
+
+@using (Html.BeginForm("NewClub", "FootballClubs", FormMethod.Post))
+{
+    <div>
+        <div>
+            Name
+            @Html.TextBoxFor(model => model.Name)
+        </div>
+        <div>
+            Stadium
+            @Html.TextBoxFor(model => model.Stadium)
+        </div>
+        <div>
+            <input type="submit" value="Записать" />
+        </div>
+    </div>
+}

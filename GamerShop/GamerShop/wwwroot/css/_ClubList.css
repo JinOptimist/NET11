@@ -1,0 +1,7 @@
+﻿.del::after {
+    content: 'x';
+    color:red;
+    font-weight: 300;
+    font-family: Arial, sans-serif;
+    margin-left:5px;
+}
