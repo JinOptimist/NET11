@@ -1,10 +1,13 @@
 ﻿@model List<string>
 
 <div>
-    сейчас на сайте следующие пользователи.
+    Новые персонажи.
     @foreach(var user in Model){
         <div>
             @user
+            <a class="del" href="~/BaldursGate/Delete/?id=@Model.IndexOf(user)" />X<a />
         </div>
+
+
     }
 </div>

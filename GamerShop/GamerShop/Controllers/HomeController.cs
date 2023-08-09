@@ -7,7 +7,7 @@ namespace GamerShop.Controllers
     {
         public IActionResult Index()
         {
-            var viewModel = AuthController._names;
+            var viewModel = BaldursGateController._BGclass;
             return View(viewModel);
         }
 
