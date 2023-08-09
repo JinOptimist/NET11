@@ -6,5 +6,6 @@ namespace DALInterfaces.Repositories
     {
         IEnumerable<User> GetAll();
         void Save(User user);
+        void Remove(int id);
     }
 }
