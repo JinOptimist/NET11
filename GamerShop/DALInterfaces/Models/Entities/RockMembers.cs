@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace GamerShop.Models.Entities
+namespace DALInterfaces.Models.Entities
 {
     public class RockMembers
     {
