@@ -17,13 +17,14 @@ namespace GamerShop.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            //comment remove
+            //good comment
             return View();
         }
 
         [HttpPost]
         public IActionResult Login(AuthViewModel authViewModel)
         {
+            //add second comment
             if (!ModelState.IsValid)
             {
                 return View(authViewModel);
