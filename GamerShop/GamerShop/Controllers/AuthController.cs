@@ -17,6 +17,7 @@ namespace GamerShop.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            //comment remove
             return View();
         }
 
