@@ -1,11 +1,10 @@
 ﻿@model List<IndexViewModel>
 
 <div>
-    сейчас на сайте следующие пользователи.
-    @foreach(var indexViewModel in Model){
-        <div>
-            @indexViewModel.Id) @indexViewModel.Name
-            <a href="/Auth/Remove?Id=@indexViewModel.Id">Remove</a>
-        </div>
-    }
+	сейчас на сайте следующие пользователи.
+	@foreach(var user in Model){
+		<div>
+			@user
+		</div>
+	}
 </div>
