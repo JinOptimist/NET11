@@ -2,11 +2,7 @@
 
 namespace DALInterfaces.Repositories
 {
-    public interface IRecipeRepository
+    public interface IRecipeRepository : IBaseRepository<Recipe>
     {
-        IEnumerable<Recipe> GetAll();
-        void Save(Recipe recipe);
-
-        void Remove(int id);
     }
 }

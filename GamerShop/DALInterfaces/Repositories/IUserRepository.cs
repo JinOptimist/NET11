@@ -2,10 +2,8 @@
 
 namespace DALInterfaces.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User>
     {
-        IEnumerable<User> GetAll();
-        void Save(User user);
-        void Remove(int id);
+        IEnumerable<User> GetAdultUsers();
     }
 }
