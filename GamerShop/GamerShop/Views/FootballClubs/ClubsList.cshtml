@@ -1,11 +1,11 @@
-﻿@model List<string>
+﻿@model List<FootballClubViewModel>
 <div>
     Список клубов:
     @foreach (var item in Model)
     {
         <div>
             @item
-            <a class="del" href="~/FootballClubs/Remove/?id=@Model.IndexOf(item)" />  <a />
+            <a class="del" href="~/FootballClubs/Remove?id=@Model.IndexOf(item)" />  <a />
             
         </div>
     }

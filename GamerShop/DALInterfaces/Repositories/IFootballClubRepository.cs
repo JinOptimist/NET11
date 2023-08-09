@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace DALInterfaces.Repositories
 {
-    public interface IFootballClubRepository
+    public interface IFootballClubRepository : IBaseRepository<FootballClub>
     {
-        IEnumerable<FootballClub> GetAll();
-        void Save(FootballClub footballClub);
-        void Remove(string id);
+ 
     }
 }

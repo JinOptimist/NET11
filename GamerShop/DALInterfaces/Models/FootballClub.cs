@@ -1,8 +1,7 @@
 ﻿
-
 namespace DALInterfaces.Models
 {
-    public class FootballClub
+    public class FootballClub:BaseModel
     {
         public string Name { get; set; }
         public string Stadium { get; set; }

@@ -12,7 +12,6 @@ namespace GamerShop.Controllers
     {
         private IFootballClubRepository _foootballClubsRepository; 
         
-
         public FootballClubsController(IFootballClubRepository foootballClubsRepository)
         {
             _foootballClubsRepository = foootballClubsRepository;
@@ -27,15 +26,12 @@ namespace GamerShop.Controllers
         [HttpPost]
         public IActionResult NewClub(FootballClubViewModel footballClub)
         {
-            if (footballClub != null) 
-            {
-
                 _foootballClubsRepository.Save(new FootballClub
                 {
                     Name = footballClub.Name,
                     Stadium = footballClub.Stadium,
                 }) ;
-            }
+   
             return View();
         }
         public IActionResult ClubsList()
@@ -44,12 +40,9 @@ namespace GamerShop.Controllers
                                                   Select(x=>x.Name).
                                                   ToList());
         }
-        public IActionResult Remove(string id)
+        public IActionResult Remove(int id)
         {
-            if (!string.IsNullOrEmpty(id))
-            {
-                _foootballClubsRepository.Remove(id);
-            }
+           _foootballClubsRepository.Remove(id);
            return RedirectToAction("ClubsList", "FootballClubs");
         }
 
