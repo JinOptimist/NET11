@@ -1,11 +1,19 @@
-﻿using GamerShop.Models;
+﻿using DALInterfaces.Models;
+using DALInterfaces.Repositories;
+using DALWrongDB.Repositories;
+using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
 {
     public class BooksController : Controller
     {
-        public static List<BookViewModel> _books = new List<BookViewModel>();
+        private IBookRepository _bookRepository;
+
+        public BooksController(IBookRepository bookRepository)
+        {
+            _bookRepository = bookRepository;
+        }
 
         [HttpGet]
         public IActionResult Book()
@@ -16,17 +24,28 @@ namespace GamerShop.Controllers
         [HttpPost]
         public IActionResult Book(BookViewModel bookViewModel)
         {
-            if (bookViewModel.Name != String.Empty && bookViewModel.Author != String.Empty)
+            if (!ModelState.IsValid)
             {
-                    _books.Add(bookViewModel);
+                return View(bookViewModel);
             }
+            var dbBook = new Book()
+            {
+                Name = bookViewModel.Name,
+                Author = bookViewModel.Author,
+                YearOfIssue = bookViewModel.YearOfIssue
+            };
+            
+            _bookRepository.Save(dbBook);
 
             return View();
         }
 
         public IActionResult Books()
         {
-            return View(_books);
+            var viewModel = _bookRepository.GetAll()
+                .Select(x => x.Name)
+                .ToList();
+            return View(viewModel);
         }
     }
 }

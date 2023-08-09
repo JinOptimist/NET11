@@ -1,11 +1,11 @@
-﻿@model List<BookViewModel>
+﻿@model List<string>
 
 <div>
     Список добавленых книг.
     @foreach (var book in Model)
     {
         <div>
-            @book.Name
+            @book
         </div>
     }
 </div>
