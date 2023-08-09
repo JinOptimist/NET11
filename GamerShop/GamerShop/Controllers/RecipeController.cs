@@ -1,11 +1,19 @@
-﻿using GamerShop.Models;
+﻿using DALInterfaces.Models;
+using DALInterfaces.Repositories;
+using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
 {
     public class RecipeController : Controller
     {
-        public static List<RecipeViewModel> Recipes = new();
+
+        private IRecipeRepository _recipeRepository;
+
+        public RecipeController(IRecipeRepository recipeRepository)
+        {
+	        _recipeRepository = recipeRepository;
+        }
 
         [HttpGet]
         public IActionResult Add()
@@ -20,18 +28,42 @@ namespace GamerShop.Controllers
 	        {
 		        return View();
 	        }
-			Recipes.Add(recipeViewModel);
+
+	        var dbRecipe = new Recipe()
+	        {
+		        Title = recipeViewModel.Title,
+		        Description = recipeViewModel.Title,
+		        Instructions = recipeViewModel.Instructions,
+		        CookingTime = recipeViewModel.CookingTime,
+		        PreparationTime = recipeViewModel.PreparationTime,
+		        Servings = recipeViewModel.Servings,
+		        DifficultyLevel = recipeViewModel.DifficultyLevel,
+		        Cuisine = recipeViewModel.Cuisine
+	        };
+
+			_recipeRepository.Save(dbRecipe);
             return View();
         }
 
         public IActionResult Show()
         {
-	        return View(Recipes);
+	        var viewModel = _recipeRepository.GetAll().Select(x => new RecipeViewModel()
+	        {
+		        Title = x.Title,
+		        Description = x.Title,
+		        Instructions = x.Instructions,
+		        CookingTime = x.CookingTime,
+		        PreparationTime = x.PreparationTime,
+		        Servings = x.Servings,
+		        DifficultyLevel = x.DifficultyLevel,
+		        Cuisine = x.Cuisine
+	        }).ToList();
+			return View(viewModel);
         }
 
         public IActionResult Remove(int id)
         { 
-	        Recipes.RemoveAt(id);
+	        _recipeRepository.Remove(id);
 	        return RedirectToAction("Show");
         }
 	}
