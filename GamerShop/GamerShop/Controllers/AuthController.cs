@@ -1,11 +1,18 @@
-﻿using GamerShop.Models;
+﻿using DALInterfaces.Models;
+using DALInterfaces.Repositories;
+using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
 {
     public class AuthController : Controller
     {
-        public static List<string> _names = new List<string>();
+        private IUserRepository _userRepository;
+
+        public AuthController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
         [HttpGet]
         public IActionResult Login()
@@ -16,9 +23,21 @@ namespace GamerShop.Controllers
         [HttpPost]
         public IActionResult Login(AuthViewModel authViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(authViewModel);
+            }
+
             if (authViewModel.Password == "123")
             {
-                _names.Add(authViewModel.Login);
+                var dbUser = new User()
+                {
+                    Name = authViewModel.Login,
+                    Password = authViewModel.Password,
+                    Birthday = DateTime.Now.AddYears(-1 * authViewModel.Age)
+                };
+
+                _userRepository.Save(dbUser);
             }
 
             return View();

@@ -6,10 +6,17 @@
         <div>
             Login
             @Html.TextBoxFor(model => model.Login)
+            @Html.ValidationMessageFor(x=>x.Login)
         </div>
         <div>
             Password
             @Html.TextBoxFor(model => model.Password)
+            @Html.ValidationMessageFor(x=>x.Password)
+        </div>
+        <div>
+            Age
+            @Html.TextBoxFor(model => model.Age)
+            @Html.ValidationMessageFor(x=>x.Age)
         </div>
         <div>
             <input type="submit" value="Войти" />
