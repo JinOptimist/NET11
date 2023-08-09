@@ -1,0 +1,15 @@
+﻿@model AddPlansViewModel
+
+@using (Html.BeginForm("Add", "Plants", FormMethod.Post))
+{
+    <div>
+        <h4 style="color: #34495e">Добавление plants в список </h4>
+    </div>
+    <div>
+        <label style="color: #95a5a6; marging-left: 20 px;">Введите название plants: <br /></label>
+        @Html.TextBoxFor(m=>m.Name)
+    </div>
+    <div>
+        <input type="submit" value="Добавить plants" style="background-color: #3498db; color: #fff; padding: 5px 10px; border: none; margin-top: 10px; cursor: pointer; border-radius: 4px;" />
+    </div>
+}

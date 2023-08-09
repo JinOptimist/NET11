@@ -1,8 +1,7 @@
 ﻿namespace GamerShop.Models
 {
-    public class PrivacyViewModel
+    public class AddPlansViewModel
     {
-        public DayOfWeek DayOfWeek { get; set; }
         public string Name { get; set; }
     }
 }

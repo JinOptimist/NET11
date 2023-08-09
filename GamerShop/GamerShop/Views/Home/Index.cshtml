@@ -1,10 +1,36 @@
-﻿@model List<string>
+﻿@model List<Plants>
 
-<div>
-    сейчас на сайте следующие пользователи.
-    @foreach(var user in Model){
+@{
+    if (Model.Count == 0)
+    {
         <div>
-            @user
+            <p style="color: #555;">
+                Ваш список любимых plants пуст.<br />
+                @Html.ActionLink("Добавить plants",
+                    "Add",
+                    "Plants",
+                    null,
+                    new { style = "color: #3498db; text-decoration: none; "})
+            </p>
         </div>
     }
-</div>
+    else
+    {
+        <div>
+            <p style="color: #333;">Любимые plants:<br /></P>
+            <ul>
+                @foreach (var plant in Model)
+                {
+                    <li style ="margin-bottom: 10px; color: #444;">
+                        @plant.Name
+                        @Html.ActionLink("Удалить из списка",
+                            "Delete",
+                            "Plants",
+                            new { id = plant.Id },
+                            new { style = "color: #e74c3c; margin-left: 10px; text-decoration: none;" })<br />
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}

@@ -1,4 +1,4 @@
-﻿using GamerShop.Models;
+﻿
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
@@ -7,18 +7,7 @@ namespace GamerShop.Controllers
     {
         public IActionResult Index()
         {
-            var viewModel = AuthController._names;
-            return View(viewModel);
-        }
-
-        public IActionResult Privacy()
-        {
-            var viewModel = new PrivacyViewModel
-            {
-                DayOfWeek = DateTime.Now.DayOfWeek,
-                Name = "Smile"
-            };
-
+            var viewModel = PlantsController.PlantsList;
             return View(viewModel);
         }
     }
