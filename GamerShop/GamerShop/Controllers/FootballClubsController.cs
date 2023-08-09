@@ -1,10 +1,8 @@
 ﻿using DALInterfaces.Models;
 using DALInterfaces.Repositories;
-using DALWrongDB.Repositories;
 using GamerShop.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Web;
+
 
 namespace GamerShop.Controllers
 {
@@ -37,7 +35,12 @@ namespace GamerShop.Controllers
         public IActionResult ClubsList()
         {
             return View(_foootballClubsRepository.GetAll().
-                                                  Select(x=>x.Name).
+                                                  Select(x=>new FootballClubViewModel
+                                                  { 
+                                                  Id = x.Id,
+                                                  Name = x.Name,
+                                                  Stadium = x.Stadium,
+                                                  }).
                                                   ToList());
         }
         public IActionResult Remove(int id)

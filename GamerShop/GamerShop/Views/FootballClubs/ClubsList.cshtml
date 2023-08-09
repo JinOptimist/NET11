@@ -4,9 +4,7 @@
     @foreach (var item in Model)
     {
         <div>
-            @item
-            <a class="del" href="~/FootballClubs/Remove?id=@Model.IndexOf(item)" />  <a />
-            
+            @item.Name <a class="del" href="~/FootballClubs/Remove?id=@item.Id" />  <a />
         </div>
     }
 </div>
