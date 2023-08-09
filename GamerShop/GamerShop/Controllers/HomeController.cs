@@ -16,12 +16,16 @@ namespace GamerShop.Controllers
 
         public IActionResult Index()
         {
-            var viewModel = _userRepository
+            var viewModels = _userRepository
                 .GetAll()
-                .Select(x => x.Name)
+                .Select(dbUser => new IndexViewModel
+                {
+                    Id = dbUser.Id,
+                    Name = dbUser.Name,
+                })
                 .ToList();
 
-            return View(viewModel);
+            return View(viewModels);
         }
 
         public IActionResult Privacy()

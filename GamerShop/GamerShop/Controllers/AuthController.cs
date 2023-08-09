@@ -42,5 +42,11 @@ namespace GamerShop.Controllers
 
             return View();
         }
+
+        public IActionResult Remove(int id)
+        {
+            _userRepository.Remove(id);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
