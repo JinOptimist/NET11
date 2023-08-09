@@ -1,6 +1,6 @@
 ﻿namespace GamerShop.Models
 {
-    public class FootballClub
+    public class FootballClubViewModel
     {
         public string  Name { get; set; }
         public string  Stadium { get; set; }
