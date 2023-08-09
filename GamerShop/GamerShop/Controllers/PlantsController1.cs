@@ -8,7 +8,7 @@ namespace GamerShop.Controllers
         public static List<Plants> PlantsList = new List<Plants>();
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Add()
         {
             return View();
         }
