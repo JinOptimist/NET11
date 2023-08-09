@@ -14,13 +14,6 @@ namespace GamerShop.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            //good comment
-            return View();
-        }
-
         [HttpPost]
         public IActionResult Login(AuthViewModel authViewModel)
         {
