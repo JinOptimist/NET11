@@ -6,4 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Movies\Add.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Movies\Add.cshtml" />
+  </ItemGroup>
+
 </Project>
