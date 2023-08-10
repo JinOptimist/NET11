@@ -1,0 +1,19 @@
+﻿@model PCComponentViewModel
+
+@using (Html.BeginForm("Add", "PCBuild", FormMethod.Post))
+{
+    <div>
+        <div>
+            Category: @Html.TextBoxFor(model => model.Category)
+        </div>
+        <div>
+            Title: @Html.TextBoxFor(model => model.Title)
+        </div>
+        <div>
+            Price: @Html.TextBoxFor(model => model.Price)
+        </div>
+        <div>
+            <input type="submit" value="Add"/>
+        </div>
+    </div>
+}
