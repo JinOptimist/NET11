@@ -1,13 +1,12 @@
 ﻿using DALInterfaces.Models;
-using DALInterfaces.Models.Entities;
 
 namespace DALInterfaces.Repositories
 {
     public interface IRockMemberRepository
     {
-        IEnumerable<RockMembers> GetAll();
-        void Save(RockMembers member);
+        IEnumerable<RockMember> GetAll();
+        void Save(RockMember member);
 
-        void Delete(int index);
+        void Delete(int id);
     }
 }

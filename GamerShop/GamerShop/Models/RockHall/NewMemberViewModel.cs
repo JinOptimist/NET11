@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GamerShop.Models
+namespace GamerShop.Models.RockHall
 {
-    public class RockFameViewModel
+    public class NewMemberViewModel
     {
 
         [Required(ErrorMessage = "Пустая пустота, не надо так...")]

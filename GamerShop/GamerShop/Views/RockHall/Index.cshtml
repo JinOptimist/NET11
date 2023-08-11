@@ -1,5 +1,5 @@
-﻿@using DALInterfaces.Models.Entities
-@model List<RockMembers>
+﻿@using DALInterfaces.Models;
+@model List<InfoMemberViewModel>
 
 <div>
     <h1><u>Members of the Rock and Roll Hall of Fame:</u></h1><br />
@@ -9,8 +9,8 @@
             <h2>
                 @person.FullName
             </h2>
-            Genre: @person.Genre, Entry year: @person.EntryYear, Year Of Birth: @person.YearOfBirth <br />
-            <a asp-action="Delete" asp-controller="RockHall" asp-route-index="@Model.IndexOf(@person)">Удалить</a>
+           Genre: @person.Genre, Entry year: @person.EntryYear, Year Of Birth: @person.YearOfBirth <br />
+            <a asp-action="Delete" asp-controller="RockHall" asp-route-id="@person.Id">Удалить</a>
         </div>
     }
 </div>
