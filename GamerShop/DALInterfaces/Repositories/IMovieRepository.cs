@@ -2,9 +2,4 @@
 
 namespace DALInterfaces.Repositories;
 
-public interface IMovieRepository
-{
-    void Save(Movie movie);
-    IEnumerable<Movie> GetAll();
-    void Remove(int id);
-}
+public interface IMovieRepository : IBaseRepository<Movie> {}

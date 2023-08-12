@@ -6,13 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-<<<<<<< HEAD
 builder.Services.AddSingleton<IUserRepository, UserRepository>()
-    .AddSingleton<IMovieRepository, MovieRepository>();
-=======
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
->>>>>>> main
+    .AddSingleton<IMovieRepository, MovieRepository>()
+    .AddSingleton<IUserRepository, UserRepository>()
+    .AddSingleton<IRecipeRepository, RecipeRepository>();
 
 var app = builder.Build();
 
