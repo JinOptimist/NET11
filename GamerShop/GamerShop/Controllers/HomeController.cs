@@ -1,13 +1,26 @@
-﻿using GamerShop.Models;
+﻿using DALInterfaces.Repositories;
+using DALWrongDB.Repositories;
+using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
 {
     public class HomeController : Controller
     {
+        private IUserRepository _userRepository;
+
+        public HomeController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
         public IActionResult Index()
         {
-            var viewModel = AuthController._names;
+            var viewModel = _userRepository
+                .GetAll()
+                .Select(x => x.Name)
+                .ToList();
+
             return View(viewModel);
         }
 
