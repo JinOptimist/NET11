@@ -3,18 +3,11 @@ using DALInterfaces.Repositories;
 
 namespace DALWrongDB.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        private static List<User> _users = new List<User>();
-
-        public IEnumerable<User> GetAll()
+        public IEnumerable<User> GetAdultUsers()
         {
-            return _users;
-        }
-
-        public void Save(User user)
-        {
-            _users.Add(user);
+            return _entyties.Where(x => x.Birthday < DateTime.Now.AddYears(-18));
         }
     }
 }
