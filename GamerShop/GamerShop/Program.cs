@@ -8,7 +8,6 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>()
     .AddSingleton<IMovieRepository, MovieRepository>()
-    .AddSingleton<IUserRepository, UserRepository>()
     .AddSingleton<IRecipeRepository, RecipeRepository>();
 
 var app = builder.Build();
