@@ -1,33 +1,33 @@
-﻿@model List<MovieViewModel>
+﻿@model List<ShowMovieViewModel>
 
 @{
     if (Model.Count == 0)
     {
         <div>
             <p style="color: #555;">
-                Ваш список любимых фильмов пуст.<br />
+                Ваш список любимых фильмов пуст.<br/>
                 @Html.ActionLink("Добавить фильм",
                     "Add",
                     "Movies",
                     null,
-                    new { style = "color: #3498db; text-decoration: none; "})
+                    new { style = "color: #3498db; text-decoration: none; " })
             </p>
         </div>
     }
     else
     {
         <div>
-            <p style="color: #333;">Любимые фильмы:<br /></P>
+            <p style="color: #333;">Любимые фильмы:<br/></P>
             <ul>
                 @foreach (var movie in Model)
                 {
-                    <li style ="margin-bottom: 10px; color: #444;">
+                    <li style="margin-bottom: 10px; color: #444;">
                         @movie.Title
                         @Html.ActionLink("Удалить из списка",
                             "Remove",
                             "Movies",
-                            new { id = @movie.Id },
-                            new { style = "color: #e74c3c; margin-left: 10px; text-decoration: none;" })<br />
+                            new { id = movie.Id },
+                            new { style = "color: #e74c3c; margin-left: 10px; text-decoration: none;" })<br/>
                     </li>
                 }
             </ul>
@@ -35,7 +35,7 @@
                 "Add",
                 "Movies",
                 null,
-                new { style = "color: #3498db; margin-left: 10px; text-decoration: none;" })<br />
+                new { style = "color: #3498db; margin-left: 10px; text-decoration: none;" })<br/>
         </div>
     }
 }

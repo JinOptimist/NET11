@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DALInterfaces\DALInterfaces.csproj" />
+    <ProjectReference Include="..\DALWrongDB\DALWrongDB.csproj" />
+  </ItemGroup>
+
 </Project>

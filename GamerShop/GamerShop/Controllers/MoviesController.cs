@@ -1,11 +1,18 @@
-﻿using GamerShop.Models;
+﻿using DALInterfaces.Models;
+using DALInterfaces.Repositories;
+using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers;
 
 public class MoviesController : Controller
 {
-    public static List<MovieViewModel> Movies = new();
+    private readonly IMovieRepository _movieRepository;
+
+    public MoviesController(IMovieRepository movieRepository)
+    {
+        _movieRepository = movieRepository;
+    }
 
     [HttpGet]
     public IActionResult Add()
@@ -18,19 +25,21 @@ public class MoviesController : Controller
     {
         if (!ModelState.IsValid) return View(addMoviesViewModel);
 
-        var viewModel = new MovieViewModel
+        var viewModel = new Movie
         {
-            Id = Movies.Any() ? Movies.Max(x => x.Id) + 1 : 1,
-            Title = addMoviesViewModel.Title
+            Title = addMoviesViewModel.Title,
+            CreatedDate = DateTime.Now
         };
-        Movies.Add(viewModel);
+
+        _movieRepository.Save(viewModel);
+
         return RedirectToAction("Show", "Movies");
     }
 
+    [HttpGet]
     public IActionResult Remove(int id)
     {
-        var movieToDelete = Movies.SingleOrDefault(movie => movie.Id == id);
-        if (movieToDelete != null) Movies.Remove(movieToDelete);
+        _movieRepository.Remove(id);
 
         return RedirectToAction("Show", "Movies");
     }
@@ -38,7 +47,15 @@ public class MoviesController : Controller
     [HttpGet]
     public IActionResult Show()
     {
-        var viewMoviesList = Movies;
+        var viewMoviesList = _movieRepository
+            .GetAll()
+            .Select(dbMovie => new ShowMovieViewModel
+            {
+                Id = dbMovie.Id,
+                Title = dbMovie.Title
+            })
+            .ToList();
+
         return View(viewMoviesList);
     }
 }
