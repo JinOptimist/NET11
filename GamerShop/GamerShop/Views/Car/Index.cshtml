@@ -1,0 +1,19 @@
+﻿@model CarViewModel
+@using (Html.BeginForm("Index", "InfoAboutCar", FormMethod.Post))
+{
+    <div>
+        <div>
+            NameCar
+            @Html.TextBoxFor(x=>x.NameCar)
+            @Html.ValidationMessageFor(x=>x.NameCar)
+        </div>
+        <div>
+            InfoAboutCar
+            @Html.TextBoxFor(x=>x.InfoAboutCar)
+            @Html.ValidationMessageFor(x=>x.InfoAboutCar)
+        </div>
+        <div>
+            <input type="submit" value="Добивать информацию" />
+        </div>
+    </div>
+}

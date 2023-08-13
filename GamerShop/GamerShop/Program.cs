@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
+builder.Services.AddSingleton<ICarRepository, CarRepository>();
+
 
 var app = builder.Build();
 

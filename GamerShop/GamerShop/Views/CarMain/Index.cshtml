@@ -1,0 +1,11 @@
+﻿@model List<IndexCarViewModel>
+<div>
+    Информация о машинах:
+    @foreach(var info in Model)
+    {
+        <div>
+             Название машины : @info.NameCar, Информация :@info.InfoAboutCar
+             <a href="Car/Remove/?id=@info.Id">delete</a>
+        </div>
+    }
+</div>
