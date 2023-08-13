@@ -8,16 +8,16 @@ namespace GamerShop.Controllers;
 
 public class PCBuildController : Controller
 {
-    private IPCComponentsRepository PcComponentsRepository;
+    private IPCComponentsRepository _pcComponentsRepository;
 
     public PCBuildController(IPCComponentsRepository pcComponentsRepository)
     {
-        PcComponentsRepository = pcComponentsRepository;
+        _pcComponentsRepository = pcComponentsRepository;
     }
 
     public IActionResult Index()
     {
-        var viewModel = PcComponentsRepository
+        var viewModel = _pcComponentsRepository
             .GetAll()
             .Select(component => new PCComponentViewModel()
             {
@@ -49,13 +49,13 @@ public class PCBuildController : Controller
             Category = pcComponentViewModel.Category,
             Price = pcComponentViewModel.Price
         };
-        PcComponentsRepository.Save(dbComponent);
-        return View();
+        _pcComponentsRepository.Save(dbComponent);
+        return RedirectToAction("Index", "PCBuild");
     }
     
     public IActionResult Remove(int id)
     {
-        PcComponentsRepository.Remove(id);
+        _pcComponentsRepository.Remove(id);
         return RedirectToAction("Index", "PCBuild");
     }
 }
