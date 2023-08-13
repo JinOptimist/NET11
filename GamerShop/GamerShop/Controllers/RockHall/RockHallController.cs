@@ -19,13 +19,13 @@ namespace GamerShop.Controllers.RockHallController
         {
             var viewModel = _rockMemberRepository
                 .GetAll()
-                .Select(dbUser => new InfoMemberViewModel
+                .Select(dbMember => new InfoMemberViewModel
                 {
-                    Id = dbUser.Id,
-                    FullName = dbUser.FullName,
-                    Genre = dbUser.Genre,
-                    YearOfBirth = dbUser.YearOfBirth,
-                    EntryYear = dbUser.EntryYear,
+                    Id = dbMember.Id,
+                    FullName = dbMember.FullName,
+                    Genre = dbMember.Genre,
+                    YearOfBirth = dbMember.YearOfBirth,
+                    EntryYear = dbMember.EntryYear,
                 })
                 .ToList();
 
@@ -34,7 +34,7 @@ namespace GamerShop.Controllers.RockHallController
 
         public IActionResult Delete(int id)
         {
-            _rockMemberRepository.Delete(id);
+            _rockMemberRepository.Remove(id);
             return RedirectToAction("Index");
         }
 

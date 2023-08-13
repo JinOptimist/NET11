@@ -3,9 +3,8 @@ using System.Xml.Linq;
 
 namespace DALInterfaces.Models
 {
-    public class RockMember
+    public class RockMember : BaseModel
     {
-        public int Id { get; set; }
         public string FullName { get; set; }
         public string Genre { get; set; }
         public int EntryYear { get; set; }
