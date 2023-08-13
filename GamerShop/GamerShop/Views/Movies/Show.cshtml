@@ -6,11 +6,6 @@
         <div>
             <p style="color: #555;">
                 Ваш список любимых фильмов пуст.<br/>
-                @Html.ActionLink("Добавить фильм",
-                    "Add",
-                    "Movies",
-                    null,
-                    new { style = "color: #3498db; text-decoration: none; " })
             </p>
         </div>
     }
@@ -31,11 +26,11 @@
                     </li>
                 }
             </ul>
-            @Html.ActionLink("Добавить фильм",
-                "Add",
-                "Movies",
-                null,
-                new { style = "color: #3498db; margin-left: 10px; text-decoration: none;" })<br/>
         </div>
     }
+    @Html.ActionLink("Добавить фильм",
+        "Add",
+        "Movies",
+        null,
+        new { style = "color: #3498db; text-decoration: none; " })
 }
