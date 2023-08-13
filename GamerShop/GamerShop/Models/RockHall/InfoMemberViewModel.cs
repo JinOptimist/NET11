@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace DALInterfaces.Models
+namespace GamerShop.Models.RockHall
 {
     public class InfoMemberViewModel
     {
