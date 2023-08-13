@@ -1,0 +1,14 @@
+﻿@model List<BaldursGateModel>
+
+<div>
+    Новые персонажи.
+    @foreach(var hero in Model){
+        <div>
+            @hero.Id
+            @hero.Name
+            <a class="del" href="~/BaldursGate/Remove?id=@hero.Id" />X<a />
+        </div>
+
+
+    }
+</div>
