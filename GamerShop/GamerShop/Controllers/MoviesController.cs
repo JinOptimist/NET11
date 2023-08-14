@@ -1,4 +1,6 @@
-﻿using DALInterfaces.Models;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.MovieServices;
+using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -7,11 +9,15 @@ namespace GamerShop.Controllers;
 
 public class MoviesController : Controller
 {
-    private readonly IMovieRepository _movieRepository;
+    private readonly IAddMovieServices _addMovieServices;
+    private readonly IRemoveServices _removeMovieServices;
+    private readonly IShowMovieServices _showMovieServices;
 
-    public MoviesController(IMovieRepository movieRepository)
+    public MoviesController(IAddMovieServices addMovieServices, IRemoveServices removeMovieServices, IShowMovieServices showMovieServices)
     {
-        _movieRepository = movieRepository;
+        _addMovieServices = addMovieServices;
+        _removeMovieServices = removeMovieServices;
+        _showMovieServices = showMovieServices;
     }
 
     [HttpGet]
@@ -25,13 +31,13 @@ public class MoviesController : Controller
     {
         if (!ModelState.IsValid) return View(addMoviesViewModel);
 
-        var viewModel = new Movie
+        var movieBlm = new MovieBlm()
         {
             Title = addMoviesViewModel.Title,
             CreatedDate = DateTime.Now
         };
 
-        _movieRepository.Save(viewModel);
+        _addMovieServices.Add(movieBlm);
 
         return RedirectToAction("Show", "Movies");
     }
@@ -39,7 +45,7 @@ public class MoviesController : Controller
     [HttpGet]
     public IActionResult Remove(int id)
     {
-        _movieRepository.Remove(id);
+        _removeMovieServices.Remove(id);
 
         return RedirectToAction("Show", "Movies");
     }
@@ -47,12 +53,12 @@ public class MoviesController : Controller
     [HttpGet]
     public IActionResult Show()
     {
-        var viewMoviesList = _movieRepository
-            .GetAll()
-            .Select(dbMovie => new ShowMovieViewModel
+        var viewMoviesList = _showMovieServices
+            .GetAllMovies()
+            .Select(movieBlm => new ShowMovieViewModel
             {
-                Id = dbMovie.Id,
-                Title = dbMovie.Title
+                Id = movieBlm.Id,
+                Title = movieBlm.Title
             })
             .ToList();
 
