@@ -1,13 +1,21 @@
-using BusinessLayer.UserServices;
+﻿using BusinessLayer.UserServices;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
+using GamerShop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services
+    .AddAuthentication("WebAuthSmile")
+    .AddCookie("WebAuthSmile", 
+        option =>
+        {
+            option.LoginPath = "/Auth/Login";
+		});
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
@@ -16,6 +24,8 @@ builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -28,11 +38,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); // Кто ты?
+
+app.UseAuthorization(); // Можно ли тебе?
 
 app.MapControllerRoute(
     name: "default",
