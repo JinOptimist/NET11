@@ -1,6 +1,6 @@
 ﻿namespace BusinessLayerInterfaces.MovieServices;
 
-public interface IRemoveServices
+public interface IRemoveMovieServices
 {
     void Remove(int id);
 }

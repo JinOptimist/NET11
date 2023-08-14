@@ -10,10 +10,10 @@ namespace GamerShop.Controllers;
 public class MoviesController : Controller
 {
     private readonly IAddMovieServices _addMovieServices;
-    private readonly IRemoveServices _removeMovieServices;
+    private readonly IRemoveMovieServices _removeMovieServices;
     private readonly IShowMovieServices _showMovieServices;
 
-    public MoviesController(IAddMovieServices addMovieServices, IRemoveServices removeMovieServices, IShowMovieServices showMovieServices)
+    public MoviesController(IAddMovieServices addMovieServices, IRemoveMovieServices removeMovieServices, IShowMovieServices showMovieServices)
     {
         _addMovieServices = addMovieServices;
         _removeMovieServices = removeMovieServices;

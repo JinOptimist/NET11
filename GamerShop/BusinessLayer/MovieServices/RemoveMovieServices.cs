@@ -3,7 +3,7 @@ using DALInterfaces.Repositories;
 
 namespace BusinessLayer.MovieServices;
 
-public class RemoveMovieServices : IRemoveServices
+public class RemoveMovieServices : IRemoveMovieServices
 {
     private readonly IMovieRepository _movieRepository;
 
