@@ -1,3 +1,5 @@
+using BusinessLayer.UserServices;
+using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
 
@@ -10,6 +12,10 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>()
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
+builder.Services.AddScoped<IHomeServices, HomeServices>();
+builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
+builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
+
 
 var app = builder.Build();
 
