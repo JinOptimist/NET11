@@ -22,5 +22,15 @@ namespace BusinessLayer.UserServices
 					Id = x.Id,
 					Name = x.Name,
 				});
+
+		public UserBlm GetUserById(int id)
+		{
+			var userDb = _userRepository.Get(id);
+			return new UserBlm
+			{
+				Id = userDb.Id,
+				Name = userDb.Name,
+			};
+		}
 	}
 }
