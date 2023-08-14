@@ -8,7 +8,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
+builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IFootballClubRepository,FootballClubRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
