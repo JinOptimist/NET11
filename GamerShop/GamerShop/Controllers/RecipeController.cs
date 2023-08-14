@@ -47,8 +47,9 @@ namespace GamerShop.Controllers
 
         public IActionResult Show()
         {
-	        var viewModel = _recipeRepository.GetAll().Select(x => new RecipeViewModel()
+	        var viewModel = _recipeRepository.GetAll().Select(x => new ShowRecipeViewModel()
 	        {
+				Id = x.Id,
 		        Title = x.Title,
 		        Description = x.Title,
 		        Instructions = x.Instructions,
@@ -58,6 +59,7 @@ namespace GamerShop.Controllers
 		        DifficultyLevel = x.DifficultyLevel,
 		        Cuisine = x.Cuisine
 	        }).ToList();
+
 			return View(viewModel);
         }
 

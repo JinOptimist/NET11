@@ -1,4 +1,4 @@
-﻿@model List<RecipeViewModel>
+﻿@model List<ShowRecipeViewModel>
 
 <div>
 	Available recipes:
@@ -14,7 +14,7 @@
 			<p>Servings amount: @recipe.Servings</p>
 			<p>Difficulty level: @recipe.DifficultyLevel</p>
 			<p>Cuisine type: @recipe.Cuisine</p>
-			<a href="~/Recipe/Remove/?id=@Model.IndexOf(recipe)">X</a>
+			<a href="~/Recipe/Remove/?id=@recipe.Id">X</a>
 		</div>
 	}
 </div>
