@@ -26,6 +26,7 @@
                             <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a>
                         </li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	                    <li class="nav-item">
 		                    <a class="nav-link text-dark" href="/Auth/Login">Login</a>
 	                    </li>
@@ -39,6 +40,8 @@
                         </li>
 	                    </li>
 =======
+=======
+>>>>>>> main
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Auth/Login">Login</a>
                         </li>
@@ -51,6 +54,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/RockHall/NewRockMember">New Rock Member</a>
                         </li>
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
                     </ul>
                 </div>

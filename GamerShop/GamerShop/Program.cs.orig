@@ -12,6 +12,11 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 <<<<<<< HEAD
 builder.Services.AddSingleton<ICarRepository, CarRepository>();
+builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
+builder.Services.AddScoped<IHomeServices, HomeServices>();
+builder.Services.AddScoped<ICarServices, CarServices>();
+
+
 =======
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
