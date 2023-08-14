@@ -16,10 +16,15 @@ builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
+<<<<<<< HEAD
 builder.Services.AddScoped<IAddMovieServices, AddMovieServices>();
 builder.Services.AddScoped<IShowMovieServices, ShowMovieServices>();
 builder.Services.AddScoped<IRemoveMovieServices, RemoveMovieServices>();
 
+=======
+builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
+builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
+>>>>>>> 4e4a67dc1cc3be27a1171a80f9f11c52104834e5
 
 var app = builder.Build();
 
