@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
+builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>()
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
 
 var app = builder.Build();
