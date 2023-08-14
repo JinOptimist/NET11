@@ -26,7 +26,7 @@ namespace GamerShop.Controllers
         }
         public IActionResult CharacterList()
         {
-
+            //Я овощ
             return View(_persRepository.GetAll().
                                         Select(x => new BaldursGateModel
                                         {
