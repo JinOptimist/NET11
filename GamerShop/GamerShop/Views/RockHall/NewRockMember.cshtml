@@ -1,0 +1,50 @@
+﻿@using GamerShop.Models.RockHall;
+@model NewMemberViewModel
+
+@using (Html.BeginForm("NewRockMember", "RockHall", FormMethod.Post))
+{
+    <div>
+        <!   FULL NAME>
+        <div>
+            @Html.LabelFor(model => model.FullName)
+
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.FullName)
+            @Html.ValidationMessageFor(model => model.FullName)
+        </div>
+
+        <!  GENRE>
+        <div>
+            @Html.LabelFor(model => model.Genre)
+
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Genre)
+            @Html.ValidationMessageFor(model => model.Genre)
+        </div>
+
+        <!  ENTRY YEAR>
+        <div>
+            @Html.LabelFor(model => model.EntryYear)
+
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.EntryYear)
+            @Html.ValidationMessageFor(model => model.EntryYear)
+        </div>
+
+        <!  YEAR OF BIRTH>
+        <div>
+            @Html.LabelFor(model => model.YearOfBirth)
+
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.YearOfBirth)
+            @Html.ValidationMessageFor(model => model.YearOfBirth)
+        </div>
+        <div>
+            <input type="submit" value="Add" />
+        </div>
+    </div>
+}
