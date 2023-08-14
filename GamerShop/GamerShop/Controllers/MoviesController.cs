@@ -9,15 +9,11 @@ namespace GamerShop.Controllers;
 
 public class MoviesController : Controller
 {
-    private readonly IAddMovieServices _addMovieServices;
-    private readonly IRemoveMovieServices _removeMovieServices;
-    private readonly IShowMovieServices _showMovieServices;
+    private readonly IMovieServices _movieServices;
 
-    public MoviesController(IAddMovieServices addMovieServices, IRemoveMovieServices removeMovieServices, IShowMovieServices showMovieServices)
+    public MoviesController(IMovieServices movieServices)
     {
-        _addMovieServices = addMovieServices;
-        _removeMovieServices = removeMovieServices;
-        _showMovieServices = showMovieServices;
+        _movieServices = movieServices;
     }
 
     [HttpGet]
@@ -37,7 +33,7 @@ public class MoviesController : Controller
             CreatedDate = DateTime.Now
         };
 
-        _addMovieServices.Add(movieBlm);
+        _movieServices.Add(movieBlm);
 
         return RedirectToAction("Show", "Movies");
     }
@@ -45,7 +41,7 @@ public class MoviesController : Controller
     [HttpGet]
     public IActionResult Remove(int id)
     {
-        _removeMovieServices.Remove(id);
+        _movieServices.Remove(id);
 
         return RedirectToAction("Show", "Movies");
     }
@@ -53,7 +49,7 @@ public class MoviesController : Controller
     [HttpGet]
     public IActionResult Show()
     {
-        var viewMoviesList = _showMovieServices
+        var viewMoviesList = _movieServices
             .GetAllMovies()
             .Select(movieBlm => new ShowMovieViewModel
             {
