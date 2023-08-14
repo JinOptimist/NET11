@@ -1,4 +1,6 @@
+using BusinessLayer.RecipeServices;
 using BusinessLayer.UserServices;
+using BusinessLayerInterfaces.RecipeServices;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
@@ -12,6 +14,7 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
+builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 
 
 var app = builder.Build();
@@ -19,9 +22,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Home/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -32,7 +35,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
