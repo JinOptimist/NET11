@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
@@ -8,17 +10,17 @@ namespace GamerShop.Controllers;
 
 public class PcBuildController : Controller
 {
-    private IPcComponentsRepository _pcComponentsRepository;
+    private IPcComponentServices _pcComponentServices;
 
-    public PcBuildController(IPcComponentsRepository pcComponentsRepository)
+    public PcBuildController(IPcComponentServices pcComponentServices)
     {
-        _pcComponentsRepository = pcComponentsRepository;
+        _pcComponentServices = pcComponentServices;
     }
 
     public IActionResult Index()
     {
-        var viewModel = _pcComponentsRepository
-            .GetAll()
+        var viewModel = _pcComponentServices
+            .GetAllPcComponents()
             .Select(component => new PcComponentViewModel()
             {
                 Id = component.Id,
@@ -43,19 +45,19 @@ public class PcBuildController : Controller
             return View();
         }
 
-        var dbComponent = new PcComponent()
+        var dbComponent = new PcComponentBlm()
         {
             Title = pcComponentViewModel.Title,
             Category = pcComponentViewModel.Category,
             Price = pcComponentViewModel.Price
         };
-        _pcComponentsRepository.Save(dbComponent);
+        _pcComponentServices.Save(dbComponent);
         return RedirectToAction("Index", "PcBuild");
     }
     
     public IActionResult Remove(int id)
     {
-        _pcComponentsRepository.Remove(id);
+        _pcComponentServices.Remove(id);
         return RedirectToAction("Index", "PcBuild");
     }
 }

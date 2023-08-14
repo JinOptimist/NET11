@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BuisnessLayerInterfaces\BusinessLayerInterfaces.csproj" />
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
     <ProjectReference Include="..\DALInterfaces\DALInterfaces.csproj" />
     <ProjectReference Include="..\DALWrongDB\DALWrongDB.csproj" />
   </ItemGroup>
