@@ -4,6 +4,6 @@ namespace BusinessLayerInterfaces.UserServices
 {
 	public interface IHomeServices
 	{
-		IEnumerable<UserBlm> GetLastLoginUsers();
-	}
+        IEnumerable<UserBlm> GetLastLoginUsers();
+    }
 }
