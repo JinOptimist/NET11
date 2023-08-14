@@ -8,12 +8,12 @@ namespace BusinessLayer.UserServices
 	{
 		private IUserRepository _userRepository;
 
-        public HomeServices(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
+		public HomeServices(IUserRepository userRepository)
+		{
+			_userRepository = userRepository;
+		}
 
-        public IEnumerable<UserBlm> GetLastLoginUsers()
+		public IEnumerable<UserBlm> GetLastLoginUsers()
 			=> _userRepository
 				.GetAll()
 				.Take(5)
