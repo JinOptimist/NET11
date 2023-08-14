@@ -13,4 +13,9 @@
     <ProjectReference Include="..\DALWrongDB\DALWrongDB.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Shift\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shift\Index.cshtml" />
+  </ItemGroup>
+
 </Project>
