@@ -2,7 +2,7 @@
 
 namespace DALInterfaces.Repositories;
 
-public interface IPCComponentsRepository : IBaseRepository<PCComponent>
+public interface IPcComponentsRepository : IBaseRepository<PcComponent>
 {
     
 }

@@ -3,7 +3,7 @@ using DALInterfaces.Repositories;
 
 namespace DALWrongDB.Repositories;
 
-public class PCComponentRepository : BaseRepository<PCComponent>, IPCComponentsRepository
+public class PcComponentRepository : BaseRepository<PcComponent>, IPcComponentsRepository
 {
 
 }

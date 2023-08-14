@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers;
 
-public class PCBuildController : Controller
+public class PcBuildController : Controller
 {
-    private IPCComponentsRepository _pcComponentsRepository;
+    private IPcComponentsRepository _pcComponentsRepository;
 
-    public PCBuildController(IPCComponentsRepository pcComponentsRepository)
+    public PcBuildController(IPcComponentsRepository pcComponentsRepository)
     {
         _pcComponentsRepository = pcComponentsRepository;
     }
@@ -19,7 +19,7 @@ public class PCBuildController : Controller
     {
         var viewModel = _pcComponentsRepository
             .GetAll()
-            .Select(component => new PCComponentViewModel()
+            .Select(component => new PcComponentViewModel()
             {
                 Id = component.Id,
                 Category = component.Category,
@@ -36,26 +36,26 @@ public class PCBuildController : Controller
     }
     
     [HttpPost]
-    public IActionResult Add(PCComponentViewModel pcComponentViewModel)
+    public IActionResult Add(PcComponentViewModel pcComponentViewModel)
     {
         if (!ModelState.IsValid)
         {
             return View();
         }
 
-        var dbComponent = new PCComponent()
+        var dbComponent = new PcComponent()
         {
             Title = pcComponentViewModel.Title,
             Category = pcComponentViewModel.Category,
             Price = pcComponentViewModel.Price
         };
         _pcComponentsRepository.Save(dbComponent);
-        return RedirectToAction("Index", "PCBuild");
+        return RedirectToAction("Index", "PcBuild");
     }
     
     public IActionResult Remove(int id)
     {
         _pcComponentsRepository.Remove(id);
-        return RedirectToAction("Index", "PCBuild");
+        return RedirectToAction("Index", "PcBuild");
     }
 }

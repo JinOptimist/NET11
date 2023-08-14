@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
-builder.Services.AddSingleton<IPCComponentsRepository, PCComponentRepository>();
+builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 
 var app = builder.Build();
 

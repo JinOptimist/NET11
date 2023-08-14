@@ -2,7 +2,7 @@
 
 namespace GamerShop.Models;
 
-public class PCComponentViewModel
+public class PcComponentViewModel
 {
     public int Id { get; set; }
     
@@ -13,6 +13,6 @@ public class PCComponentViewModel
     public string Title { get; set; }
     
     [Required(ErrorMessage = "Price is required")]
-    public Decimal Price { get; set; }
+    public decimal Price { get; set; }
 
 }
