@@ -8,6 +8,6 @@ namespace GamerShop.Models
         public string NameCar { get; set; }
         [Required]
         public string InfoAboutCar { get; set; }
-        
+
     }
 }

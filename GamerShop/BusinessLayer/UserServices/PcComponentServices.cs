@@ -14,7 +14,7 @@ namespace BusinessLayer.UserServices
             _componentsRepository = componentsRepository;
         }
 
-        public IEnumerable<PcComponentBlm> GetAllPcComponents() 
+        public IEnumerable<PcComponentBlm> GetAllPcComponents()
             => _componentsRepository
                 .GetAll()
                 .Select(component => new PcComponentBlm()

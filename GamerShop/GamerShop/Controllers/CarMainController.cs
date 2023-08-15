@@ -1,4 +1,5 @@
-﻿using DALInterfaces.Repositories;
+﻿using BusinessLayerInterfaces.UserServices;
+using DALInterfaces.Repositories;
 using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,16 +7,15 @@ namespace GamerShop.Controllers
 {
     public class CarMainController : Controller
     {
-        ICarRepository _carRepository;
-        public CarMainController(ICarRepository carRepository, ILogger<HomeController> logger)
+        ICarServices _carServices;
+        public CarMainController(ICarServices carServices)
         {
-            _carRepository = carRepository;
-
+            _carServices = carServices;
         }
 
         public IActionResult Index()
         {
-            var viewModel = _carRepository
+            var viewModel = _carServices
                 .GetAll()
                 .Select(dbuser => new IndexCarViewModel
                 {
@@ -29,7 +29,7 @@ namespace GamerShop.Controllers
         }
         public IActionResult Remove(int id)
         {
-            _carRepository.Remove(id);
+            _carServices.Remove(id);
             return RedirectToAction("Index");
         }
     }

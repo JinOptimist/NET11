@@ -12,24 +12,24 @@ namespace BusinessLayer.UserServices
 {
     public class CarServices : ICarServices
     {
-        ICarRepository _carRepository;
-        CarServices(ICarRepository carRepository)
+        private ICarRepository _carRepository;
+        public CarServices(ICarRepository carRepository)
         {
             _carRepository = carRepository;
         }
 
         public IEnumerable<CarBlm> GetAll()
-                =>_carRepository
+                => _carRepository
                 .GetAll()
                 .Select(car => new CarBlm()
                 {
                     Id = car.Id,
                     NameCar = car.NameCar,
                     InfoAboutCar = car.InfoAboutCar
-                    
+
                 })
                 .ToList();
-        
+
         public void Remove(int id)
         {
             _carRepository.Remove(id);
@@ -40,7 +40,7 @@ namespace BusinessLayer.UserServices
             var dbCar = new Car()
             {
                 NameCar = model.NameCar,
-                InfoAboutCar= model.InfoAboutCar
+                InfoAboutCar = model.InfoAboutCar
             };
             _carRepository.Save(dbCar);
         }

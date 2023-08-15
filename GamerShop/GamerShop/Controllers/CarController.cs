@@ -1,4 +1,6 @@
-﻿using DALInterfaces.Models;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.UserServices;
+using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +9,10 @@ namespace GamerShop.Controllers
 {
     public class CarController : Controller
     {
-        ICarRepository _carRepository;
-        public CarController(ICarRepository carRepository)
+        ICarServices _carServices;
+        public CarController(ICarServices carServices)
         {
-            _carRepository = carRepository;
+            _carServices = carServices;
         }
 
         [HttpGet]
@@ -26,14 +28,14 @@ namespace GamerShop.Controllers
             {
                 return View(CarViewModel);
             }
-            var dbCar = new Car()
-            {         
+            var dbCar = new CarBlm()
+            {
                 NameCar = CarViewModel.NameCar,
                 InfoAboutCar = CarViewModel.InfoAboutCar
             };
-            _carRepository.Save(dbCar);
+            _carServices.Save(dbCar);
             return View();
         }
-       
+
     }
 }

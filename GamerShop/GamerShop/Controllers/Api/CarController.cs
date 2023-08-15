@@ -9,8 +9,8 @@ namespace GamerShop.Controllers.Api
     [ApiController]
     public class CarController : ControllerBase
     {
-        ICarServices _carServices;
-        CarController(ICarServices carServices)
+        private ICarServices _carServices;
+        public CarController(ICarServices carServices)
         {
             _carServices = carServices;
         }

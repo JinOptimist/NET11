@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DALWrongDB.Repositories
 {
-    public class CarRepository : BaseRepository<Car>,ICarRepository 
+    public class CarRepository : BaseRepository<Car>, ICarRepository
     {
     }
 }
