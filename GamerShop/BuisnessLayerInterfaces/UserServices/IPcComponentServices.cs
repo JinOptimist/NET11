@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLayerInterfaces.UserServices
 {
-    public interface ICarServices
+    public interface IPcComponentServices
     {
-        IEnumerable<CarBlm> GetAll();
-
-        void Save(CarBlm model);
+        IEnumerable<PcComponentBlm> GetAllPcComponents();
 
         void Remove(int id);
+        void Save(PcComponentBlm pcComponentBlm);
     }
 }

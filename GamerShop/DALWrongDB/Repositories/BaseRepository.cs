@@ -26,5 +26,10 @@ namespace DALWrongDB.Repositories
             var enity = _entyties.FirstOrDefault(x => x.Id == id);
             _entyties.Remove(enity);
         }
-    }
+
+		public DbModel Get(int id)
+		{
+			return _entyties.FirstOrDefault(x => x.Id == id);
+		}
+	}
 }
