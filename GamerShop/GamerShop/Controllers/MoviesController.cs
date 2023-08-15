@@ -3,6 +3,8 @@ using BusinessLayerInterfaces.MovieServices;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
+using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers;
@@ -10,12 +12,15 @@ namespace GamerShop.Controllers;
 public class MoviesController : Controller
 {
     private readonly IMovieServices _movieServices;
+    private readonly IAuthService _authService;
 
-    public MoviesController(IMovieServices movieServices)
+    public MoviesController(IMovieServices movieServices, IAuthService authService)
     {
         _movieServices = movieServices;
+        _authService = authService;
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Add()
     {
@@ -46,15 +51,19 @@ public class MoviesController : Controller
         return RedirectToAction("Show", "Movies");
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Show()
     {
+        var user = _authService.GetCurrentUser();
         var viewMoviesList = _movieServices
             .GetAllMovies()
             .Select(movieBlm => new ShowMovieViewModel
             {
                 Id = movieBlm.Id,
-                Title = movieBlm.Title
+                Title = movieBlm.Title,
+                UserId = user.Id,
+                UserName = user.Name
             })
             .ToList();
 
