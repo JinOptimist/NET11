@@ -1,4 +1,6 @@
-﻿using BusinessLayer.UserServices;
+﻿using BusinessLayer.RecipeServices;
+using BusinessLayer.UserServices;
+using BusinessLayerInterfaces.RecipeServices;
 using BusinessLayer.FootballServices;
 using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.UserServices;
@@ -32,6 +34,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IFootballClubRepository, FootballClubRepository>();
 builder.Services.AddSingleton<IFootballServices, FootballSevices>();
+
+builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 
 
 
