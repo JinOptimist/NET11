@@ -14,10 +14,11 @@ namespace DALEfDB.Repositories
                 .ToList();
         }
 
-        public User GetUserByNameAndPassword(string userName, string password)
+        public int? GetUserIdByNameAndPassword(string userName, string password)
         {
-            return _dbSet.FirstOrDefault(x => x.Name == userName && x.Password == password);
+            return _dbSet
+                .FirstOrDefault(x => x.Name == userName && x.Password == password)
+                ?.Id;
         }
-
     }
 }

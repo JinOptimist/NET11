@@ -1,5 +1,5 @@
-﻿using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+﻿using BusinessLayerInterfaces.UserServices;
+using DALInterfaces.Models;
 using GamerShop.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +9,11 @@ namespace GamerShop.Controllers
 {
     public class AuthController : Controller
     {
-        private IUserRepository _userRepository;
+		private IAuthService _authService;
 
-        public AuthController(IUserRepository userRepository)
+        public AuthController(IAuthService authService)
         {
-            _userRepository = userRepository;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -30,14 +30,14 @@ namespace GamerShop.Controllers
                 return View(authViewModel);
             }
 
-			var user = _userRepository.GetUserByNameAndPassword(authViewModel.Login, authViewModel.Password);
-			if (user == null)
+			var userId = _authService.GetUserIdByNameAndPassword(authViewModel.Login, authViewModel.Password);
+			if (userId == null)
 			{
 				throw new Exception("You try hack me");
 			}
 
 			var claims = new List<Claim>() {
-				new Claim("Id", user.Id.ToString()),
+				new Claim("Id", userId.ToString()),
 				new Claim("TimeOfLogin", DateTime.Now.Hour + ""),
 				new Claim(ClaimTypes.AuthenticationMethod, "WebAuthSmile")
 			};
@@ -72,14 +72,14 @@ namespace GamerShop.Controllers
 				Birthday = DateTime.Now
 			};
 
-			_userRepository.Save(dbUser);
+			_authService.Save(dbUser);
 
 			return View();
 		}
 
 		public IActionResult Remove(int id)
         {
-            _userRepository.Remove(id);
+            _authService.Remove(id);
             return RedirectToAction("Index", "Home");
         }
     }

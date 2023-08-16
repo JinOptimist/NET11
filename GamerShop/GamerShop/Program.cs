@@ -40,10 +40,11 @@ builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IBgServices, BgServices>();
 builder.Services.AddScoped<IFootballServices, FootballSevices>();
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();
+builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
+builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, BusinessLayer.UserServices.AuthService>();
 
 builder.Services.AddHttpContextAccessor();
 
