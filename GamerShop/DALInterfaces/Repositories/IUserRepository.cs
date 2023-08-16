@@ -6,6 +6,6 @@ namespace DALInterfaces.Repositories
     {
         IEnumerable<User> GetAdultUsers();
 
-		User GetUserByNameAndPassword(string userName, string password);
+		int? GetUserIdByNameAndPassword(string userName, string password);
 	}
 }

@@ -31,9 +31,9 @@ namespace DALWrongDB.Repositories
 			return _entyties.Where(x => x.Birthday < DateTime.Now.AddYears(-18));
 		}
 
-		public User GetUserByNameAndPassword(string userName, string password)
+		public int? GetUserIdByNameAndPassword(string userName, string password)
 		{
-			return _entyties.Single(x => x.Name == userName && x.Password == password);
+			throw new NotImplementedException();
 		}
 	}
 }

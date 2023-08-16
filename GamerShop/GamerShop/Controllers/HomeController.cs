@@ -1,6 +1,4 @@
 ﻿using BusinessLayerInterfaces.UserServices;
-using DALInterfaces.Repositories;
-using DALWrongDB.Repositories;
 using GamerShop.Models;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -11,9 +9,9 @@ namespace GamerShop.Controllers
     public class HomeController : Controller
     {
 		private IHomeServices _homeServices;
-        private IAuthService _authService;
+        private Services.IAuthService _authService;
 
-		public HomeController(IHomeServices homeServices, IAuthService authService)
+		public HomeController(IHomeServices homeServices, Services.IAuthService authService)
 		{
 			_homeServices = homeServices;
 			_authService = authService;
