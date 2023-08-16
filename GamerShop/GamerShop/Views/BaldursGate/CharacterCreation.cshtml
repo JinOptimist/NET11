@@ -1,4 +1,5 @@
-﻿@model BaldursGateModel
+﻿@using GamerShop.Models.BaldursGate;
+@model GamerShop.Models.BaldursGate.BaldursGateModel
 
 @using (Html.BeginForm("CharacterCreation", "BaldursGate", FormMethod.Post))
 {
@@ -24,7 +25,7 @@
             @Html.TextBoxFor(model => model.Оrigin)
             </div>
             <div>
-                Счасливое число на кубике 
+                Счастливое число на кубике
             @Html.TextBoxFor(model => model.Bone)
             </div>
             <div>

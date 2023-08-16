@@ -1,20 +1,22 @@
 ﻿using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
-using GamerShop.Models;
+using GamerShop.Models.BaldursGate;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
+using BusinessLayerInterfaces.BgServices;
+using BusinessLayerInterfaces.BusinessModels;
 
-namespace GamerShop.Controllers
+namespace GamerShop.Controllers.BaldursGate
 {
     public class BaldursGateController : Controller
 
     {
-        private IPersRepository _persRepository;
+        private IBgServices _bgServices;
 
-        public BaldursGateController(IPersRepository persRepository)
+        public BaldursGateController(IBgServices bgServices)
         {
-            _persRepository = persRepository;
+            _bgServices = bgServices;
         }
 
 
@@ -27,21 +29,22 @@ namespace GamerShop.Controllers
         public IActionResult CharacterList()
         {
             //Я овощ
-            return View(_persRepository.GetAll().
-                                        Select(x => new BaldursGateModel
-                                        {
-                                          Id = x.Id,
-                                          Name = x.Name,
-                                          Class = x.Class,
-                                         }).
-                                         ToList());
+            return View(_bgServices
+                .GetAllHero()
+                .Select(x => new BaldursGateModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Class = x.Class,
+                })
+                .ToList());
         }
 
         [HttpPost]
         public IActionResult CharacterCreation(BaldursGateModel BgModel)
 
         {
-            _persRepository.Save(new Pers
+            _bgServices.Save(new BaldursGateBml()
             {
                 Bone = BgModel.Bone,
                 Name = BgModel.Name,
@@ -56,7 +59,7 @@ namespace GamerShop.Controllers
         }
         public IActionResult Remove(int id)
         {
-            _persRepository.Remove(id);
+            _bgServices.Remove(id);
             return RedirectToAction("CharacterList", "BaldursGate");
         }
 
