@@ -1,6 +1,10 @@
 using BusinessLayer.MovieServices;
+using BusinessLayer.RecipeServices;
 using BusinessLayer.UserServices;
+using BusinessLayer.FootballServices;
 using BusinessLayerInterfaces.MovieServices;
+using BusinessLayerInterfaces.RecipeServices;
+using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
@@ -20,15 +24,23 @@ builder.Services
 		});
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IBookRepository, BookRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
+builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IFootballClubRepository, FootballClubRepository>();
+builder.Services.AddSingleton<IFootballServices, FootballSevices>();
+
+builder.Services.AddScoped<IRecipeServices, RecipeServices>();
+
+
 
 var app = builder.Build();
 
