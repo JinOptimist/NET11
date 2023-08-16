@@ -25,12 +25,14 @@ builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
+builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IFootballClubRepository, FootballClubRepository>();
 builder.Services.AddSingleton<IFootballServices, FootballSevices>();
+
 
 
 var app = builder.Build();
