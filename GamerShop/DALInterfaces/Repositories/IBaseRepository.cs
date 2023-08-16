@@ -4,7 +4,9 @@ namespace DALInterfaces.Repositories
 {
     public interface IBaseRepository<DbModel> where DbModel : BaseModel
     {
-        IEnumerable<DbModel> GetAll();
+		DbModel Get(int id);
+
+		IEnumerable<DbModel> GetAll();
 
         void Save(DbModel model);
 
