@@ -7,6 +7,8 @@ namespace DALEfDB
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Movie> Movies { get; set; }
+
         public WebContext() { }
 
         public WebContext(DbContextOptions<WebContext> options) : base(options) { }
