@@ -2,7 +2,9 @@
 
 namespace BusinessLayerInterfaces.MovieServices;
 
-public interface IShowMovieServices
+public interface IMovieServices
 {
+    void Add(MovieBlm movieBlm);
+    void Remove(int id);
     IEnumerable<MovieBlm> GetAllMovies();
 }
