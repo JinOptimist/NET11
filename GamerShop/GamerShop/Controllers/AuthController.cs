@@ -69,7 +69,7 @@ namespace GamerShop.Controllers
 			{
 				Name = authViewModel.Login,
 				Password = authViewModel.Password,
-				Birthday = DateTime.Now.AddYears(-1 * authViewModel.Age)
+				Birthday = DateTime.Now
 			};
 
 			_userRepository.Save(dbUser);
