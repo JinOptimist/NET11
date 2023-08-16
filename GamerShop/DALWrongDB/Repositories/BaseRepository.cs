@@ -23,7 +23,7 @@ namespace DALWrongDB.Repositories
 
         public virtual void Remove(int id)
         {
-            var enity = _entyties.FirstOrDefault(x => x.Id == id);
+            var enity = _entyties.First(x => x.Id == id);
             _entyties.Remove(enity);
         }
 
