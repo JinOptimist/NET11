@@ -27,9 +27,7 @@ namespace GamerShop.Controllers
         [HttpPost]
         public IActionResult NewClub(FootballClubViewModel footballClub)
         {
-
             var user = _authService.GetCurrentUser();
-
 
             _foootballClubsServices.Save(new FootballClubsBlm
             {
