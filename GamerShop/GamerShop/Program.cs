@@ -1,5 +1,13 @@
-﻿using BusinessLayer.PcBuilderServices;
+using BusinessLayer.BgServices;
+using BusinessLayer.RecipeServices;
+using BusinessLayer.MovieServices;
+using BusinessLayer.PcBuilderServices;
 using BusinessLayer.UserServices;
+using BusinessLayer.FootballServices;
+using BusinessLayerInterfaces.BgServices;
+using BusinessLayerInterfaces.MovieServices;
+using BusinessLayerInterfaces.RecipeServices;
+using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.PcBuilderServices;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
@@ -20,14 +28,25 @@ builder.Services
 		});
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IBookRepository, BookRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
+builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
+builder.Services.AddScoped<IMovieServices, MovieServices>();
+builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IBgServices, BgServices>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IFootballClubRepository, FootballClubRepository>();
+builder.Services.AddSingleton<IFootballServices, FootballSevices>();
+builder.Services.AddScoped<IRecipeServices, RecipeServices>();
+
+
+
 
 var app = builder.Build();
 
@@ -45,9 +64,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Кто ты?
+app.UseAuthentication(); // ��� ��?
 
-app.UseAuthorization(); // Можно ли тебе?
+app.UseAuthorization(); // ����� �� ����?
 
 app.MapControllerRoute(
     name: "default",

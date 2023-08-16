@@ -1,5 +1,5 @@
-﻿using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.RecipeServices;
 using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +8,11 @@ namespace GamerShop.Controllers
     public class RecipeController : Controller
     {
 
-        private IRecipeRepository _recipeRepository;
+        private IRecipeServices _recipeServices;
 
-        public RecipeController(IRecipeRepository recipeRepository)
+        public RecipeController(IRecipeServices recipeServices)
         {
-	        _recipeRepository = recipeRepository;
+            _recipeServices = recipeServices;
         }
 
         [HttpGet]
@@ -24,49 +24,49 @@ namespace GamerShop.Controllers
         [HttpPost]
         public IActionResult Add(RecipeViewModel recipeViewModel)
         {
-	        if (!ModelState.IsValid)
-	        {
-		        return View();
-	        }
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
-	        var dbRecipe = new Recipe()
-	        {
-		        Title = recipeViewModel.Title,
-		        Description = recipeViewModel.Title,
-		        Instructions = recipeViewModel.Instructions,
-		        CookingTime = recipeViewModel.CookingTime,
-		        PreparationTime = recipeViewModel.PreparationTime,
-		        Servings = recipeViewModel.Servings,
-		        DifficultyLevel = recipeViewModel.DifficultyLevel,
-		        Cuisine = recipeViewModel.Cuisine
-	        };
+            var recipeBlm = new RecipeBlm()
+            {
+                Title = recipeViewModel.Title,
+                Description = recipeViewModel.Title,
+                Instructions = recipeViewModel.Instructions,
+                CookingTime = recipeViewModel.CookingTime,
+                PreparationTime = recipeViewModel.PreparationTime,
+                Servings = recipeViewModel.Servings,
+                DifficultyLevel = recipeViewModel.DifficultyLevel,
+                Cuisine = recipeViewModel.Cuisine
+            };
 
-			_recipeRepository.Save(dbRecipe);
+            _recipeServices.Save(recipeBlm);
             return View();
         }
 
         public IActionResult Show()
         {
-	        var viewModel = _recipeRepository.GetAll().Select(x => new ShowRecipeViewModel()
-	        {
-				Id = x.Id,
-		        Title = x.Title,
-		        Description = x.Title,
-		        Instructions = x.Instructions,
-		        CookingTime = x.CookingTime,
-		        PreparationTime = x.PreparationTime,
-		        Servings = x.Servings,
-		        DifficultyLevel = x.DifficultyLevel,
-		        Cuisine = x.Cuisine
-	        }).ToList();
+            var viewModel = _recipeServices.GetAll().Select(x => new ShowRecipeViewModel()
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Title,
+                Instructions = x.Instructions,
+                CookingTime = x.CookingTime,
+                PreparationTime = x.PreparationTime,
+                Servings = x.Servings,
+                DifficultyLevel = x.DifficultyLevel,
+                Cuisine = x.Cuisine
+            }).ToList();
 
-			return View(viewModel);
+            return View(viewModel);
         }
 
         public IActionResult Remove(int id)
-        { 
-	        _recipeRepository.Remove(id);
-	        return RedirectToAction("Show");
+        {
+            _recipeServices.Remove(id);
+            return RedirectToAction("Show");
         }
-	}
+    }
 }

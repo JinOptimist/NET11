@@ -1,0 +1,37 @@
+@model GamerShop.Models.BaldursGate.BaldursGateModel
+
+
+@using (Html.BeginForm("CharacterCreation", "BaldursGate", FormMethod.Post))
+{
+        <div>
+            <div>
+                Имя персонажа
+            @Html.TextBoxFor(model => model.Name)
+            </div>
+            <div>
+                Расса 
+            @Html.TextBoxFor(model => model.Races)
+            </div>
+            <div>
+                Подрасса 
+            @Html.TextBoxFor(model => model.Subrace)
+            </div>
+            <div>
+                Класс 
+            @Html.TextBoxFor(model => model.Class)
+            </div>
+            <div>
+                Происхождение 
+            @Html.TextBoxFor(model => model.Оrigin)
+            </div>
+            <div>
+
+                Счасливое число на кубике 
+
+            @Html.TextBoxFor(model => model.Bone)
+            </div>
+            <div>
+                <input type="submit" value="Войти" />
+            </div>
+        </div>
+}
