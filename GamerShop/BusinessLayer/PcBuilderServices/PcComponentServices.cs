@@ -1,9 +1,9 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.UserServices;
+using BusinessLayerInterfaces.PcBuilderServices;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 
-namespace BusinessLayer.UserServices
+namespace BusinessLayer.PcBuilderServices
 {
     public class PcComponentServices : IPcComponentServices
     {
@@ -14,7 +14,7 @@ namespace BusinessLayer.UserServices
             _componentsRepository = componentsRepository;
         }
 
-        public IEnumerable<PcComponentBlm> GetAllPcComponents() 
+        public IEnumerable<PcComponentBlm> GetAllPcComponents()
             => _componentsRepository
                 .GetAll()
                 .Select(component => new PcComponentBlm()

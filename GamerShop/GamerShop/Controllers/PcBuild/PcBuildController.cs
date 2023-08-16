@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.UserServices;
+using BusinessLayerInterfaces.PcBuilderServices;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GamerShop.Controllers;
+namespace GamerShop.Controllers.PcBuild;
 
 public class PcBuildController : Controller
 {
@@ -36,7 +36,7 @@ public class PcBuildController : Controller
     {
         return View();
     }
-    
+
     [HttpPost]
     public IActionResult Add(PcComponentViewModel pcComponentViewModel)
     {
@@ -54,7 +54,7 @@ public class PcBuildController : Controller
         _pcComponentServices.Save(dbComponent);
         return RedirectToAction("Index", "PcBuild");
     }
-    
+
     public IActionResult Remove(int id)
     {
         _pcComponentServices.Remove(id);
