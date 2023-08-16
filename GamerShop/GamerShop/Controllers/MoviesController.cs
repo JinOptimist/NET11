@@ -3,23 +3,24 @@ using BusinessLayerInterfaces.MovieServices;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
+using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers;
 
 public class MoviesController : Controller
 {
-    private readonly IAddMovieServices _addMovieServices;
-    private readonly IRemoveServices _removeMovieServices;
-    private readonly IShowMovieServices _showMovieServices;
+    private readonly IMovieServices _movieServices;
+    private readonly IAuthService _authService;
 
-    public MoviesController(IAddMovieServices addMovieServices, IRemoveServices removeMovieServices, IShowMovieServices showMovieServices)
+    public MoviesController(IMovieServices movieServices, IAuthService authService)
     {
-        _addMovieServices = addMovieServices;
-        _removeMovieServices = removeMovieServices;
-        _showMovieServices = showMovieServices;
+        _movieServices = movieServices;
+        _authService = authService;
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Add()
     {
@@ -37,7 +38,7 @@ public class MoviesController : Controller
             CreatedDate = DateTime.Now
         };
 
-        _addMovieServices.Add(movieBlm);
+        _movieServices.Add(movieBlm);
 
         return RedirectToAction("Show", "Movies");
     }
@@ -45,20 +46,24 @@ public class MoviesController : Controller
     [HttpGet]
     public IActionResult Remove(int id)
     {
-        _removeMovieServices.Remove(id);
+        _movieServices.Remove(id);
 
         return RedirectToAction("Show", "Movies");
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult Show()
     {
-        var viewMoviesList = _showMovieServices
+        var user = _authService.GetCurrentUser();
+        var viewMoviesList = _movieServices
             .GetAllMovies()
             .Select(movieBlm => new ShowMovieViewModel
             {
                 Id = movieBlm.Id,
-                Title = movieBlm.Title
+                Title = movieBlm.Title,
+                UserId = user.Id,
+                UserName = user.Name
             })
             .ToList();
 

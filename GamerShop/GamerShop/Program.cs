@@ -1,12 +1,11 @@
-
 using BusinessLayer.BgServices;
+using BusinessLayer.RecipeServices;
+using BusinessLayer.MovieServices;
 using BusinessLayer.UserServices;
-using BusinessLayerInterfaces.BgServices;
-﻿using BusinessLayer.UserServices;
-﻿using BusinessLayer.RecipeServices;
-using BusinessLayer.UserServices;
-using BusinessLayerInterfaces.RecipeServices;
 using BusinessLayer.FootballServices;
+using BusinessLayerInterfaces.BgServices;
+using BusinessLayerInterfaces.MovieServices;
+using BusinessLayerInterfaces.RecipeServices;
 using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
@@ -33,6 +32,7 @@ builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
+builder.Services.AddScoped<IMovieServices, MovieServices>();
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
@@ -41,7 +41,6 @@ builder.Services.AddScoped<IBgServices, BgServices>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IFootballClubRepository, FootballClubRepository>();
 builder.Services.AddSingleton<IFootballServices, FootballSevices>();
-
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 
 
