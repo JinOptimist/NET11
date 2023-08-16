@@ -1,7 +1,6 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
-using System.Xml.Linq;
 
-namespace BusinessLayerInterfaces.UserServices
+namespace BusinessLayerInterfaces.FootballService
 {
     public interface IFootballServices
     {

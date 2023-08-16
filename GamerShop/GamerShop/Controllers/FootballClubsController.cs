@@ -1,8 +1,7 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.UserServices;
-using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+using BusinessLayerInterfaces.FootballService;
 using GamerShop.Models;
+using GamerShop.Services;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,10 +10,12 @@ namespace GamerShop.Controllers
     public class FootballClubsController : Controller
     {
         private IFootballServices _foootballClubsServices;
+        private IAuthService _authService;
 
-        public FootballClubsController(IFootballServices _foootballClubsServices)
+        public FootballClubsController(IFootballServices foootballClubsService, IAuthService authService)
         {
-            _foootballClubsServices = _foootballClubsServices;
+            _foootballClubsServices = foootballClubsService;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -26,10 +27,15 @@ namespace GamerShop.Controllers
         [HttpPost]
         public IActionResult NewClub(FootballClubViewModel footballClub)
         {
+
+            var user = _authService.GetCurrentUser();
+
+
             _foootballClubsServices.Save(new FootballClubsBlm
             {
                 Name = footballClub.Name,
                 Stadium = footballClub.Stadium,
+                Creator = user,
             });
 
             return View();
@@ -43,6 +49,7 @@ namespace GamerShop.Controllers
                             Id = x.Id,
                             Name = x.Name,
                             Stadium = x.Stadium,
+                            CreatorName = x.Creator.Name
                         }).
                         ToList());
 

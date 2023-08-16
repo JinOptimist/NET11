@@ -4,7 +4,7 @@
     @foreach (var item in Model)
     {
         <div>
-            @item.Name <a class="del" href="~/FootballClubs/Remove?id=@item.Id" />
+            <p>Создал:@item.CreatorName: @item.Name <a class="del" href="~/FootballClubs/Remove?id=@item.Id">X</a></p>
         </div>
     }
 </div>
