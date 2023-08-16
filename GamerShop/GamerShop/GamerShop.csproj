@@ -7,8 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BuisnessLayerInterfaces\BusinessLayerInterfaces.csproj" />
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
     <ProjectReference Include="..\DALInterfaces\DALInterfaces.csproj" />
     <ProjectReference Include="..\DALWrongDB\DALWrongDB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Shift\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shift\Index.cshtml" />
   </ItemGroup>
 
 </Project>

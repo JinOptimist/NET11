@@ -1,0 +1,14 @@
+﻿@using GamerShop.Models.Books;
+@model List<BookViewModel>
+
+<div>
+    Список добавленых книг.
+    @foreach (var book in Model)
+    {
+        <div>
+            @book.Author
+            @book.Name
+            <a asp-action="Delete" asp-controller="Books" asp-route-id="@book.Id">Удалить</a>
+        </div>
+    }
+</div>

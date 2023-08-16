@@ -1,24 +1,29 @@
-﻿using DALInterfaces.Repositories;
+﻿using BusinessLayerInterfaces.UserServices;
+using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
 using GamerShop.Models;
+using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
 {
     public class HomeController : Controller
     {
-        private IUserRepository _userRepository;
+		private IHomeServices _homeServices;
+        private IAuthService _authService;
 
-        public HomeController(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
+		public HomeController(IHomeServices homeServices, IAuthService authService)
+		{
+			_homeServices = homeServices;
+			_authService = authService;
+		}
 
-        public IActionResult Index()
+		public IActionResult Index()
         {
-            var viewModels = _userRepository
-                .GetAll()
-                .Select(dbUser => new IndexViewModel
+            var viewModels = _homeServices
+                .GetLastLoginUsers()
+				.Select(dbUser => new IndexViewModel
                 {
                     Id = dbUser.Id,
                     Name = dbUser.Name,
@@ -28,13 +33,16 @@ namespace GamerShop.Controllers
             return View(viewModels);
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
-            var viewModel = new PrivacyViewModel
+            var user = _authService.GetCurrentUser();
+
+			var viewModel = new PrivacyViewModel
             {
                 DayOfWeek = DateTime.Now.DayOfWeek,
-                Name = "Smile"
-            };
+                Name = user.Name
+			};
 
             return View(viewModel);
         }

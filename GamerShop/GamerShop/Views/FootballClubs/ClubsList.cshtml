@@ -1,0 +1,10 @@
+﻿@model List<FootballClubViewModel>
+<div>
+    Список клубов:
+    @foreach (var item in Model)
+    {
+        <div>
+            <p>Создал:@item.CreatorName: @item.Name <a class="del" href="~/FootballClubs/Remove?id=@item.Id">X</a></p>
+        </div>
+    }
+</div>
