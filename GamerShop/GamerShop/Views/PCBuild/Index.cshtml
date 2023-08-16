@@ -1,0 +1,52 @@
+﻿@model List<PcComponentViewModel>
+
+<div>
+    <h2>List of PC components</h2>
+</div>
+
+@{
+    if (Model.Count == 0)
+    {
+        <div>
+            <h3>No components have been added yet.</h3>
+        </div>
+    }
+    else
+    {
+        <div>
+            <table class="customTable" style="width: 100%;
+                                                background-color: #FFFFFF;
+                                                border-collapse: collapse;
+                                                border-width: 2px;
+                                                border-color: #01a3a4;
+                                                border-style: solid;
+                                                color: #222F3E;">
+                <thead style="background-color: #C8D6E5;">
+                <tr>
+                    <th style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">Category</th>
+                    <th style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">Title</th>
+                    <th style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var component in Model)
+                {
+                    <tr>
+                        <td style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">@component.Category</td>
+                        <td style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">@component.Title</td>
+                        <td style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">@component.Price</td>
+                        <td style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">
+                            @Html.ActionLink("Delete",
+                                "Remove",
+                                "PcBuild",
+                                new { id = component.Id },
+                                new { style = "color: #e74c3c; margin-left: 10px; text-decoration: none;" })
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+    @Html.ActionLink("Add component", "Add", "PcBuild", null, new { style = "color: #01a3a4; padding: 5px; text-decoration: none;" })
+}

@@ -1,7 +1,9 @@
 ﻿using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GamerShop.Controllers
 {
@@ -28,22 +30,54 @@ namespace GamerShop.Controllers
                 return View(authViewModel);
             }
 
-            if (authViewModel.Password == "123")
-            {
-                var dbUser = new User()
-                {
-                    Name = authViewModel.Login,
-                    Password = authViewModel.Password,
-                    Birthday = DateTime.Now.AddYears(-1 * authViewModel.Age)
-                };
+			var user = _userRepository.GetUserByNameAndPassword(authViewModel.Login, authViewModel.Password);
+			if (user == null)
+			{
+				throw new Exception("You try hack me");
+			}
 
-                _userRepository.Save(dbUser);
-            }
+			var claims = new List<Claim>() {
+				new Claim("Id", user.Id.ToString()),
+				new Claim("TimeOfLogin", DateTime.Now.Hour + ""),
+				new Claim(ClaimTypes.AuthenticationMethod, "WebAuthSmile")
+			};
+
+            var identity = new ClaimsIdentity(claims, "WebAuthSmile");
+
+            var principal = new ClaimsPrincipal(identity);
+
+			HttpContext.SignInAsync(principal).Wait();
 
             return View();
         }
 
-        public IActionResult Remove(int id)
+		[HttpGet]
+		public IActionResult Register()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult Register(AuthViewModel authViewModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(authViewModel);
+			}
+
+			var dbUser = new User()
+			{
+				Name = authViewModel.Login,
+				Password = authViewModel.Password,
+				Birthday = DateTime.Now.AddYears(-1 * authViewModel.Age)
+			};
+
+			_userRepository.Save(dbUser);
+
+			return View();
+		}
+
+		public IActionResult Remove(int id)
         {
             _userRepository.Remove(id);
             return RedirectToAction("Index", "Home");
