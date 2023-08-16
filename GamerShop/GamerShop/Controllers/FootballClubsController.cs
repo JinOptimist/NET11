@@ -1,4 +1,6 @@
-﻿using DALInterfaces.Models;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.UserServices;
+using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,45 +10,47 @@ namespace GamerShop.Controllers
 {
     public class FootballClubsController : Controller
     {
-        private IFootballClubRepository _foootballClubsRepository; 
-        
-        public FootballClubsController(IFootballClubRepository foootballClubsRepository)
+        private IFootballServices _foootballClubsServices;
+
+        public FootballClubsController(IFootballServices _foootballClubsServices)
         {
-            _foootballClubsRepository = foootballClubsRepository;
+            _foootballClubsServices = _foootballClubsServices;
         }
 
         [HttpGet]
         public IActionResult NewClub()
         {
-           return View();
+            return View();
         }
 
         [HttpPost]
         public IActionResult NewClub(FootballClubViewModel footballClub)
         {
-                _foootballClubsRepository.Save(new FootballClub
-                {
-                    Name = footballClub.Name,
-                    Stadium = footballClub.Stadium,
-                }) ;
-   
+            _foootballClubsServices.Save(new FootballClubsBlm
+            {
+                Name = footballClub.Name,
+                Stadium = footballClub.Stadium,
+            });
+
             return View();
         }
         public IActionResult ClubsList()
         {
-            return View(_foootballClubsRepository.GetAll().
-                                                  Select(x=>new FootballClubViewModel
-                                                  { 
-                                                  Id = x.Id,
-                                                  Name = x.Name,
-                                                  Stadium = x.Stadium,
-                                                  }).
-                                                  ToList());
+            return View(_foootballClubsServices
+                        .GetAll()
+                        .Select(x => new FootballClubViewModel
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            Stadium = x.Stadium,
+                        }).
+                        ToList());
+
         }
         public IActionResult Remove(int id)
         {
-           _foootballClubsRepository.Remove(id);
-           return RedirectToAction("ClubsList", "FootballClubs");
+            _foootballClubsServices.Delete(id);
+            return RedirectToAction("ClubsList", "FootballClubs");
         }
 
     }

@@ -11,9 +11,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
+<<<<<<< HEAD
 builder.Services.AddSingleton<IFootballClubRepository,FootballClubRepository>();
-builder.Services.AddSingleton<IFootballServices, FootballSevices>();
+=======
 builder.Services.AddScoped<IHomeServices, HomeServices>();
+
+>>>>>>> main
 
 var app = builder.Build();
 
