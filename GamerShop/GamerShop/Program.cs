@@ -20,6 +20,7 @@ builder.Services
 		});
 
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IBookRepository, BookRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
