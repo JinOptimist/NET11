@@ -1,11 +1,10 @@
-﻿using BusinessLayer.FootballServices;
-using BusinessLayer.UserServices;
+﻿using BusinessLayer.UserServices;
+using BusinessLayer.FootballServices;
 using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
 using GamerShop.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
