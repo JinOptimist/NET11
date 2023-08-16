@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GamerShop.Models
+﻿namespace GamerShop.Models.Books
 {
     public class BookViewModel
     {
-        [Required]
+        public int Id { get; set; }
         public string Author { get; set; }
-        [Required]
         public string Name { get; set; }
         public int YearOfIssue { get; set; }
     }

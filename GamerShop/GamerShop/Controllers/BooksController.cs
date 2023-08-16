@@ -1,7 +1,6 @@
 ﻿using DALInterfaces.Models;
 using DALInterfaces.Repositories;
-using DALWrongDB.Repositories;
-using GamerShop.Models;
+using GamerShop.Models.Books;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
@@ -16,36 +15,51 @@ namespace GamerShop.Controllers
         }
 
         [HttpGet]
+        public IActionResult Books()
+        {
+            var viewModel = _bookRepository
+                .GetAll()
+                .Select(dbMember => new BookViewModel
+                {
+                    Id = dbMember.Id,
+                    Author = dbMember.Author,
+                    Name = dbMember.Name,
+                    YearOfIssue = dbMember.YearOfIssue
+                })
+                .ToList();
+
+            return View(viewModel);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _bookRepository.Remove(id);
+            return RedirectToAction("Books");
+        }
+
+        [HttpGet]
         public IActionResult Book()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Book(BookViewModel bookViewModel)
+        public IActionResult Book(NewBookViewModel newBookViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(bookViewModel);
+                return View(newBookViewModel);
             }
-            var dbBook = new Book()
+
+            var bookMemberDb = new Book()
             {
-                Name = bookViewModel.Name,
-                Author = bookViewModel.Author,
-                YearOfIssue = bookViewModel.YearOfIssue
+                Author = newBookViewModel.Author,
+                Name = newBookViewModel.Name,
+                YearOfIssue = newBookViewModel.YearOfIssue
             };
-            
-            _bookRepository.Save(dbBook);
 
-            return View();
-        }
-
-        public IActionResult Books()
-        {
-            var viewModel = _bookRepository.GetAll()
-                .Select(x => x.Name)
-                .ToList();
-            return View(viewModel);
+            _bookRepository.Save(bookMemberDb);
+            return RedirectToAction("Books");
         }
     }
 }
