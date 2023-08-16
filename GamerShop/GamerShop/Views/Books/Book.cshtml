@@ -1,0 +1,23 @@
+﻿@using GamerShop.Models.Books;
+@model NewBookViewModel
+
+@using (Html.BeginForm("Book", "Books", FormMethod.Post))
+{
+    <div>
+        <div>
+            Название книги
+            @Html.TextBoxFor(model => model.Name)
+        </div>
+        <div>
+            Автор
+            @Html.TextBoxFor(model => model.Author)
+        </div>
+        <div>
+            Год выпуска
+            @Html.TextBoxFor(model => model.YearOfIssue)
+        </div>
+        <div>
+            <input type="submit" value="Добавить" />
+        </div>
+    </div>
+}
