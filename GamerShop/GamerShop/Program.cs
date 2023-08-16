@@ -30,6 +30,7 @@ builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
+builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
 builder.Services.AddScoped<IAuthService, AuthService>();
