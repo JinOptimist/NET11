@@ -1,4 +1,6 @@
 ﻿using BusinessLayer.UserServices;
+using BusinessLayer.FootballServices;
+using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
@@ -26,6 +28,9 @@ builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IFootballClubRepository, FootballClubRepository>();
+builder.Services.AddSingleton<IFootballServices, FootballSevices>();
+
 
 var app = builder.Build();
 
