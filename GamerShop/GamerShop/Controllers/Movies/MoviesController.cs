@@ -1,13 +1,11 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
+﻿using BusinessLayerInterfaces.BusinessModels.Movies;
 using BusinessLayerInterfaces.MovieServices;
-using DALInterfaces.Models;
-using DALInterfaces.Repositories;
-using GamerShop.Models;
+using GamerShop.Models.Movies;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GamerShop.Controllers;
+namespace GamerShop.Controllers.Movies;
 
 public class MoviesController : Controller
 {
@@ -32,13 +30,15 @@ public class MoviesController : Controller
     {
         if (!ModelState.IsValid) return View(addMoviesViewModel);
 
-        var movieBlm = new MovieBlm()
+        var user = _authService.GetCurrentUser();
+        var addMovieBlm = new AddMovieBlm
         {
             Title = addMoviesViewModel.Title,
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.Now,
+            UserId = user.Id
         };
 
-        _movieServices.Add(movieBlm);
+        _movieServices.Add(addMovieBlm);
 
         return RedirectToAction("Show", "Movies");
     }
@@ -55,15 +55,14 @@ public class MoviesController : Controller
     [HttpGet]
     public IActionResult Show()
     {
-        var user = _authService.GetCurrentUser();
         var viewMoviesList = _movieServices
             .GetAllMovies()
-            .Select(movieBlm => new ShowMovieViewModel
+            .Select(getMovieBlm => new ShowMovieViewModel
             {
-                Id = movieBlm.Id,
-                Title = movieBlm.Title,
-                UserId = user.Id,
-                UserName = user.Name
+                Id = getMovieBlm.Id,
+                Title = getMovieBlm.Title,
+                DateCreated = getMovieBlm.DateCreated,
+                UserName = getMovieBlm.UserName
             })
             .ToList();
 
