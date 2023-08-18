@@ -15,6 +15,7 @@ namespace BusinessLayer.FootballServices
         {
             _footballClubRepository = footballClubRepository;
             _userRepository = userRepository;
+
         }
 
         public IEnumerable<FootballClubsBlm> GetAll()
