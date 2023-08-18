@@ -2,7 +2,7 @@
 
 public class PSU : Component
 {
-    public string Model { get; set; }
-    public int Power { get; set; }
-    public string FormFactor { get; set; }
+    public string Model { get; set; } = null!;
+    public int Power { get; set; } 
+    public string? FormFactor { get; set; }
 }
