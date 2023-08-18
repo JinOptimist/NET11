@@ -10,7 +10,7 @@ public class Processor : Component
      public float BaseFrequency { get; set; }
      public float MaxFrequency { get; set; }
      public string RAMSupporting { get; set; }
-     public string PCIEVersion { get; set; }
+     public int PCIEVersion { get; set; }
      public int TDP { get; set; }
      public int TechProcess { get; set; }
 }
