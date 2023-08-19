@@ -1,4 +1,5 @@
-﻿using DALInterfaces.Models;
+using DALInterfaces.Models;
+using DALInterfaces.Models.Movies;
 using DALInterfaces.Models.PcBuild;
 using Microsoft.EntityFrameworkCore;
 
