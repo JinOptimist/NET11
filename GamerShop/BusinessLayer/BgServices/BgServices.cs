@@ -50,7 +50,8 @@ namespace BusinessLayer.BgServices
                 Class = BgBml.Class,
                 Races = BgBml.Races,
                 Subrace = BgBml.Subrace,
-                Оrigin = BgBml.Оrigin
+                Оrigin = BgBml.Оrigin,
+                Creator = _userRepository.Get(BgBml.Id)
             });
         }
     }

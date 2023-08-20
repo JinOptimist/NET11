@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using BusinessLayerInterfaces.BgServices;
 using BusinessLayerInterfaces.BusinessModels;
+using GamerShop.Services;
 
 namespace GamerShop.Controllers.BaldursGate
 {
@@ -13,10 +14,12 @@ namespace GamerShop.Controllers.BaldursGate
 
     {
         private IBgServices _bgServices;
+        private IAuthService _authService;
 
-        public BaldursGateController(IBgServices bgServices)
+        public BaldursGateController(IBgServices bgServices, IAuthService authService)
         {
             _bgServices = bgServices;
+            _authService =  authService;
         }
 
 
@@ -36,14 +39,15 @@ namespace GamerShop.Controllers.BaldursGate
                     Id = x.Id,
                     Name = x.Name,
                     Class = x.Class,
+                    Creator_Name = x.Creater.Name,
                 })
                 .ToList());
         }
 
         [HttpPost]
         public IActionResult CharacterCreation(BaldursGateModel BgModel)
-
         {
+            var user = _authService.GetCurrentUser();
             _bgServices.Save(new BaldursGateBml()
             {
                 Bone = BgModel.Bone,
@@ -51,7 +55,8 @@ namespace GamerShop.Controllers.BaldursGate
                 Class = BgModel.Class,
                 Races = BgModel.Races,
                 Subrace = BgModel.Subrace,
-                Оrigin = BgModel.Оrigin
+                Оrigin = BgModel.Оrigin,
+                Creater = user,
             });
 
 
