@@ -17,6 +17,7 @@ namespace BusinessLayer.BgServices
         public BgServices(IPersRepository persRepository)
         {
             _persRepository = persRepository;
+            
         }
 
         public IEnumerable<BaldursGateBml> GetAllHero()
@@ -27,6 +28,7 @@ namespace BusinessLayer.BgServices
                 Id = x.Id,
                 Name = x.Name,
                 Class = x.Class,
+                Creater = new UserBlm {Name =_user}
             })
             .ToList();
 
@@ -37,7 +39,7 @@ namespace BusinessLayer.BgServices
 
         public void Save(BaldursGateBml BgBml)
         {
-            _persRepository.Save(new Pers
+            _persRepository.Save(new Hero
             {
                 Bone = BgBml.Bone,
                 Name = BgBml.Name,
