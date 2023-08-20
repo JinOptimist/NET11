@@ -13,24 +13,28 @@ namespace BusinessLayer.BgServices
     public class BgServices : IBgServices
     {
         private IPersRepository _persRepository;
+        private IUserRepository _userRepository;
 
-        public BgServices(IPersRepository persRepository)
+        public BgServices(IPersRepository persRepository, IUserRepository userRepository)
         {
             _persRepository = persRepository;
-            
+            _userRepository = userRepository;
         }
 
         public IEnumerable<BaldursGateBml> GetAllHero()
-         => _persRepository
-            .GetAll()
-            .Select(x => new BaldursGateBml
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Class = x.Class,
-                Creater = new UserBlm {Name =_user}
-            })
-            .ToList();
+            => _persRepository
+                .GetAll()
+                .Select(x => new BaldursGateBml
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Class = x.Class,
+                    Creater = new UserBlm
+                    {   Id = x.Creator.Id,
+                        Name = x.Creator.Name,
+                    },
+                });
+            
 
         void IBgServices.Remove(int id)
         {

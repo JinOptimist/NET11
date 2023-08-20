@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DALInterfaces.Models;
 
 namespace BusinessLayerInterfaces.BusinessModels
 {
-    public class BaldursGateBml
+    public class BaldursGateBml 
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,7 +17,7 @@ namespace BusinessLayerInterfaces.BusinessModels
         public string Оrigin { get; set; }
         public int Bone { get; set; }
 
-        public int Creater { get; set; }
+        public User Creater { get; set; }
 
     }
 }
