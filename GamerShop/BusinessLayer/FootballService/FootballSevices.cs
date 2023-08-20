@@ -15,6 +15,7 @@ namespace BusinessLayer.FootballServices
         {
             _footballClubRepository = footballClubRepository;
             _userRepository = userRepository;
+
         }
 
         public IEnumerable<FootballClubsBlm> GetAll()
@@ -25,7 +26,11 @@ namespace BusinessLayer.FootballServices
                     Id = x.Id,
                     Name = x.Name,
                     Stadium = x.Stadium,
-                    Creator = new UserBlm { Name = _userRepository.Get(x.Creator).Name },
+                    Creator = new UserBlm
+                    {
+                        Id = x.Creator.Id,
+                        Name = x.Creator.Name
+                    },
                 });
 
         public void Save(FootballClubsBlm footClub)
@@ -36,7 +41,7 @@ namespace BusinessLayer.FootballServices
                 Name = footClub.Name,
                 Stadium = footClub.Stadium,
                 Country = footClub.Country,
-                Creator = footClub.Creator.Id
+                Creator = _userRepository.Get(footClub.Creator.Id)
             });
         }
 
