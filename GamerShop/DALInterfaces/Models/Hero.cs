@@ -15,6 +15,6 @@ namespace DALInterfaces.Models
         public string Class { get; set; }
         public string Оrigin { get; set; }
         public int Bone { get; set; }
-        public User Creator { get; set; }
+        public int CreatorId { get; set; }
     }
 }

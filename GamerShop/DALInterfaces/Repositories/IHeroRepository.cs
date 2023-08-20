@@ -7,7 +7,7 @@ using DALInterfaces.Models;
 
 namespace DALInterfaces.Repositories
 {
-    public interface IPersRepository : IBaseRepository<Hero>
+    public interface IHeroRepository : IBaseRepository<Hero>
     {
       
     }

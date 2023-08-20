@@ -12,38 +12,36 @@ namespace BusinessLayer.BgServices
 {
     public class BgServices : IBgServices
     {
-        private IPersRepository _persRepository;
+        private IHeroRepository _heroRepository;
         private IUserRepository _userRepository;
 
-        public BgServices(IPersRepository persRepository, IUserRepository userRepository)
+        public BgServices(IHeroRepository heroRepository, IUserRepository userRepository)
         {
-            _persRepository = persRepository;
+            _heroRepository = heroRepository;
             _userRepository = userRepository;
         }
 
         public IEnumerable<BaldursGateBml> GetAllHero()
-            => _persRepository
+            => _heroRepository
                 .GetAll()
                 .Select(x => new BaldursGateBml
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Class = x.Class,
-                    Creater = new UserBlm
-                    {   Id = x.Creator.Id,
-                        Name = x.Creator.Name,
-                    },
+                    CreatorId = new UserBlm { Name = _userRepository.Get(x.CreatorId).Name},
+                   
                 });
             
 
         void IBgServices.Remove(int id)
         {
-            _persRepository.Remove(id);
+            _heroRepository.Remove(id);
         }
 
         public void Save(BaldursGateBml BgBml)
         {
-            _persRepository.Save(new Hero
+            _heroRepository.Save(new Hero
             {
                 Bone = BgBml.Bone,
                 Name = BgBml.Name,
@@ -51,7 +49,7 @@ namespace BusinessLayer.BgServices
                 Races = BgBml.Races,
                 Subrace = BgBml.Subrace,
                 Оrigin = BgBml.Оrigin,
-                Creator = _userRepository.Get(BgBml.Id)
+                CreatorId = BgBml.CreatorId.Id
             });
         }
     }

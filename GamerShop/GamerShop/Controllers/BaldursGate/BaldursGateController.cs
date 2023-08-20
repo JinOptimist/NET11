@@ -39,7 +39,7 @@ namespace GamerShop.Controllers.BaldursGate
                     Id = x.Id,
                     Name = x.Name,
                     Class = x.Class,
-                    Creator_Name = x.Creater.Name,
+                    Creator_Name = x.CreatorId.Name,
                 })
                 .ToList());
         }
@@ -56,7 +56,7 @@ namespace GamerShop.Controllers.BaldursGate
                 Races = BgModel.Races,
                 Subrace = BgModel.Subrace,
                 Оrigin = BgModel.Оrigin,
-                Creater = user,
+                CreatorId = user,
             });
 
 

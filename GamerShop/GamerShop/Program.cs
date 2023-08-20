@@ -12,6 +12,9 @@ using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
 using GamerShop.Services;
 using DALEfDB;
+using DALEfDB.Repositories;
+using FootballClubRepository = DALWrongDB.Repositories.FootballClubRepository;
+using MovieRepository = DALWrongDB.Repositories.MovieRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,16 +34,17 @@ builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>
 builder.Services.AddSingleton<IBookRepository, BookRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
-builder.Services.AddSingleton<IPersRepository, PersRepository>();
+//uilder.Services.AddSingleton<IHeroRepository,BgRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddSingleton<IFootballClubRepository, FootballClubRepository>();
-builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
+
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
 builder.Services.AddScoped<IBgServices, BgServices>();
+builder.Services.AddScoped<IHeroRepository, BgRepository>();
 builder.Services.AddScoped<IFootballServices, FootballSevices>();
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();

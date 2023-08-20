@@ -8,7 +8,7 @@ using DALInterfaces.Repositories;
 
 namespace DALWrongDB.Repositories
 {
-    public class PersRepository : BaseRepository<Hero>, IPersRepository
+    public class PersRepository : BaseRepository<Hero>, IHeroRepository
     {
        
     }
