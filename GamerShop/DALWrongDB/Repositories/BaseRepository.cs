@@ -31,5 +31,10 @@ namespace DALWrongDB.Repositories
 		{
 			return _entyties.FirstOrDefault(x => x.Id == id);
 		}
+
+		public void Update(DbModel model)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

@@ -37,5 +37,12 @@ namespace DALEfDB.Repositories
             _dbSet.Add(model);
             _context.SaveChanges();
         }
-    }
+
+        public virtual void Update(DbModel model)
+        {
+            _context.Update(model);
+            _context.SaveChanges();
+        }
+
+	}
 }

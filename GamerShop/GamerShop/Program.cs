@@ -55,8 +55,9 @@ builder.Services.AddHttpContextAccessor();
 var dbContextResolver = new Startup();
 dbContextResolver.RegisterDbContext(builder.Services);
 
-
 var app = builder.Build();
+
+new Seed().Fill(app.Services);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

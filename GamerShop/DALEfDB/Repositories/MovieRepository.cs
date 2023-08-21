@@ -1,7 +1,5 @@
 ﻿using DALInterfaces.Models;
 using DALInterfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace DALEfDB.Repositories
 {
