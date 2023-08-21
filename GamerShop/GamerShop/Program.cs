@@ -20,16 +20,16 @@ builder.Services.AddControllersWithViews();
 
 builder.Services
     .AddAuthentication("WebAuthSmile")
-    .AddCookie("WebAuthSmile", 
+    .AddCookie("WebAuthSmile",
         option =>
         {
             option.LoginPath = "/Auth/Login";
-		});
+        });
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
+builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.RecipeRepository>();
 
 builder.Services.AddSingleton<IBookRepository, BookRepository>();
-builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
