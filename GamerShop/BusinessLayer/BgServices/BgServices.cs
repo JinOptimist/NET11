@@ -12,39 +12,44 @@ namespace BusinessLayer.BgServices
 {
     public class BgServices : IBgServices
     {
-        private IPersRepository _persRepository;
+        private IHeroRepository _heroRepository;
+        private IUserRepository _userRepository;
 
-        public BgServices(IPersRepository persRepository)
+        public BgServices(IHeroRepository heroRepository, IUserRepository userRepository)
         {
-            _persRepository = persRepository;
+            _heroRepository = heroRepository;
+            _userRepository = userRepository;
         }
 
         public IEnumerable<BaldursGateBml> GetAllHero()
-         => _persRepository
-            .GetAll()
-            .Select(x => new BaldursGateBml
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Class = x.Class,
-            })
-            .ToList();
+            => _heroRepository
+                .GetAll()
+                .Select(x => new BaldursGateBml
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Class = x.Class,
+                    CreatorId = new UserBlm { Name = _userRepository.Get(x.CreatorId).Name},
+                   
+                });
+            
 
         void IBgServices.Remove(int id)
         {
-            _persRepository.Remove(id);
+            _heroRepository.Remove(id);
         }
 
         public void Save(BaldursGateBml BgBml)
         {
-            _persRepository.Save(new Pers
+            _heroRepository.Save(new Hero
             {
                 Bone = BgBml.Bone,
                 Name = BgBml.Name,
                 Class = BgBml.Class,
                 Races = BgBml.Races,
                 Subrace = BgBml.Subrace,
-                Оrigin = BgBml.Оrigin
+                Оrigin = BgBml.Оrigin,
+                CreatorId = BgBml.CreatorId.Id
             });
         }
     }

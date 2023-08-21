@@ -9,10 +9,16 @@ namespace DALEfDB
 
         public DbSet<Movie> Movies { get; set; }
 
+<<<<<<< HEAD
+        public DbSet<FootballClub> FootballClubs { get; set; }
+
+=======
         public DbSet<Hero> Heros { get; set; }
 
         public DbSet<FootballClub> FootballClubs { get; set; }
 
+
+>>>>>>> Team_2
         public WebContext() { }
 
         public WebContext(DbContextOptions<WebContext> options) : base(options) { }
