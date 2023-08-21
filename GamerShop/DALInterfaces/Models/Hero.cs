@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DALInterfaces.Models
 {
-    public class Pers: BaseModel
+    public class Hero : BaseModel
     {
 
         public string Name { get; set; }
@@ -15,5 +15,6 @@ namespace DALInterfaces.Models
         public string Class { get; set; }
         public string Оrigin { get; set; }
         public int Bone { get; set; }
+        public int CreatorId { get; set; }
     }
 }
