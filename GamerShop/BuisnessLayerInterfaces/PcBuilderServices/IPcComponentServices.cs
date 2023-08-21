@@ -1,11 +1,6 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BusinessLayerInterfaces.UserServices
+namespace BusinessLayerInterfaces.PcBuilderServices
 {
     public interface IPcComponentServices
     {

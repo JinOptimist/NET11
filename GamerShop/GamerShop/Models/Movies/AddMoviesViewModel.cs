@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GamerShop.Models;
+namespace GamerShop.Models.Movies;
 
 public class AddMoviesViewModel
 {

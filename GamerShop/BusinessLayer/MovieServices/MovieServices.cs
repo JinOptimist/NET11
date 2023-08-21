@@ -1,6 +1,7 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Movies;
 using BusinessLayerInterfaces.MovieServices;
-using DALInterfaces.Models;
+using DALInterfaces.Models.Movies;
 using DALInterfaces.Repositories;
 
 namespace BusinessLayer.MovieServices;
@@ -8,18 +9,21 @@ namespace BusinessLayer.MovieServices;
 public class MovieServices : IMovieServices
 {
     private readonly IMovieRepository _movieRepository;
+    private readonly IUserRepository _userRepository;
 
-    public MovieServices(IMovieRepository movieRepository)
+    public MovieServices(IMovieRepository movieRepository, IUserRepository userRepository)
     {
         _movieRepository = movieRepository;
+        _userRepository = userRepository;
     }
 
-    public void Add(MovieBlm movieBlm)
+    public void Add(AddMovieBlm addMovieBlm)
     {
         var movieDb = new Movie()
         {
-            Title = movieBlm.Title,
-            CreatedDate = movieBlm.CreatedDate
+            Title = addMovieBlm.Title,
+            CreatedDate = addMovieBlm.CreatedDate,
+            UserId = addMovieBlm.UserId,
         };
         _movieRepository.Save(movieDb);
     }
@@ -29,11 +33,13 @@ public class MovieServices : IMovieServices
         _movieRepository.Remove(id);
     }
 
-    public IEnumerable<MovieBlm> GetAllMovies() => _movieRepository
+    public IEnumerable<GetMovieBlm> GetAllMovies() => _movieRepository
         .GetAll()
-        .Select(dbMovie => new MovieBlm()
+        .Select(dbMovie => new GetMovieBlm()
         {
             Id = dbMovie.Id,
-            Title = dbMovie.Title
+            Title = dbMovie.Title,
+            DateCreated = dbMovie.CreatedDate,
+            UserName = _userRepository.Get(dbMovie.UserId).Name
         });
 }

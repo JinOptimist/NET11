@@ -1,4 +1,4 @@
-﻿using DALInterfaces.Models;
+﻿using DALInterfaces.Models.Movies;
 using DALInterfaces.Repositories;
 
 namespace DALEfDB.Repositories

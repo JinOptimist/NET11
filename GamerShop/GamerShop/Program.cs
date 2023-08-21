@@ -1,12 +1,14 @@
 using BusinessLayer.BgServices;
 using BusinessLayer.RecipeServices;
 using BusinessLayer.MovieServices;
+using BusinessLayer.PcBuilderServices;
 using BusinessLayer.UserServices;
 using BusinessLayer.FootballServices;
 using BusinessLayerInterfaces.BgServices;
 using BusinessLayerInterfaces.MovieServices;
 using BusinessLayerInterfaces.RecipeServices;
 using BusinessLayerInterfaces.FootballService;
+using BusinessLayerInterfaces.PcBuilderServices;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
@@ -28,11 +30,11 @@ builder.Services
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
 builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.RecipeRepository>();
+builder.Services.AddScoped<IMovieRepository, DALEfDB.Repositories.MovieRepository>();
 
 builder.Services.AddSingleton<IBookRepository, BookRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
-builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
 builder.Services.AddSingleton<IFootballClubRepository, FootballClubRepository>();
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
