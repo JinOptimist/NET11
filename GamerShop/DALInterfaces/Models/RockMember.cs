@@ -9,5 +9,6 @@ namespace DALInterfaces.Models
         public string Genre { get; set; }
         public int EntryYear { get; set; }
         public int YearOfBirth { get; set; }
+        public int CreatorId { get; set; }
     }
 }
