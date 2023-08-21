@@ -3,14 +3,19 @@
 
 <div>
     <h1><u>Members of the Rock and Roll Hall of Fame:</u></h1><br />
-    @foreach (var person in Model)
+    @foreach (var rockMember in Model)
     {
         <div>
             <h2>
-                @person.FullName
+                @rockMember.FullName
             </h2>
-           Genre: @person.Genre, Entry year: @person.EntryYear, Year Of Birth: @person.YearOfBirth <br />
-            <a asp-action="Delete" asp-controller="RockHall" asp-route-id="@person.Id">Удалить</a>
+        </div>
+        <div>
+            Genre: @rockMember.Genre, Entry year: @rockMember.EntryYear, Year Of Birth: @rockMember.YearOfBirth
+            <a asp-action="Delete" asp-controller="RockHall" asp-route-id="@rockMember.Id">Удалить</a>
+        </div>
+        <div>
+            Создал: @rockMember.CreatorName
         </div>
     }
 </div>

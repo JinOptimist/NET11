@@ -2,30 +2,39 @@
 using DALInterfaces.Models;
 using Microsoft.AspNetCore.Mvc;
 using GamerShop.Models.RockHall;
+using BusinessLayerInterfaces.RockHallServices;
+using BusinessLayer.RockHallServices;
+using BusinessLayerInterfaces.BusinessModels.RockHall;
+using Microsoft.AspNetCore.Authorization;
+using GamerShop.Services;
 
 namespace GamerShop.Controllers.RockHallController
 {
     public class RockHallController : Controller
     {
-        private IRockMemberRepository _rockMemberRepository;
+        private IRockMemberServices _rockMemberServices;
+        private IAuthService _authService;
 
-        public RockHallController(IRockMemberRepository rockMemberRepository)
+        public RockHallController(IRockMemberServices rockMemberServices, IAuthService authService)
         {
-            _rockMemberRepository = rockMemberRepository;
+            _rockMemberServices = rockMemberServices;
+            _authService = authService;
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
-            var viewModel = _rockMemberRepository
+            var viewModel = _rockMemberServices
                 .GetAll()
-                .Select(dbMember => new InfoMemberViewModel
+                .Select(blmMember => new InfoMemberViewModel
                 {
-                    Id = dbMember.Id,
-                    FullName = dbMember.FullName,
-                    Genre = dbMember.Genre,
-                    YearOfBirth = dbMember.YearOfBirth,
-                    EntryYear = dbMember.EntryYear,
+                    Id = blmMember.Id,
+                    FullName = blmMember.FullName,
+                    Genre = blmMember.Genre,
+                    YearOfBirth = blmMember.YearOfBirth,
+                    EntryYear = blmMember.EntryYear,
+                    CreatorName = blmMember.CreatorName
                 })
                 .ToList();
 
@@ -34,11 +43,12 @@ namespace GamerShop.Controllers.RockHallController
 
         public IActionResult Delete(int id)
         {
-            _rockMemberRepository.Remove(id);
+            _rockMemberServices.Remove(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult NewRockMember()
         {
             return View();
@@ -52,15 +62,16 @@ namespace GamerShop.Controllers.RockHallController
                 return View(rockFameViewModel);
             }
 
-            var rockMemberDb = new RockMember()
+            var rockMemberBlm = new RockMemberPostBlm()
             {
                 FullName = rockFameViewModel.FullName,
                 Genre = rockFameViewModel.Genre,
                 EntryYear = rockFameViewModel.EntryYear,
-                YearOfBirth = rockFameViewModel.YearOfBirth
+                YearOfBirth = rockFameViewModel.YearOfBirth,
+                CreatorId = _authService.GetCurrentUser().Id
             };
 
-            _rockMemberRepository.Save(rockMemberDb);
+            _rockMemberServices.Save(rockMemberBlm);
             return RedirectToAction("Index");
         }
     }

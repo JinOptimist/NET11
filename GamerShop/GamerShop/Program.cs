@@ -10,6 +10,8 @@ using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
 using DALWrongDB.Repositories;
+using BusinessLayerInterfaces.RockHallServices;
+using BusinessLayer.RockHallServices;
 using GamerShop.Services;
 using DALEfDB;
 
@@ -43,6 +45,7 @@ builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
 builder.Services.AddScoped<IBgServices, BgServices>();
 builder.Services.AddScoped<IFootballServices, FootballSevices>();
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();
+builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
 builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, BusinessLayer.UserServices.AuthService>();
 
