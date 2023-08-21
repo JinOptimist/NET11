@@ -13,8 +13,6 @@ using DALWrongDB.Repositories;
 using GamerShop.Services;
 using DALEfDB;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

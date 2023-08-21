@@ -45,7 +45,8 @@ namespace DALEfDB.Migrations
 
                     b.ToTable("Users");
                 });
-                        modelBuilder.Entity("DALInterfaces.Models.FootballClub", b =>
+
+            modelBuilder.Entity("DALInterfaces.Models.FootballClub", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
