@@ -12,6 +12,8 @@
         public string Оrigin { get; set; }
         public int Bone { get; set; }
 
+        public string Creator_Name { get; set; }
+
 
     }
 }
