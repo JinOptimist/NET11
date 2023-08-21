@@ -20,11 +20,11 @@ builder.Services.AddControllersWithViews();
 
 builder.Services
     .AddAuthentication("WebAuthSmile")
-    .AddCookie("WebAuthSmile",
+    .AddCookie("WebAuthSmile", 
         option =>
         {
             option.LoginPath = "/Auth/Login";
-        });
+		});
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
 builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.RecipeRepository>();
