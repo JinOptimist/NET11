@@ -27,8 +27,8 @@ builder.Services
 		});
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
+builder.Services.AddScoped<IBookRepository, DALEfDB.Repositories.BookRepository>();
 
-builder.Services.AddSingleton<IBookRepository, BookRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddSingleton<IPersRepository, PersRepository>();
