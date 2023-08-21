@@ -1,6 +1,6 @@
 ﻿@model AuthViewModel
 
-@using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+@using (Html.BeginForm("Register", "Auth", FormMethod.Post))
 {
     <div>
         <div>
@@ -14,7 +14,7 @@
             @Html.ValidationMessageFor(x=>x.Password)
         </div>
         <div>
-            <input type="submit" value="Войти" />
+            <input type="submit" value="Регистрация" />
         </div>
     </div>
 }
