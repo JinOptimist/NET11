@@ -21,6 +21,7 @@ namespace BusinessLayer.UserServices
 				{
 					Id = x.Id,
 					Name = x.Name,
+					FavoriteMovieName = x.FavoriteMovie?.Title ?? "---"
 				});
 
 		public UserBlm GetUserById(int id)

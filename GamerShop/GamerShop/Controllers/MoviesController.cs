@@ -3,9 +3,11 @@ using BusinessLayerInterfaces.MovieServices;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using GamerShop.Models;
+using GamerShop.Models.Movies;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers;
 
@@ -68,5 +70,31 @@ public class MoviesController : Controller
             .ToList();
 
         return View(viewMoviesList);
+    }
+
+    [Authorize]
+    [HttpGet]
+    public IActionResult ChooseFavorite()
+    {
+        var movies = _movieServices.GetAllMovies();
+        var viewModel = new ChooseFavoriteViewModel();
+        viewModel.AllMoviesSelectListItem = movies
+            .Select(movie => new SelectListItem()
+            {
+                Text = movie.Title,
+                Value = movie.Id.ToString(),
+            })
+            .ToList();
+
+        return View(viewModel);
+    }
+
+    [Authorize]
+    [HttpPost]
+    public IActionResult ChooseFavorite(ChooseFavoriteAnswerViewModel viewModel)
+    {
+        var currentUserId = _authService.GetCurrentUser().Id;
+        _movieServices.ChooseFavorite(currentUserId, viewModel.MovieId);
+        return RedirectToAction("Index", "Home");
     }
 }
