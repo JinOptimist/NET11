@@ -1,15 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace GamerShop.Models.RockHall
+namespace BusinessLayerInterfaces.BusinessModels.RockHall
 {
-    public class InfoMemberViewModel
+    public class BaseRockMemberBlm
     {
         public int Id { get; set; }
         public string FullName { get; set; }
         public string Genre { get; set; }
         public int EntryYear { get; set; }
         public int YearOfBirth { get; set; }
-        public string CreatorName { get; set; }
     }
 }

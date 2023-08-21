@@ -9,9 +9,13 @@ namespace DALEfDB
 
         public DbSet<Movie> Movies { get; set; }
 
+
+        public DbSet<RockMember> RockMembers { get; set; }
+
         public DbSet<Hero> Heros { get; set; }
 
         public DbSet<FootballClub> FootballClubs { get; set; }
+
 
         public WebContext() { }
 
