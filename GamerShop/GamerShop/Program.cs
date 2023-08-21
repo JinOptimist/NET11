@@ -33,7 +33,7 @@ builder.Services.AddScoped<IRockMemberRepository, DALEfDB.Repositories.RockMembe
 builder.Services.AddScoped<IFootballClubRepository, DALEfDB.Repositories.FootballClubRepository>();
 builder.Services.AddScoped<IHeroRepository, DALEfDB.Repositories.BgRepository>();
 
-builder.Services.AddSingleton<IPersRepository, PersRepository>();
+
 builder.Services.AddSingleton<IBookRepository, BookRepository>();
 builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
