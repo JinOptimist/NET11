@@ -1,44 +1,49 @@
 ﻿@model List<GamerShop.Models.Recipe.ShowRecipeViewModel>
 
 <div>
-	Available recipes:
-	@foreach (var recipe in Model)
-	{
-		<div>
-			<h2>@recipe.Title</h2>
-			<p>@recipe.Description</p>
-			<p>Instructions:</p>
-			<p>@recipe.Instructions</p>
-			<p>Preparation time: @recipe.PreparationTime minutes</p>
-			<p>Cooking time: @recipe.CookingTime minutes</p>
-			<p>Servings amount: @recipe.Servings</p>
-			<p>Difficulty level: @recipe.DifficultyLevel</p>
-			<p>Cuisine type: @recipe.Cuisine</p>
-			<a href="~/Recipe/Remove/?id=@recipe.Id">X</a>
-			
-			@if (!recipe.IsFavorite)
-			{
-				<a href="~/Recipe/AddFavorite/?recipeId=@recipe.Id">Add to favorites</a>
-			}
+    Available recipes:
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var recipe = Model[i];
+        <div>
+            <h2>@recipe.Title</h2>
+            <p>@recipe.Description</p>
+            <p>Instructions:</p>
+            <p>@recipe.Instructions</p>
+            <p>Preparation time: @recipe.PreparationTime minutes</p>
+            <p>Cooking time: @recipe.CookingTime minutes</p>
+            <p>Servings amount: @recipe.Servings</p>
+            <p>Difficulty level: @recipe.DifficultyLevel</p>
+            <p>Cuisine type: @recipe.Cuisine</p>
+            <a href="~/Recipe/Remove/?id=@recipe.Id">X</a>
 
-			<hr />
+            @foreach (var review in recipe.Reviews)
+            {
+                <div>
+                    <p>Rating: @review.Rating</p>
+                    <p>@review.ReviewText</p>
+                    <p>Review Date: @review.ReviewDate</p>
+                    <hr />
+                </div>
+            }
 
-			<h3>Leave a Review</h3>
-			@using (Html.BeginForm("SubmitReview", "Recipe"))
-			{
-				@Html.Hidden("recipeId", recipe.Id)
-				<div>
-					<label for="rating">Rating:</label>
-					<input type="number" name="rating" min="1" max="5" required>
-				</div>
-				<div>
-					<label for="reviewText">Review:</label>
-					<textarea name="reviewText" rows="4" required></textarea>
-				</div>
-				<div>
-					<button type="submit">Submit Review</button>
-				</div>
-			}
-		</div>
-	}
+            @using (Html.BeginForm("SubmitReview", "Recipe", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model[i].NewReview.RecipeId)
+                <div>
+                    @Html.LabelFor(model => model[i].NewReview.Rating, "Rating:")
+                    @Html.TextBoxFor(model => model[i].NewReview.Rating, new { type = "number", min = "1", max = "5", required = "required" })
+                    @Html.ValidationMessageFor(model => model[i].NewReview.Rating)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model[i].NewReview.ReviewText, "Review:")
+                    @Html.TextAreaFor(model => model[i].NewReview.ReviewText, new { rows = "4", required = "required" })
+                    @Html.ValidationMessageFor(model => model[i].NewReview.ReviewText)
+                </div>
+                <div>
+                    <button type="submit">Submit Review</button>
+                </div>
+            }
+        </div>
+    }
 </div>

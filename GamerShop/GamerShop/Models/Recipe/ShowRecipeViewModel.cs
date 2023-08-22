@@ -21,5 +21,9 @@
         public string Cuisine { get; set; }
 
         public bool IsFavorite { get; set; }
-    }
+
+		public ReviewViewModel NewReview { get; set; }
+
+		public List<ReviewViewModel> Reviews { get; set; }
+	}
 }

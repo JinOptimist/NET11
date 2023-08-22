@@ -12,6 +12,8 @@ namespace GamerShop.Models.Recipe
 		[StringLength(250, ErrorMessage = "ReviewText cannot exceed 250 characters.")]
 		public string ReviewText { get; set; }
 
+		public DateTime ReviewDate { get; set; }
+											
 		public int RecipeId { get; set; }
 	}
 }
