@@ -1,9 +1,7 @@
-﻿namespace BusinessLayerInterfaces.BusinessModels
+﻿namespace DALInterfaces.Models.Recipe
 {
-    public class RecipeBlm
+    public class Recipe : BaseModel
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public string Description { get; set; }

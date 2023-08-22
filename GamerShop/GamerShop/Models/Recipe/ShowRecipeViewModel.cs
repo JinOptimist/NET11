@@ -1,6 +1,6 @@
-﻿namespace BusinessLayerInterfaces.BusinessModels
+﻿namespace GamerShop.Models.Recipe
 {
-    public class RecipeBlm
+    public class ShowRecipeViewModel
     {
         public int Id { get; set; }
 
@@ -20,8 +20,6 @@
 
         public string Cuisine { get; set; }
 
-        public int CreatedByUserId { get; set; }
-
-        public DateTime CreatedOn { get; set; }
+        public bool IsFavorite { get; set; }
     }
 }

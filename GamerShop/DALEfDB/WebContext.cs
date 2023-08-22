@@ -1,4 +1,5 @@
 ﻿using DALInterfaces.Models;
+using DALInterfaces.Models.Recipe;
 using Microsoft.EntityFrameworkCore;
 
 namespace DALEfDB
@@ -11,8 +12,9 @@ namespace DALEfDB
 
         public DbSet<Recipe> Recipes { get; set; }
 
+        public DbSet<FavoriteRecipe> FavoriteRecipes { get; set; }
 
-        public DbSet<RockMember> RockMembers { get; set; }
+		public DbSet<RockMember> RockMembers { get; set; }
 
         public DbSet<Hero> Heros { get; set; }
 

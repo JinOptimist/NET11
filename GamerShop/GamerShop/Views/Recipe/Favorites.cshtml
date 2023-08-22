@@ -1,7 +1,9 @@
-﻿@model List<GamerShop.Models.Recipe.ShowRecipeViewModel>
-
+﻿@model List<GamerShop.Models.Recipe.FavoriteRecipeViewModel>
+@{
+	ViewBag.Title = "Favorite Recipes";
+}
+<h2>Favorite Recipes</h2>
 <div>
-	Available recipes:
 	@foreach (var recipe in Model)
 	{
 		<div>
@@ -14,12 +16,7 @@
 			<p>Servings amount: @recipe.Servings</p>
 			<p>Difficulty level: @recipe.DifficultyLevel</p>
 			<p>Cuisine type: @recipe.Cuisine</p>
-			<a href="~/Recipe/Remove/?id=@recipe.Id">X</a>
-			
-			@if (!recipe.IsFavorite)
-			{
-				<a href="~/Recipe/AddFavorite/?recipeId=@recipe.Id">Add to favorites</a>
-			}
+			<a href="~/Recipe/RemoveFavorite/?recipeId=@recipe.Id">X</a>
 		</div>
 	}
 </div>

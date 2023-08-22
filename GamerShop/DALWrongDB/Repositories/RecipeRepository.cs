@@ -1,5 +1,5 @@
-﻿using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+﻿using DALInterfaces.Models.Recipe;
+using DALInterfaces.Repositories.Recipe;
 
 namespace DALWrongDB.Repositories
 {

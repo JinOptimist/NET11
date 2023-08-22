@@ -14,6 +14,7 @@ using BusinessLayerInterfaces.RockHallServices;
 using BusinessLayer.RockHallServices;
 using GamerShop.Services;
 using DALEfDB;
+using DALInterfaces.Repositories.Recipe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,8 @@ builder.Services
 		});
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
-builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.RecipeRepository>();
+builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.Recipe.RecipeRepository>();
+builder.Services.AddScoped<IFavoriteRecipeRepository, DALEfDB.Repositories.Recipe.FavoriteRecipeRepository>();
 builder.Services.AddScoped<IRockMemberRepository, DALEfDB.Repositories.RockMemberRepository>();
 builder.Services.AddScoped<IFootballClubRepository, DALEfDB.Repositories.FootballClubRepository>();
 builder.Services.AddScoped<IHeroRepository, DALEfDB.Repositories.BgRepository>();

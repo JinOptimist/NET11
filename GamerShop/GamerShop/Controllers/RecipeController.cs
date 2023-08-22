@@ -1,6 +1,9 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.RecipeServices;
 using GamerShop.Models;
+using GamerShop.Models.Recipe;
+using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
@@ -8,13 +11,22 @@ namespace GamerShop.Controllers
     public class RecipeController : Controller
     {
 
-        private IRecipeServices _recipeServices;
+        private readonly IRecipeServices _recipeServices;
+        private readonly IAuthService _authService;
 
-        public RecipeController(IRecipeServices recipeServices)
+        public RecipeController(IRecipeServices recipeServices, IAuthService authService)
         {
             _recipeServices = recipeServices;
+            _authService = authService;
         }
 
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
         [HttpGet]
         public IActionResult Add()
         {
@@ -29,6 +41,7 @@ namespace GamerShop.Controllers
                 return View();
             }
 
+            var currentUserId = _authService.GetCurrentUser().Id;
             var recipeBlm = new RecipeBlm()
             {
                 Title = recipeViewModel.Title,
@@ -38,15 +51,20 @@ namespace GamerShop.Controllers
                 PreparationTime = recipeViewModel.PreparationTime,
                 Servings = recipeViewModel.Servings,
                 DifficultyLevel = recipeViewModel.DifficultyLevel,
-                Cuisine = recipeViewModel.Cuisine
+                Cuisine = recipeViewModel.Cuisine,
+                CreatedByUserId = currentUserId,
+                CreatedOn = DateTime.Now
             };
 
             _recipeServices.Save(recipeBlm);
-            return View();
-        }
+            return RedirectToAction("Index");
+		}
 
+        [Authorize]
+        [HttpGet]
         public IActionResult Show()
         {
+            var currentUserId = _authService.GetCurrentUser().Id;
             var viewModel = _recipeServices.GetAll().Select(x => new ShowRecipeViewModel()
             {
                 Id = x.Id,
@@ -57,7 +75,8 @@ namespace GamerShop.Controllers
                 PreparationTime = x.PreparationTime,
                 Servings = x.Servings,
                 DifficultyLevel = x.DifficultyLevel,
-                Cuisine = x.Cuisine
+                Cuisine = x.Cuisine,
+                IsFavorite = _recipeServices.GetFavoriteByUser(currentUserId).Any(u => u.Id == x.Id)
             }).ToList();
 
             return View(viewModel);
@@ -67,6 +86,41 @@ namespace GamerShop.Controllers
         {
             _recipeServices.Remove(id);
             return RedirectToAction("Show");
+        }
+
+        public IActionResult RemoveFavorite(int recipeId)
+        {
+            var currentUserId = _authService.GetCurrentUser().Id;
+	        _recipeServices.RemoveFavorite(recipeId, currentUserId);
+	        return RedirectToAction("Favorites");
+        }
+
+        public IActionResult AddFavorite(int recipeId)
+        {
+	        var currentUserId = _authService.GetCurrentUser().Id;
+	        _recipeServices.AddFavorite(recipeId, currentUserId);
+	        return RedirectToAction("Show");
+        }
+
+		[Authorize]
+        [HttpGet]
+		public IActionResult Favorites()
+        {
+	        var currentUserId = _authService.GetCurrentUser().Id;
+	        var viewModel = _recipeServices.GetFavoriteByUser(currentUserId).Select(x => new FavoriteRecipeViewModel()
+	        {
+		        Id = x.Id,
+		        Title = x.Title,
+		        Description = x.Title,
+		        Instructions = x.Instructions,
+		        CookingTime = x.CookingTime,
+		        PreparationTime = x.PreparationTime,
+		        Servings = x.Servings,
+		        DifficultyLevel = x.DifficultyLevel,
+		        Cuisine = x.Cuisine
+	        }).ToList();
+
+	        return View(viewModel);
         }
     }
 }
