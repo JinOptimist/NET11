@@ -9,6 +9,8 @@ namespace DALEfDB
 
         public DbSet<Movie> Movies { get; set; }
 
+        public DbSet<Recipe> Recipes { get; set; }
+
 
         public DbSet<RockMember> RockMembers { get; set; }
 

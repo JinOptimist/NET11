@@ -29,13 +29,13 @@ builder.Services
 		});
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
+builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.RecipeRepository>();
 builder.Services.AddScoped<IRockMemberRepository, DALEfDB.Repositories.RockMemberRepository>();
 builder.Services.AddScoped<IFootballClubRepository, DALEfDB.Repositories.FootballClubRepository>();
 builder.Services.AddScoped<IHeroRepository, DALEfDB.Repositories.BgRepository>();
 builder.Services.AddScoped<IMovieRepository, DALEfDB.Repositories.MovieRepository>();
 
 builder.Services.AddSingleton<IBookRepository, BookRepository>();
-builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
 builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
 
 builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
