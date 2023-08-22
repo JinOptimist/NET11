@@ -20,6 +20,25 @@
 			{
 				<a href="~/Recipe/AddFavorite/?recipeId=@recipe.Id">Add to favorites</a>
 			}
+
+			<hr />
+
+			<h3>Leave a Review</h3>
+			@using (Html.BeginForm("SubmitReview", "Recipe"))
+			{
+				@Html.Hidden("recipeId", recipe.Id)
+				<div>
+					<label for="rating">Rating:</label>
+					<input type="number" name="rating" min="1" max="5" required>
+				</div>
+				<div>
+					<label for="reviewText">Review:</label>
+					<textarea name="reviewText" rows="4" required></textarea>
+				</div>
+				<div>
+					<button type="submit">Submit Review</button>
+				</div>
+			}
 		</div>
 	}
 </div>

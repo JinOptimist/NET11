@@ -5,7 +5,7 @@ namespace DALInterfaces.Repositories.Recipe
 {
 	public interface IFavoriteRecipeRepository : IBaseRepository<FavoriteRecipe>
 	{
-		void RemoveFavorite(int recipeId, int userId);
+		void RemoveFavorite(FavoriteRecipe favoriteRecipe);
 		IEnumerable<FavoriteRecipe> GetFavoriteByUser(int currentUserId);
 	}
 }

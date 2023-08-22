@@ -1,12 +1,11 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
+﻿using BusinessLayerInterfaces.BusinessModels.Recipe;
 using BusinessLayerInterfaces.RecipeServices;
-using DALInterfaces.Models;
 using DALInterfaces.Models.Recipe;
 using DALInterfaces.Repositories.Recipe;
 
 namespace BusinessLayer.RecipeServices
 {
-	public class RecipeServices : IRecipeServices
+    public class RecipeServices : IRecipeServices
 	{
 		private readonly IRecipeRepository _recipeRepository;
 		private readonly IFavoriteRecipeRepository _favoriteRecipeRepository;
@@ -60,10 +59,14 @@ namespace BusinessLayer.RecipeServices
 			_recipeRepository.Remove(id);
 		}
 
-		public void RemoveFavorite(int resipeId, int userId)
+		public void RemoveFavorite(FavoriteRecipeBlm favoriteRecipeBlm)
 		{
 
-			_favoriteRecipeRepository.RemoveFavorite(resipeId, userId);
+			_favoriteRecipeRepository.RemoveFavorite(new FavoriteRecipe()
+			{
+				RecipeId = favoriteRecipeBlm.RecipeId,
+				UserId = favoriteRecipeBlm.UserId
+			});
 		}
 
 		public IEnumerable<RecipeBlm> GetFavoriteByUser(int currentUserId)
@@ -88,12 +91,12 @@ namespace BusinessLayer.RecipeServices
 			});
 		}
 
-		public void AddFavorite(int recipeId, int userId)
+		public void AddFavorite(FavoriteRecipeBlm favoriteRecipeBlm)
 		{
 			_favoriteRecipeRepository.Save(new FavoriteRecipe()
 			{
-				RecipeId = recipeId,
-				UserId = userId
+				RecipeId = favoriteRecipeBlm.RecipeId,
+				UserId = favoriteRecipeBlm.UserId
 			});
 		}
 	}

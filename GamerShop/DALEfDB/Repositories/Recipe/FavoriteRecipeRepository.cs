@@ -10,9 +10,9 @@ namespace DALEfDB.Repositories.Recipe
         public FavoriteRecipeRepository(WebContext context) : base(context)
         { }
 
-        public void RemoveFavorite(int recipeId, int userId)
+        public void RemoveFavorite(FavoriteRecipe favoriteRecipe)
         {
-            _dbSet.Remove(_dbSet.First(x => x.RecipeId == recipeId && x.UserId == userId));
+            _dbSet.Remove(_dbSet.First(x => x.RecipeId == favoriteRecipe.RecipeId && x.UserId == favoriteRecipe.UserId));
             _context.SaveChanges();
         }
 
