@@ -1,0 +1,18 @@
+﻿.page-button {
+    border: 1px red solid;
+    padding: 7px;
+    border-radius: 10px;
+    margin: 1px;
+    text-decoration: none;
+    color: #000;
+    background: #f2f2f2;
+}
+
+    .page-button.active {
+        font-weight: 600;
+        background: #BBB;
+    }
+
+.pages{
+    margin-top: 10px;
+}
