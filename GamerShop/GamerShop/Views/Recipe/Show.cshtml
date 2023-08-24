@@ -16,29 +16,36 @@
             <p>Difficulty level: @recipe.DifficultyLevel</p>
             <p>Cuisine type: @recipe.Cuisine</p>
             <a href="~/Recipe/Remove/?id=@recipe.Id">X</a>
-
-            @foreach (var review in recipe.Reviews)
+            
+	        @if (!recipe.IsFavorite)
+	        {
+		        <a href="~/Recipe/AddFavorite/?recipeId=@recipe.Id">Add to favorites</a>
+	        }
+            User reviews:
+	        @foreach (var review in recipe.Reviews)
             {
-                <div>
-                    <p>Rating: @review.Rating</p>
-                    <p>@review.ReviewText</p>
-                    <p>Review Date: @review.ReviewDate</p>
-                    <hr />
-                </div>
+	            <div>
+                    <h5>@review.Username</h5>
+		            <p>@review.Text</p>
+                    <span style="font-weight: 500">Rating: @review.Rating</span>
+                    <span>@review.Date</span>
+		            <hr/>
+	            </div>
             }
 
             @using (Html.BeginForm("SubmitReview", "Recipe", FormMethod.Post))
             {
-                @Html.HiddenFor(model => model[i].NewReview.RecipeId)
+                @Html.Hidden("RecipeId", Model[i].Id)
                 <div>
-                    @Html.LabelFor(model => model[i].NewReview.Rating, "Rating:")
-                    @Html.TextBoxFor(model => model[i].NewReview.Rating, new { type = "number", min = "1", max = "5", required = "required" })
-                    @Html.ValidationMessageFor(model => model[i].NewReview.Rating)
+                    @Html.Label( "Rating:")
+                    @Html.TextBox("Rating", Model[i].NewReview.Rating)
+                    @Html.ValidationMessage("Rating", Model[i].NewReview.Rating)
                 </div>
                 <div>
-                    @Html.LabelFor(model => model[i].NewReview.ReviewText, "Review:")
-                    @Html.TextAreaFor(model => model[i].NewReview.ReviewText, new { rows = "4", required = "required" })
-                    @Html.ValidationMessageFor(model => model[i].NewReview.ReviewText)
+                    @Html.Label("Your review:")
+                    @Html.TextArea("Text", Model[i].NewReview.Text)
+                    @* TODO: Fix validation messages *@
+                    @Html.ValidationMessage("Text", Model[i].NewReview.Text)
                 </div>
                 <div>
                     <button type="submit">Submit Review</button>

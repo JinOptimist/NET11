@@ -79,12 +79,14 @@ namespace GamerShop.Controllers
 				DifficultyLevel = recipeBlm.DifficultyLevel,
 				Cuisine = recipeBlm.Cuisine,
 				IsFavorite = _recipeServices.GetFavoriteByUser(currentUserId).Any(blm => blm.Id == recipeBlm.Id),
-				Reviews = _reviewServices.GetRecipeReviews(recipeBlm.Id).Select(reviewBlm => new ReviewViewModel
+				Reviews = _reviewServices.GetRecipeReviews(recipeBlm.Id).Select(reviewBlm => new DisplayReviewViewModel
 				{
 					Rating = reviewBlm.Rating,
-					ReviewText = reviewBlm.ReviewText,
-					ReviewDate = reviewBlm.ReviewDate
-				}).ToList()
+					Text = reviewBlm.Text,
+					Date = reviewBlm.Date,
+					RecipeId = reviewBlm.RecipeId,
+					Username = reviewBlm.Username
+                }).ToList()
 			}).ToList();
 
 			return View(viewModel);
@@ -143,25 +145,21 @@ namespace GamerShop.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult SubmitReview(ShowRecipeViewModel recipeViewModel)
+		public IActionResult SubmitReview(ReviewViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Show");
             }
-
-            var viewModel = recipeViewModel.NewReview;
-			var currentUserId = _authService.GetCurrentUser().Id;
+            var currentUserId = _authService.GetCurrentUser().Id;
 			var reviewBlm = new ReviewBlm
 			{
 				RecipeId = viewModel.RecipeId,
 				UserId = currentUserId,
 				Rating = viewModel.Rating,
-				ReviewText = viewModel.ReviewText,
-				ReviewDate = DateTime.Now
-			};
-			
-			_reviewServices.Save(reviewBlm);
+				Text = viewModel.Text,
+            };
+            _reviewServices.Save(reviewBlm);
 			return RedirectToAction("Show");
 		}
 

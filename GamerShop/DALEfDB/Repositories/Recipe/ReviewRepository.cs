@@ -13,7 +13,7 @@ namespace DALEfDB.Repositories.Recipe
 
         public IEnumerable<Review> GetRecipeReviews(int recipeId)
         {
-            return _dbSet.Where(review => review.RecipeId == recipeId).ToList();
+            return _dbSet.Where(review => review.Recipe.Id == recipeId).ToList();
         }
     }
 }

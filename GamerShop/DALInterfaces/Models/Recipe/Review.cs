@@ -2,9 +2,9 @@
 {
 	public class Review : BaseModel
 	{
-		public int RecipeId { get; set; }
+		public virtual Recipe Recipe { get; set; }
 
-		public int UserId { get; set; }
+		public virtual User User { get; set; }
 
 		public double Rating { get; set; }
 

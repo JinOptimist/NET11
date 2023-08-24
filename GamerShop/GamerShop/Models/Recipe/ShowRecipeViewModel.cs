@@ -22,8 +22,8 @@
 
         public bool IsFavorite { get; set; }
 
-		public ReviewViewModel NewReview { get; set; }
+        public ReviewViewModel NewReview { get; set; } = new();
 
-		public List<ReviewViewModel> Reviews { get; set; }
+		public List<DisplayReviewViewModel> Reviews { get; set; }
 	}
 }

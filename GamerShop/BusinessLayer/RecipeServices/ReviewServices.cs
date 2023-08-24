@@ -1,6 +1,7 @@
 ﻿using BusinessLayerInterfaces.BusinessModels.Recipe;
 using BusinessLayerInterfaces.RecipeServices;
 using DALInterfaces.Models.Recipe;
+using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Recipe;
 
 namespace BusinessLayer.RecipeServices
@@ -8,22 +9,27 @@ namespace BusinessLayer.RecipeServices
     public class ReviewServices : IReviewServices
     {
         private readonly IReviewRepository _reviewRepository;
+        private readonly IRecipeRepository _recipeRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ReviewServices(IReviewRepository reviewRepository)
+        public ReviewServices(IReviewRepository reviewRepository, IRecipeRepository recipeRepository, IUserRepository userRepository)
         {
             _reviewRepository = reviewRepository;
+            _recipeRepository = recipeRepository;
+            _userRepository = userRepository;
         }
 
         public IEnumerable<ReviewBlm> GetAll()
             => _reviewRepository
                 .GetAll()
-                .Select(x => new ReviewBlm()
+                .Select(review => new ReviewBlm()
                 {
-                    RecipeId = x.RecipeId,
-                    UserId = x.UserId,
-                    Rating = x.Rating,
-                    ReviewDate = x.ReviewDate,
-                    ReviewText = x.ReviewText
+                    RecipeId = review.Recipe.Id,
+                    UserId = review.User.Id,
+                    Rating = review.Rating,
+                    Date = review.ReviewDate.ToShortDateString(),
+                    Text = review.ReviewText,
+                    Username = review.User.Name
                 });
 
 
@@ -31,15 +37,16 @@ namespace BusinessLayer.RecipeServices
         {
             var dbReview = new Review()
             {
-                RecipeId = reviewBlm.RecipeId,
-                UserId = reviewBlm.UserId,
+                Recipe = _recipeRepository.Get(reviewBlm.RecipeId),
+                User = _userRepository.Get(reviewBlm.UserId),
                 Rating = reviewBlm.Rating,
-                ReviewDate = reviewBlm.ReviewDate,
-                ReviewText = reviewBlm.ReviewText
+                ReviewText = reviewBlm.Text,
+                ReviewDate = DateTime.Now
             };
 
             _reviewRepository.Save(dbReview);
         }
+
 
         public void Remove(int id)
         {
@@ -49,13 +56,14 @@ namespace BusinessLayer.RecipeServices
         public IEnumerable<ReviewBlm> GetRecipeReviews(int recipeId)
             => _reviewRepository
                 .GetRecipeReviews(recipeId)
-                .Select(x => new ReviewBlm()
+                .Select(review => new ReviewBlm()
                 {
-                    RecipeId = x.RecipeId,
-                    UserId = x.UserId,
-                    Rating = x.Rating,
-                    ReviewDate = x.ReviewDate,
-                    ReviewText = x.ReviewText
+                    RecipeId = review.Recipe.Id,
+                    UserId = review.User.Id,
+                    Rating = review.Rating,
+                    Date = review.ReviewDate.ToShortDateString(),
+                    Text = review.ReviewText,
+                    Username = review.User.Name
                 });
     }
 }

@@ -10,9 +10,9 @@ namespace GamerShop.Models.Recipe
 
 		[Required(ErrorMessage = "ReviewText is required.")]
 		[StringLength(250, ErrorMessage = "ReviewText cannot exceed 250 characters.")]
-		public string ReviewText { get; set; }
+		public string Text { get; set; }
 
-		public DateTime ReviewDate { get; set; }
+		public DateTime Date { get; set; }
 											
 		public int RecipeId { get; set; }
 	}

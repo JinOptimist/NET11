@@ -4,6 +4,7 @@ using DALEfDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20230824122038_editReviewTable")]
+    partial class editReviewTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +52,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FootballClubs", (string)null);
+                    b.ToTable("FootballClubs");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Hero", b =>
@@ -88,7 +91,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Heros", (string)null);
+                    b.ToTable("Heros");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movie", b =>
@@ -108,7 +111,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.FavoriteRecipe", b =>
@@ -127,7 +130,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FavoriteRecipes", (string)null);
+                    b.ToTable("FavoriteRecipes");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Recipe", b =>
@@ -175,7 +178,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes", (string)null);
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
@@ -208,7 +211,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.RockMember", b =>
@@ -238,7 +241,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RockMembers", (string)null);
+                    b.ToTable("RockMembers");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.User", b =>
@@ -267,7 +270,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("FavoriteMovieId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
