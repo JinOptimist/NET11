@@ -31,7 +31,6 @@ builder.Services
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
 builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.Recipe.RecipeRepository>();
-builder.Services.AddScoped<IFavoriteRecipeRepository, DALEfDB.Repositories.Recipe.FavoriteRecipeRepository>();
 builder.Services.AddScoped<IReviewRepository, DALEfDB.Repositories.Recipe.ReviewRepository>();
 builder.Services.AddScoped<IRockMemberRepository, DALEfDB.Repositories.RockMemberRepository>();
 builder.Services.AddScoped<IFootballClubRepository, DALEfDB.Repositories.FootballClubRepository>();

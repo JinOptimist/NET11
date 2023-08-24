@@ -7,5 +7,6 @@ namespace DALInterfaces.Repositories
         IEnumerable<User> GetAdultUsers();
 
 		int? GetUserIdByNameAndPassword(string userName, string password);
-	}
+        IEnumerable<Models.Recipe.Recipe> GetFavoriteByUser(int userId);
+    }
 }

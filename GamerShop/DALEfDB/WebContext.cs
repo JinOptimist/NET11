@@ -11,9 +11,7 @@ namespace DALEfDB
         public DbSet<Movie> Movies { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
-
-        public DbSet<FavoriteRecipe> FavoriteRecipes { get; set; }
-
+        
         public DbSet<Review> Reviews { get; set; }
 
         public DbSet<RockMember> RockMembers { get; set; }

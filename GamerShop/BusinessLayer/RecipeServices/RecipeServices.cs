@@ -1,6 +1,9 @@
 ﻿using BusinessLayerInterfaces.BusinessModels.Recipe;
 using BusinessLayerInterfaces.RecipeServices;
+using DALInterfaces.DataModels.Recipe;
+using DALInterfaces.Models;
 using DALInterfaces.Models.Recipe;
+using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Recipe;
 
 namespace BusinessLayer.RecipeServices
@@ -8,13 +11,13 @@ namespace BusinessLayer.RecipeServices
     public class RecipeServices : IRecipeServices
 	{
 		private readonly IRecipeRepository _recipeRepository;
-		private readonly IFavoriteRecipeRepository _favoriteRecipeRepository;
+        private readonly IUserRepository _userRepository;
 
-		public RecipeServices(IRecipeRepository recipeRepository, IFavoriteRecipeRepository favoriteRecipeRepository)
+        public RecipeServices(IRecipeRepository recipeRepository, IUserRepository userRepository)
 		{
 			_recipeRepository = recipeRepository;
-			_favoriteRecipeRepository = favoriteRecipeRepository;
-		}
+            _userRepository = userRepository;
+        }
 
 		public IEnumerable<RecipeBlm> GetAll()
 			=> _recipeRepository
@@ -61,19 +64,20 @@ namespace BusinessLayer.RecipeServices
 
 		public void RemoveFavorite(FavoriteRecipeBlm favoriteRecipeBlm)
 		{
+            var favoriteRecipeDataModel = new FavoriteRecipeDataModel
+            {
+                User = _userRepository.Get(favoriteRecipeBlm.UserId),
+                Recipe = _recipeRepository.Get(favoriteRecipeBlm.RecipeId)
+            };
 
-			_favoriteRecipeRepository.RemoveFavorite(new FavoriteRecipe()
-			{
-				RecipeId = favoriteRecipeBlm.RecipeId,
-				UserId = favoriteRecipeBlm.UserId
-			});
+            _recipeRepository.RemoveFavorite(favoriteRecipeDataModel);
 		}
 
 		public IEnumerable<RecipeBlm> GetFavoriteByUser(int currentUserId)
 		{
-			return _favoriteRecipeRepository.GetFavoriteByUser(currentUserId).Select(favoriteRecipe =>
+			return _userRepository.GetFavoriteByUser(currentUserId).Select(favoriteRecipe =>
 			{
-				var recipe = _recipeRepository.Get(favoriteRecipe.RecipeId);
+				var recipe = _recipeRepository.Get(favoriteRecipe.Id);
 				return new RecipeBlm()
 				{
 					Id = recipe.Id,
@@ -92,12 +96,13 @@ namespace BusinessLayer.RecipeServices
 		}
 
 		public void AddFavorite(FavoriteRecipeBlm favoriteRecipeBlm)
-		{
-			_favoriteRecipeRepository.Save(new FavoriteRecipe()
-			{
-				RecipeId = favoriteRecipeBlm.RecipeId,
-				UserId = favoriteRecipeBlm.UserId
-			});
-		}
+        {
+            var favoriteRecipeDataModel = new FavoriteRecipeDataModel
+            {
+                User = _userRepository.Get(favoriteRecipeBlm.UserId),
+                Recipe = _recipeRepository.Get(favoriteRecipeBlm.RecipeId)
+            };
+            _recipeRepository.AddFavorite(favoriteRecipeDataModel);
+        }
 	}
 }

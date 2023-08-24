@@ -7,5 +7,7 @@
         public DateTime Birthday { get; set; }
 
         public virtual Movie? FavoriteMovie { get; set; }
+
+        public virtual List<Recipe.Recipe> FavoriteRecipes { get; set; }
     }
 }

@@ -20,5 +20,10 @@ namespace DALEfDB.Repositories
                 .FirstOrDefault(x => x.Name == userName && x.Password == password)
                 ?.Id;
         }
+
+        public IEnumerable<DALInterfaces.Models.Recipe.Recipe> GetFavoriteByUser(int userId)
+        {
+            return _dbSet.First(user => user.Id == userId).FavoriteRecipes;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DALInterfaces.Models;
+using DALInterfaces.Models.Recipe;
 using DALInterfaces.Repositories;
 
 namespace DALWrongDB.Repositories
@@ -35,5 +36,10 @@ namespace DALWrongDB.Repositories
 		{
 			throw new NotImplementedException();
 		}
-	}
+
+        public IEnumerable<Recipe> GetFavoriteByUser(int userId)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
