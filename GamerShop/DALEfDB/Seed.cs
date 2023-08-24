@@ -1,6 +1,12 @@
 ﻿using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using DALInterfaces.Repositories.Recipe;
+using DALEfDB.Repositories;
+using DALInterfaces.Models.Recipe;
+using Microsoft.Identity.Client;
+using DALEfDB.Repositories.Recipe;
 
 namespace DALEfDB
 {
@@ -14,8 +20,49 @@ namespace DALEfDB
 			{
 				FillUsers(scope.ServiceProvider);
 				FillMovies(scope.ServiceProvider);
-
+				FillRecipes(scope.ServiceProvider);
 				SetFavoriteMovieForAdmin(scope.ServiceProvider);
+			}
+		}
+
+		private void FillRecipes(IServiceProvider serviceProvider)
+		{
+			Random random = new Random();
+			var recipeRepository = serviceProvider.GetService<IRecipeRepository>();
+			var userRepository = serviceProvider.GetService<IUserRepository>();
+			var reviewRepository = serviceProvider.GetService<IReviewRepository>();
+			if (recipeRepository.Count() <= 5)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					var recipe = new Recipe
+					{
+						Title = "Recipe" + i,
+						CookingTime = random.Next(0, 100),
+						PreparationTime = random.Next(0, 60),
+						Servings = random.Next(1, 6),
+						CreatedByUserId = userRepository.GetAll().First().Id,
+						CreatedOn = DateTime.Now,
+						Cuisine = "Cuisine" + i,
+						Description = "Description" + i,
+						DifficultyLevel = random.Next(1, 5).ToString(),
+						Instructions = "Instructions" + i,
+					};
+					recipeRepository.Save(recipe);
+					for (int j = 0; j < random.Next(0, 5); j++)
+					{
+						var review = new Review()
+						{
+							Recipe = recipeRepository.GetAll().Last(),
+							User = userRepository.GetAll().First(),
+							Rating = random.Next(1, 5),
+							ReviewText = "Review text" + j,
+							ReviewDate = DateTime.Now
+						};
+
+						reviewRepository.Save(review);
+					}
+				}
 			}
 		}
 
