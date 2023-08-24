@@ -1,52 +1,31 @@
-﻿@model List<PcComponentViewModel>
+﻿@model IEnumerable<GamerShop.Models.PcBuild.BuildsIndexViewModel>
 
 <div>
-    <h2>List of PC components</h2>
+    <h2>Все сборки</h2>
 </div>
 
 @{
-    if (Model.Count == 0)
-    {
-        <div>
-            <h3>No components have been added yet.</h3>
-        </div>
-    }
-    else
-    {
-        <div>
-            <table class="customTable" style="width: 100%;
-                                                background-color: #FFFFFF;
-                                                border-collapse: collapse;
-                                                border-width: 2px;
-                                                border-color: #01a3a4;
-                                                border-style: solid;
-                                                color: #222F3E;">
-                <thead style="background-color: #C8D6E5;">
-                <tr>
-                    <th style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">Category</th>
-                    <th style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">Title</th>
-                    <th style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var component in Model)
-                {
-                    <tr>
-                        <td style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">@component.Category</td>
-                        <td style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">@component.Title</td>
-                        <td style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">@component.Price</td>
-                        <td style="border-width: 2px;border-color: #01a3a4;border-style: solid;padding: 5px;">
-                            @Html.ActionLink("Delete",
-                                "Remove",
-                                "PcBuild",
-                                new { id = component.Id },
-                                new { style = "color: #e74c3c; margin-left: 10px; text-decoration: none;" })
-                        </td>
-                    </tr>
-                }
-                </tbody>
-            </table>
-        </div>
-    }
-    @Html.ActionLink("Add component", "Add", "PcBuild", null, new { style = "color: #01a3a4; padding: 5px; text-decoration: none;" })
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var build in Model)
+        {
+            <div class="col">
+                <div class="card h-100 border-dark mb-3">
+                    <img src="GamerShop/wwwroot/img/PCBuild/qq.jpg" class="card-img-top" alt="ALLO GDE KARTINKA">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">@build.BuildName</h5>
+                        <p class="card-text">@build.UserName</p>
+                        <p class="card-text">@build.Processor</p>
+                        @foreach (var gpuName in build.GPU)
+                        {
+                            <p class="card-text">@gpuName</p>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">@build.Price$</small>
+                        <small class="text-muted">@build.Rating</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }

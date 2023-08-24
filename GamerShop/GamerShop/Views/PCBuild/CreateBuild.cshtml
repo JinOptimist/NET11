@@ -1,0 +1,96 @@
+@model GamerShop.Models.PcBuild.CreateBuildViewModel
+
+@using (Html.BeginForm("CreateBuild", "PcBuild", FormMethod.Post))
+{
+
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Название сборки</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Лучшая сборка на диком западе">
+    </div>
+    <div class="form-group">
+      <label for="ProcessorSelect">Процессор:</label>
+      
+      <select class="form-control" id="ProcessorSelect">
+        @*@foreach (var processor in Model.Processors)
+        {
+          <option>@processor.Name</option>
+        }*@
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="MotherboardSelect">Материнская плата:</label>
+      <select class="form-control" id="MotherboardSelect">
+        @*@foreach (var motherboard in Model.Motherboards)
+        {
+          <option>@motherboard.Name</option>
+        }*@
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="GpuSelect1">Видеокарта:</label>
+      <select class="form-control" id="GpuSelect1">
+        @*@foreach (var gpu in Model.Gpus)
+        {
+          <option>@gpu.Name</option>
+        }*@
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="RamSelect">Оперативная память:</label>
+      <select class="form-control" id="RamSelect">
+        @*@foreach (var ram in Model.Rams)
+        {
+          <option>@ram.Name</option>
+        }*@
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="HddSelect">Жесткий диск:</label>
+      <select class="form-control" id="HddSelect">
+        @*@foreach (var hdd in Model.Hdds)
+        {
+          <option>@hdd.Name</option>
+        }*@
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="SsdSelect">Ssd:</label>
+      <select class="form-control" id="SsdSelect">
+        @*@foreach (var ssd in Model.Ssds)
+        {
+          <option>@ssd.Name</option>
+        }*@
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="CoolerSelect">Система охлаждения:</label>
+      <select class="form-control" id="CoolerSelect">
+        @*@foreach (var cooler in Model.Coolers)
+        {
+          <option>@cooler.Name</option>
+        }*@
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="PsuSelect">Блок питания:</label>
+      <select class="form-control" id="PsuSelect">
+        @*@foreach (var psu in Model.Psus)
+        {
+          <option>@psu.Name</option>
+        }*@
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="CaseSelect">Корпус:</label>
+      <select class="form-control" id="CaseSelect" asp-for="Korpus.Id" asp-items="ViewBag.Cases">
+        <option selected="selected" disabled="disabled">Выберите кейс</option>
+      </select>
+      
+    </div>
+    <div class="form-group">
+      <label for="Description">Описание</label>
+      <textarea class="form-control" id="Description" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Создать сборку</button>
+
+}

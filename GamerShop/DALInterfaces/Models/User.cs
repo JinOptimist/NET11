@@ -1,4 +1,6 @@
-﻿namespace DALInterfaces.Models
+﻿using DALInterfaces.Models.PcBuild;
+
+namespace DALInterfaces.Models
 {
     public class User : BaseModel
     {
@@ -7,5 +9,7 @@
         public DateTime Birthday { get; set; }
 
         public virtual Movie? FavoriteMovie { get; set; }
+        public virtual ICollection<Build>? CreatedBuilds { get; set; }
+        public virtual ICollection<Build>? LikedBuilds { get; set; }
     }
 }

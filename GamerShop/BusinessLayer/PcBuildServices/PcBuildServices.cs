@@ -1,0 +1,188 @@
+﻿using BusinessLayerInterfaces.BusinessModels.PCBuildModels;
+using BusinessLayerInterfaces.PcBuilderServices;
+using DALInterfaces.Models.PcBuild;
+using DALInterfaces.Repositories.PCBuild;
+
+namespace BusinessLayer.PcBuilderServices
+{
+    public class PcBuildServices : IBuildServices
+    {
+        private IBuildRepository _buildRepository;
+        private IProcessorRepository _processorRepository;
+        private IMotherboardRepository _motherboardRepository;
+        private IRamRepository _ramRepository;
+        private IGpuRepository _gpuRepository;
+        private ISsdRepository _ssdRepository;
+        private IHddRepository _hddRepository;
+        private ICaseRepository _caseRepository;
+        private ICoolerRepository _coolerRepository;
+        private IPsuRepository _psuRepository;
+
+        public PcBuildServices(IBuildRepository buildRepository, IProcessorRepository processorRepository, IMotherboardRepository motherboardRepository, IRamRepository ramRepository, IGpuRepository gpuRepository, ISsdRepository ssdRepository, IHddRepository hddRepository, ICaseRepository caseRepository, ICoolerRepository coolerRepository, IPsuRepository psuRepository)
+        {
+            _buildRepository = buildRepository;
+            _processorRepository = processorRepository;
+            _motherboardRepository = motherboardRepository;
+            _ramRepository = ramRepository;
+            _gpuRepository = gpuRepository;
+            _ssdRepository = ssdRepository;
+            _hddRepository = hddRepository;
+            _caseRepository = caseRepository;
+            _coolerRepository = coolerRepository;
+            _psuRepository = psuRepository;
+        }
+
+        public IEnumerable<IndexBuildBlm> GetAllBuildsInShortType()
+        {
+            return _buildRepository
+                .GetAllShortBuilds()//todo
+                .Select(buildDb => new IndexBuildBlm
+                {
+                    Id = buildDb.Id,
+                    Label = buildDb.Label,
+                    ProcessorName = GetFullComponentName(buildDb.Processor),
+                    GPUsNames = GetFullGPUName(buildDb.GPUs),
+                    UserName = buildDb.User.Name,
+                    Rating = buildDb.Rating.ToString(),
+                    Price = buildDb.Price.ToString(), //TODO Price calculate
+                    MainPhotoPath = buildDb.PhotosPath //TODO Photo path
+                });
+        }
+
+        private IEnumerable<ComponentBlm> GetAllProcessors()
+        {
+            return _processorRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            });
+        }
+        
+        private IEnumerable<ComponentBlm> GetAllCases()
+        {
+            return _caseRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            }); 
+        }
+        
+        private IEnumerable<ComponentBlm> GetAllMotherboards()
+        {
+            return _motherboardRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            }); 
+        }
+        
+        private IEnumerable<ComponentBlm> GetAllRams()
+        {
+            return _ramRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            }); 
+        }
+        
+        private IEnumerable<ComponentBlm> GetAllPsus()
+        {
+            return _psuRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            }); 
+        }
+        
+        private IEnumerable<ComponentBlm> GetAllCoolers()
+        {
+            return _coolerRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            }); 
+        }
+        
+        private IEnumerable<ComponentBlm> GetAllGpus()
+        {
+            return _gpuRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            }); 
+        }
+        
+        private IEnumerable<ComponentBlm> GetAllSsd()
+        {
+            return _ssdRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            }); 
+        }
+        
+        private IEnumerable<ComponentBlm> GetAllHdd()
+        {
+            return _hddRepository.GetAll().Select(c => new ComponentBlm()
+            {
+                Id = c.Id,
+                Name = GetFullComponentName(c),
+                Price = c.Price
+            }); 
+        }
+        
+        public AllComponentsForAddingBlm GetAllComponents()
+        {
+            return new AllComponentsForAddingBlm()
+            {
+                Processors = GetAllProcessors(),
+                Cases = GetAllCases(),
+                Motherboards = GetAllMotherboards(),
+                Rams = GetAllRams(),
+                Ssds = GetAllSsd(),
+                Hdds = GetAllHdd(),
+                Coolers = GetAllCoolers(),
+                Gpus = GetAllGpus(),
+                Psus = GetAllPsus()
+            };
+        }
+        
+        public IEnumerable<BaseBuildBlm> GetAllBuilds()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(BaseBuildBlm buildBlm)
+        {
+            throw new NotImplementedException();
+        }
+        private string GetFullComponentName(Component? component)
+        {
+            return $"{component.Manufacturer} {component.ModelGroupe} {component.Model}";
+        }
+
+        private List<string> GetFullGPUName(List<Gpu> gpus)
+        {
+            if (gpus.Count == null) return null;
+            var gpusList = new List<string>();
+            foreach (var gpu in gpus)
+            {
+                gpusList.Add($"{gpu.Manufacturer} {gpu.ModelGroupe} {gpu.Model}");
+            }
+            return gpusList;
+        }
+    }
+}
