@@ -9,10 +9,8 @@ using BusinessLayerInterfaces.RecipeServices;
 using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories;
-using DALWrongDB.Repositories;
 using BusinessLayerInterfaces.RockHallServices;
 using BusinessLayer.RockHallServices;
-using GamerShop.Services;
 using DALEfDB;
 using DALInterfaces.Repositories.Recipe;
 
@@ -22,11 +20,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services
-    .AddAuthentication("WebAuthSmile")
-    .AddCookie("WebAuthSmile", 
-        option =>
-        {
-            option.LoginPath = "/Auth/Login";
+	.AddAuthentication("WebAuthSmile")
+	.AddCookie("WebAuthSmile",
+		option =>
+		{
+			option.LoginPath = "/Auth/Login";
 		});
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
@@ -37,10 +35,10 @@ builder.Services.AddScoped<IFootballClubRepository, DALEfDB.Repositories.Footbal
 builder.Services.AddScoped<IHeroRepository, DALEfDB.Repositories.BgRepository>();
 builder.Services.AddScoped<IMovieRepository, DALEfDB.Repositories.MovieRepository>();
 
-builder.Services.AddSingleton<IBookRepository, BookRepository>();
-builder.Services.AddSingleton<IRockMemberRepository, RockMemberRepository>();
-
-builder.Services.AddSingleton<IPcComponentsRepository, PcComponentRepository>();
+builder.Services.AddSingleton<IBookRepository>(x => null);
+builder.Services.AddSingleton<IRecipeRepository>(x => null);
+builder.Services.AddSingleton<IRockMemberRepository>(x => null);
+builder.Services.AddSingleton<IPcComponentsRepository>(x => null);
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
@@ -51,7 +49,8 @@ builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<IReviewServices, ReviewServices>();
 builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
-builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, BusinessLayer.UserServices.AuthService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -65,9 +64,9 @@ new Seed().Fill(app.Services);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Home/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -81,7 +80,7 @@ app.UseAuthentication(); // ��� ��?
 app.UseAuthorization(); // ����� �� ����?
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

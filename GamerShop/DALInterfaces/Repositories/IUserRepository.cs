@@ -1,4 +1,5 @@
-﻿using DALInterfaces.Models;
+﻿using DALInterfaces.DataModels;
+using DALInterfaces.Models;
 
 namespace DALInterfaces.Repositories
 {
@@ -7,6 +8,9 @@ namespace DALInterfaces.Repositories
         IEnumerable<User> GetAdultUsers();
 
 		int? GetUserIdByNameAndPassword(string userName, string password);
+
+		UserPaginatorDataModel GetUserPaginatorDataModel(int page, int perPage);
+	}
         IEnumerable<Models.Recipe.Recipe> GetFavoriteByUser(int userId);
     }
 }

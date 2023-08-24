@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GamerShop.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/_ClubList.css" asp-append-version="true" />
+
+    @RenderSection("Style", false)
 </head>
 <body>
     <header>
@@ -26,9 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a>
                         </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" href="/Auth/Login">Login</a>
-	                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Auth/Login">Login</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Auth/Register">Register</a>
                         </li>
@@ -37,7 +39,7 @@
 	                    </li>
                          <li class="nav-item">
                             <a class="nav-link text-dark" href="/BaldursGate/CharacterCreation">Create Hero</a>
-	                    </li>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/BaldursGate/CharacterList">Hero List</a>
                         </li>
@@ -62,7 +64,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/PCBuild/Index">PCBuild</a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-dark" href="/FootballClubs/NewClub">New Club</a>
                         </li>
                         <li class="nav-item">
@@ -82,6 +84,7 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - GamerShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            @RenderSection("AdditionalInfoInFooter", false)
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

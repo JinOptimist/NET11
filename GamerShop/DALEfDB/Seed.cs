@@ -6,6 +6,8 @@ namespace DALEfDB
 {
 	public class Seed
 	{
+		public const int MINIMUM_USER_COUNT = 100;
+
 		public void Fill(IServiceProvider services)
 		{
 			using (var scope = services.CreateScope())
@@ -49,7 +51,7 @@ namespace DALEfDB
 		private void FillUsers(IServiceProvider provider)
 		{
 			var userRepository = provider.GetService<IUserRepository>();
-			if (!userRepository.GetAll().Any())
+			if (userRepository.Count() <= 0)
 			{
 				var admin = new User
 				{
@@ -66,6 +68,20 @@ namespace DALEfDB
 					Birthday = DateTime.Now,
 				};
 				userRepository.Save(user);
+			}
+
+			if (userRepository.Count() < MINIMUM_USER_COUNT)
+			{
+				for (int i = 0; i < MINIMUM_USER_COUNT; i++)
+				{
+					var user = new User
+					{
+						Name = $"Bot{i}",
+						Password = "123",
+						Birthday = DateTime.Now,
+					};
+					userRepository.Save(user);
+				}
 			}
 		}
 	}

@@ -1,16 +1,12 @@
-﻿using DALInterfaces.Models;
-using DALInterfaces.Repositories;
-using DALWrongDB.Repositories;
-using GamerShop.Models.BaldursGate;
+﻿using GamerShop.Models.BaldursGate;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using BusinessLayerInterfaces.BgServices;
 using BusinessLayerInterfaces.BusinessModels;
 using GamerShop.Services;
 
 namespace GamerShop.Controllers.BaldursGate
 {
-    public class BaldursGateController : Controller
+	public class BaldursGateController : Controller
 
     {
         private IBgServices _bgServices;
