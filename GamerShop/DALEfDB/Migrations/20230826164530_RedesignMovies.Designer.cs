@@ -4,6 +4,7 @@ using DALEfDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20230826164530_RedesignMovies")]
+    partial class RedesignMovies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +109,7 @@ namespace DALEfDB.Migrations
                     b.ToTable("Heros");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
+            modelBuilder.Entity("DALInterfaces.Models.Movie.Collection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -131,7 +134,33 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Collections");
+                    b.ToTable("Collection");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Movie.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CollectionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollectionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Genre", b =>
@@ -148,7 +177,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genre");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Movie", b =>
@@ -187,32 +216,6 @@ namespace DALEfDB.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.Movies.Rating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CollectionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CollectionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.RockMember", b =>
@@ -291,7 +294,7 @@ namespace DALEfDB.Migrations
 
             modelBuilder.Entity("CollectionMovie", b =>
                 {
-                    b.HasOne("DALInterfaces.Models.Movies.Collection", null)
+                    b.HasOne("DALInterfaces.Models.Movie.Collection", null)
                         .WithMany()
                         .HasForeignKey("CollectionsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -304,7 +307,7 @@ namespace DALEfDB.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
+            modelBuilder.Entity("DALInterfaces.Models.Movie.Collection", b =>
                 {
                     b.HasOne("DALInterfaces.Models.User", "Author")
                         .WithMany("Collections")
@@ -315,9 +318,9 @@ namespace DALEfDB.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.Movies.Rating", b =>
+            modelBuilder.Entity("DALInterfaces.Models.Movie.Rating", b =>
                 {
-                    b.HasOne("DALInterfaces.Models.Movies.Collection", "Collection")
+                    b.HasOne("DALInterfaces.Models.Movie.Collection", "Collection")
                         .WithMany("Ratings")
                         .HasForeignKey("CollectionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -358,7 +361,7 @@ namespace DALEfDB.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
+            modelBuilder.Entity("DALInterfaces.Models.Movie.Collection", b =>
                 {
                     b.Navigation("Ratings");
                 });
