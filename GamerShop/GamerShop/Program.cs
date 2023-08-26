@@ -34,7 +34,6 @@ builder.Services.AddScoped<IMovieRepository, DALEfDB.Repositories.MovieRepositor
 
 builder.Services.AddSingleton<IBookRepository>(x => null);
 builder.Services.AddSingleton<IRecipeRepository>(x => null);
-builder.Services.AddSingleton<IRockMemberRepository>(x => null);
 builder.Services.AddSingleton<IPcComponentsRepository>(x => null);
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
