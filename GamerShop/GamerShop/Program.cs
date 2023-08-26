@@ -12,6 +12,8 @@ using DALInterfaces.Repositories;
 using BusinessLayerInterfaces.RockHallServices;
 using BusinessLayer.RockHallServices;
 using DALEfDB;
+using DALInterfaces.Repositories.Movies;
+using DALEfDB.Repositories.Movies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +32,10 @@ builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>
 builder.Services.AddScoped<IRockMemberRepository, DALEfDB.Repositories.RockMemberRepository>();
 builder.Services.AddScoped<IFootballClubRepository, DALEfDB.Repositories.FootballClubRepository>();
 builder.Services.AddScoped<IHeroRepository, DALEfDB.Repositories.BgRepository>();
-builder.Services.AddScoped<IMovieRepository, DALEfDB.Repositories.MovieRepository>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 
 builder.Services.AddSingleton<IBookRepository>(x => null);
 builder.Services.AddSingleton<IRecipeRepository>(x => null);
@@ -39,6 +44,7 @@ builder.Services.AddSingleton<IPcComponentsRepository>(x => null);
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
+builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IPcComponentServices, PcComponentServices>();
 builder.Services.AddScoped<IBgServices, BgServices>();
 builder.Services.AddScoped<IFootballServices, FootballSevices>();
