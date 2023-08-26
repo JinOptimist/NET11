@@ -1,7 +1,6 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
+﻿using BusinessLayerInterfaces.BusinessModels.Movies;
 using BusinessLayerInterfaces.MovieServices;
-using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+using DALInterfaces.Repositories.Movies;
 
 namespace BusinessLayer.MovieServices;
 
@@ -14,29 +13,23 @@ public class MovieServices : IMovieServices
         _movieRepository = movieRepository;
     }
 
-    public void Add(MovieBlm movieBlm)
+    public MovieBlm GetMovieBlm(int id)
     {
-        var movieDb = new Movie()
+        var movieDataModel = _movieRepository.Get(id);
+        var movieBlm = new MovieBlm
         {
-            Title = movieBlm.Title,
-            CreatedDate = movieBlm.CreatedDate
+            Title = movieDataModel.Title,
+            Description = movieDataModel.Description,
+            ReleaseYear = movieDataModel.ReleaseYear,
+            Director = movieDataModel.Director,
+            Rating = movieDataModel.Rating,
+            Country = movieDataModel.Country,
+            Duration = movieDataModel.Duration,
+            Genres = string.Join(", ", movieDataModel
+                .Genres
+                .Select(c => c.Name)
+                .ToList())
         };
-        _movieRepository.Save(movieDb);
+        return movieBlm;
     }
-
-    public void Remove(int id)
-    {
-        _movieRepository.Remove(id);
-    }
-
-    public IEnumerable<MovieBlm> GetAllMovies() => _movieRepository
-        .GetAll()
-        .Select(dbMovie => new MovieBlm()
-        {
-            Id = dbMovie.Id,
-            Title = dbMovie.Title
-        });
-
-    public void ChooseFavorite(int currentUserId, int movieId)
-        => _movieRepository.ChooseFavorite(currentUserId, movieId);
 }
