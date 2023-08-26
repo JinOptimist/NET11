@@ -1,0 +1,35 @@
+﻿@model List<GamerShop.Models.Movies.ShortCollectionViewModel>
+<div>
+    <h2>
+        Добро пожаловать на сайт с подборками фильмов.
+    </h2>
+</div>
+<div>
+    <p>Спосок подборок фильмов:</p>
+</div>
+<div>
+    @foreach (var collection in Model)
+    {
+        <div style="margin-bottom: 10px;">
+            <div>
+                @Html.ActionLink(collection.Title,
+            "Show",
+            "Collection",
+            new { id = collection.Id },
+            new { style = "color: #3498db; margin-left: 5px; text-decoration: none;" })
+                <i style="color: #95a5a6; margin-left: 5px;">@collection.DateCreated.ToShortDateString()</i>
+            </div>
+            <div>
+                <span style="color: #95a5a6; margin-left: 5px;">Rating: <b style="color: #3bb33b; font-size: 1em" >@collection.Rating</b></span>
+            </div>
+            <div>
+                @if (collection.Description != null)
+                {
+                    <i style="margin-left: 5px;">
+                        @collection.Description
+                    </i>
+                }
+            </div>
+        </div>
+    }
+</div>
