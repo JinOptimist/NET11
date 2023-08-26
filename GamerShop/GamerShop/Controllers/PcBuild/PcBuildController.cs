@@ -17,21 +17,37 @@ public class PcBuildController : Controller
         _buildServices = buildServices;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int page = 1, int perPage = 10)
     {
-        var viewModel = _buildServices
-            .GetAllBuildsInShortType()
-            .Select(build => new BuildsIndexViewModel()
-            {
-                UserName = build.UserName,
-                UserPhotoPath = build.MainPhotoPath,
-                Price = build.Price,
-                Rating = build.Rating,
-                BuildName = build.Label,
-                BuildPhotoPath = build.MainPhotoPath,
-                Processor = build.ProcessorName,
-                GPU = build.GPUsNames
-            });
+        var dataFromBl = _buildServices.GetIndexBuildBlm(page, perPage);
+        var addtionalPageNumber = dataFromBl.Count % dataFromBl.PerPage == 0 
+            ? 0 
+            : 1;
+        
+        var availablePages = Enumerable
+            .Range(1, dataFromBl.Count / dataFromBl.PerPage + addtionalPageNumber)
+            .ToList();
+
+        var viewModel = new PaginatorBuildsViewModel
+        {
+            Page = dataFromBl.Page,
+            PerPage = dataFromBl.PerPage,
+            Count = dataFromBl.Count,
+            AvailablePages = availablePages,
+            Builds = dataFromBl
+                .Builds
+                .Select(shortBuildBlm => new BuildsIndexViewModel
+                {
+                    UserName = shortBuildBlm.CreatorName,
+                    Price = shortBuildBlm.Price,
+                    Rating = shortBuildBlm.Rating.ToString(),
+                    BuildName = shortBuildBlm.Label,
+                    BuildPhotoPath = shortBuildBlm.PhotoPath,
+                    Processor = shortBuildBlm.ProcessorName,
+                    GPU = shortBuildBlm.GpuName ?? ""
+                })
+                .ToList()
+        };
         return View(viewModel);
     }
 

@@ -10,8 +10,8 @@ namespace BusinessLayer.PcBuilderServices
         private IBuildRepository _buildRepository;
         private IProcessorRepository _processorRepository;
         private IMotherboardRepository _motherboardRepository;
-        private IRamRepository _ramRepository;
         private IGpuRepository _gpuRepository;
+        private IRamRepository _ramRepository;
         private ISsdRepository _ssdRepository;
         private IHddRepository _hddRepository;
         private ICaseRepository _caseRepository;
@@ -32,21 +32,29 @@ namespace BusinessLayer.PcBuilderServices
             _psuRepository = psuRepository;
         }
 
-        public IEnumerable<IndexBuildBlm> GetAllBuildsInShortType()
+        public IndexBuildBlm GetIndexBuildBlm(int page, int perPage)
         {
-            return _buildRepository
-                .GetAllShortBuilds()//todo
-                .Select(buildDb => new IndexBuildBlm
-                {
-                    Id = buildDb.Id,
-                    Label = buildDb.Label,
-                    ProcessorName = GetFullComponentName(buildDb.Processor),
-                    GPUsNames = GetFullGPUName(buildDb.GPUs),
-                    UserName = buildDb.User.Name,
-                    Rating = buildDb.Rating.ToString(),
-                    Price = buildDb.Price.ToString(), //TODO Price calculate
-                    MainPhotoPath = buildDb.PhotosPath //TODO Photo path
-                });
+            var data = _buildRepository.GetBuildPaginatorDataModel(page, perPage);
+            return new IndexBuildBlm
+            {
+                Count = data.Count,
+                Page = data.Page,
+                PerPage = data.PerPage,
+                Builds = data.Builds
+                    .Where(x => x.IsPrivate == false)
+                    .Select(model => new ShortBuildBlm
+                    {
+                        Id = model.Id,
+                        Label = model.Label,
+                        Price = model.Price.ToString(),
+                        Rating = model.Rating,
+                        CreatorId = model.CreatorId,
+                        CreatorName = model.CreatorName,
+                        DateOfCreate = model.DateOfCreate.ToShortDateString(),
+                        ProcessorName = model.ProcessorName,
+                        GpuName = model.GpuName
+                    }).ToList()
+            };
         }
 
         private IEnumerable<ComponentBlm> GetAllProcessors()
@@ -58,7 +66,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             });
         }
-        
+
         private IEnumerable<ComponentBlm> GetAllCases()
         {
             return _caseRepository.GetAll().Select(c => new ComponentBlm()
@@ -68,7 +76,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             }); 
         }
-        
+
         private IEnumerable<ComponentBlm> GetAllMotherboards()
         {
             return _motherboardRepository.GetAll().Select(c => new ComponentBlm()
@@ -78,7 +86,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             }); 
         }
-        
+
         private IEnumerable<ComponentBlm> GetAllRams()
         {
             return _ramRepository.GetAll().Select(c => new ComponentBlm()
@@ -88,7 +96,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             }); 
         }
-        
+
         private IEnumerable<ComponentBlm> GetAllPsus()
         {
             return _psuRepository.GetAll().Select(c => new ComponentBlm()
@@ -98,7 +106,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             }); 
         }
-        
+
         private IEnumerable<ComponentBlm> GetAllCoolers()
         {
             return _coolerRepository.GetAll().Select(c => new ComponentBlm()
@@ -108,7 +116,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             }); 
         }
-        
+
         private IEnumerable<ComponentBlm> GetAllGpus()
         {
             return _gpuRepository.GetAll().Select(c => new ComponentBlm()
@@ -118,7 +126,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             }); 
         }
-        
+
         private IEnumerable<ComponentBlm> GetAllSsd()
         {
             return _ssdRepository.GetAll().Select(c => new ComponentBlm()
@@ -128,7 +136,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             }); 
         }
-        
+
         private IEnumerable<ComponentBlm> GetAllHdd()
         {
             return _hddRepository.GetAll().Select(c => new ComponentBlm()
@@ -138,7 +146,7 @@ namespace BusinessLayer.PcBuilderServices
                 Price = c.Price
             }); 
         }
-        
+
         public AllComponentsForAddingBlm GetAllComponents()
         {
             return new AllComponentsForAddingBlm()
@@ -154,7 +162,7 @@ namespace BusinessLayer.PcBuilderServices
                 Psus = GetAllPsus()
             };
         }
-        
+
         public IEnumerable<BaseBuildBlm> GetAllBuilds()
         {
             throw new NotImplementedException();
