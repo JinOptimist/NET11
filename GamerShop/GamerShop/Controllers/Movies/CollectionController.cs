@@ -42,6 +42,7 @@ public class CollectionController : Controller
     [Authorize]
     public IActionResult Create()
     {
+        
         var createCollectionViewModel = new CreateCollectionViewModel()
         {
             AvailableMovies = _movieServices.GetAvailableMoviesForSelection()
@@ -60,11 +61,7 @@ public class CollectionController : Controller
     [Authorize]
     public IActionResult Create(CreateCollectionViewModel createCollectionViewModel)
     {
-        if (createCollectionViewModel.AvailableMovies == null || !createCollectionViewModel.AvailableMovies.Any(movie => movie.IsSelected))
-        {
-            ModelState.AddModelError("AvailableMovies", "Необходимо выбрать хотя бы один фильм.");
-        }
-
+        
         if (ModelState.IsValid)
         {
             var collectionBlmForCreate = new CollectionBlmForCreate()
@@ -80,20 +77,14 @@ public class CollectionController : Controller
             };
 
             _collectionService.CreateCollection(collectionBlmForCreate);
-            return RedirectToAction("Show", "Collection");
+            return RedirectToAction("Show", "Site");
         }
-        
-        createCollectionViewModel = new CreateCollectionViewModel()
+
+        if (!createCollectionViewModel.AvailableMovies.Any(movie => movie.IsSelected))
         {
-            AvailableMovies = _movieServices.GetAvailableMoviesForSelection()
-                .Select(s => new ShortMovieViewModelToAddInCollection()
-                {
-                    Id = s.Id,
-                    Title = s.Title,
-                    IsSelected = s.IsSelected,
-                })
-                .ToList(),
-        };
+            ModelState.AddModelError("AvailableMovies", "Необходимо выбрать хотя бы один фильм.");
+        }
+
         return View(createCollectionViewModel);
     }
 }
