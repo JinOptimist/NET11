@@ -7,5 +7,6 @@ namespace DALInterfaces.Repositories.Recipe
     {
         void AddFavorite(FavoriteRecipeDataModel favoriteRecipeDataModel);
         void RemoveFavorite(FavoriteRecipeDataModel favoriteRecipeDataModel);
+        PaginatorRecipeDataModel GetPaginatorRecipeDataModel(int page, int perPage);
     }
 }

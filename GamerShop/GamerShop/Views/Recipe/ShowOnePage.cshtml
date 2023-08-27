@@ -1,12 +1,10 @@
-﻿@using GamerShop.Models.Recipe
-
-@model PaginatorRecipeViewModel
+﻿@model List<GamerShop.Models.Recipe.ShowRecipeViewModel>
 
 <div>Available recipes:</div>
 <div class="recipe-list">
-	@for (int i = 0; i < Model.Recipes.Count; i++)
+	@for (int i = 0; i < Model.Count; i++)
 	{
-		var recipe = Model.Recipes[i];
+		var recipe = Model[i];
 		<div class="recipe-card">
 			<h2 class="recipe-title">@recipe.Title</h2>
 			<p>@recipe.Description</p>
@@ -18,7 +16,7 @@
 			<p>Difficulty level: @recipe.DifficultyLevel</p>
 			<p>Cuisine type: @recipe.Cuisine</p>
 			<a href="~/Recipe/Remove/?id=@recipe.Id">X</a>
-
+            
 			@if (!recipe.IsFavorite)
 			{
 				<a href="~/Recipe/AddFavorite/?recipeId=@recipe.Id">Add to favorites</a>
@@ -40,17 +38,17 @@
 
 			@using (Html.BeginForm("SubmitReview", "Recipe", FormMethod.Post, new { @class = "review-form" }))
 			{
-				@Html.Hidden("RecipeId", Model.Recipes[i].Id)
+				@Html.Hidden("RecipeId", Model[i].Id)
 				<div>
 					@Html.Label( "Rating:")
-					@Html.TextBox("Rating", Model.Recipes[i].NewReview.Rating)
-					@Html.ValidationMessage("Rating", Model.Recipes[i].NewReview.Rating)
+					@Html.TextBox("Rating", Model[i].NewReview.Rating)
+					@Html.ValidationMessage("Rating", Model[i].NewReview.Rating)
 				</div>
 				<div>
 					@Html.Label("Your review:")
-					@Html.TextArea("Text", Model.Recipes[i].NewReview.Text)
+					@Html.TextArea("Text", Model[i].NewReview.Text)
 					@* TODO: Fix validation messages *@
-					@Html.ValidationMessage("Text", Model.Recipes[i].NewReview.Text)
+					@Html.ValidationMessage("Text", Model[i].NewReview.Text)
 				</div>
 				<div>
 					<button type="submit">Submit Review</button>
@@ -59,14 +57,7 @@
 		</div>
 	}
 </div>
-<div class="pages">
-	@foreach (var pageNumber in Model.AvailablePages)
-	{
-		<a href="/Recipe/Shows?page=@pageNumber" class="page-button @(Model.Page == pageNumber ? "active" : "")">@pageNumber</a>
-	}
-</div>
 
 @section Style{
-	<link rel="stylesheet" href="~/css/user.css" />
 	<link rel="stylesheet" href="~/css/recipe.css" />
 }

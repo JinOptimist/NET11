@@ -2,6 +2,7 @@
 using BusinessLayerInterfaces.RecipeServices;
 using DALInterfaces.Models.Recipe;
 using GamerShop.Models.Recipe;
+using GamerShop.Models.Users;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,86 @@ namespace GamerShop.Controllers
 		public IActionResult Index()
 		{
 			return View();
+		}
+
+		[Authorize]
+		[HttpGet]
+		public IActionResult Show(int page = 1, int perPage = 3)
+		{
+			var dataFromBl = _recipeServices.GetPaginatorRecipeBlm(page, perPage);
+			var addtionalPageNumber = dataFromBl.Count % dataFromBl.PerPage == 0
+				? 0
+				: 1;
+
+			var availablePages = Enumerable
+				.Range(1, dataFromBl.Count / dataFromBl.PerPage + addtionalPageNumber)
+				.ToList();
+
+			var currentUserId = _authService.GetCurrentUser().Id;
+			var viewModel = new PaginatorRecipeViewModel
+			{
+				Page = dataFromBl.Page,
+				PerPage = dataFromBl.PerPage,
+				Count = dataFromBl.Count,
+				AvailablePages = availablePages,
+				Recipes = dataFromBl
+					.Recipes
+					.Select(recipeBlm => new ShowRecipeViewModel
+					{
+						Id = recipeBlm.Id,
+						Title = recipeBlm.Title,
+						Description = recipeBlm.Title,
+						Instructions = recipeBlm.Instructions,
+						CookingTime = recipeBlm.CookingTime,
+						PreparationTime = recipeBlm.PreparationTime,
+						Servings = recipeBlm.Servings,
+						DifficultyLevel = recipeBlm.DifficultyLevel,
+						Cuisine = recipeBlm.Cuisine,
+						IsFavorite = _recipeServices.GetFavoriteByUser(currentUserId).Any(blm => blm.Id == recipeBlm.Id),
+						Reviews = _reviewServices.GetRecipeReviews(recipeBlm.Id).Select(reviewBlm => new DisplayReviewViewModel
+						{
+							Rating = reviewBlm.Rating,
+							Text = reviewBlm.Text,
+							Date = reviewBlm.Date,
+							RecipeId = reviewBlm.RecipeId,
+							Username = reviewBlm.Username
+						}).ToList()
+					})
+					.ToList()
+			};
+
+			return View(viewModel);
+		}
+
+		[Authorize]
+		[HttpGet]
+		public IActionResult ShowOnePage()
+		{
+
+			var currentUserId = _authService.GetCurrentUser().Id;
+			var viewModel = _recipeServices.GetAll().Select(recipeBlm => new ShowRecipeViewModel()
+			{
+				Id = recipeBlm.Id,
+				Title = recipeBlm.Title,
+				Description = recipeBlm.Title,
+				Instructions = recipeBlm.Instructions,
+				CookingTime = recipeBlm.CookingTime,
+				PreparationTime = recipeBlm.PreparationTime,
+				Servings = recipeBlm.Servings,
+				DifficultyLevel = recipeBlm.DifficultyLevel,
+				Cuisine = recipeBlm.Cuisine,
+				IsFavorite = _recipeServices.GetFavoriteByUser(currentUserId).Any(blm => blm.Id == recipeBlm.Id),
+				Reviews = _reviewServices.GetRecipeReviews(recipeBlm.Id).Select(reviewBlm => new DisplayReviewViewModel
+				{
+					Rating = reviewBlm.Rating,
+					Text = reviewBlm.Text,
+					Date = reviewBlm.Date,
+					RecipeId = reviewBlm.RecipeId,
+					Username = reviewBlm.Username
+                }).ToList()
+			}).ToList();
+
+			return View(viewModel);
 		}
 
 		[Authorize]
@@ -62,35 +143,6 @@ namespace GamerShop.Controllers
 			return RedirectToAction("Index");
 		}
 
-		[Authorize]
-		[HttpGet]
-		public IActionResult Show()
-		{
-			var currentUserId = _authService.GetCurrentUser().Id;
-			var viewModel = _recipeServices.GetAll().Select(recipeBlm => new ShowRecipeViewModel()
-			{
-				Id = recipeBlm.Id,
-				Title = recipeBlm.Title,
-				Description = recipeBlm.Title,
-				Instructions = recipeBlm.Instructions,
-				CookingTime = recipeBlm.CookingTime,
-				PreparationTime = recipeBlm.PreparationTime,
-				Servings = recipeBlm.Servings,
-				DifficultyLevel = recipeBlm.DifficultyLevel,
-				Cuisine = recipeBlm.Cuisine,
-				IsFavorite = _recipeServices.GetFavoriteByUser(currentUserId).Any(blm => blm.Id == recipeBlm.Id),
-				Reviews = _reviewServices.GetRecipeReviews(recipeBlm.Id).Select(reviewBlm => new DisplayReviewViewModel
-				{
-					Rating = reviewBlm.Rating,
-					Text = reviewBlm.Text,
-					Date = reviewBlm.Date,
-					RecipeId = reviewBlm.RecipeId,
-					Username = reviewBlm.Username
-                }).ToList()
-			}).ToList();
-
-			return View(viewModel);
-		}
 
 		public IActionResult Remove(int id)
 		{
