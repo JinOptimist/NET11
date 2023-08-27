@@ -4,7 +4,9 @@ namespace BusinessLayerInterfaces.MovieServices;
 
 public interface ICollectionService
 {
-    CollectionBlm GetCollectionById(int id);
+    CollectionBlmForShow GetCollectionById(int id);
 
     List<ShortCollectionBlm> GetShortCollectionSortedByDate();
+
+    void CreateCollection(CollectionBlmForCreate collectionBlmForCreate);
 }

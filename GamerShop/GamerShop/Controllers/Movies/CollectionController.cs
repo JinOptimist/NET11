@@ -1,5 +1,8 @@
-﻿using BusinessLayerInterfaces.MovieServices;
+﻿using BusinessLayerInterfaces.BusinessModels.Movies;
+using BusinessLayerInterfaces.MovieServices;
 using GamerShop.Models.Movies;
+using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers.Movies;
@@ -7,10 +10,14 @@ namespace GamerShop.Controllers.Movies;
 public class CollectionController : Controller
 {
     private readonly ICollectionService _collectionService;
+    private readonly IMovieServices _movieServices;
+    private readonly IAuthService _authService;
 
-    public CollectionController(ICollectionService collectionService)
+    public CollectionController(ICollectionService collectionService, IMovieServices movieServices, IAuthService authService)
     {
         _collectionService = collectionService;
+        _movieServices = movieServices;
+        _authService = authService;
     }
 
     [HttpGet]
@@ -29,5 +36,64 @@ public class CollectionController : Controller
         };
 
         return View(collectionViewModel);
+    }
+
+    [HttpGet]
+    [Authorize]
+    public IActionResult Create()
+    {
+        var createCollectionViewModel = new CreateCollectionViewModel()
+        {
+            AvailableMovies = _movieServices.GetAvailableMoviesForSelection()
+                .Select(s => new ShortMovieViewModelToAddInCollection()
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    IsSelected = s.IsSelected,
+                })
+                .ToList(),
+        };
+        return View(createCollectionViewModel);
+    }
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult Create(CreateCollectionViewModel createCollectionViewModel)
+    {
+        if (createCollectionViewModel.AvailableMovies == null || !createCollectionViewModel.AvailableMovies.Any(movie => movie.IsSelected))
+        {
+            ModelState.AddModelError("AvailableMovies", "Необходимо выбрать хотя бы один фильм.");
+        }
+
+        if (ModelState.IsValid)
+        {
+            var collectionBlmForCreate = new CollectionBlmForCreate()
+            {
+                Title = createCollectionViewModel.Title,
+                Description = createCollectionViewModel.Description,
+                MoviesIds = createCollectionViewModel
+                    .AvailableMovies
+                    .Where(s => s.IsSelected)
+                    .Select(s => s.Id)
+                    .ToList(),
+                Author = _authService.GetCurrentUser()
+            };
+
+            _collectionService.CreateCollection(collectionBlmForCreate);
+            return RedirectToAction("Show", "Collection");
+        }
+        
+        createCollectionViewModel = new CreateCollectionViewModel()
+        {
+            AvailableMovies = _movieServices.GetAvailableMoviesForSelection()
+                .Select(s => new ShortMovieViewModelToAddInCollection()
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    IsSelected = s.IsSelected,
+                })
+                .ToList(),
+        };
+        return View(createCollectionViewModel);
     }
 }

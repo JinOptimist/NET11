@@ -32,4 +32,18 @@ public class MovieServices : IMovieServices
         };
         return movieBlm;
     }
+
+    public List<ShortMovieBlmToAddInCollection> GetAvailableMoviesForSelection()
+    {
+        var moviesForSelection = _movieRepository.GetMoviesForSelection();
+        var movieBlmToAddInCollections = moviesForSelection
+            .Select(m => new ShortMovieBlmToAddInCollection()
+            {
+                Id = m.Id,
+                Title = m.Title,
+                IsSelected = false,
+            })
+            .ToList();
+        return movieBlmToAddInCollections;
+    }
 }
