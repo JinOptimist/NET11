@@ -4,11 +4,15 @@ public class CreateBuildAnswerViewModel
 {
     public int ProcessorsId { get; set; }
     public int MotherboardsId { get; set; }
-    public int RamsId { get; set; }
-    public int CasesId { get; set; }
-    public int SsdsId { get; set; }
-    public int HddsId { get; set; }
-    public int CoolersId { get; set; }
-    public int GpusId { get; set; }
-    public int PsusId { get; set; }
+    public int RamId { get; set; }
+    public int RamCount { get; set; }
+    public int CaseId { get; set; }
+    public int SsdId { get; set; }
+    public int SsdCount { get; set; }
+    public int HddId { get; set; }
+    public int HddCount { get; set; }
+    public int CoolerId { get; set; }
+    public int GpuId { get; set; }
+    public int GpuCount { get; set; }
+    public int PsuId { get; set; }
 }

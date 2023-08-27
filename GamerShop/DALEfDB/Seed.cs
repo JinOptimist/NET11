@@ -278,28 +278,22 @@ namespace DALEfDB
 			var coolerRep = provider.GetService<ICoolerRepository>();
 			var psuRep = provider.GetService<IPsuRepository>();
 			var buildRep = provider.GetService<IBuildRepository>();
-			var gpuCollection1 = new List<Gpu>();
-			gpuCollection1.Add(gpuRep.GetAll().First());
-			var ramCollection1 = new List<Ram>();
-			ramCollection1.Add(ramRep.GetAll().First());
-			var ssdCollection1 = new List<Ssd>();
-			ssdCollection1.Add(ssdRep.GetAll().First());
 			if (!buildRep.GetAll().Any())
 			{
 				var build1 = new Build
 				{
 					Processor = processorRep.GetAll().First(),
 					Motherboard = motherboardRep.GetAll().First(),
-					Gpus = gpuCollection1,
+					Gpu = gpuRep.GetAll().First(),
 					isVirtual = true,
 					IsPrivate = false,
 					Case = caseRep.GetAll().First(),
 					Psu = psuRep.GetAll().First(),
-					Rams = ramCollection1,
-					Cooler = coolerRep.GetAll().First(),
-					Ssds = ssdCollection1,
+					Ram = ramRep.GetAll().First(),
+					Cooler = coolerRep.GetAll().First(), 
+					Ssd = ssdRep.GetAll().First(),
 					Creator = userRep.GetAll().First(),
-					Hdds = null,
+					Hdd = hddRep.GetAll().First(),
 					Label = "Best build",
 					Price = 1234,
 					DateOfCreate = DateTime.Now

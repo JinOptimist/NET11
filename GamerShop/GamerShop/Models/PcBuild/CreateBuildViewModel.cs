@@ -14,4 +14,11 @@ public class CreateBuildViewModel
     public List<SelectListItem> Coolers { get; set; }
     public List<SelectListItem> Gpus { get; set; }
     public List<SelectListItem> Psus { get; set; }
+    public List<SelectListItem> ComponentCount { get; set; } = new List<SelectListItem>()
+    {
+        new SelectListItem() {Text = "x1", Value = "1"},
+        new SelectListItem() {Text = "x2", Value = "2"},
+        new SelectListItem() {Text = "x3", Value = "3"},
+        new SelectListItem() {Text = "x4", Value = "4"},
+    };
 }

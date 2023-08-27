@@ -1,4 +1,5 @@
 ﻿using DALInterfaces.DataModels.PcBuild;
+using DALInterfaces.Models;
 using DALInterfaces.Models.PcBuild;
 using DALInterfaces.Repositories.PCBuild;
 
@@ -25,8 +26,7 @@ public class BuildRepository : BaseRepository<Build>, IBuildRepository
                 CreatorName = dbBuild.Creator.Name,
                 CreatorId = dbBuild.Creator.Id,
                 DateOfCreate = dbBuild.DateOfCreate,
-                //GpuName = dbBuild.Gpus == null ? null : GetGpuName(dbBuild.Gpus),
-                GpuName = "sdfgsdfsdf",
+                GpuName = dbBuild.Gpu!.FullName,
                 Price = dbBuild.Price,
                 ProcessorName = dbBuild.Processor.FullName,
                 Rating = dbBuild.Rating,
@@ -42,10 +42,27 @@ public class BuildRepository : BaseRepository<Build>, IBuildRepository
         };
     }
 
-    private string GetGpuName(ICollection<Gpu> gpus)
+    public void CreateBuild(User currentUser, Processor processor, Motherboard motherboard, Gpu? gpu, Case? currentCase,
+        Cooler cooler, Hdd? hdd, Ssd? ssd, Ram ram, Psu psu, int ramCount, int ssdCount, int hddCount, int gpuCount, decimal price)
     {
-        if (gpus.Count == 1)
-            return gpus.First().FullName;
-        return $"{gpus.First().FullName} (x{gpus.Count.ToString()})";
+        var build = new Build()
+        {
+            Creator = currentUser,
+            Processor = processor,
+            Motherboard = motherboard,
+            Gpu = gpu,
+            Case = currentCase,
+            Cooler = cooler,
+            Hdd = hdd,
+            Ssd = ssd,
+            Ram = ram,
+            Psu = psu,
+            RamCount = ramCount,
+            SsdCount = ssdCount,
+            HddCount = hddCount,
+            GpusCount = gpuCount,
+            Price = price
+        };
+        Save(build);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BusinessLayerInterfaces.BusinessModels.PCBuildModels;
 using BusinessLayerInterfaces.PcBuilderServices;
 using DALInterfaces.Models.PcBuild;
+using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.PCBuild;
 
 namespace BusinessLayer.PcBuilderServices
@@ -17,8 +18,9 @@ namespace BusinessLayer.PcBuilderServices
         private ICaseRepository _caseRepository;
         private ICoolerRepository _coolerRepository;
         private IPsuRepository _psuRepository;
+        private IUserRepository _userRepository;
 
-        public PcBuildServices(IBuildRepository buildRepository, IProcessorRepository processorRepository, IMotherboardRepository motherboardRepository, IRamRepository ramRepository, IGpuRepository gpuRepository, ISsdRepository ssdRepository, IHddRepository hddRepository, ICaseRepository caseRepository, ICoolerRepository coolerRepository, IPsuRepository psuRepository)
+        public PcBuildServices(IBuildRepository buildRepository, IProcessorRepository processorRepository, IMotherboardRepository motherboardRepository, IRamRepository ramRepository, IGpuRepository gpuRepository, ISsdRepository ssdRepository, IHddRepository hddRepository, ICaseRepository caseRepository, ICoolerRepository coolerRepository, IPsuRepository psuRepository, IUserRepository userRepository)
         {
             _buildRepository = buildRepository;
             _processorRepository = processorRepository;
@@ -30,6 +32,7 @@ namespace BusinessLayer.PcBuilderServices
             _caseRepository = caseRepository;
             _coolerRepository = coolerRepository;
             _psuRepository = psuRepository;
+            _userRepository = userRepository;
         }
 
         public IndexBuildBlm GetIndexBuildBlm(int page, int perPage)
@@ -57,13 +60,40 @@ namespace BusinessLayer.PcBuilderServices
             };
         }
 
-        public void CreateNewBuild(int currentUserId, int viewModelProcessorsId, int viewModelMotherboardsId, int viewModelGpusId,
-            int viewModelCasesId, int viewModelCoolersId, int viewModelHddsId, int viewModelSsdsId, int viewModelRamsId,
-            int viewModelPsusId)
+        public void CreateNewBuild(int currentUserId, int viewModelProcessorsId, int viewModelMotherboardId, 
+            int viewModelGpuId, int viewModelCaseId, int viewModelCoolerId, int viewModelHddId, int viewModelSsdId, 
+            int viewModelRamId, int viewModelPsuId, int viewModelRamCount, int viewModelSsdCount, int viewModelHddCount, 
+            int viewModelGpuCount)
         {
-            
+            var user = _userRepository.Get(currentUserId);
+            var processor = _processorRepository.Get(viewModelProcessorsId);
+            var motherboard = _motherboardRepository.Get(viewModelMotherboardId);
+            var gpu = _gpuRepository.Get(viewModelGpuId);
+            var ssd = _ssdRepository.Get(viewModelSsdId);
+            var hdd = _hddRepository.Get(viewModelHddId);
+            var ram = _ramRepository.Get(viewModelRamId);
+            var psu = _psuRepository.Get(viewModelPsuId);
+            var currentCase = _caseRepository.Get(viewModelCaseId);
+            var cooler = _coolerRepository.Get(viewModelCoolerId);
+            var price = CalculatePrice(processor, motherboard, gpu, viewModelGpuCount, ssd, 
+                viewModelSsdCount, hdd, viewModelHddCount, ram, viewModelRamCount, psu,
+                currentCase, cooler);
+            _buildRepository.CreateBuild(user, processor, motherboard, gpu, currentCase, cooler, hdd, ssd, ram, psu, 
+                viewModelRamCount, viewModelSsdCount,viewModelHddCount,
+                viewModelGpuCount, price);
         }
 
+        private decimal CalculatePrice(Processor processor, Motherboard motherboard, Gpu? gpu, int gpuCount, Ssd ssd,
+            int ssdCount, Hdd hdd, int hddCount, Ram ram, int ramCount, Psu psu, Case currentCase, Cooler cooler)
+        {
+            var gpusSum = gpu?.Price * gpuCount ?? 0;
+            var ssdSum = ssd?.Price * ssdCount ?? 0;
+            var hddSum = hdd?.Price * hddCount ?? 0;
+            var ramSum = ram?.Price * ramCount ?? 0;
+            return processor.Price + motherboard.Price + gpusSum + ssdSum + hddSum + ramSum + psu.Price +
+                   currentCase.Price + cooler.Price;
+        }
+        
         private IEnumerable<ComponentBlm> GetAllProcessors()
         {
             return _processorRepository.GetAll().Select(c => new ComponentBlm()

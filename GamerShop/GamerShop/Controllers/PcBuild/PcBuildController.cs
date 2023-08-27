@@ -138,9 +138,13 @@ public class PcBuildController : Controller
     public IActionResult CreateBuild(CreateBuildAnswerViewModel viewModel)
     {
         var currentUserId = _authService.GetCurrentUser().Id;
-        _buildServices.CreateNewBuild(currentUserId, viewModel.ProcessorsId, viewModel.MotherboardsId, viewModel.GpusId,
-            viewModel.CasesId, viewModel.CoolersId, viewModel.HddsId, viewModel.SsdsId, viewModel.RamsId,
-            viewModel.PsusId);
+        if (ModelState.IsValid)
+        {
+            return RedirectToAction("Index", "PcBuild");
+        }
+        _buildServices.CreateNewBuild(currentUserId, viewModel.ProcessorsId, viewModel.MotherboardsId, viewModel.GpuId,
+            viewModel.CaseId, viewModel.CoolerId, viewModel.HddId, viewModel.SsdId, viewModel.RamId,
+            viewModel.PsuId, viewModel.RamCount, viewModel.SsdCount, viewModel.HddCount, viewModel.GpuCount);
         return RedirectToAction("Index", "PcBuild");
     }
 
