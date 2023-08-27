@@ -2,7 +2,7 @@
 
 namespace GamerShop.Models.Movies;
 
-public class CollectionViewModel
+public class ShowCollectionViewModel
 {
     public int Id { get; set; }
     public string Title { get; set; }

@@ -9,6 +9,6 @@ public class Collection : BaseModel
     public int AuthorId { get; set; }
 
     public virtual User Author { get; set; }
-    public virtual ICollection<Movies.Movie> Movies { get; set; }
+    public virtual ICollection<Movie> Movies { get; set; }
     public virtual ICollection<Rating> Ratings { get; set; }
 }

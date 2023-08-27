@@ -17,7 +17,7 @@ public class CollectionController : Controller
     public IActionResult Show(int id)
     {
         var collectionBlm = _collectionService.GetCollectionById(id);
-        var collectionViewModel = new CollectionViewModel
+        var collectionViewModel = new ShowCollectionViewModel
         {
             Id = collectionBlm.Id,
             Title = collectionBlm.Title,

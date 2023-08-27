@@ -47,7 +47,7 @@ public class CollectionService : ICollectionService
     public List<ShortCollectionBlm> GetShortCollectionSortedByDate()
     {
         var shortCollectionBlms = _collectionRepository
-            .GetLimitedCollectionSortedByCriteria(OTPUTCOUNT, x => x.DateCreated)
+            .GetLimitedCollectionSortedByCriteria(OTPUTCOUNT, collection => collection.DateCreated)
             .Select(collection => new ShortCollectionBlm
             {
                 Id = collection.Id,

@@ -1,6 +1,6 @@
 ﻿namespace GamerShop.Models.Movies;
 
-public class ShortCollectionViewModel
+public class ShowShortCollectionViewModel
 {
     public int Id { get; set; }
     public string Title { get; set; }

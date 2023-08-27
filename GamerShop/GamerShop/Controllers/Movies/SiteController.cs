@@ -18,7 +18,7 @@ public class SiteController : Controller
     {
         var shortCollectionViewModels = _collectionService
             .GetShortCollectionSortedByDate()
-            .Select(shortCollectionBlm => new ShortCollectionViewModel
+            .Select(shortCollectionBlm => new ShowShortCollectionViewModel
             {
                 Id = shortCollectionBlm.Id,
                 Title = shortCollectionBlm.Title,
