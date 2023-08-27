@@ -4,6 +4,7 @@ using DALEfDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20230826173111_InitialRockBand")]
+    partial class InitialRockBand
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,9 +145,6 @@ namespace DALEfDB.Migrations
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CurrentBandId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EntryYear")
                         .HasColumnType("int");
 
@@ -160,8 +160,6 @@ namespace DALEfDB.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CurrentBandId");
 
                     b.ToTable("RockMembers");
                 });
@@ -195,15 +193,6 @@ namespace DALEfDB.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.RockHall.RockMember", b =>
-                {
-                    b.HasOne("DALInterfaces.Models.RockHall.RockBand", "CurrentBand")
-                        .WithMany("MembersOfTheGroup")
-                        .HasForeignKey("CurrentBandId");
-
-                    b.Navigation("CurrentBand");
-                });
-
             modelBuilder.Entity("DALInterfaces.Models.User", b =>
                 {
                     b.HasOne("DALInterfaces.Models.Movie", "FavoriteMovie")
@@ -216,11 +205,6 @@ namespace DALEfDB.Migrations
             modelBuilder.Entity("DALInterfaces.Models.Movie", b =>
                 {
                     b.Navigation("UsersWhoLikeIt");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.RockHall.RockBand", b =>
-                {
-                    b.Navigation("MembersOfTheGroup");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,8 +1,8 @@
-﻿using BusinessLayerInterfaces.BusinessModels.RockHall;
+﻿using BusinessLayerInterfaces.BusinessModels.RockHall.RockMember;
 using BusinessLayerInterfaces.RockHallServices;
 using BusinessLayerInterfaces.UserServices;
-using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+using DALInterfaces.Models.RockHall;
+using DALInterfaces.Repositories.RockHall;
 
 namespace BusinessLayer.RockHallServices
 {
@@ -27,7 +27,8 @@ namespace BusinessLayer.RockHallServices
                 Genre = dbMember.Genre,
                 YearOfBirth = dbMember.YearOfBirth,
                 EntryYear = dbMember.EntryYear,
-                CreatorName = _homeServices.GetUserById(dbMember.CreatorId).Name
+                CreatorName = _homeServices.GetUserById(dbMember.CreatorId).Name,
+                CurrentBand = dbMember.CurrentBand?.FullName ?? "---"
             })
                 .ToList();
 

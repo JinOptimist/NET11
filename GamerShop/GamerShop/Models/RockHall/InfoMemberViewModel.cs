@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DALInterfaces.Models.RockHall;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace GamerShop.Models.RockHall
@@ -11,5 +12,7 @@ namespace GamerShop.Models.RockHall
         public int EntryYear { get; set; }
         public int YearOfBirth { get; set; }
         public string CreatorName { get; set; }
+        public string CurrentBand { get; set; }
+
     }
 }

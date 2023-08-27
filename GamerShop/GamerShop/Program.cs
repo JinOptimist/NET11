@@ -12,6 +12,8 @@ using DALInterfaces.Repositories;
 using BusinessLayerInterfaces.RockHallServices;
 using BusinessLayer.RockHallServices;
 using DALEfDB;
+using DALInterfaces.Repositories.RockHall;
+using DALEfDB.Repositories.RockHall;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,10 +29,12 @@ builder.Services
 		});
 
 builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
-builder.Services.AddScoped<IRockMemberRepository, DALEfDB.Repositories.RockMemberRepository>();
+builder.Services.AddScoped<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddScoped<IFootballClubRepository, DALEfDB.Repositories.FootballClubRepository>();
 builder.Services.AddScoped<IHeroRepository, DALEfDB.Repositories.BgRepository>();
 builder.Services.AddScoped<IMovieRepository, DALEfDB.Repositories.MovieRepository>();
+builder.Services.AddScoped<IRockBandRepository, RockBandRepository>();
+
 
 builder.Services.AddSingleton<IBookRepository>(x => null);
 builder.Services.AddSingleton<IRecipeRepository>(x => null);
@@ -46,6 +50,8 @@ builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRockBandServices, RockBandServices>();
+
 
 builder.Services.AddHttpContextAccessor();
 

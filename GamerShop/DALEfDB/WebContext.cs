@@ -1,4 +1,5 @@
 ﻿using DALInterfaces.Models;
+using DALInterfaces.Models.RockHall;
 using Microsoft.EntityFrameworkCore;
 
 namespace DALEfDB
@@ -15,7 +16,7 @@ namespace DALEfDB
         public DbSet<Hero> Heros { get; set; }
 
         public DbSet<FootballClub> FootballClubs { get; set; }
-
+        public DbSet<RockBand> RockBands { get; set; }
 
         public WebContext() { }
 

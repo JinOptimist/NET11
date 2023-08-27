@@ -1,12 +1,12 @@
-﻿using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+﻿using DALInterfaces.Models.RockHall;
+using DALInterfaces.Repositories.RockHall;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DALEfDB.Repositories
+namespace DALEfDB.Repositories.RockHall
 {
     public class RockMemberRepository : BaseRepository<RockMember>, IRockMemberRepository
     {

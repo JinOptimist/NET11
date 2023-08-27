@@ -1,12 +1,9 @@
-﻿using DALInterfaces.Repositories;
-using DALInterfaces.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using GamerShop.Models.RockHall;
 using BusinessLayerInterfaces.RockHallServices;
-using BusinessLayer.RockHallServices;
-using BusinessLayerInterfaces.BusinessModels.RockHall;
 using Microsoft.AspNetCore.Authorization;
 using GamerShop.Services;
+using BusinessLayerInterfaces.BusinessModels.RockHall.RockMember;
 
 namespace GamerShop.Controllers.RockHallController
 {
@@ -34,7 +31,8 @@ namespace GamerShop.Controllers.RockHallController
                     Genre = blmMember.Genre,
                     YearOfBirth = blmMember.YearOfBirth,
                     EntryYear = blmMember.EntryYear,
-                    CreatorName = blmMember.CreatorName
+                    CreatorName = blmMember.CreatorName,
+                    CurrentBand = blmMember.CurrentBand,
                 })
                 .ToList();
 
