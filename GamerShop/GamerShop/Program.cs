@@ -12,6 +12,8 @@ using DALInterfaces.Repositories;
 using BusinessLayerInterfaces.RockHallServices;
 using BusinessLayer.RockHallServices;
 using DALEfDB;
+using BusinessLayerInterfaces.BookServices;
+using BusinessLayer.BookServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +46,7 @@ builder.Services.AddScoped<IBgServices, BgServices>();
 builder.Services.AddScoped<IFootballServices, FootballSevices>();
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
+builder.Services.AddScoped<IBookServices, BookServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
