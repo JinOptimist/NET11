@@ -1,6 +1,4 @@
-﻿using DALInterfaces.Models.PcBuild;
-
-namespace DALInterfaces.DataModels.PcBuild;
+﻿namespace DALInterfaces.DataModels.PcBuild;
 
 public class BuildDataModel
 {

@@ -2,8 +2,8 @@
 
 public class CreateBuildAnswerViewModel
 {
-    public int ProcessorsId { get; set; }
-    public int MotherboardsId { get; set; }
+    public int ProcessorId { get; set; }
+    public int MotherboardId { get; set; }
     public int RamId { get; set; }
     public int RamCount { get; set; }
     public int CaseId { get; set; }
@@ -15,4 +15,6 @@ public class CreateBuildAnswerViewModel
     public int GpuId { get; set; }
     public int GpuCount { get; set; }
     public int PsuId { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
 }

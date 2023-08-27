@@ -1,6 +1,4 @@
-﻿using DALInterfaces.DataModels.PcBuild;
-
-namespace GamerShop.Models.PcBuild;
+﻿namespace GamerShop.Models.PcBuild;
 
 public class PaginatorBuildsViewModel
 {

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DALInterfaces.Models.PcBuild;
+﻿namespace DALInterfaces.Models.PcBuild;
 
 public class Cooler : Component
 {

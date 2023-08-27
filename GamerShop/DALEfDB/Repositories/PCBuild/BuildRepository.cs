@@ -41,28 +41,4 @@ public class BuildRepository : BaseRepository<Build>, IBuildRepository
             Builds = builds
         };
     }
-
-    public void CreateBuild(User currentUser, Processor processor, Motherboard motherboard, Gpu? gpu, Case? currentCase,
-        Cooler cooler, Hdd? hdd, Ssd? ssd, Ram ram, Psu psu, int ramCount, int ssdCount, int hddCount, int gpuCount, decimal price)
-    {
-        var build = new Build()
-        {
-            Creator = currentUser,
-            Processor = processor,
-            Motherboard = motherboard,
-            Gpu = gpu,
-            Case = currentCase,
-            Cooler = cooler,
-            Hdd = hdd,
-            Ssd = ssd,
-            Ram = ram,
-            Psu = psu,
-            RamCount = ramCount,
-            SsdCount = ssdCount,
-            HddCount = hddCount,
-            GpusCount = gpuCount,
-            Price = price
-        };
-        Save(build);
-    }
 }

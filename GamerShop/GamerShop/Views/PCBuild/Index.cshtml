@@ -10,7 +10,7 @@
         {
             <div class="col">
                 <div class="card h-100 border-dark mb-3">
-                    <img src="GamerShop/wwwroot/img/PCBuild/qq.jpg" class="card-img-top" alt="ALLO GDE KARTINKA">
+                    <img src="GamerShop\wwwroot\img\PCBuild\qq.png" class="card-img-top" alt="aaa">
                     <div class="card-body text-dark">
                         <h5 class="card-title">@build.BuildName</h5>
                         <p class="card-text">@build.UserName</p>
@@ -18,7 +18,7 @@
                         <p class="card-text">@build.GPU</p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">@build.Price$</small>
+                        <small class="text-muted">@build.Price рублей</small>
                         <small class="text-muted">@build.Rating</small>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
         <ul class="pagination">
             @foreach (var pageNumber in Model.AvailablePages)
             {
-                <li class="page-item"><a class="page-link @(Model.Page == pageNumber ? "active" : "")" href="PcBuild/Index?page=@pageNumber">@pageNumber</a></li> 
+                <li class="page-item"><a class="page-link @(Model.Page == pageNumber ? "active" : "")" href="Index?page=@pageNumber">@pageNumber</a></li> 
             }
         </ul>
     </nav> 

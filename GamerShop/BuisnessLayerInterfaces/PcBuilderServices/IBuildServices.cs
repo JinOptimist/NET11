@@ -9,6 +9,5 @@ public interface IBuildServices
     void Save(BaseBuildBlm buildBlm);
     public AllComponentsForAddingBlm GetAllComponents();
     IndexBuildBlm GetIndexBuildBlm(int page, int perPage);
-    void CreateNewBuild(int currentUserId, int ProcessorsId, int MotherboardsId, int GpusId, int CaseId, int CoolerId, 
-        int HddId, int SsdId, int RamId, int PsuId, int RamCount, int SsdCount, int HddCount, int GpuCount);
+    void CreateNewBuild(NewBuildBlm newBuild);
 }

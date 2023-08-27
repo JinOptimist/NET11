@@ -18,4 +18,8 @@
     <_ContentIncludedByDefault Remove="Views\Shift\Index.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="5.3.1" />
+  </ItemGroup>
+
 </Project>

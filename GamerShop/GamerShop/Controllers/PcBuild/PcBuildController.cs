@@ -1,4 +1,5 @@
-﻿using BusinessLayerInterfaces.PcBuilderServices;
+﻿using BusinessLayerInterfaces.BusinessModels.PCBuildModels;
+using BusinessLayerInterfaces.PcBuilderServices;
 using GamerShop.Services;
 using GamerShop.Models.PcBuild;
 using Microsoft.AspNetCore.Authorization;
@@ -138,17 +139,35 @@ public class PcBuildController : Controller
     public IActionResult CreateBuild(CreateBuildAnswerViewModel viewModel)
     {
         var currentUserId = _authService.GetCurrentUser().Id;
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             return RedirectToAction("Index", "PcBuild");
         }
-        _buildServices.CreateNewBuild(currentUserId, viewModel.ProcessorsId, viewModel.MotherboardsId, viewModel.GpuId,
-            viewModel.CaseId, viewModel.CoolerId, viewModel.HddId, viewModel.SsdId, viewModel.RamId,
-            viewModel.PsuId, viewModel.RamCount, viewModel.SsdCount, viewModel.HddCount, viewModel.GpuCount);
+
+        var newBuild = new NewBuildBlm()
+        {
+            CreatorId = currentUserId,
+            ProcessorId = viewModel.ProcessorId,
+            MotherboardId = viewModel.MotherboardId,
+            GpuId = viewModel.GpuId,
+            GpuCount = viewModel.GpuCount,
+            CurrentCaseId = viewModel.CaseId,
+            CoolerId = viewModel.CoolerId,
+            HddId = viewModel.HddId,
+            HddCount = viewModel.HddCount,
+            SsdId = viewModel.SsdId,
+            SsdCount = viewModel.SsdCount,
+            RamId = viewModel.RamId,
+            RamCount = viewModel.RamCount,
+            PsuId = viewModel.PsuId,
+            Title = viewModel.Title,
+            Description = viewModel.Description
+        };
+        _buildServices.CreateNewBuild(newBuild);
         return RedirectToAction("Index", "PcBuild");
     }
 
-    public IActionResult Remove(int id)
+    public IActionResult Remove(int id) //TODO
     {
         return RedirectToAction("Index", "PcBuild");
     }
