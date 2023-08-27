@@ -1,8 +1,7 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.BusinessModels.PCBuildModels;
-using BusinessLayerInterfaces.PcBuilderServices;
-using GamerShop.Models;
+﻿using BusinessLayerInterfaces.PcBuilderServices;
+using GamerShop.Services;
 using GamerShop.Models.PcBuild;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -10,11 +9,13 @@ namespace GamerShop.Controllers.PcBuild;
 
 public class PcBuildController : Controller
 {
-    private IBuildServices _buildServices;
+    private readonly IBuildServices _buildServices;
+    private readonly IAuthService _authService;
 
-    public PcBuildController(IBuildServices buildServices)
+    public PcBuildController(IBuildServices buildServices, IAuthService authService)
     {
         _buildServices = buildServices;
+        _authService = authService;
     }
 
     public IActionResult Index(int page = 1, int perPage = 10)
@@ -51,31 +52,96 @@ public class PcBuildController : Controller
         return View(viewModel);
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult CreateBuild()
     {
         var allComponents = _buildServices.GetAllComponents();
-        var viewModel = new CrealeBuildShowViewModel()
-        {
-            Cases = allComponents.Cases,
-            Processors = allComponents.Processors,
-            Coolers = allComponents.Coolers,
-            Gpus = allComponents.Gpus,
-            Hdds = allComponents.Hdds,
-            Motherboards = allComponents.Motherboards,
-            Rams = allComponents.Rams,
-            Ssds = allComponents.Ssds,
-            Psus = allComponents.Psus
-        };
-        ViewBag.Cases = new SelectList(allComponents.Cases, "Id", "Name");
-        return View();
+        var viewModel = new CreateBuildViewModel();
+        viewModel.Cases = allComponents
+            .Cases
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        viewModel.Processors = allComponents
+            .Processors
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        viewModel.Motherboards = allComponents
+            .Motherboards
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        viewModel.Ssds = allComponents
+            .Ssds
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        viewModel.Gpus = allComponents
+            .Gpus
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        viewModel.Hdds = allComponents
+            .Hdds
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        viewModel.Coolers = allComponents
+            .Coolers
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        viewModel.Rams = allComponents
+            .Rams
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        viewModel.Psus = allComponents
+            .Psus
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            })
+            .ToList();
+        return View(viewModel);
     }
     
+    [Authorize]
     [HttpPost]
-    public IActionResult CreateBuild(CreateBuildViewModel viewModel)
+    public IActionResult CreateBuild(CreateBuildAnswerViewModel viewModel)
     {
-        var cases = viewModel.Korpus;
-        return View();
+        var currentUserId = _authService.GetCurrentUser().Id;
+        _buildServices.CreateNewBuild(currentUserId, viewModel.ProcessorsId, viewModel.MotherboardsId, viewModel.GpusId,
+            viewModel.CasesId, viewModel.CoolersId, viewModel.HddsId, viewModel.SsdsId, viewModel.RamsId,
+            viewModel.PsusId);
+        return RedirectToAction("Index", "PcBuild");
     }
 
     public IActionResult Remove(int id)

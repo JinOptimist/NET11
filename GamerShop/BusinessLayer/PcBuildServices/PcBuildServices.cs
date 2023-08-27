@@ -57,12 +57,19 @@ namespace BusinessLayer.PcBuilderServices
             };
         }
 
+        public void CreateNewBuild(int currentUserId, int viewModelProcessorsId, int viewModelMotherboardsId, int viewModelGpusId,
+            int viewModelCasesId, int viewModelCoolersId, int viewModelHddsId, int viewModelSsdsId, int viewModelRamsId,
+            int viewModelPsusId)
+        {
+            
+        }
+
         private IEnumerable<ComponentBlm> GetAllProcessors()
         {
             return _processorRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             });
         }
@@ -72,7 +79,7 @@ namespace BusinessLayer.PcBuilderServices
             return _caseRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             }); 
         }
@@ -82,7 +89,7 @@ namespace BusinessLayer.PcBuilderServices
             return _motherboardRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             }); 
         }
@@ -92,7 +99,7 @@ namespace BusinessLayer.PcBuilderServices
             return _ramRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             }); 
         }
@@ -102,7 +109,7 @@ namespace BusinessLayer.PcBuilderServices
             return _psuRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             }); 
         }
@@ -112,7 +119,7 @@ namespace BusinessLayer.PcBuilderServices
             return _coolerRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             }); 
         }
@@ -122,7 +129,7 @@ namespace BusinessLayer.PcBuilderServices
             return _gpuRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             }); 
         }
@@ -132,7 +139,7 @@ namespace BusinessLayer.PcBuilderServices
             return _ssdRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             }); 
         }
@@ -142,7 +149,7 @@ namespace BusinessLayer.PcBuilderServices
             return _hddRepository.GetAll().Select(c => new ComponentBlm()
             {
                 Id = c.Id,
-                Name = GetFullComponentName(c),
+                Name = c.FullName,
                 Price = c.Price
             }); 
         }
@@ -176,21 +183,6 @@ namespace BusinessLayer.PcBuilderServices
         public void Save(BaseBuildBlm buildBlm)
         {
             throw new NotImplementedException();
-        }
-        private string GetFullComponentName(Component? component)
-        {
-            return $"{component.Manufacturer} {component.ModelGroupe} {component.Model}";
-        }
-
-        private List<string> GetFullGPUName(List<Gpu> gpus)
-        {
-            if (gpus.Count == null) return null;
-            var gpusList = new List<string>();
-            foreach (var gpu in gpus)
-            {
-                gpusList.Add($"{gpu.Manufacturer} {gpu.ModelGroupe} {gpu.Model}");
-            }
-            return gpusList;
         }
     }
 }

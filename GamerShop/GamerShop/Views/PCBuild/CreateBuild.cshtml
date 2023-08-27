@@ -1,91 +1,47 @@
+@using GamerShop.Models.PcBuild
 @model GamerShop.Models.PcBuild.CreateBuildViewModel
 
 @using (Html.BeginForm("CreateBuild", "PcBuild", FormMethod.Post))
 {
-
     <div class="form-group">
       <label for="exampleFormControlInput1">Название сборки</label>
       <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Лучшая сборка на диком западе">
     </div>
     <div class="form-group">
       <label for="ProcessorSelect">Процессор:</label>
-      
-      <select class="form-control" id="ProcessorSelect">
-        @*@foreach (var processor in Model.Processors)
-        {
-          <option>@processor.Name</option>
-        }*@
-      </select>
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.ProcessorsId),Model.Processors, new{ @class = "form-control", id = "ProcessorSelect" })
     </div>
     <div class="form-group">
       <label for="MotherboardSelect">Материнская плата:</label>
-      <select class="form-control" id="MotherboardSelect">
-        @*@foreach (var motherboard in Model.Motherboards)
-        {
-          <option>@motherboard.Name</option>
-        }*@
-      </select>
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.MotherboardsId),Model.Motherboards, new{ @class = "form-control", id = "MotherboardSelect" })
     </div>
     <div class="form-group">
-      <label for="GpuSelect1">Видеокарта:</label>
-      <select class="form-control" id="GpuSelect1">
-        @*@foreach (var gpu in Model.Gpus)
-        {
-          <option>@gpu.Name</option>
-        }*@
-      </select>
+      <label for="GpuSelect">Видеокарта:</label>
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.GpusId),Model.Gpus, new{ @class = "form-control", id = "GpuSelect" })
     </div>
     <div class="form-group">
       <label for="RamSelect">Оперативная память:</label>
-      <select class="form-control" id="RamSelect">
-        @*@foreach (var ram in Model.Rams)
-        {
-          <option>@ram.Name</option>
-        }*@
-      </select>
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.RamsId),Model.Rams, new{ @class = "form-control", id = "RamSelect" })
     </div>
     <div class="form-group">
       <label for="HddSelect">Жесткий диск:</label>
-      <select class="form-control" id="HddSelect">
-        @*@foreach (var hdd in Model.Hdds)
-        {
-          <option>@hdd.Name</option>
-        }*@
-      </select>
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.HddsId),Model.Hdds, new{ @class = "form-control", id = "HddSelect" })
     </div>
     <div class="form-group">
       <label for="SsdSelect">Ssd:</label>
-      <select class="form-control" id="SsdSelect">
-        @*@foreach (var ssd in Model.Ssds)
-        {
-          <option>@ssd.Name</option>
-        }*@
-      </select>
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.SsdsId),Model.Ssds, new{ @class = "form-control", id = "SsdSelect" })
     </div>
     <div class="form-group">
       <label for="CoolerSelect">Система охлаждения:</label>
-      <select class="form-control" id="CoolerSelect">
-        @*@foreach (var cooler in Model.Coolers)
-        {
-          <option>@cooler.Name</option>
-        }*@
-      </select>
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.CoolersId),Model.Coolers, new{ @class = "form-control", id = "CoolerSelect" })
     </div>
     <div class="form-group">
       <label for="PsuSelect">Блок питания:</label>
-      <select class="form-control" id="PsuSelect">
-        @*@foreach (var psu in Model.Psus)
-        {
-          <option>@psu.Name</option>
-        }*@
-      </select>
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.PsusId),Model.Psus, new{ @class = "form-control", id = "PsuSelect" })
     </div>
     <div class="form-group">
       <label for="CaseSelect">Корпус:</label>
-      <select class="form-control" id="CaseSelect" asp-for="Korpus.Id" asp-items="ViewBag.Cases">
-        <option selected="selected" disabled="disabled">Выберите кейс</option>
-      </select>
-      
+      @Html.DropDownList(nameof(CreateBuildAnswerViewModel.CasesId),Model.Cases, new{ @class = "form-control", id = "CaseSelect" })
     </div>
     <div class="form-group">
       <label for="Description">Описание</label>
