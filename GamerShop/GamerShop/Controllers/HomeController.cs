@@ -21,10 +21,11 @@ namespace GamerShop.Controllers
         {
             var viewModels = _homeServices
                 .GetLastLoginUsers()
-				.Select(dbUser => new IndexViewModel
+				.Select(blmUser => new IndexViewModel
                 {
-                    Id = dbUser.Id,
-                    Name = dbUser.Name,
+                    Id = blmUser.Id,
+                    Name = blmUser.Name,
+                    FavoriteMovieName = blmUser.FavoriteMovieName
                 })
                 .ToList();
 

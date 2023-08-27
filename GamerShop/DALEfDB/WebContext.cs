@@ -9,13 +9,23 @@ namespace DALEfDB
         public DbSet<Book> Books { get; set; }
         public DbSet<Movie> Movies { get; set; }
 
+
+        public DbSet<RockMember> RockMembers { get; set; }
+
+        public DbSet<Hero> Heros { get; set; }
+
+        public DbSet<FootballClub> FootballClubs { get; set; }
+
+
         public WebContext() { }
 
         public WebContext(DbContextOptions<WebContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Startup.ConnectionString);
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(Startup.ConnectionString);
         }
     }
 }

@@ -11,5 +11,9 @@ namespace DALInterfaces.Repositories
         void Save(DbModel model);
 
         void Remove(int id);
-    }
+
+		void Update(DbModel model);
+
+		int Count();
+	}
 }

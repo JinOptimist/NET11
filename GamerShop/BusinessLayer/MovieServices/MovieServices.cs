@@ -36,4 +36,7 @@ public class MovieServices : IMovieServices
             Id = dbMovie.Id,
             Title = dbMovie.Title
         });
+
+    public void ChooseFavorite(int currentUserId, int movieId)
+        => _movieRepository.ChooseFavorite(currentUserId, movieId);
 }

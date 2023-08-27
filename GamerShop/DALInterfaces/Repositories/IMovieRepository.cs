@@ -2,4 +2,7 @@
 
 namespace DALInterfaces.Repositories;
 
-public interface IMovieRepository : IBaseRepository<Movie> {}
+public interface IMovieRepository : IBaseRepository<Movie>
+{
+    void ChooseFavorite(int currentUserId, int movieId);
+}

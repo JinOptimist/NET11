@@ -1,0 +1,28 @@
+﻿@using GamerShop.Models.Users
+
+@model PaginatorUsersViewModel
+
+<div>
+    All users count @Model.Count PerPage: @Model.PerPage
+    @foreach (var user in Model.Users)
+    {
+        <div>
+            @user.Name [@user.AgeInDays days] (Favorite Movie : @user.FavMovieName)
+        </div>
+    }
+
+    <div class="pages">
+        @foreach (var pageNumber in Model.AvailablePages)
+        {
+            <a href="/User/Index?page=@pageNumber" class="page-button @(Model.Page == pageNumber ? "active" : "")">@pageNumber</a>
+        }
+    </div>
+</div>
+
+@section Style{
+    <link rel="stylesheet" href="~/css/user.css" />
+}
+
+@section AdditionalInfoInFooter{
+    <span>Test</span>
+}

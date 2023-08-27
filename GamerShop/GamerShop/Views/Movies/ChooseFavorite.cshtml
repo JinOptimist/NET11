@@ -1,0 +1,16 @@
+﻿@using GamerShop.Models.Movies
+@model ChooseFavoriteViewModel
+
+@using (Html.BeginForm("ChooseFavorite", "Movies", FormMethod.Post))
+{
+    <div>
+        <h4 style="color: #34495e">Выбери любимый фильм</h4>
+    </div>
+    <div>
+        @Html.DropDownList(nameof(ChooseFavoriteAnswerViewModel.MovieId), Model.AllMoviesSelectListItem, new{ @class = "form-control" })
+    </div>
+    <div>
+        <input type="submit" value="Выбрать" style="background-color: #3498db; color: #fff;
+        padding: 5px 10px; border: none; margin-top: 10px; cursor: pointer; border-radius: 4px;" />
+    </div>
+}

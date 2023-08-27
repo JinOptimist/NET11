@@ -15,27 +15,32 @@ namespace DALEfDB.Repositories
             _dbSet = context.Set<DbModel>();
         }
 
-        public DbModel Get(int id)
-        {
-            return _dbSet.First(x => x.Id == id);
-        }
+		public int Count()
+		    => _dbSet.Count();
 
-        public IEnumerable<DbModel> GetAll()
-        {
-            return _dbSet
-                .ToList();
-        }
+        public virtual DbModel Get(int id)
+            => _dbSet.First(x => x.Id == id);
 
-        public void Remove(int id)
+		public virtual IEnumerable<DbModel> GetAll()
+            => _dbSet.ToList();
+
+        public virtual void Remove(int id)
         {
             _dbSet.Remove(Get(id));
             _context.SaveChanges();
         }
 
-        public void Save(DbModel model)
+        public virtual void Save(DbModel model)
         {
             _dbSet.Add(model);
             _context.SaveChanges();
         }
-    }
+
+        public virtual void Update(DbModel model)
+        {
+            _context.Update(model);
+            _context.SaveChanges();
+        }
+
+	}
 }
