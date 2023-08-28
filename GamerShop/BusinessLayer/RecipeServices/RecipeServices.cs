@@ -131,5 +131,24 @@ namespace BusinessLayer.RecipeServices
 				}).ToList()
 			};
 		}
+
+		public RecipeBlm GetRecipeById(int recipeId)
+		{
+			var recipeDb = _recipeRepository.Get(recipeId);
+			return new RecipeBlm
+			{
+				Id = recipeDb.Id,
+				Title = recipeDb.Title,
+				Description = recipeDb.Title,
+				Instructions = recipeDb.Instructions,
+				CookingTime = recipeDb.CookingTime,
+				PreparationTime = recipeDb.PreparationTime,
+				Servings = recipeDb.Servings,
+				DifficultyLevel = recipeDb.DifficultyLevel,
+				Cuisine = recipeDb.Cuisine,
+				CreatedByUserId = recipeDb.CreatedByUserId,
+				CreatedOn = recipeDb.CreatedOn
+			};
+		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace GamerShop.Models.Recipe
 {
-    public class RecipeViewModel
+    public class AddRecipeViewModel
     {
         [Required(ErrorMessage = "Title is required.")]
         [StringLength(100, ErrorMessage = "Title cannot exceed 100 characters.")]
@@ -33,21 +33,5 @@ namespace GamerShop.Models.Recipe
 
         [Display(Name = "Cuisine")]
         public string Cuisine { get; set; }
-
-        /*public int RecipeId { get; set; }
-
-		[Required(ErrorMessage = "Ingredients are required.")]
-		public List<string> Ingredients { get; set; }
-
-		[Display(Name = "Total Time (minutes)")]
-		public int TotalTime => CookingTime + PreparationTime;
-		[Display(Name = "Image")]
-		public string ImageUrl { get; set; }
-
-		[Display(Name = "Created By")]
-		public string CreatedByUserId { get; set; }
-
-		[Display(Name = "Created On")]
-		public DateTime CreatedOn { get; set; }*/
-    }
+	}
 }

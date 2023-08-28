@@ -1,8 +1,6 @@
 ﻿using BusinessLayerInterfaces.BusinessModels.Recipe;
 using BusinessLayerInterfaces.RecipeServices;
-using DALInterfaces.Models.Recipe;
 using GamerShop.Models.Recipe;
-using GamerShop.Models.Users;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +29,7 @@ namespace GamerShop.Controllers
 
 		[Authorize]
 		[HttpGet]
-		public IActionResult Show(int page = 1, int perPage = 3)
+		public IActionResult ShowAll(int page = 1, int perPage = 3)
 		{
 			var dataFromBl = _recipeServices.GetPaginatorRecipeBlm(page, perPage);
 			var addtionalPageNumber = dataFromBl.Count % dataFromBl.PerPage == 0
@@ -51,12 +49,11 @@ namespace GamerShop.Controllers
 				AvailablePages = availablePages,
 				Recipes = dataFromBl
 					.Recipes
-					.Select(recipeBlm => new ShowRecipeViewModel
+					.Select(recipeBlm => new ShowRecipesViewModel
 					{
 						Id = recipeBlm.Id,
 						Title = recipeBlm.Title,
 						Description = recipeBlm.Title,
-						Instructions = recipeBlm.Instructions,
 						CookingTime = recipeBlm.CookingTime,
 						PreparationTime = recipeBlm.PreparationTime,
 						Servings = recipeBlm.Servings,
@@ -74,17 +71,16 @@ namespace GamerShop.Controllers
 					})
 					.ToList()
 			};
-
 			return View(viewModel);
 		}
 
 		[Authorize]
 		[HttpGet]
-		public IActionResult ShowOnePage()
+		public IActionResult ShowRecipe(int recipeId)
 		{
-
 			var currentUserId = _authService.GetCurrentUser().Id;
-			var viewModel = _recipeServices.GetAll().Select(recipeBlm => new ShowRecipeViewModel()
+			var recipeBlm = _recipeServices.GetRecipeById(recipeId);
+			var viewModel = new ShowRecipeViewModel()
 			{
 				Id = recipeBlm.Id,
 				Title = recipeBlm.Title,
@@ -103,8 +99,8 @@ namespace GamerShop.Controllers
 					Date = reviewBlm.Date,
 					RecipeId = reviewBlm.RecipeId,
 					Username = reviewBlm.Username
-                }).ToList()
-			}).ToList();
+				}).ToList()
+			};
 
 			return View(viewModel);
 		}
@@ -117,7 +113,7 @@ namespace GamerShop.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Add(RecipeViewModel recipeViewModel)
+		public IActionResult Add(AddRecipeViewModel addRecipeViewModel)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -127,14 +123,14 @@ namespace GamerShop.Controllers
 			var currentUserId = _authService.GetCurrentUser().Id;
 			var recipeBlm = new RecipeBlm()
 			{
-				Title = recipeViewModel.Title,
-				Description = recipeViewModel.Title,
-				Instructions = recipeViewModel.Instructions,
-				CookingTime = recipeViewModel.CookingTime,
-				PreparationTime = recipeViewModel.PreparationTime,
-				Servings = recipeViewModel.Servings,
-				DifficultyLevel = recipeViewModel.DifficultyLevel,
-				Cuisine = recipeViewModel.Cuisine,
+				Title = addRecipeViewModel.Title,
+				Description = addRecipeViewModel.Title,
+				Instructions = addRecipeViewModel.Instructions,
+				CookingTime = addRecipeViewModel.CookingTime,
+				PreparationTime = addRecipeViewModel.PreparationTime,
+				Servings = addRecipeViewModel.Servings,
+				DifficultyLevel = addRecipeViewModel.DifficultyLevel,
+				Cuisine = addRecipeViewModel.Cuisine,
 				CreatedByUserId = currentUserId,
 				CreatedOn = DateTime.Now
 			};
@@ -143,11 +139,10 @@ namespace GamerShop.Controllers
 			return RedirectToAction("Index");
 		}
 
-
 		public IActionResult Remove(int id)
 		{
 			_recipeServices.Remove(id);
-			return RedirectToAction("Show");
+			return RedirectToAction("ShowAll");
 		}
 
 		public IActionResult RemoveFavorite(int recipeId)
@@ -170,7 +165,7 @@ namespace GamerShop.Controllers
 				RecipeId = recipeId,
 				UserId = currentUserId
 			});
-			return RedirectToAction("Show");
+			return RedirectToAction("ShowAll");
 		}
 
 		[Authorize]
@@ -201,7 +196,7 @@ namespace GamerShop.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Show");
+                return RedirectToAction("ShowAll");
             }
             var currentUserId = _authService.GetCurrentUser().Id;
 			var reviewBlm = new ReviewBlm
@@ -212,7 +207,7 @@ namespace GamerShop.Controllers
 				Text = viewModel.Text,
             };
             _reviewServices.Save(reviewBlm);
-			return RedirectToAction("Show");
+			return RedirectToAction("ShowAll");
 		}
 
 	}

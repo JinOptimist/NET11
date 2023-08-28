@@ -6,6 +6,6 @@
 		public int Page { get; set; }
 		public List<int> AvailablePages { get; set; } = new List<int>();
 		public int PerPage { get; set; } // 10
-		public List<ShowRecipeViewModel> Recipes { get; set; }
+		public List<ShowRecipesViewModel> Recipes { get; set; }
 	}
 }
