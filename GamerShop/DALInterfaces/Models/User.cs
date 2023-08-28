@@ -1,4 +1,6 @@
-﻿namespace DALInterfaces.Models
+﻿using DALInterfaces.Models.PcBuild;
+
+namespace DALInterfaces.Models
 {
     public class User : BaseModel
     {
