@@ -1,4 +1,4 @@
-﻿ namespace BusinessLayerInterfaces.BusinessModels
+﻿namespace BusinessLayerInterfaces.BusinessModels
 {
 	public class UserBlm
 	{
