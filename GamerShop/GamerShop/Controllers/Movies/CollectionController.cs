@@ -61,6 +61,10 @@ public class CollectionController : Controller
     [Authorize]
     public IActionResult Create(CreateCollectionViewModel createCollectionViewModel)
     {
+        if (!createCollectionViewModel.AvailableMovies.Any(movie => movie.IsSelected))
+        {
+            ModelState.AddModelError("AvailableMovies", "Необходимо выбрать хотя бы один фильм.");
+        }
         
         if (ModelState.IsValid)
         {
@@ -80,10 +84,6 @@ public class CollectionController : Controller
             return RedirectToAction("Show", "Site");
         }
 
-        if (!createCollectionViewModel.AvailableMovies.Any(movie => movie.IsSelected))
-        {
-            ModelState.AddModelError("AvailableMovies", "Необходимо выбрать хотя бы один фильм.");
-        }
 
         return View(createCollectionViewModel);
     }
