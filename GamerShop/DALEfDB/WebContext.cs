@@ -1,6 +1,7 @@
 ﻿using DALInterfaces.Models;
 using DALInterfaces.Models.Recipe;
 using DALInterfaces.Models.PcBuild;
+using DALInterfaces.Models.Movies;
 using Microsoft.EntityFrameworkCore;
 
 namespace DALEfDB
@@ -10,6 +11,9 @@ namespace DALEfDB
         public DbSet<User> Users { get; set; }
 
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Collection> Collections { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
         
