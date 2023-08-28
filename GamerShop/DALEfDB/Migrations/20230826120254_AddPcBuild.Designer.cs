@@ -4,6 +4,7 @@ using DALEfDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20230826120254_AddPcBuild")]
+    partial class AddPcBuild
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +27,66 @@ namespace DALEfDB.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BuildGpu", b =>
+                {
+                    b.Property<int>("BuildsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GpusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BuildsId", "GpusId");
+
+                    b.HasIndex("GpusId");
+
+                    b.ToTable("BuildGpu");
+                });
+
+            modelBuilder.Entity("BuildHdd", b =>
+                {
+                    b.Property<int>("BuildsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HddsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BuildsId", "HddsId");
+
+                    b.HasIndex("HddsId");
+
+                    b.ToTable("BuildHdd");
+                });
+
+            modelBuilder.Entity("BuildRam", b =>
+                {
+                    b.Property<int>("BuildsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RamsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BuildsId", "RamsId");
+
+                    b.HasIndex("RamsId");
+
+                    b.ToTable("BuildRam");
+                });
+
+            modelBuilder.Entity("BuildSsd", b =>
+                {
+                    b.Property<int>("BuildsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SsdsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BuildsId", "SsdsId");
+
+                    b.HasIndex("SsdsId");
+
+                    b.ToTable("BuildSsd");
+                });
 
             modelBuilder.Entity("BuildUser", b =>
                 {
@@ -126,87 +189,6 @@ namespace DALEfDB.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.Recipe.Recipe", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CookingTime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Cuisine")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DifficultyLevel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Instructions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PreparationTime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Servings")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Recipes");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReviewText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reviews");
-                });
-
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Build", b =>
                 {
                     b.Property<int>("Id")
@@ -215,7 +197,7 @@ namespace DALEfDB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CaseId")
+                    b.Property<int>("CaseId")
                         .HasColumnType("int");
 
                     b.Property<int>("CoolerId")
@@ -226,18 +208,6 @@ namespace DALEfDB.Migrations
 
                     b.Property<DateTime>("DateOfCreate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("GpuId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("GpusCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HddCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HddId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsPrivate")
                         .HasColumnType("bit");
@@ -264,19 +234,7 @@ namespace DALEfDB.Migrations
                     b.Property<int>("PsuId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RamCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RamId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SsdCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SsdId")
                         .HasColumnType("int");
 
                     b.Property<bool>("isVirtual")
@@ -290,19 +248,11 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("GpuId");
-
-                    b.HasIndex("HddId");
-
                     b.HasIndex("MotherboardId");
 
                     b.HasIndex("ProcessorId");
 
                     b.HasIndex("PsuId");
-
-                    b.HasIndex("RamId");
-
-                    b.HasIndex("SsdId");
 
                     b.ToTable("Builds");
                 });
@@ -844,38 +794,64 @@ namespace DALEfDB.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RecipeUser", b =>
+            modelBuilder.Entity("BuildGpu", b =>
                 {
-                    b.Property<int>("FavoriteRecipesId")
-                        .HasColumnType("int");
+                    b.HasOne("DALInterfaces.Models.PcBuild.Build", null)
+                        .WithMany()
+                        .HasForeignKey("BuildsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("UsersWhoLikeItId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FavoriteRecipesId", "UsersWhoLikeItId");
-
-                    b.HasIndex("UsersWhoLikeItId");
-
-                    b.ToTable("RecipeUser");
+                    b.HasOne("DALInterfaces.Models.PcBuild.Gpu", null)
+                        .WithMany()
+                        .HasForeignKey("GpusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
+            modelBuilder.Entity("BuildHdd", b =>
                 {
-                    b.HasOne("DALInterfaces.Models.Recipe.Recipe", "Recipe")
+                    b.HasOne("DALInterfaces.Models.PcBuild.Build", null)
                         .WithMany()
-                        .HasForeignKey("RecipeId")
+                        .HasForeignKey("BuildsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DALInterfaces.Models.User", "User")
+                    b.HasOne("DALInterfaces.Models.PcBuild.Hdd", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("HddsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BuildRam", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.PcBuild.Build", null)
+                        .WithMany()
+                        .HasForeignKey("BuildsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Recipe");
+                    b.HasOne("DALInterfaces.Models.PcBuild.Ram", null)
+                        .WithMany()
+                        .HasForeignKey("RamsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("BuildSsd", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.PcBuild.Build", null)
+                        .WithMany()
+                        .HasForeignKey("BuildsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Ssd", null)
+                        .WithMany()
+                        .HasForeignKey("SsdsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BuildUser", b =>
@@ -897,7 +873,9 @@ namespace DALEfDB.Migrations
                 {
                     b.HasOne("DALInterfaces.Models.PcBuild.Case", "Case")
                         .WithMany("Builds")
-                        .HasForeignKey("CaseId");
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DALInterfaces.Models.PcBuild.Cooler", "Cooler")
                         .WithMany("Builds")
@@ -908,14 +886,6 @@ namespace DALEfDB.Migrations
                     b.HasOne("DALInterfaces.Models.User", "Creator")
                         .WithMany("CreatedBuilds")
                         .HasForeignKey("CreatorId");
-
-                    b.HasOne("DALInterfaces.Models.PcBuild.Gpu", "Gpu")
-                        .WithMany("Builds")
-                        .HasForeignKey("GpuId");
-
-                    b.HasOne("DALInterfaces.Models.PcBuild.Hdd", "Hdd")
-                        .WithMany("Builds")
-                        .HasForeignKey("HddId");
 
                     b.HasOne("DALInterfaces.Models.PcBuild.Motherboard", "Motherboard")
                         .WithMany("Builds")
@@ -935,35 +905,17 @@ namespace DALEfDB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DALInterfaces.Models.PcBuild.Ram", "Ram")
-                        .WithMany("Builds")
-                        .HasForeignKey("RamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALInterfaces.Models.PcBuild.Ssd", "Ssd")
-                        .WithMany("Builds")
-                        .HasForeignKey("SsdId");
-
                     b.Navigation("Case");
 
                     b.Navigation("Cooler");
 
                     b.Navigation("Creator");
 
-                    b.Navigation("Gpu");
-
-                    b.Navigation("Hdd");
-
                     b.Navigation("Motherboard");
 
                     b.Navigation("Processor");
 
                     b.Navigation("Psu");
-
-                    b.Navigation("Ram");
-
-                    b.Navigation("Ssd");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.User", b =>
@@ -973,21 +925,6 @@ namespace DALEfDB.Migrations
                         .HasForeignKey("FavoriteMovieId");
 
                     b.Navigation("FavoriteMovie");
-                });
-
-            modelBuilder.Entity("RecipeUser", b =>
-                {
-                    b.HasOne("DALInterfaces.Models.Recipe.Recipe", null)
-                        .WithMany()
-                        .HasForeignKey("FavoriteRecipesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALInterfaces.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersWhoLikeItId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movie", b =>
@@ -1005,16 +942,6 @@ namespace DALEfDB.Migrations
                     b.Navigation("Builds");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Gpu", b =>
-                {
-                    b.Navigation("Builds");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Hdd", b =>
-                {
-                    b.Navigation("Builds");
-                });
-
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Motherboard", b =>
                 {
                     b.Navigation("Builds");
@@ -1026,16 +953,6 @@ namespace DALEfDB.Migrations
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Psu", b =>
-                {
-                    b.Navigation("Builds");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ram", b =>
-                {
-                    b.Navigation("Builds");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ssd", b =>
                 {
                     b.Navigation("Builds");
                 });

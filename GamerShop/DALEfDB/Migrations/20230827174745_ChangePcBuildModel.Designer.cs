@@ -4,6 +4,7 @@ using DALEfDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20230827174745_ChangePcBuildModel")]
+    partial class ChangePcBuildModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,87 +127,6 @@ namespace DALEfDB.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.Recipe.Recipe", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CookingTime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Cuisine")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DifficultyLevel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Instructions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PreparationTime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Servings")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Recipes");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReviewText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Build", b =>
@@ -844,40 +766,6 @@ namespace DALEfDB.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RecipeUser", b =>
-                {
-                    b.Property<int>("FavoriteRecipesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersWhoLikeItId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FavoriteRecipesId", "UsersWhoLikeItId");
-
-                    b.HasIndex("UsersWhoLikeItId");
-
-                    b.ToTable("RecipeUser");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
-                {
-                    b.HasOne("DALInterfaces.Models.Recipe.Recipe", "Recipe")
-                        .WithMany()
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALInterfaces.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("BuildUser", b =>
                 {
                     b.HasOne("DALInterfaces.Models.PcBuild.Build", null)
@@ -973,21 +861,6 @@ namespace DALEfDB.Migrations
                         .HasForeignKey("FavoriteMovieId");
 
                     b.Navigation("FavoriteMovie");
-                });
-
-            modelBuilder.Entity("RecipeUser", b =>
-                {
-                    b.HasOne("DALInterfaces.Models.Recipe.Recipe", null)
-                        .WithMany()
-                        .HasForeignKey("FavoriteRecipesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALInterfaces.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersWhoLikeItId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movie", b =>
