@@ -107,31 +107,6 @@ namespace BusinessLayer.RecipeServices
             _recipeRepository.AddFavorite(favoriteRecipeDataModel);
         }
 
-		public PaginatorRecipeBlm GetPaginatorRecipeBlm(int page, int perPage)
-		{
-			var data = _recipeRepository.GetPaginatorRecipeDataModel(page, perPage);
-			return new PaginatorRecipeBlm
-			{
-				Count = data.Count,
-				Page = data.Page,
-				PerPage = data.PerPage,
-				Recipes = data.Recipes.Select(x => new RecipeBlm()
-				{
-					Id = x.Id,
-					Title = x.Title,
-					Description = x.Title,
-					Instructions = x.Instructions,
-					CookingTime = x.CookingTime,
-					PreparationTime = x.PreparationTime,
-					Servings = x.Servings,
-					DifficultyLevel = x.DifficultyLevel,
-					Cuisine = x.Cuisine,
-					CreatedByUserId = x.CreatedByUserId,
-					CreatedOn = x.CreatedOn
-				}).ToList()
-			};
-		}
-
 		public RecipeBlm GetRecipeById(int recipeId)
 		{
 			var recipeDb = _recipeRepository.Get(recipeId);
@@ -153,13 +128,13 @@ namespace BusinessLayer.RecipeServices
 
         public PaginatorBlm<RecipeBlm> GetPaginatorBlm(int page, int perPage)
         {
-            var data = _recipeRepository.GetPaginatorRecipeDataModel(page, perPage);
+            var data = _recipeRepository.GetPaginatorDataModel(Map, page, perPage);
             return new PaginatorBlm<RecipeBlm>
             {
                 Count = data.Count,
                 Page = data.Page,
                 PerPage = data.PerPage,
-                Items = data.Recipes.Select(x => new RecipeBlm()
+                Items = data.Items.Select(x => new RecipeBlm()
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -174,6 +149,24 @@ namespace BusinessLayer.RecipeServices
                     CreatedOn = x.CreatedOn
                 }).ToList()
             };
+        }
+
+		private RecipeDataModel Map(Recipe dbRecipe)
+		{
+			return new RecipeDataModel
+			{
+				Id = dbRecipe.Id,
+				Title = dbRecipe.Title,
+				Description = dbRecipe.Title,
+				Instructions = dbRecipe.Instructions,
+				CookingTime = dbRecipe.CookingTime,
+				PreparationTime = dbRecipe.PreparationTime,
+				Servings = dbRecipe.Servings,
+				DifficultyLevel = dbRecipe.DifficultyLevel,
+				Cuisine = dbRecipe.Cuisine,
+				CreatedByUserId = dbRecipe.CreatedByUserId,
+				CreatedOn = dbRecipe.CreatedOn
+			};
         }
     }
 }
