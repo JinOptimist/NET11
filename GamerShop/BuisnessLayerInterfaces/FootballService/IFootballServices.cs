@@ -2,10 +2,10 @@
 
 namespace BusinessLayerInterfaces.FootballService
 {
-    public interface IFootballServices
+    public interface IFootballServices<T>
     {
-        IEnumerable<FootballClubsBlm> GetAll();
-        void Save(FootballClubsBlm footClub);
+        IEnumerable<T> GetAll();
+        void Save(T footballBlM);
         void Delete(int id);
     }
 }

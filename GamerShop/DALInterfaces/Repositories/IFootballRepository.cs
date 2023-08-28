@@ -2,7 +2,7 @@
 
 namespace DALInterfaces.Repositories
 {
-    public interface IFootballClubRepository : IBaseRepository<FootballClub>
+    public interface IFootballRepository<T> : IBaseRepository<T> where T : BaseModel
     {
 
     }

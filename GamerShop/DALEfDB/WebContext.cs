@@ -16,6 +16,7 @@ namespace DALEfDB
 
         public DbSet<FootballClub> FootballClubs { get; set; }
 
+        public DbSet<FootballLegue> FootballLegues { get; set; }
 
         public WebContext() { }
 

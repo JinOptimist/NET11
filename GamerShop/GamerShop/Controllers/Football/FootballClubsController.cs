@@ -1,18 +1,18 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
+﻿using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
-using GamerShop.Models;
+using GamerShop.Models.Football;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace GamerShop.Controllers
+namespace GamerShop.Controllers.Football
 {
     public class FootballClubsController : Controller
     {
-        private IFootballServices _foootballClubsServices;
+        private IFootballServices<FootballClubsBlm> _foootballClubsServices;
         private IAuthService _authService;
 
-        public FootballClubsController(IFootballServices foootballClubsService, IAuthService authService)
+        public FootballClubsController(IFootballServices<FootballClubsBlm> foootballClubsService, IAuthService authService)
         {
             _foootballClubsServices = foootballClubsService;
             _authService = authService;
@@ -21,7 +21,7 @@ namespace GamerShop.Controllers
         [HttpGet]
         public IActionResult NewClub()
         {
-            return View();
+            return View("~/Views/Football/NewClub.cshtml");
         }
 
         [HttpPost]
@@ -33,10 +33,10 @@ namespace GamerShop.Controllers
             {
                 Name = footballClub.Name,
                 Stadium = footballClub.Stadium,
-                Creator = user,
+                Creator = user
             });
 
-            return View();
+            return View("~/Views/Football/NewClub.cshtml");
         }
         public IActionResult ClubsList()
         {
@@ -57,7 +57,7 @@ namespace GamerShop.Controllers
             _foootballClubsServices.Delete(id);
             return RedirectToAction("ClubsList", "FootballClubs");
         }
-
+       
     }
 
 }
