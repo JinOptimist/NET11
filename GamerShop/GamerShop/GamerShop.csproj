@@ -22,4 +22,9 @@
     <PackageReference Include="bootstrap" Version="5.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Collection\Show.cshtml" />
+    <None Include="Views\Site\Show.cshtml" />
+  </ItemGroup>
+
 </Project>
