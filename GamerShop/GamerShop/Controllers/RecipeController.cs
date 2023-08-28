@@ -20,13 +20,7 @@ namespace GamerShop.Controllers
 			_authService = authService;
 			_reviewServices = reviewServices;
 		}
-
-		[HttpGet]
-		public IActionResult Index()
-		{
-			return View();
-		}
-
+		
 		[Authorize]
 		[HttpGet]
 		public IActionResult ShowAll(int page = 1, int perPage = 3)
@@ -136,7 +130,7 @@ namespace GamerShop.Controllers
 			};
 
 			_recipeServices.Save(recipeBlm);
-			return RedirectToAction("Index");
+			return RedirectToAction("ShowAll");
 		}
 
 		public IActionResult Remove(int id)
