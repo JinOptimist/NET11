@@ -1,8 +1,10 @@
-﻿using BusinessLayerInterfaces.BusinessModels.Users;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Users;
+using BusinessLayerInterfaces.Common;
 
 namespace BusinessLayerInterfaces.UserServices
 {
-	public interface IUserService
+	public interface IUserService : IPaginatorServices<UserBlm>
 	{
 		IndexBlm GetIndexBlm(int page, int perPage);
 	}

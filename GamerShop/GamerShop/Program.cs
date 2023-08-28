@@ -19,6 +19,7 @@ using DALEfDB;
 using DALInterfaces.Repositories.Recipe;
 using DALInterfaces.Repositories.Movies;
 using DALEfDB.Repositories.Movies;
+using GamerShop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,9 +67,10 @@ builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<IReviewServices, ReviewServices>();
 builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, BusinessLayer.UserServices.AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBuildServices, PcBuildServices>();
+builder.Services.AddScoped<IPaginatorService, PaginatorService>();
 
 builder.Services.AddHttpContextAccessor();
 

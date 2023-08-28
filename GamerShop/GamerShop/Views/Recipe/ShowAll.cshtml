@@ -1,12 +1,12 @@
 ﻿@using GamerShop.Models.Recipe
 
-@model PaginatorRecipeViewModel
+@model PaginatorViewModel<ShowRecipesViewModel>
 @Html.Partial("_AdditionalRecipeNavbar")
 <h1>Available recipes:</h1>
 <div class="recipe-list">
-	@for (int i = 0; i < Model.Recipes.Count; i++)
+	@for (int i = 0; i < Model.Items.Count; i++)
 	{
-		var recipe = Model.Recipes[i];
+		var recipe = Model.Items[i];
 		<div class="recipe-card">
 			<h2 class="recipe-title">
 				@recipe.Title

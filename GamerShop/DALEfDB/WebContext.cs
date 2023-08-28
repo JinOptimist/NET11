@@ -16,7 +16,7 @@ namespace DALEfDB
         public DbSet<Genre> Genres { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
-        
+
         public DbSet<Review> Reviews { get; set; }
 
         public DbSet<RockMember> RockMembers { get; set; }
@@ -49,10 +49,14 @@ namespace DALEfDB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Movie>()
+                .HasMany(movie => movie.Genres)
+                .WithMany(genre => genre.Movies);
+
             modelBuilder.Entity<User>()
                 .HasMany(x => x.CreatedBuilds)
                 .WithOne(x => x.Creator);
-            
+
             modelBuilder.Entity<User>()
                 .HasMany(x => x.LikedBuilds)
                 .WithMany(x => x.UsersWhoLikeIt);
