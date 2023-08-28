@@ -15,5 +15,8 @@ namespace DALInterfaces.Repositories
 		void Update(DbModel model);
 
 		int Count();
-	}
+
+        void SaveRange(IEnumerable<DbModel> models);
+
+    }
 }

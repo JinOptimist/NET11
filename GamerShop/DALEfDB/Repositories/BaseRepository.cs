@@ -42,5 +42,10 @@ namespace DALEfDB.Repositories
             _context.SaveChanges();
         }
 
-	}
+        public virtual void SaveRange(IEnumerable<DbModel> models)
+        {
+            _dbSet.AddRange(models);
+            _context.SaveChanges();
+        }
+    }
 }

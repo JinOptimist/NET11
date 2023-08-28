@@ -46,5 +46,10 @@ namespace DALEfDB.Repositories
 				Users = users
 			};
 		}
-	}
+	
+        public IEnumerable<DALInterfaces.Models.Recipe.Recipe> GetFavoriteByUser(int userId)
+        {
+            return _dbSet.First(user => user.Id == userId).FavoriteRecipes;
+        }
+    }
 }
