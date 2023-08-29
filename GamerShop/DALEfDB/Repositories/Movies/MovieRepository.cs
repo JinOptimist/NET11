@@ -18,5 +18,8 @@ namespace DALEfDB.Repositories.Movies
                 })
                 .ToList();
         }
+
+        public bool IsMovieExist(string title)
+            => _dbSet.Any(x => x.Title == title);
     }
 }
