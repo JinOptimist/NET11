@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Models.Movies;
 
@@ -11,5 +12,5 @@ public class CreateCollectionViewModel
     [StringLength(500, ErrorMessage = "Максимальная длина описания - 500 символов.")]
     public string? Description { get; set; }
 
-    public List<ShortMovieViewModelToAddInCollection> AvailableMovies { get; set; }
+    public List<SelectListItem> AvailableMovies { get; set; }
 }
