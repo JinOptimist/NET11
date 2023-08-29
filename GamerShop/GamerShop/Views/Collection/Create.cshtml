@@ -2,16 +2,17 @@
 
 <h2>Создание подборки фильмов</h2>
 
-<form method="post" action="@Url.Action("Create", "Collection")">
+@using (Html.BeginForm("Create", "Collection", FormMethod.Post))
+{
     <div class="form-group">
-        <label for="Title">Название подборки:</label>
-        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
-        <span asp-validation-for="Title" class="text-danger"></span>
+        @Html.LabelFor(m => m.Title, "Название подборки:")
+        @Html.TextBoxFor(m=>m.Title, new {@class="form-control"})
+        @Html.ValidationMessageFor(m=>m.Title, null, new {@class="text-danger"})
     </div>
 
     <div class="form-group">
-        <label for="Description">Описание:</label>
-        <textarea class="form-control" id="Description" name="Description">@Model.Description</textarea>
+        @Html.LabelFor(m => m.Description, "Описание:")
+        @Html.TextAreaFor(m=>m.Description, new {@class="form-control"})
     </div>
 
     <div class="form-group">
@@ -20,17 +21,17 @@
             @for (int i = 0; i < Model.AvailableMovies.Count; i++)
             {
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="AvailableMovies[@i].IsSelected" name="AvailableMovies[@i].IsSelected" value="true" @(Model.AvailableMovies[i].IsSelected ? "checked" : "")>
-                    <label class="form-check-label" for="AvailableMovies[@i].IsSelected">@Model.AvailableMovies[i].Title</label>
-                    <input type="hidden" name="AvailableMovies[@i].Id" value="@Model.AvailableMovies[i].Id">
-                    <input type="hidden" name="AvailableMovies[@i].Title" value="@Model.AvailableMovies[i].Title">
+                    @Html.CheckBoxFor(m=>m.AvailableMovies[i].Selected)
+                    @Model.AvailableMovies[i].Text
+                    @Html.HiddenFor(m=>m.AvailableMovies[i].Value)
+                    @Html.HiddenFor(m=>m.AvailableMovies[i].Text)
                 </div>
             }
+            @Html.ValidationMessageFor(m=>m.AvailableMovies, null, new {@class="text-danger"})
         </ul>
-        <span asp-validation-for="AvailableMovies" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Создать подборку</button>
     </div>
-</form>
+}
