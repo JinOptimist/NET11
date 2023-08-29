@@ -41,7 +41,6 @@ public class MovieServices : IMovieServices
             {
                 Id = m.Id,
                 Title = m.Title,
-                IsSelected = false,
             })
             .ToList();
         return movieBlmToAddInCollections;
