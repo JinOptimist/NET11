@@ -4,6 +4,7 @@ using GamerShop.Models.Movies;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.Movies;
 
@@ -46,11 +47,11 @@ public class CollectionController : Controller
         var createCollectionViewModel = new CreateCollectionViewModel()
         {
             AvailableMovies = _movieServices.GetAvailableMoviesForSelection()
-                .Select(s => new ShortMovieViewModelToAddInCollection()
+                .Select(s => new SelectListItem()
                 {
-                    Id = s.Id,
-                    Title = s.Title,
-                    IsSelected = s.IsSelected,
+                    Value = s.Id.ToString(),
+                    Text = s.Title,
+                    Selected = false
                 })
                 .ToList(),
         };
@@ -61,30 +62,27 @@ public class CollectionController : Controller
     [Authorize]
     public IActionResult Create(CreateCollectionViewModel createCollectionViewModel)
     {
-        if (!createCollectionViewModel.AvailableMovies.Any(movie => movie.IsSelected))
+        if (!createCollectionViewModel.AvailableMovies.Any(movie => movie.Selected))
         {
             ModelState.AddModelError("AvailableMovies", "Необходимо выбрать хотя бы один фильм.");
         }
-        
-        if (ModelState.IsValid)
+
+        if (!ModelState.IsValid) return View(createCollectionViewModel);
+
+        var collectionBlmForCreate = new CollectionBlmForCreate()
         {
-            var collectionBlmForCreate = new CollectionBlmForCreate()
-            {
-                Title = createCollectionViewModel.Title,
-                Description = createCollectionViewModel.Description,
-                MoviesIds = createCollectionViewModel
-                    .AvailableMovies
-                    .Where(s => s.IsSelected)
-                    .Select(s => s.Id)
-                    .ToList(),
-                Author = _authService.GetCurrentUser()
-            };
+            Title = createCollectionViewModel.Title,
+            Description = createCollectionViewModel.Description,
+            MoviesIds = createCollectionViewModel
+                .AvailableMovies
+                .Where(s => s.Selected)
+                .Select(s => int.Parse(s.Value))
+                .ToList(),
+            Author = _authService.GetCurrentUser()
+        };
 
-            _collectionService.CreateCollection(collectionBlmForCreate);
-            return RedirectToAction("Show", "Site");
-        }
+        _collectionService.CreateCollection(collectionBlmForCreate);
+        return RedirectToAction("Show", "Site");
 
-
-        return View(createCollectionViewModel);
     }
 }
