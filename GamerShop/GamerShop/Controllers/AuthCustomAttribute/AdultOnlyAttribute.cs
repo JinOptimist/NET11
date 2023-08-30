@@ -9,7 +9,6 @@ namespace GamerShop.Controllers.AuthCustomAttribute
         {
             // BEFORE ACTION RUN
             var authService = context.HttpContext.RequestServices.GetService<IAuthService>();
-
             if (authService.GetCurrentUser().AgeInDays < 17)
             {
                 context.HttpContext.Response.Redirect("/Auth/PageNotForChild");
