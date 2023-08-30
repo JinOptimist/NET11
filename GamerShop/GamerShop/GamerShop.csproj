@@ -27,4 +27,8 @@
     <None Include="Views\Site\Show.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\AuthCustomAttribute\" />
+  </ItemGroup>
+
 </Project>
