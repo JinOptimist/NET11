@@ -1,4 +1,5 @@
-﻿using DALInterfaces.Models;
+﻿using DALInterfaces.DataModels;
+using DALInterfaces.Models;
 
 namespace DALInterfaces.Repositories
 {
@@ -15,5 +16,12 @@ namespace DALInterfaces.Repositories
 		void Update(DbModel model);
 
 		int Count();
-	}
+
+        void SaveRange(IEnumerable<DbModel> models);
+
+        PaginatorDataModel<DataModelTemplate> GetPaginatorDataModel<DataModelTemplate>(
+            Func<DbModel, DataModelTemplate> map,
+            int page,
+            int perPage);
+    }
 }

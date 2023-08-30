@@ -1,50 +1,55 @@
-﻿@model RecipeViewModel
-
+﻿@model GamerShop.Models.Recipe.AddRecipeViewModel
+@Html.Partial("_AdditionalRecipeNavbar")
+<h1>Add recipe</h1>
 @using (Html.BeginForm("Add", "Recipe", FormMethod.Post))
 {
 	<div>
 		<div>
 			<div>Recipe title</div>
-			@Html.TextBoxFor(model => model.Title)
+			@Html.TextBoxFor(model => model.Title, new { required = "required" })
 			@Html.ValidationMessageFor(model => model.Title)
 		</div>
 		<div>
 			<div>Recipe description</div>
-			@Html.TextAreaFor(model => model.Description)
+			@Html.TextAreaFor(model => model.Description, new { required = "required" })
 			@Html.ValidationMessageFor(model => model.Title)
 		</div>
 		<div>
 			<div>Instructions</div>
-			@Html.TextAreaFor(model => model.Instructions)
+			@Html.TextAreaFor(model => model.Instructions, new {required = "required" })
 			@Html.ValidationMessageFor(model => model.Instructions)
 		</div>
 		<div>
 			<div>Preparation time (minutes)</div>
-			@Html.TextBoxFor(model => model.PreparationTime)
+			@Html.TextBoxFor(model => model.PreparationTime, new { @class = "form-control rating-input", type = "number", min = "1", required = "required" })
 			@Html.ValidationMessageFor(model => model.PreparationTime)
 		</div>
 		<div>
 			<div>Cooking time (minutes)</div>
-			@Html.TextBoxFor(model => model.CookingTime)
+			@Html.TextBoxFor(model => model.CookingTime, new { @class = "form-control rating-input", type = "number", min = "1", required = "required" })
 			@Html.ValidationMessageFor(model => model.CookingTime)
 		</div>
 		<div>
 			<div>Servings amount</div>
-			@Html.TextBoxFor(model => model.Servings)
+			@Html.TextBoxFor(model => model.Servings, new { @class = "form-control rating-input", type = "number", min = "1", required = "required" })
 			@Html.ValidationMessageFor(model => model.Servings)
 		</div>
 		<div>
 			<div>Difficulty level</div>
-			@Html.TextBoxFor(model => model.DifficultyLevel)
+			@Html.TextBoxFor(model => model.DifficultyLevel, new { @class = "form-control rating-input", type = "number", min = "1", max = "5", required = "required" })
 			@Html.ValidationMessageFor(model => model.DifficultyLevel)
 		</div>
 		<div>
 			<div>Cuisine type</div>
-			@Html.TextBoxFor(model => model.Cuisine)
+			@Html.TextBoxFor(model => model.Cuisine, new { required = "required" })
 			@Html.ValidationMessageFor(model => model.Cuisine)
 		</div>
-		<div>
+		<div class="button-container">
 			<input type="submit" value="Add recipe" />
 		</div>
 	</div>
+}
+
+@section Style{
+	<link rel="stylesheet" href="~/css/recipe.css" />
 }

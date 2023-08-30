@@ -1,12 +1,13 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.BusinessModels.Users;
 using BusinessLayerInterfaces.UserServices;
+using DALInterfaces.DataModels;
+using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 
 namespace BusinessLayer.UserServices
 {
-	public class UserService : IUserService
-	{
+    public class UserService : IUserService
+    {
 		private readonly IUserRepository _userRepository;
 
 		public UserService(IUserRepository userRepository)
@@ -14,22 +15,34 @@ namespace BusinessLayer.UserServices
 			_userRepository = userRepository;
 		}
 
-		public IndexBlm GetIndexBlm(int page, int perPage)
+        public PaginatorBlm<UserBlm> GetPaginatorBlm(int page, int perPage)
+        {
+            var data = _userRepository.GetPaginatorDataModel(MapUserToUserDataModel, page, perPage);
+
+            return new PaginatorBlm<UserBlm>
+            {
+                Count = data.Count,
+                Page = data.Page,
+                PerPage = data.PerPage,
+                Items = data.Items.Select(userDataModel => new UserBlm
+                {
+                    Id = userDataModel.Id,
+                    Name = userDataModel.Name,
+                    AgeInDays = (DateTime.Now - userDataModel.Birthday).Days,
+                    FavoriteMovieName = userDataModel.FavoriteMovieName ?? "---"
+                }).ToList()
+            };
+        }
+
+		private UserDataModel MapUserToUserDataModel(User dbUser)
 		{
-			var data = _userRepository.GetUserPaginatorDataModel(page, perPage);
-			return new IndexBlm
-			{
-				Count = data.Count,
-				Page = data.Page,
-				PerPage = data.PerPage,
-				Users = data.Users.Select(userDataModel => new UserBlm
-				{
-					Id = userDataModel.Id,
-					Name = userDataModel.Name,
-					AgeInDays = (DateTime.Now - userDataModel.Birthday).Days,
-					FavoriteMovieName = userDataModel.FavoriteMovieName ?? "---"
-				}).ToList()
-			};
-		}
-	}
+            return new UserDataModel
+            {
+                Id = dbUser.Id,
+                Name = dbUser.Name,
+                Birthday = dbUser.Birthday,
+                FavoriteMovieName = dbUser.FavoriteMovie == null ? null : dbUser.FavoriteMovie.Title
+            };
+        }
+    }
 }

@@ -1,0 +1,173 @@
+﻿.container {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+}
+
+.recipe-container {
+    display: flex;
+    gap: 20px;
+}
+
+.recipe-info {
+    flex: 1;
+}
+
+.recipe-comments {
+    flex: 1;
+}
+
+.recipe-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.recipe-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.recipe-title {
+    margin-top: 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.favorite-star {
+    color: goldenrod;
+}
+
+.user-reviews {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.rating-input {
+    width: 60px;
+}
+
+.review-textarea {
+    resize: none;
+}
+
+input, textarea {
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+
+.review-scrollbar {
+    max-height: 180px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.review {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.review-form {
+    margin-top: 10px;
+}
+
+.reviews-caption {
+    font-weight: bold;
+}
+
+.button-container {
+    margin-top: 10px;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .button-link:hover {
+        color: inherit;
+        text-decoration: none;
+        border: none;
+        outline: none;
+    }
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    margin-right: 2px;
+}
+
+.show-recipe-button {
+    background-color: deepskyblue;
+    color: white;
+    margin-right: 2px;
+}
+
+.favorite-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.page-button {
+    border: 1px #858585 solid;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 3px;
+    text-decoration: none;
+    color: #000;
+    background: #f6f6f6;
+}
+
+    .page-button.active {
+        font-weight: 600;
+        background: #dfdfdf;
+        border: 1px black solid;
+    }
+
+.pages {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
