@@ -1,0 +1,72 @@
+﻿@using GamerShop.Models.Recipe
+
+@model ShowRecipeViewModel
+@Html.Partial("_AdditionalRecipeNavbar")
+<div class="recipe-container">
+    <div class="recipe-info">
+        <h2 class="recipe-title">
+            @Model.Title
+            @if (Model.IsFavorite)
+            {
+                <span class="favorite-star">&#9733;</span>
+            }
+        </h2>
+        <p>@Model.Description</p>
+        <p>Instructions:</p>
+        <p>@Model.Instructions</p>
+        <p>Preparation time: @Model.PreparationTime minutes</p>
+        <p>Cooking time: @Model.CookingTime minutes</p>
+        <p>Servings amount: @Model.Servings</p>
+        <p>Difficulty level: @Model.DifficultyLevel</p>
+	    <p>Cuisine type: @Model.Cuisine</p>
+	    <div class="button-container">
+		    @if (!Model.IsFavorite)
+		    {
+			    <a class="button-link favorite-button" href="~/Recipe/AddFavorite/?recipeId=@Model.Id">Add to favorites</a>
+		    }
+		    <a class="button-link delete-button" href="~/Recipe/Remove/?id=@Model.Id">Delete recipe</a>
+	    </div>
+    </div>
+
+    <div class="recipe-comments">
+        <h3 class="reviews-caption">User reviews:</h3>
+        <div class="user-reviews">
+            <div class="review-scrollbar">
+                @foreach (var review in Model.Reviews)
+                {
+                    <div class="review">
+                        <h5>@review.Username</h5>
+                        <p>@review.Text</p>
+                        <span class="rating">Rating: @review.Rating</span>
+                        <span class="date">@review.Date</span>
+                    </div>
+                }
+            </div>
+        </div>
+        <h3 class="reviews-caption">Write a review:</h3>
+        @using (Html.BeginForm("SubmitReview", "Recipe", FormMethod.Post, new { @class = "review-form" }))
+        {
+            <div class="review-form">
+                @Html.Hidden("RecipeId", Model.Id)
+                <div class="form-group">
+                    <label class="form-label" for="Rating">Rating:</label>
+                    @Html.ValidationMessage("Rating", Model.NewReview.Rating)
+                    @Html.TextBox("Rating", Model.NewReview.Rating, new { @class = "form-control rating-input", type = "number", min = "1", max = "5", required = "required" })
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="Text">Your review:</label>
+                    @Html.TextArea("Text", Model.NewReview.Text, new { @class = "form-control review-textarea", rows = "4", required = "required" })
+                    @Html.ValidationMessage("Text", Model.NewReview.Text)
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="submit-button">Submit Review</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Style{
+    <link rel="stylesheet" href="~/css/recipe.css" />
+}

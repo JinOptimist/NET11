@@ -1,0 +1,59 @@
+﻿@using GamerShop.Models.Recipe
+
+@model PaginatorViewModel<ShowRecipesViewModel>
+@Html.Partial("_AdditionalRecipeNavbar")
+<h1>Available recipes:</h1>
+<div class="recipe-list">
+	@for (int i = 0; i < Model.Items.Count; i++)
+	{
+		var recipe = Model.Items[i];
+		<div class="recipe-card">
+			<h2 class="recipe-title">
+				@recipe.Title
+				@if (recipe.IsFavorite)
+				{
+					<span class="favorite-star">&#9733;</span>
+				}
+			</h2>
+			<p>@recipe.Description</p>
+			<p>Preparation time: @recipe.PreparationTime minutes</p>
+			<p>Cooking time: @recipe.CookingTime minutes</p>
+			<p>Servings amount: @recipe.Servings</p>
+			<p>Difficulty level: @recipe.DifficultyLevel</p>
+			<p>Cuisine type: @recipe.Cuisine</p>
+			
+			<h3 class="reviews-caption">User reviews:</h3>
+			<div class="user-reviews">
+				<div class="review-scrollbar">
+					@foreach (var review in recipe.Reviews)
+					{
+						<div class="review">
+							<h5>@review.Username</h5>
+							<p>@review.Text</p>
+							<span class="rating">Rating: @review.Rating</span>
+							<span class="date">@review.Date</span>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="button-container">
+				<a class="button-link show-recipe-button" href="~/Recipe/ShowRecipe/?recipeId=@recipe.Id">Show recipe</a>
+				<a class="button-link delete-button" href="~/Recipe/Remove/?id=@recipe.Id">Delete recipe</a>
+				@if (!recipe.IsFavorite)
+				{
+					<a class="button-link favorite-button" href="~/Recipe/AddFavorite/?recipeId=@recipe.Id">Add to favorites</a>
+				}
+			</div>
+		</div>
+	}
+</div>
+<div class="pages">
+	@foreach (var pageNumber in Model.AvailablePages)
+	{
+		<a href="/Recipe/ShowAll?page=@pageNumber" class="page-button @(Model.Page == pageNumber ? "active" : "")">@pageNumber</a>
+	}
+</div>
+
+@section Style{
+	<link rel="stylesheet" href="~/css/recipe.css" />
+}
