@@ -1,0 +1,23 @@
+﻿@model List<GamerShop.Models.Recipe.FavoriteRecipeViewModel>
+@{
+	ViewBag.Title = "Favorite Recipes";
+}
+@Html.Partial("_AdditionalRecipeNavbar")
+<h2>Favorite Recipes</h2>
+<div>
+	@foreach (var recipe in Model)
+	{
+		<div>
+			<h2>@recipe.Title</h2>
+			<p>@recipe.Description</p>
+			<p>Instructions:</p>
+			<p>@recipe.Instructions</p>
+			<p>Preparation time: @recipe.PreparationTime minutes</p>
+			<p>Cooking time: @recipe.CookingTime minutes</p>
+			<p>Servings amount: @recipe.Servings</p>
+			<p>Difficulty level: @recipe.DifficultyLevel</p>
+			<p>Cuisine type: @recipe.Cuisine</p>
+			<a href="~/Recipe/RemoveFavorite/?recipeId=@recipe.Id">X</a>
+		</div>
+	}
+</div>

@@ -1,10 +1,10 @@
 ﻿@using GamerShop.Models.Users
 
-@model PaginatorUsersViewModel
+@model PaginatorViewModel<UserViewModel>
 
 <div>
     All users count @Model.Count PerPage: @Model.PerPage
-    @foreach (var user in Model.Users)
+    @foreach (var user in Model.Items)
     {
         <div>
             @user.Name [@user.AgeInDays days] (Favorite Movie : @user.FavMovieName)

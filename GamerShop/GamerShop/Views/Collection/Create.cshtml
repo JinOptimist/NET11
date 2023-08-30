@@ -1,0 +1,36 @@
+﻿@model GamerShop.Models.Movies.CreateCollectionViewModel
+
+<h2>Создание подборки фильмов</h2>
+
+<form method="post" action="@Url.Action("Create", "Collection")">
+    <div class="form-group">
+        <label for="Title">Название подборки:</label>
+        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Описание:</label>
+        <textarea class="form-control" id="Description" name="Description">@Model.Description</textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Выберите фильмы:</label>
+        <ul>
+            @for (int i = 0; i < Model.AvailableMovies.Count; i++)
+            {
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="AvailableMovies[@i].IsSelected" name="AvailableMovies[@i].IsSelected" value="true" @(Model.AvailableMovies[i].IsSelected ? "checked" : "")>
+                    <label class="form-check-label" for="AvailableMovies[@i].IsSelected">@Model.AvailableMovies[i].Title</label>
+                    <input type="hidden" name="AvailableMovies[@i].Id" value="@Model.AvailableMovies[i].Id">
+                    <input type="hidden" name="AvailableMovies[@i].Title" value="@Model.AvailableMovies[i].Title">
+                </div>
+            }
+        </ul>
+        <span asp-validation-for="AvailableMovies" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Создать подборку</button>
+    </div>
+</form>
