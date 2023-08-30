@@ -1,9 +1,9 @@
 ﻿@using GamerShop.Models.RockHall;
-@model List<InfoMemberViewModel>
+@model PaginatorRockMemberViewModel
 
 <div>
     <h1><u>Members of the Rock and Roll Hall of Fame:</u></h1><br />
-    @foreach (var rockMember in Model)
+    @foreach (var rockMember in Model.RockMembers)
     {
         <div>
             <h2>
@@ -22,3 +22,21 @@
         </div>
     }
 </div>
+
+<div>
+    <div class="pages">
+        @foreach (var pageNumber in Model.AvailablePages)
+        {
+            <a href="/RockHall/Index?page=@pageNumber" class="page-button @(Model.Page == pageNumber ? "active" : "")">@pageNumber</a>
+        }
+    </div>
+</div>
+
+
+@section Style{
+    <link rel="stylesheet" href="~/css/rockhall.css" />
+}
+
+@section AdditionalInfoInFooter{
+    <span class="info-footer"> All Rock Members: @Model.Count PerPage: @Model.PerPage</span>
+}

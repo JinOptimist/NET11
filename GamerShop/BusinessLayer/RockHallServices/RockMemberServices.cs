@@ -8,8 +8,8 @@ namespace BusinessLayer.RockHallServices
 {
     public class RockMemberServices : IRockMemberServices
     {
-        private IRockMemberRepository _rockMemberRepository;
-        private IHomeServices _homeServices;
+        private readonly IRockMemberRepository _rockMemberRepository;
+        private readonly IHomeServices _homeServices;
 
         public RockMemberServices(IRockMemberRepository rockMemberRepository, IHomeServices homeServices)
         {
@@ -31,6 +31,29 @@ namespace BusinessLayer.RockHallServices
                 CurrentBand = dbMember.CurrentBand?.FullName ?? "---"
             })
                 .ToList();
+
+        public RockMemberPaginatorBlm GetPaginatorBlm(int page, int perPage)
+        {
+            var data = _rockMemberRepository.GetRockMemberPaginatorDataModel(page, perPage);
+            return new RockMemberPaginatorBlm
+            {
+                Count = data.Count,
+                Page = data.Page,
+                PerPage = data.PerPage,
+                RockMembers = data.RockMembers
+                .Select(dbMember => new RockMemberGetBlm
+                {
+                    Id = dbMember.Id,
+                    FullName = dbMember.FullName,
+                    Genre = dbMember.Genre,
+                    YearOfBirth = dbMember.YearOfBirth,
+                    EntryYear = dbMember.EntryYear,
+                    CreatorName = _homeServices.GetUserById(dbMember.CreatorId).Name,
+                    CurrentBand = dbMember.CurrentBand?.FullName ?? "---"
+                })
+                .ToList()
+            };
+        }
 
         public void Remove(int id)
         {

@@ -5,9 +5,8 @@ namespace BusinessLayerInterfaces.RockHallServices
     public interface IRockMemberServices
     {
         IEnumerable<RockMemberGetBlm> GetAll();
-
         void Remove(int id);
-
         void Save(RockMemberPostBlm rockMemberBlm);
+        RockMemberPaginatorBlm GetPaginatorBlm(int page, int perPage);
     }
 }

@@ -4,6 +4,8 @@ using BusinessLayerInterfaces.RockHallServices;
 using Microsoft.AspNetCore.Authorization;
 using GamerShop.Services;
 using BusinessLayerInterfaces.BusinessModels.RockHall.RockMember;
+using Microsoft.AspNetCore.Diagnostics;
+using GamerShop.Models.Users;
 
 namespace GamerShop.Controllers.RockHallController
 {
@@ -18,24 +20,42 @@ namespace GamerShop.Controllers.RockHallController
             _authService = authService;
         }
 
-        [HttpGet]
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Menu()
         {
-            var viewModel = _rockMemberServices
-                .GetAll()
-                .Select(blmMember => new InfoMemberViewModel
-                {
-                    Id = blmMember.Id,
-                    FullName = blmMember.FullName,
-                    Genre = blmMember.Genre,
-                    YearOfBirth = blmMember.YearOfBirth,
-                    EntryYear = blmMember.EntryYear,
-                    CreatorName = blmMember.CreatorName,
-                    CurrentBand = blmMember.CurrentBand,
-                })
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Index(int page = 1, int perPage = 5)
+        {
+            var dataFromBl = _rockMemberServices.GetPaginatorBlm(page, perPage);
+            var addtionalPageNumber = dataFromBl.Count % dataFromBl.PerPage == 0
+                ? 0
+                : 1;
+
+            var availablePages = Enumerable
+                .Range(1, dataFromBl.Count / dataFromBl.PerPage + addtionalPageNumber)
                 .ToList();
 
+            var viewModel = new PaginatorRockMemberViewModel
+            {
+                Page = dataFromBl.Page,
+                Count = dataFromBl.Count,
+                PerPage = dataFromBl.PerPage,
+                AvailablePages = availablePages,
+                RockMembers = dataFromBl.RockMembers.Select(userBlm => new InfoMemberViewModel
+                {
+                    Id = userBlm.Id,
+                    FullName = userBlm.FullName,
+                    Genre = userBlm.Genre,
+                    EntryYear = userBlm.EntryYear,
+                    YearOfBirth = userBlm.YearOfBirth,
+                    CreatorName = userBlm.CreatorName,
+                    CurrentBand = userBlm.CurrentBand
+                })
+                .ToList()
+            };
             return View(viewModel);
         }
 

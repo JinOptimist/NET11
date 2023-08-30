@@ -101,7 +101,7 @@ namespace DALEfDB
                 };
                 rockBandRepository.Save(theOffspring);
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < MINIMUM_USER_COUNT; i++)
                 {
                     var blink182 = new RockBand
                     {
@@ -116,7 +116,7 @@ namespace DALEfDB
         private void FillRockMembers(IServiceProvider provider)
         {
             var rockMemberRepository = provider.GetService<IRockMemberRepository>();
-            if (rockMemberRepository.Count() <= 0)
+            if (rockMemberRepository.Count() < MINIMUM_USER_COUNT)
             {
                 var paulMcCartney = new RockMember
                 {
@@ -137,10 +137,7 @@ namespace DALEfDB
                     CreatorId = 1
                 };
                 rockMemberRepository.Save(johnLenon);
-            }
 
-            if (rockMemberRepository.Count() < MINIMUM_USER_COUNT)
-            {
                 for (int i = 0; i < MINIMUM_USER_COUNT; i++)
                 {
                     var slash = new RockMember
