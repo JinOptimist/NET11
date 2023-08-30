@@ -77,7 +77,7 @@ namespace BusinessLayer.RecipeServices
 
 		public IEnumerable<RecipeBlm> GetFavoriteByUser(int currentUserId)
 		{
-			return _userRepository.GetFavoriteByUser(currentUserId).Select(favoriteRecipe =>
+			return _recipeRepository.GetFavoriteByUser(currentUserId).Select(favoriteRecipe =>
 			{
 				var recipe = _recipeRepository.Get(favoriteRecipe.Id);
 				return new RecipeBlm()

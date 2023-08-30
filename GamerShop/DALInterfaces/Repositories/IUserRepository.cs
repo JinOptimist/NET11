@@ -10,7 +10,5 @@ namespace DALInterfaces.Repositories
 		int? GetUserIdByNameAndPassword(string userName, string password);
 
 		UserPaginatorDataModel GetUserPaginatorDataModel(int page, int perPage);
-        
-        IEnumerable<Models.Recipe.Recipe> GetFavoriteByUser(int userId);
 	}
 }

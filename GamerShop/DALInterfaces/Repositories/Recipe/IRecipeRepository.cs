@@ -1,5 +1,5 @@
 ﻿using DALInterfaces.DataModels.Recipe;
-using DALInterfaces.Models;
+using DALInterfaces.Models.Recipe;
 
 namespace DALInterfaces.Repositories.Recipe
 {
@@ -8,5 +8,6 @@ namespace DALInterfaces.Repositories.Recipe
         void AddFavorite(FavoriteRecipeDataModel favoriteRecipeDataModel);
         void RemoveFavorite(FavoriteRecipeDataModel favoriteRecipeDataModel);
         PaginatorRecipeDataModel GetPaginatorRecipeDataModel(int page, int perPage);
+        IEnumerable<Models.Recipe.Recipe> GetFavoriteByUser(int currentUserId);
     }
 }
