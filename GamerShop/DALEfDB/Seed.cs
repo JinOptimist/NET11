@@ -1,3 +1,4 @@
+<<<<<<<<< Temporary merge branch 1
 using System.Diagnostics;
 using DALInterfaces.Models;
 using DALInterfaces.Models.PcBuild;
@@ -5,35 +6,57 @@ using DALInterfaces.Models.Movies;
 using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.PCBuild;
 using DALInterfaces.Repositories.Movies;
+=========
+﻿using DALInterfaces.Models;
+using DALInterfaces.Models.RockHall;
+using DALInterfaces.Repositories;
+using DALInterfaces.Repositories.RockHall;
+>>>>>>>>> Temporary merge branch 2
+﻿using DALInterfaces.Models;
+using DALInterfaces.Models.RockHall;
+using DALInterfaces.Repositories;
+using DALInterfaces.Repositories.RockHall;
+>>>>>>>>> Temporary merge branch 2
+﻿using DALInterfaces.Models;
+using DALInterfaces.Models.RockHall;
+using DALInterfaces.Repositories;
+using DALInterfaces.Repositories.RockHall;
+>>>>>>>>> Temporary merge branch 2
+﻿using DALInterfaces.Models;
+using DALInterfaces.Models.RockHall;
+using DALInterfaces.Repositories;
+using DALInterfaces.Repositories.RockHall;
+>>>>>>>>> Temporary merge branch 2
 using Microsoft.Extensions.DependencyInjection;
+<<<<<<<<< Temporary merge branch 1
 using System;
 using DALInterfaces.Repositories.Recipe;
 using DALEfDB.Repositories;
 using DALInterfaces.Models.Recipe;
 using Microsoft.Identity.Client;
 using DALEfDB.Repositories.Recipe;
-using DALInterfaces.Models.RockHall;
+                FillRockMembers(scope.ServiceProvider);
 using DALInterfaces.Repositories.RockHall;
 
 namespace DALEfDB
-{
-    public class Seed
-    {
         public const int MINIMUM_USER_COUNT = 100;
 
         public void Fill(IServiceProvider services)
-        {
+
             using (var scope = services.CreateScope())
             {
                 FillUsers(scope.ServiceProvider);
                 FillRecipes(scope.ServiceProvider);
-                FillRockMembers(scope.ServiceProvider);
+
                 FillPcComponents(scope.ServiceProvider);
                 FillBuilds(scope.ServiceProvider);
                 FillRockBands(scope.ServiceProvider);
                 FillGenres(scope.ServiceProvider);
                 FillMovies(scope.ServiceProvider);
                 FillCollections(scope.ServiceProvider);
+            }
+        }
+                SetFavoriteMovieForAdmin(scope.ServiceProvider);
             }
         }
 
@@ -59,21 +82,117 @@ namespace DALEfDB
                         Description = "Description" + i,
                         DifficultyLevel = random.Next(1, 5).ToString(),
                         Instructions = "Instructions" + i,
-                    };
-                    recipeRepository.Save(recipe);
-                    for (int j = 0; j < random.Next(0, 5); j++)
-                    {
-                        var review = new Review()
-                        {
-                            Recipe = recipeRepository.GetAll().Last(),
-                            User = userRepository.GetAll().First(),
-                            Rating = random.Next(1, 5),
-                            ReviewText = "Review text" + j,
-                            ReviewDate = DateTime.Now
-                        };
+                }
+            }
 
-                        reviewRepository.Save(review);
-                    }
+=========
+                FillMovies(scope.ServiceProvider);
+                FillRockMembers(scope.ServiceProvider);
+                FillRockBands(scope.ServiceProvider);
+
+                SetFavoriteMovieForAdmin(scope.ServiceProvider);
+            }
+        }
+
+        private void SetFavoriteMovieForAdmin(IServiceProvider serviceProvider)
+        {
+            var userRepository = serviceProvider.GetService<IUserRepository>();
+            var user = userRepository.GetAll().First();
+			if (user.FavoriteMovie == null) {
+                var movieRepository = serviceProvider.GetService<IMovieRepository>();
+                var movie = movieRepository.GetAll().First();
+                user.FavoriteMovie = movie;
+                userRepository.Update(user);
+            }
+        }
+
+        private void FillMovies(IServiceProvider serviceProvider)
+        {
+            var movieRepository = serviceProvider.GetService<IMovieRepository>();
+            if (!movieRepository.GetAll().Any())
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    var movie1 = new Movie
+                    {
+                        Title = $"Die Hard {i}",
+                        CreatedDate = new DateTime(2020, 12, 13),
+                    };
+                    movieRepository.Save(movie1);
+                }
+            }
+
+=========
+                FillMovies(scope.ServiceProvider);
+                FillRockMembers(scope.ServiceProvider);
+                FillRockBands(scope.ServiceProvider);
+
+                SetFavoriteMovieForAdmin(scope.ServiceProvider);
+            }
+        }
+
+        private void SetFavoriteMovieForAdmin(IServiceProvider serviceProvider)
+        {
+            var userRepository = serviceProvider.GetService<IUserRepository>();
+            var user = userRepository.GetAll().First();
+			if (user.FavoriteMovie == null) {
+                var movieRepository = serviceProvider.GetService<IMovieRepository>();
+                var movie = movieRepository.GetAll().First();
+                user.FavoriteMovie = movie;
+                userRepository.Update(user);
+            }
+        }
+
+        private void FillMovies(IServiceProvider serviceProvider)
+        {
+            var movieRepository = serviceProvider.GetService<IMovieRepository>();
+            if (!movieRepository.GetAll().Any())
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    var movie1 = new Movie
+                    {
+                        Title = $"Die Hard {i}",
+                        CreatedDate = new DateTime(2020, 12, 13),
+                    };
+                    movieRepository.Save(movie1);
+                }
+            }
+
+=========
+                FillMovies(scope.ServiceProvider);
+                FillRockMembers(scope.ServiceProvider);
+                FillRockBands(scope.ServiceProvider);
+
+                SetFavoriteMovieForAdmin(scope.ServiceProvider);
+            }
+        }
+
+        private void SetFavoriteMovieForAdmin(IServiceProvider serviceProvider)
+        {
+            var userRepository = serviceProvider.GetService<IUserRepository>();
+            var user = userRepository.GetAll().First();
+			if (user.FavoriteMovie == null) {
+                var movieRepository = serviceProvider.GetService<IMovieRepository>();
+                var movie = movieRepository.GetAll().First();
+                user.FavoriteMovie = movie;
+                userRepository.Update(user);
+            }
+        }
+
+        private void FillMovies(IServiceProvider serviceProvider)
+        {
+            var movieRepository = serviceProvider.GetService<IMovieRepository>();
+            if (!movieRepository.GetAll().Any())
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    var movie1 = new Movie
+                    {
+                        Title = $"Die Hard {i}",
+                        CreatedDate = new DateTime(2020, 12, 13),
+                    };
+                    movieRepository.Save(movie1);
                 }
             }
         }
@@ -597,7 +716,29 @@ namespace DALEfDB
                     Country = "США",
                     Director = "Кристофер Нолан",
                     Duration = 148,
-                    Description =
+        private void FillRockBands(IServiceProvider provider)
+        {
+            var rockBandRepository = provider.GetService<IRockBandRepository>();
+            if (!rockBandRepository.GetAll().Any())
+            {
+                var theOffspring = new RockBand
+                {
+                    FullName = "The Offspring",
+                    CreatorId = 1
+                };
+                rockBandRepository.Save(theOffspring);
+
+                for (int i = 0; i < MINIMUM_USER_COUNT; i++)
+                {
+                    var blink182 = new RockBand
+                    {
+                        FullName = $"Blink-18{i}",
+                        CreatorId = 1
+                    };
+                    rockBandRepository.Save(blink182);
+                }
+            }
+        }
                         "Кобб – талантливый вор, лучший из лучших в опасном искусстве извлечения: он крадет ценные секреты из глубин подсознания во время сна, когда человеческий разум наиболее уязвим. Редкие способности Кобба сделали его ценным игроком в привычном к предательству мире промышленного шпионажа, но они же превратили его в извечного беглеца и лишили всего, что он когда-либо любил.\nИ вот у Кобба появляется шанс исправить ошибки. Его последнее дело может вернуть все назад, но для этого ему нужно совершить невозможное – инициацию. Вместо идеальной кражи Кобб и его команда спецов должны будут провернуть обратное. Теперь их задача – не украсть идею, а внедрить ее. Если у них получится, это и станет идеальным преступлением.\nНо никакое планирование или мастерство не могут подготовить команду к встрече с опасным противником, который, кажется, предугадывает каждый их ход. Врагом, увидеть которого мог бы лишь Кобб.",
                     Genres = new List<Genre>
                     {
@@ -632,9 +773,10 @@ namespace DALEfDB
                     Title = "По соображениям совести",
                     ReleaseYear = 2016,
                     Rating = 8.2,
+>>>>>>>>> Temporary merge branch 2
                     Country = "Австралия",
                     Director = "Мэл Гибсон",
-                    Duration = 139,
+=========
                     Description =
                         "Медик американской армии времён Второй мировой войны Десмонд Досс, который служил во время битвы за Окинаву, отказывается убивать людей и становится первым идейным уклонистом в американской истории, удостоенным Медали Почёта.",
                     Genres = new List<Genre>
@@ -671,7 +813,7 @@ namespace DALEfDB
                 var collection = new Collection()
                 {
                     Title = "10 лучших фильмов",
-                    Description = "Лучшие фильмы всех времен.",
+=========
                     DateCreated = DateTime.Now,
                     AuthorId = user.Id,
                     Author = user,
@@ -708,29 +850,7 @@ namespace DALEfDB
             };
         }
         #endregion
-        private void FillRockBands(IServiceProvider provider)
-        {
-            var rockBandRepository = provider.GetService<IRockBandRepository>();
-            if (!rockBandRepository.GetAll().Any())
-            {
-                var theOffspring = new RockBand
-                {
-                    FullName = "The Offspring",
-                    CreatorId = 1
-                };
-                rockBandRepository.Save(theOffspring);
-
-                for (int i = 0; i < MINIMUM_USER_COUNT; i++)
-                {
-                    var blink182 = new RockBand
-                    {
-                        FullName = $"Blink-18{i}",
-                        CreatorId = 1
-                    };
-                    rockBandRepository.Save(blink182);
-                }
-            }
-        }
+=========
         private void FillRockMembers(IServiceProvider provider)
         {
             var rockMemberRepository = provider.GetService<IRockMemberRepository>();
