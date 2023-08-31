@@ -1,0 +1,21 @@
+﻿@model GamerShop.Models.Movies.ShowMovieViewModel
+<div>
+    <h2>
+        @Model.Title (@Model.ReleaseYear)
+    </h2>
+    <span>Рейтинг: <b style="color: #3bb33b; font-size: 1em"> @Model.Rating</b></span>
+</div>
+<div>
+    <h2>
+        О фильме
+    </h2>
+    <div >
+        <p>Год производства: @Model.ReleaseYear</p>
+        <p>Страна: @Model.Country</p>
+        <p>Жанр: @Model.Genres
+        <p>Режиссер: @Model.Director</p>
+        <p>Время: @Model.Duration мин.</p>
+        <h2>Описание:</h2>
+        <p>@Model.Description</p>
+    </div>
+</div>

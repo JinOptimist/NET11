@@ -1,0 +1,32 @@
+﻿@using DALInterfaces.Models.Movies
+@model GamerShop.Models.Movies.ShowCollectionViewModel
+<div>
+    <h2>
+        @Model.Title
+    </h2>
+    <i style="color: #95a5a6;">@Model.AuthorName @Model.DateCreated.ToShortDateString()</i>
+</div>
+<div>
+    <p style="color: #95a5a6;">Rating: <b style="color: #3bb33b; font-size: 1em">@Model.Rating</b></з>
+</div>
+<div>
+    <h2>
+        Описание:
+    </h2>
+    @if (Model.Description != null)
+    {
+        <p>@Model.Description</p>
+    }
+</div>
+<div>
+    @foreach (var movie in @Model.Movies)
+    {
+        <p>
+            @Html.ActionLink(movie.Title,
+                "Show",
+                "Movie",
+                new { id = movie.Id },
+                new { style = "color: #e74c3c; margin-left: 5px; text-decoration: none;" })
+        </p>
+    }
+</div>
