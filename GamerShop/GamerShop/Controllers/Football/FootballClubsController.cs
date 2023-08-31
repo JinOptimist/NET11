@@ -1,18 +1,19 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
-using GamerShop.Models;
+using GamerShop.Models.Football;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace GamerShop.Controllers
+namespace GamerShop.Controllers.Football
 {
     public class FootballClubsController : Controller
     {
-        private IFootballServices _foootballClubsServices;
+        private IFootballServices<FootballClubBlm> _foootballClubsServices;
         private IAuthService _authService;
 
-        public FootballClubsController(IFootballServices foootballClubsService, IAuthService authService)
+        public FootballClubsController(IFootballServices<FootballClubBlm> foootballClubsService, IAuthService authService)
         {
             _foootballClubsServices = foootballClubsService;
             _authService = authService;
@@ -29,7 +30,7 @@ namespace GamerShop.Controllers
         {
             var user = _authService.GetCurrentUser();
 
-            _foootballClubsServices.Save(new FootballClubsBlm
+            _foootballClubsServices.Save(new FootballClubBlm
             {
                 Name = footballClub.Name,
                 Stadium = footballClub.Stadium,

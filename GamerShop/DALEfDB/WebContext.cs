@@ -3,6 +3,7 @@ using DALInterfaces.Models.Recipe;
 using DALInterfaces.Models.PcBuild;
 using DALInterfaces.Models.Movies;
 using Microsoft.EntityFrameworkCore;
+using DALInterfaces.Models.Football;
 
 namespace DALEfDB
 {
@@ -35,6 +36,7 @@ namespace DALEfDB
         public DbSet<Cooler> Coolers { get; set; }
         public DbSet<Case> Cases { get; set; }
         public DbSet<Build> Builds { get; set; }
+        public DbSet<FootballLeague> FootballLeagues { get; set; }
 
         public WebContext() { }
 

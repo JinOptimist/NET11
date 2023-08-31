@@ -1,0 +1,11 @@
+﻿@using GamerShop.Models.Football;
+@model List<FootballLeagueViewModel>
+<div>
+    Список клубов:
+    @foreach (var item in Model)
+    {
+        <div>
+            <p> Полное название:@item.FullName <a class="del" href="~/FootballLeagues/Remove?id=@item.Id">X</a></p>
+        </div>
+    }
+</div>

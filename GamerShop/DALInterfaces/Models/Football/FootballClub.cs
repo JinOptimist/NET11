@@ -1,4 +1,4 @@
-﻿namespace DALInterfaces.Models
+﻿namespace DALInterfaces.Models.Football
 {
     public class FootballClub : BaseModel
     {

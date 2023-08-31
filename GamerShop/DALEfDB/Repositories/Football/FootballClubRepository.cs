@@ -1,7 +1,7 @@
-﻿using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+﻿using DALInterfaces.Models.Football;
+using DALInterfaces.Repositories.Football;
 
-namespace DALEfDB.Repositories
+namespace DALEfDB.Repositories.Football
 {
     public class FootballClubRepository : BaseRepository<FootballClub>, IFootballClubRepository
     {
