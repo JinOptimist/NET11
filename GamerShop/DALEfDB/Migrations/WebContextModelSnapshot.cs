@@ -52,31 +52,6 @@ namespace DALEfDB.Migrations
                     b.ToTable("FootballClubs");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.FootballLegue", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FootballLegues");
-                });
-
             modelBuilder.Entity("DALInterfaces.Models.Hero", b =>
                 {
                     b.Property<int>("Id")

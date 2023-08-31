@@ -1,18 +1,17 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 
 namespace BusinessLayer.FootballServices
 {
-    public class FootballClubSevices : IFootballServices<FootballClubsBlm>
+    public class FootballSevices : IFootballServices
     {
-        private IFootballRepository<FootballClub> _footballClubRepository;
+        private IFootballClubRepository _footballClubRepository;
         private IUserRepository _userRepository;
 
 
-        public FootballClubSevices(IFootballRepository<FootballClub> footballClubRepository, IUserRepository userRepository)
+        public FootballSevices(IFootballClubRepository footballClubRepository, IUserRepository userRepository)
         {
             _footballClubRepository = footballClubRepository;
             _userRepository = userRepository;

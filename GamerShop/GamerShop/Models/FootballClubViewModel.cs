@@ -1,4 +1,4 @@
-﻿namespace GamerShop.Models.Football
+﻿namespace GamerShop.Models
 {
     public class FootballClubViewModel
     {

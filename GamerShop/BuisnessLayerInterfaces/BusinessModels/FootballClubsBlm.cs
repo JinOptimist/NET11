@@ -1,4 +1,4 @@
-﻿namespace BusinessLayerInterfaces.BusinessModels.Football
+﻿namespace BusinessLayerInterfaces.BusinessModels
 {
     public class FootballClubsBlm
     {
