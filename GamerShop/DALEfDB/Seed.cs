@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using DALInterfaces.Models;
 using DALInterfaces.Models.PcBuild;
 using DALInterfaces.Models.Movies;
@@ -6,12 +5,8 @@ using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.PCBuild;
 using DALInterfaces.Repositories.Movies;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using DALInterfaces.Repositories.Recipe;
-using DALEfDB.Repositories;
 using DALInterfaces.Models.Recipe;
-using Microsoft.Identity.Client;
-using DALEfDB.Repositories.Recipe;
 
 namespace DALEfDB
 {
@@ -327,7 +322,7 @@ namespace DALEfDB
         #region Movie Seed
         private void FillGenres(IServiceProvider services)
         {
-            var genreRepository = services.GetService<IGenreRepository>();
+            var genreRepository = services.GetService<IMovieGenreRepository>();
 
             if (!genreRepository.GetAll().Any())
             {
@@ -358,7 +353,7 @@ namespace DALEfDB
         {
             var movieRepository = services.GetService<IMovieRepository>();
 
-            var genreRepository = services.GetService<IGenreRepository>();
+            var genreRepository = services.GetService<IMovieGenreRepository>();
             var genres = genreRepository.GetAll();
 
             var movies = new List<Movie>
@@ -656,8 +651,8 @@ namespace DALEfDB
 
         private void FillCollections(IServiceProvider services)
         {
-            var collectionRepository = services.GetService<ICollectionRepository>();
-            var ratingRepository = services.GetService<IRatingRepository>();
+            var collectionRepository = services.GetService<IMovieCollectionRepository>();
+            var ratingRepository = services.GetService<IMovieRatingRepository>();
             if (!collectionRepository.GetAll().Any())
             {
                 var userRepository = services.GetService<IUserRepository>();

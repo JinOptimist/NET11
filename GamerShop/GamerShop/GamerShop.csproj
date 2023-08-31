@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Collection\Show.cshtml" />
-    <None Include="Views\Site\Show.cshtml" />
+    <None Include="Views\MovieCollection\Show.cshtml" />
+    <None Include="Views\MovieMain\Show.cshtml" />
   </ItemGroup>
 
 </Project>

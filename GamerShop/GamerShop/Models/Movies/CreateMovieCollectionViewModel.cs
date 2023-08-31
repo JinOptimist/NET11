@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Models.Movies;
 
-public class CreateCollectionViewModel
+public class CreateMovieCollectionViewModel
 {
     [Required(ErrorMessage = "Поле 'Название подборки' обязательно.")]
     [StringLength(100, ErrorMessage = "Максимальная длина названия подборки - 100 символов.")]

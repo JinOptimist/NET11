@@ -25,10 +25,11 @@ public class MovieServices : IMovieServices
             Rating = movieDataModel.Rating,
             Country = movieDataModel.Country,
             Duration = movieDataModel.Duration,
-            Genres = string.Join(", ", movieDataModel
-                .Genres
-                .Select(c => c.Name)
-                .ToList())
+            Genres = string
+                .Join(", ", movieDataModel
+                    .Genres
+                    .Select(c => c.Name)
+                    .ToList())
         };
         return movieBlm;
     }
@@ -37,10 +38,10 @@ public class MovieServices : IMovieServices
     {
         var moviesForSelection = _movieRepository.GetMoviesForSelection();
         var movieBlmToAddInCollections = moviesForSelection
-            .Select(m => new ShortMovieBlmToAddInCollection()
+            .Select(m => new ShortMovieBlmToAddInCollection
             {
                 Id = m.Id,
-                Title = m.Title,
+                Title = m.Title
             })
             .ToList();
         return movieBlmToAddInCollections;

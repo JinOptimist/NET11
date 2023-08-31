@@ -2,6 +2,6 @@
 
 namespace DALInterfaces.Repositories.Movies;
 
-public interface IRatingRepository : IBaseRepository<Rating>
+public interface IMovieGenreRepository : IBaseRepository<Genre>
 {
 }

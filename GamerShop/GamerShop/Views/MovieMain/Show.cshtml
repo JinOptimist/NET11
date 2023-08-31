@@ -1,4 +1,4 @@
-﻿@model List<GamerShop.Models.Movies.ShowShortCollectionViewModel>
+﻿@model List<GamerShop.Models.Movies.ShowShortMovieCollectionViewModel>
 <div>
     <h2>
         Добро пожаловать на сайт с подборками фильмов.
@@ -14,7 +14,7 @@
             <div>
                 @Html.ActionLink(collection.Title,
             "Show",
-            "Collection",
+            "MovieCollection",
             new { id = collection.Id },
             new { style = "color: #3498db; margin-left: 5px; text-decoration: none;" })
                 <i style="color: #95a5a6; margin-left: 5px;">@collection.DateCreated.ToShortDateString()</i>

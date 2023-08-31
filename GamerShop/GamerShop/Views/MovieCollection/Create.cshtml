@@ -1,8 +1,8 @@
-﻿@model GamerShop.Models.Movies.CreateCollectionViewModel
+﻿@model GamerShop.Models.Movies.CreateMovieCollectionViewModel
 
 <h2>Создание подборки фильмов</h2>
 
-@using (Html.BeginForm("Create", "Collection", FormMethod.Post))
+@using (Html.BeginForm("Create", "MovieCollection", FormMethod.Post))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Title, "Название подборки:")

@@ -50,16 +50,16 @@ builder.Services.AddScoped<IRamRepository, RamRepository>();
 builder.Services.AddScoped<IPsuRepository, PsuRepository>();
 builder.Services.AddScoped<IProcessorRepository, ProcessorRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IMovieCollectionRepository, MovieCollectionRepository>();
+builder.Services.AddScoped<IMovieGenreRepository, MovieGenreRepository>();
+builder.Services.AddScoped<IMovieRatingRepository, MovieRatingRepository>();
 
 builder.Services.AddSingleton<IBookRepository>(x => null);
 builder.Services.AddSingleton<IRockMemberRepository>(x => null);
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
-builder.Services.AddScoped<ICollectionService, CollectionService>();
+builder.Services.AddScoped<IMovieCollectionService, MovieCollectionService>();
 builder.Services.AddScoped<IBgServices, BgServices>();
 builder.Services.AddScoped<IFootballServices, FootballSevices>();
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();

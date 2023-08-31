@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers.Movies;
 
-public class SiteController : Controller
+public class MovieMainController : Controller
 {
-    private readonly ICollectionService _collectionService;
+    private readonly IMovieCollectionService _collectionService;
 
-    public SiteController(ICollectionService collectionService)
+    public MovieMainController(IMovieCollectionService collectionService)
     {
         _collectionService = collectionService;
     }
@@ -17,8 +17,8 @@ public class SiteController : Controller
     public IActionResult Show()
     {
         var shortCollectionViewModels = _collectionService
-            .GetShortCollectionSortedByDate()
-            .Select(shortCollectionBlm => new ShowShortCollectionViewModel
+            .GetShortMovieCollectionSortedByDate()
+            .Select(shortCollectionBlm => new ShowShortMovieCollectionViewModel
             {
                 Id = shortCollectionBlm.Id,
                 Title = shortCollectionBlm.Title,

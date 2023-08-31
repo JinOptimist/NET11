@@ -1,10 +1,10 @@
 ﻿<li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Movies</a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item nav-link text-dark" href="/Site/Show">Главная страница</a></li>
+        <li><a class="dropdown-item nav-link text-dark" href="/MovieMain/Show">Главная страница</a></li>
         @if (User.Identity.IsAuthenticated)
         {
-        <li><a class="dropdown-item nav-link text-dark" href="/Collection/Create">Создать подборку фильмов</a></li>
+        <li><a class="dropdown-item nav-link text-dark" href="/MovieCollection/Create">Создать подборку фильмов</a></li>
         }
     </ul>
 </li>

@@ -8,13 +8,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.Movies;
 
-public class CollectionController : Controller
+public class MovieCollectionController : Controller
 {
-    private readonly ICollectionService _collectionService;
+    private readonly IMovieCollectionService _collectionService;
     private readonly IMovieServices _movieServices;
     private readonly IAuthService _authService;
 
-    public CollectionController(ICollectionService collectionService, IMovieServices movieServices, IAuthService authService)
+    public MovieCollectionController(IMovieCollectionService collectionService, IMovieServices movieServices,
+        IAuthService authService)
     {
         _collectionService = collectionService;
         _movieServices = movieServices;
@@ -24,8 +25,8 @@ public class CollectionController : Controller
     [HttpGet]
     public IActionResult Show(int id)
     {
-        var collectionBlm = _collectionService.GetCollectionById(id);
-        var collectionViewModel = new ShowCollectionViewModel
+        var collectionBlm = _collectionService.GetMovieCollectionById(id);
+        var collectionViewModel = new ShowMovieCollectionViewModel
         {
             Id = collectionBlm.Id,
             Title = collectionBlm.Title,
@@ -43,37 +44,34 @@ public class CollectionController : Controller
     [Authorize]
     public IActionResult Create()
     {
-        
-        var createCollectionViewModel = new CreateCollectionViewModel()
+        var createCollectionViewModel = new CreateMovieCollectionViewModel
         {
             AvailableMovies = _movieServices.GetAvailableMoviesForSelection()
-                .Select(s => new SelectListItem()
+                .Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
                     Text = s.Title,
                     Selected = false
                 })
-                .ToList(),
+                .ToList()
         };
         return View(createCollectionViewModel);
     }
 
     [HttpPost]
     [Authorize]
-    public IActionResult Create(CreateCollectionViewModel createCollectionViewModel)
+    public IActionResult Create(CreateMovieCollectionViewModel createMovieCollectionViewModel)
     {
-        if (!createCollectionViewModel.AvailableMovies.Any(movie => movie.Selected))
-        {
+        if (!createMovieCollectionViewModel.AvailableMovies.Any(movie => movie.Selected))
             ModelState.AddModelError("AvailableMovies", "Необходимо выбрать хотя бы один фильм.");
-        }
 
-        if (!ModelState.IsValid) return View(createCollectionViewModel);
+        if (!ModelState.IsValid) return View(createMovieCollectionViewModel);
 
-        var collectionBlmForCreate = new CollectionBlmForCreate()
+        var movieCollectionBlmForCreate = new MovieCollectionBlmForCreate
         {
-            Title = createCollectionViewModel.Title,
-            Description = createCollectionViewModel.Description,
-            MoviesIds = createCollectionViewModel
+            Title = createMovieCollectionViewModel.Title,
+            Description = createMovieCollectionViewModel.Description,
+            MoviesIds = createMovieCollectionViewModel
                 .AvailableMovies
                 .Where(s => s.Selected)
                 .Select(s => int.Parse(s.Value))
@@ -81,8 +79,7 @@ public class CollectionController : Controller
             Author = _authService.GetCurrentUser()
         };
 
-        _collectionService.CreateCollection(collectionBlmForCreate);
-        return RedirectToAction("Show", "Site");
-
+        _collectionService.CreateMovieCollection(movieCollectionBlmForCreate);
+        return RedirectToAction("Show", "MovieMain");
     }
 }
