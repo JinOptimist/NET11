@@ -58,8 +58,12 @@ namespace DALEfDB
                 .WithOne(x => x.Creator);
 
             modelBuilder.Entity<User>()
-                .HasMany(x => x.LikedBuilds)
+                .HasMany(x => x.FavoriteRecipes)
                 .WithMany(x => x.UsersWhoLikeIt);
+
+            modelBuilder.Entity<Build>()
+                .HasMany(x => x.UsersWhoLikeIt)
+                .WithMany(x => x.LikedBuilds);
         }
     }
 }
