@@ -1,5 +1,4 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.BusinessModels.Football;
+﻿using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
 using GamerShop.Models.Football;
 using GamerShop.Services;
@@ -13,6 +12,8 @@ namespace GamerShop.Controllers.Football
         private IFootballServices<FootballClubBlm> _foootballClubsServices;
         private IAuthService _authService;
 
+
+
         public FootballClubsController(IFootballServices<FootballClubBlm> foootballClubsService, IAuthService authService)
         {
             _foootballClubsServices = foootballClubsService;
@@ -22,6 +23,7 @@ namespace GamerShop.Controllers.Football
         [HttpGet]
         public IActionResult NewClub()
         {
+            _foootballClubsServices.
             return View();
         }
 
@@ -35,7 +37,12 @@ namespace GamerShop.Controllers.Football
                 Name = footballClub.Name,
                 Stadium = footballClub.Stadium,
                 Creator = user,
-            });
+                ShortFootballLeagueInfo = new ShortFootballLeagueBLM 
+                {
+                Id = footballClub.FootballLeagueinfo.id,
+                ShortName = footballClub.FootballLeagueinfo.ShortName
+                },
+            }); 
 
             return View();
         }
@@ -48,7 +55,12 @@ namespace GamerShop.Controllers.Football
                             Id = x.Id,
                             Name = x.Name,
                             Stadium = x.Stadium,
-                            CreatorName = x.Creator.Name
+                            CreatorName = x.Creator.Name,
+                            FootballLeagueinfo = new ShortFootballLeagueViewModel
+                            {
+                             id = x.ShortFootballLeagueInfo.Id,
+                             ShortName = x.ShortFootballLeagueInfo.ShortName
+                            },
                         }).
                         ToList());
 

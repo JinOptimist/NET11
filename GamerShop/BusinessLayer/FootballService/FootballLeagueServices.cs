@@ -1,7 +1,5 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.BusinessModels.Football;
+﻿using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
-using DALInterfaces.Models;
 using DALInterfaces.Models.Football;
 using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Football;
@@ -46,6 +44,7 @@ namespace BusinessLayer.FootballService
         {
             _footballLeagueRepository.Remove(id);
         }
+
 
     }
 }

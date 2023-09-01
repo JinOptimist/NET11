@@ -1,5 +1,4 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
-using BusinessLayerInterfaces.BusinessModels.Football;
+﻿using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
 using GamerShop.Services;
 using GamerShop.Models.Football;
@@ -7,12 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers.Football
 {
-    public class FootballLeaguesConrtoller : Controller
+    public class FootballLeaguesController : Controller
     {
         private IFootballServices<FootballLeagueBLM> _footballLeagueServices;
         private IAuthService _authService;
 
-        public FootballLeaguesConrtoller(IFootballServices<FootballLeagueBLM> footballLeagueServices, IAuthService authService)
+        public FootballLeaguesController(IFootballServices<FootballLeagueBLM> footballLeagueServices, IAuthService authService)
         {
             _footballLeagueServices = footballLeagueServices;
             _authService = authService;
@@ -42,12 +41,12 @@ namespace GamerShop.Controllers.Football
         {
             return View(_footballLeagueServices
                         .GetAll()
-                        .Select(x => new FootballLeagueBLM
+                        .Select(x => new FootballLeagueViewModel
                         {
                             Id = x.Id,
                             FullName = x.FullName,
                             ShortName = x.ShortName,
-                            Country = x.Country
+                            Counrty = x.Country
                         }).
                         ToList());
 
@@ -56,6 +55,11 @@ namespace GamerShop.Controllers.Football
         {
             _footballLeagueServices.Delete(id);
             return RedirectToAction("LeagueList", "FootballLeagues");
+        }
+
+        public IActionResult index()
+        {
+            return View();
         }
 
     }

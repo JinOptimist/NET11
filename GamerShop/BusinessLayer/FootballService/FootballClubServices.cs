@@ -1,7 +1,6 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
-using DALInterfaces.Models;
 using DALInterfaces.Models.Football;
 using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Football;
@@ -12,12 +11,14 @@ namespace BusinessLayer.FootballServices
     {
         private IFootballClubRepository _footballClubRepository;
         private IUserRepository _userRepository;
+        private IFootballLeagueRepository _footballLeagueRepository;
 
 
-        public FootballClubServices(IFootballClubRepository footballClubRepository, IUserRepository userRepository)
+        public FootballClubServices(IFootballClubRepository footballClubRepository, IUserRepository userRepository,IFootballLeagueRepository footballLeagueRepository)
         {
             _footballClubRepository = footballClubRepository;
             _userRepository = userRepository;
+            _footballLeagueRepository = footballLeagueRepository;
         }
 
         public IEnumerable<FootballClubBlm> GetAll()
@@ -29,6 +30,7 @@ namespace BusinessLayer.FootballServices
                     Name = x.Name,
                     Stadium = x.Stadium,
                     Creator = new UserBlm { Name = _userRepository.Get(x.Creator).Name },
+                    ShortFootballLeagueInfo = new ShortFootballLeagueBLM {Id =x.League.Id , ShortName = x.League.ShortName }
                 });
 
         public void Save(FootballClubBlm footClub)
@@ -38,7 +40,7 @@ namespace BusinessLayer.FootballServices
             {
                 Name = footClub.Name,
                 Stadium = footClub.Stadium,
-                Country = footClub.Country,
+                League = _footballLeagueRepository.Get(footClub.ShortFootballLeagueInfo.Id),
                 Creator = footClub.Creator.Id
             });
         }

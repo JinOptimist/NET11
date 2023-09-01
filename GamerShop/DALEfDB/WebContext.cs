@@ -66,6 +66,11 @@ namespace DALEfDB
             modelBuilder.Entity<Build>()
                 .HasMany(x => x.UsersWhoLikeIt)
                 .WithMany(x => x.LikedBuilds);
+
+            modelBuilder.Entity<FootballLeague>()
+                .HasMany(footclubs => footclubs.footballClubs)
+                .WithOne(footleagues => footleagues.League);
+                
         }
     }
 }
