@@ -1,21 +1,33 @@
 ﻿@model GamerShop.Models.Movies.ShowMovieViewModel
-<div>
-    <h2>
-        @Model.Title (@Model.ReleaseYear)
-    </h2>
-    <span>Рейтинг: <b style="color: #3bb33b; font-size: 1em"> @Model.Rating</b></span>
-</div>
-<div>
-    <h2>
-        О фильме
-    </h2>
-    <div >
-        <p>Год производства: @Model.ReleaseYear</p>
-        <p>Страна: @Model.Country</p>
-        <p>Жанр: @Model.Genres
-        <p>Режиссер: @Model.Director</p>
-        <p>Время: @Model.Duration мин.</p>
-        <h2>Описание:</h2>
-        <p>@Model.Description</p>
+
+<title>Просмотр фильма</title>
+
+    <div class="card">
+        <h2 class="title">
+            @Model.Title (@Model.ReleaseYear)
+        </h2>
+        <span class="ratingSt">
+            Рейтинг: <b style="color: @(Model.Rating > 7 ? "#3bb33b" : "#888");">
+                @Model.Rating
+            </b>
+        </span>
     </div>
-</div>
+    
+    <div class="details">
+        <h2 class="title">
+            О фильме
+        </h2>
+        <div>
+            <p class="description">Год производства: @Model.ReleaseYear</p>
+            <p class="description">Страна: @Model.Country</p>
+            <p class="description">Жанр: @Model.Genres</p>
+            <p class="description">Режиссер: @Model.Director</p>
+            <p class="description">Время: @Model.Duration мин.</p>
+            <h2 class="title" style="font-size: 20px; margin-top: 20px;">Описание:</h2>
+            <p class="description">@Model.Description</p>
+        </div>
+    </div>
+
+@section Style{
+    <link rel="stylesheet" href="~/css/movie-display-styles.css">
+}

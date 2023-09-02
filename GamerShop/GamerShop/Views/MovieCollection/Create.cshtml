@@ -1,37 +1,39 @@
 ﻿@model GamerShop.Models.Movies.CreateMovieCollectionViewModel
 
-<h2>Создание подборки фильмов</h2>
+<div class="containerPage">
+    <h2 class="form-label">Создание подборки фильмов</h2>
+    @using (Html.BeginForm("Create", "MovieCollection", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, "Название подборки:", new {@class="form-label"})
+            @Html.TextBoxFor(m=>m.Title, new {@class="form-control"})
+            @Html.ValidationMessageFor(m=>m.Title, null, new {@class="text-danger"})
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, "Описание:", new {@class="form-label"})
+            @Html.TextAreaFor(m=>m.Description, new {@class="form-textarea"})
+        </div>
+        <div class="form-group">
+            <label class="form-label">Выберите фильмы:</label>
+            <ul class="checkbox-group">
+                @for (int i = 0; i < Model.AvailableMovies.Count; i++)
+                {
+                    <li class="checkbox-item">
+                        @Html.CheckBoxFor(m=>m.AvailableMovies[i].Selected)
+                        @Model.AvailableMovies[i].Text
+                        @Html.HiddenFor(m=>m.AvailableMovies[i].Value)
+                        @Html.HiddenFor(m=>m.AvailableMovies[i].Text)
+                    </li>
+                }
+                @Html.ValidationMessageFor(m=>m.AvailableMovies, null, new {@class="text-danger"})
+            </ul>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Создать подборку</button>
+        </div>
+    }
+</div>
 
-@using (Html.BeginForm("Create", "MovieCollection", FormMethod.Post))
-{
-    <div class="form-group">
-        @Html.LabelFor(m => m.Title, "Название подборки:")
-        @Html.TextBoxFor(m=>m.Title, new {@class="form-control"})
-        @Html.ValidationMessageFor(m=>m.Title, null, new {@class="text-danger"})
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Description, "Описание:")
-        @Html.TextAreaFor(m=>m.Description, new {@class="form-control"})
-    </div>
-
-    <div class="form-group">
-        <label>Выберите фильмы:</label>
-        <ul>
-            @for (int i = 0; i < Model.AvailableMovies.Count; i++)
-            {
-                <div class="form-check">
-                    @Html.CheckBoxFor(m=>m.AvailableMovies[i].Selected)
-                    @Model.AvailableMovies[i].Text
-                    @Html.HiddenFor(m=>m.AvailableMovies[i].Value)
-                    @Html.HiddenFor(m=>m.AvailableMovies[i].Text)
-                </div>
-            }
-            @Html.ValidationMessageFor(m=>m.AvailableMovies, null, new {@class="text-danger"})
-        </ul>
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Создать подборку</button>
-    </div>
-}
+@section Style{
+    <link rel="stylesheet" href="~/css/movieCollection-create-styles.css">
+    }

@@ -1,0 +1,71 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.containerPage {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+}
+
+h3 {
+    color: #333;
+    font-size: 18px;
+}
+
+.collection {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+    .collection:hover {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+.collection-title {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.collection-date {
+    color: #95a5a6;
+    font-size: 14px;
+}
+
+.collection-rating {
+    color: #555;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.rating-value {
+    font-size: 1em;
+}
+
+    .rating-value.good {
+        color: #3bb33b
+    }
+
+    .rating-value.bad {
+        color: #888
+    }
+
+    .description {
+        color: #555;
+        font-size: 16px;
+        margin-top: 10px;
+    }

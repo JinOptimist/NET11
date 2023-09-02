@@ -1,0 +1,65 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.containerPage {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    color: #333;
+}
+
+.section-subtitle {
+    font-size: 14px;
+    color: #95a5a6;
+}
+
+    .section-subtitle span {
+        color: #333;
+    }
+
+.description {
+    color: #555;
+    font-size: 16px;
+}
+
+.italic-text {
+    color: #ccc;
+    font-style: italic;
+}
+
+.rating {
+    font-size: 1.2em;
+}
+
+    .rating.good {
+        color: #3bb33b;
+    }
+
+    .rating.bad {
+        color: #888;
+    }
+
+.movie-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.movie-item {
+    margin-bottom: 10px;
+}
+
+.movie-link {
+    color: #e74c3c;
+    text-decoration: none;
+}

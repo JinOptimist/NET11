@@ -1,31 +1,48 @@
 ﻿@model GamerShop.Models.Movies.ShowMovieCollectionViewModel
-<div>
-    <h2>
-        @Model.Title
-    </h2>
-    <i style="color: #95a5a6;">@Model.AuthorName @Model.DateCreated.ToShortDateString()</i>
-</div>
-<div>
-    <p style="color: #95a5a6;">Rating: <b style="color: #3bb33b; font-size: 1em">@Model.Rating</b></p>
-</div>
-<div>
-    <h2>
-        Описание:
-    </h2>
-    @if (Model.Description != null)
-    {
-        <p>@Model.Description</p>
-    }
-</div>
-<div>
-    @foreach (var movie in @Model.Movies)
-    {
-        <p>
-            @Html.ActionLink(movie.Title,
-                "Show",
-                "Movie",
-                new { id = movie.Id },
-                new { style = "color: #e74c3c; margin-left: 5px; text-decoration: none;" })
+
+<div class="containerPage">
+    <div class="section">
+        <h1 class="section-title">@Model.Title</h1>
+        <div class="section-subtitle">
+            <i>Создана: @Model.DateCreated.ToShortDateString()</i><br>
+            <i>Автор: @Model.AuthorName</i>
+        </div>
+    </div>
+
+    <div class="section">
+        <p class="section-subtitle">
+            <span>Рейтинг:</span>
+            <b class="rating @(Model.Rating > 7 ? "good" : "bad")">@Model.Rating</b>
         </p>
-    }
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Описание:</h2>
+        <p class="description">
+            @if (Model.Description != null)
+            {
+                @Model.Description
+            }
+            else
+            {
+                <span class="italic-text">Описание отсутствует</span>
+            }
+        </p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Фильмы в подборке:</h2>
+        <ul class="movie-list">
+            @foreach (var movie in @Model.Movies)
+            {
+                <li class="movie-item">
+                    @Html.ActionLink(movie.Title, "Show", "Movie", new { id = movie.Id }, new { @class = "movie-link" })
+                </li>
+            }
+        </ul>
+    </div>
 </div>
+
+@section Style{
+        <link rel="stylesheet" href="~/css/movieCollection-display-styles.css">
+}
