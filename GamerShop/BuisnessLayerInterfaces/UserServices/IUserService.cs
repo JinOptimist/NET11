@@ -6,6 +6,5 @@ namespace BusinessLayerInterfaces.UserServices
 {
 	public interface IUserService : IPaginatorServices<UserBlm>
 	{
-		IndexBlm GetIndexBlm(int page, int perPage);
 	}
 }
