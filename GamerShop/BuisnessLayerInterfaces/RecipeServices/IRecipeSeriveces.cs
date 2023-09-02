@@ -11,6 +11,8 @@ namespace BusinessLayerInterfaces.RecipeServices
         void RemoveFavorite(FavoriteRecipeBlm favoriteRecipeBlm);
         IEnumerable<RecipeBlm> GetFavoriteByUser(int userId);
         void AddFavorite(FavoriteRecipeBlm favoriteRecipeBlm);
+        PaginatorRecipeBlm GetPaginatorRecipeBlm(int page, int perPage);
+        PaginatorFavoriteRecipeBlm GetPaginatorFavoriteRecipeBlm(int page, int perPage);
         RecipeBlm GetRecipeById(int recipeId);
     }
 }

@@ -60,7 +60,12 @@ namespace DALEfDB.Repositories.Recipe
 			};
 		}
 
-		public IEnumerable<DALInterfaces.Models.Recipe.Recipe> GetFavoriteByUser(int userId)
+        public PaginatorFavoriteRecipeDataModel GetPaginatorFavoriteRecipeDataModel(int page, int perPage)
+        {
+	        throw new NotImplementedException();
+        }
+
+        public IEnumerable<DALInterfaces.Models.Recipe.Recipe> GetFavoriteByUser(int userId)
 			=> _context.Users.First(user => user.Id == userId).FavoriteRecipes;
 
     }

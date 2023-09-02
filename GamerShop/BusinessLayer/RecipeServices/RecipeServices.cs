@@ -107,6 +107,36 @@ namespace BusinessLayer.RecipeServices
             _recipeRepository.AddFavorite(favoriteRecipeDataModel);
         }
 
+		public PaginatorRecipeBlm GetPaginatorRecipeBlm(int page, int perPage)
+		{
+			var data = _recipeRepository.GetPaginatorRecipeDataModel(page, perPage);
+			return new PaginatorRecipeBlm
+			{
+				Count = data.Count,
+				Page = data.Page,
+				PerPage = data.PerPage,
+				Recipes = data.Recipes.Select(x => new RecipeBlm()
+				{
+					Id = x.Id,
+					Title = x.Title,
+					Description = x.Title,
+					Instructions = x.Instructions,
+					CookingTime = x.CookingTime,
+					PreparationTime = x.PreparationTime,
+					Servings = x.Servings,
+					DifficultyLevel = x.DifficultyLevel,
+					Cuisine = x.Cuisine,
+					CreatedByUserId = x.CreatedByUserId,
+					CreatedOn = x.CreatedOn
+				}).ToList()
+			};
+		}
+
+		public PaginatorFavoriteRecipeBlm GetPaginatorFavoriteRecipeBlm(int page, int perPage)
+		{
+			throw new NotImplementedException();
+		}
+
 		public RecipeBlm GetRecipeById(int recipeId)
 		{
 			var recipeDb = _recipeRepository.Get(recipeId);

@@ -19,5 +19,7 @@
         public string DifficultyLevel { get; set; }
 
         public string Cuisine { get; set; }
+
+        public List<DisplayReviewViewModel> Reviews { get; set; }
     }
 }
