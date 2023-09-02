@@ -23,19 +23,10 @@ namespace DALEfDB.Repositories
 				?.Id;
 		}
 
-        public IEnumerable<DALInterfaces.Models.Recipe.Recipe> GetFavoriteByUser(int userId)
-        {
-            return _dbSet.First(user => user.Id == userId).FavoriteRecipes;
-        }
-
         protected override IQueryable<User> GetDbSetWithIncludeForPaginator()
         {
 			return _context.Users.Include(x => x.FavoriteMovie);
 		}
-    }
-        public IEnumerable<DALInterfaces.Models.Recipe.Recipe> GetFavoriteByUser(int userId)
-        {
-            return _dbSet.First(user => user.Id == userId).FavoriteRecipes;
-        }
+    
     }
 }
