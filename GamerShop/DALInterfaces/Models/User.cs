@@ -1,6 +1,7 @@
 using DALInterfaces.Models.PcBuild;
 
 using DALInterfaces.Models.Movies;
+using DALInterfaces.Models.Football;
 
 namespace DALInterfaces.Models
 {
@@ -18,5 +19,8 @@ namespace DALInterfaces.Models
 
         public virtual ICollection<Collection> Collections { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<FootballClub> CreatedFootballClubs { get; set; }
+        public virtual ICollection<FootballLeague> CreatedFootballLeagues { get; set; }
+
     }
 }

@@ -13,6 +13,14 @@
             @Html.TextBoxFor(model => model.Stadium)
         </div>
         <div>
+            League
+            @Html.TextBoxFor(model => model.FootballLeagueinfo.id)
+            League name
+            @Html.TextBoxFor(model => model.FootballLeagueinfo.ShortName)
+
+        </div>
+
+        <div>
             <input type="submit" value="Записать" />
         </div>
     </div>

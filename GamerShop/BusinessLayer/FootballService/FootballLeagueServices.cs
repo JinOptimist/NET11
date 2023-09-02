@@ -1,5 +1,7 @@
-﻿using BusinessLayerInterfaces.BusinessModels.Football;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
+using DALInterfaces.Models;
 using DALInterfaces.Models.Football;
 using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Football;
@@ -27,6 +29,7 @@ namespace BusinessLayer.FootballService
                     FullName = x.Name,
                     ShortName = x.ShortName,
                     Country = x.Country,
+                    Creator = new UserBlm {Id = x.UserCreator.Id , Name = x.UserCreator.Name }
                 });
 
         public void Save(FootballLeagueBLM footLeague)
@@ -37,6 +40,7 @@ namespace BusinessLayer.FootballService
                 Name = footLeague.FullName,
                 ShortName = footLeague.ShortName,
                 Country = footLeague.Country,
+                UserCreator = new User {  Id = footLeague.Creator.Id ,Name = footLeague.Creator.Name }
             });
         }
 

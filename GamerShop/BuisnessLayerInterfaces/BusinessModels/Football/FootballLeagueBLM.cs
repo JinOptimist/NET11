@@ -6,5 +6,6 @@
         public string FullName { get; set; }
         public string ShortName { get; set; }
         public string Country { get; set; }
+        public UserBlm Creator { get; set; }
     }
 }

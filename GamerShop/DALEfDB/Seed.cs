@@ -12,6 +12,9 @@ using DALEfDB.Repositories;
 using DALInterfaces.Models.Recipe;
 using Microsoft.Identity.Client;
 using DALEfDB.Repositories.Recipe;
+using DALInterfaces.Repositories.Football;
+using System.Dynamic;
+using GamerShop.Services.Football;
 
 namespace DALEfDB
 {
@@ -32,6 +35,7 @@ namespace DALEfDB
                 FillGenres(scope.ServiceProvider);
                 FillMovies(scope.ServiceProvider);
                 FillCollections(scope.ServiceProvider);
+                FillFootbal(scope.ServiceProvider);
             }
         }
 
@@ -706,5 +710,18 @@ namespace DALEfDB
             };
         }
         #endregion
+
+        private void FillFootbal(IServiceProvider serviceProvider)
+        {
+            var footballClubRepository = serviceProvider.GetService<IFootballClubRepository>();
+            var footballLeagueRepository = serviceProvider.GetService<IFootballLeagueRepository>();
+            var userRepository = serviceProvider.GetService<IUserRepository>();
+            if (footballClubRepository.Count() == 0 & footballLeagueRepository.Count() == 0)
+            {
+                new GetInfoForFootballClub(footballClubRepository, footballLeagueRepository , userRepository).GetSaveAndParseFootballLuagesAndClubs(5);
+            }
+
+
+        }
     }
 }

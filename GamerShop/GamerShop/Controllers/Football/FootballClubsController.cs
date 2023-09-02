@@ -2,6 +2,7 @@
 using BusinessLayerInterfaces.FootballService;
 using GamerShop.Models.Football;
 using GamerShop.Services;
+using GamerShop.Services.Football;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -23,7 +24,7 @@ namespace GamerShop.Controllers.Football
         [HttpGet]
         public IActionResult NewClub()
         {
-            _foootballClubsServices.
+
             return View();
         }
 

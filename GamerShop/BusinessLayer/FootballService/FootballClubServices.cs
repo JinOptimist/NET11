@@ -29,7 +29,7 @@ namespace BusinessLayer.FootballServices
                     Id = x.Id,
                     Name = x.Name,
                     Stadium = x.Stadium,
-                    Creator = new UserBlm { Name = _userRepository.Get(x.Creator).Name },
+                    Creator = new UserBlm { Name =  x.UserCreator.Name},
                     ShortFootballLeagueInfo = new ShortFootballLeagueBLM {Id =x.League.Id , ShortName = x.League.ShortName }
                 });
 
@@ -41,7 +41,7 @@ namespace BusinessLayer.FootballServices
                 Name = footClub.Name,
                 Stadium = footClub.Stadium,
                 League = _footballLeagueRepository.Get(footClub.ShortFootballLeagueInfo.Id),
-                Creator = footClub.Creator.Id
+                UserCreator = _userRepository.Get(footClub.Id)
             });
         }
 
