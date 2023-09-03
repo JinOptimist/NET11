@@ -66,7 +66,7 @@ public class MovieCollectionController : Controller
                 })
                 .ToList()
         };
-        return View();
+        return View(movieCollectionPaginatorViewModel);
     }
 
     [HttpGet]

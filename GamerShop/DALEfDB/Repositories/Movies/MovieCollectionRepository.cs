@@ -46,11 +46,14 @@ public class MovieCollectionRepository : BaseRepository<Collection>, IMovieColle
                 Title = collection.Title,
                 Description = collection.Description,
                 DateCreated = collection.DateCreated,
-                Rating = collection
-                    .Ratings
-                    .Select(rating => rating.Value)
-                    .DefaultIfEmpty(0)
-                    .Average()
+                Rating = collection.Ratings.Count == 0
+                    ? 0
+                    : collection
+                        .Ratings
+                        .Select(rating => rating.Value)
+                        .Average()
+
+
             })
             .ToList();
 
