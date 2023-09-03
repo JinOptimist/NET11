@@ -48,14 +48,13 @@ public class MovieCollectionRepository : BaseRepository<Collection>, IMovieColle
                 DateCreated = collection.DateCreated,
                 Rating = collection
                     .Ratings
-                    .Where(rating => rating.CollectionId == collection.Id)
                     .Select(rating => rating.Value)
                     .DefaultIfEmpty(0)
                     .Average()
             })
             .ToList();
 
-        var movieCollectionPaginatorDataModel = new MovieCollectionPaginatorDataModel()
+        var movieCollectionPaginatorDataModel = new MovieCollectionPaginatorDataModel
         {
             Page = page,
             PerPage = perPage,
