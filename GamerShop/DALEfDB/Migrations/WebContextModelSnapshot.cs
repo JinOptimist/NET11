@@ -950,6 +950,8 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentBandId");
+
                     b.ToTable("RockMembers");
                 });
 

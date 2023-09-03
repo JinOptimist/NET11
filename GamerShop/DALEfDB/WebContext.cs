@@ -2,6 +2,7 @@
 using DALInterfaces.Models.Recipe;
 using DALInterfaces.Models.PcBuild;
 using DALInterfaces.Models.Movies;
+using DALInterfaces.Models.RockHall;
 using Microsoft.EntityFrameworkCore;
 using DALInterfaces.Models.Football;
 
@@ -37,6 +38,7 @@ namespace DALEfDB
         public DbSet<Case> Cases { get; set; }
         public DbSet<Build> Builds { get; set; }
         public DbSet<FootballLeague> FootballLeagues { get; set; }
+        public DbSet<RockBand> RockBands { get; set; }
 
         public WebContext() { }
 
