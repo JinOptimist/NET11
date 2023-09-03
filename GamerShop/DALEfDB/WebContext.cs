@@ -70,14 +70,15 @@ namespace DALEfDB
             modelBuilder.Entity<FootballLeague>()
                 .HasMany(footclubs => footclubs.footballClubs)
                 .WithOne(footleagues => footleagues.League);
-            
-            //modelBuilder.Entity<User>()
-            //    .HasMany(x => x.CreatedFootballClubs)
-            //    .WithOne(x => x.UserCreator);
-            
-            //modelBuilder.Entity<User>()
-            //    .HasMany(x=>x.CreatedFootballLeagues)
-            //    .WithOne(x => x.UserCreator);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.CreatedFootballClubs)
+                .WithOne(x => x.UserCreator)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.CreatedFootballLeagues)
+                .WithOne(x => x.UserCreator);
 
 
 

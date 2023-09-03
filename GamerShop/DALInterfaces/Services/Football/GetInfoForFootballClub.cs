@@ -22,7 +22,7 @@ namespace GamerShop.Services.Football
             _footballLeagueRepository = footballLeagueRepository;
             _footballClubRepository = footballClubRepository;
             _userRepository = userRepository;
-            _userRepository.GetAll().First(x => x.Name == "Admin");
+            Creator = _userRepository.GetAll().First(x => x.Name == "Admin");
         }
 
         public void GetSaveAndParseFootballLuagesAndClubs(int countLeague)
@@ -65,6 +65,10 @@ namespace GamerShop.Services.Football
             foreach (var item in itemSelector)
             {
                 if (!item.IsFirstChild())
+                {
+                    continue;
+                }
+                if (item.TextContent.IndexOf("Best") != -1)
                 {
                     continue;
                 }

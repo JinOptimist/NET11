@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    [Migration("20230831144440_initFootballLeagues")]
-    partial class initFootballLeagues
+    [Migration("20230902084631_linkFootballWhithUsers")]
+    partial class linkFootballWhithUsers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,10 +66,7 @@ namespace DALEfDB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Creator")
+                    b.Property<int>("LeagueId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -80,7 +77,14 @@ namespace DALEfDB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserCreatorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LeagueId");
+
+                    b.HasIndex("UserCreatorId");
 
                     b.ToTable("FootballClubs");
                 });
@@ -105,7 +109,12 @@ namespace DALEfDB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserCreatorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCreatorId");
 
                     b.ToTable("FootballLeagues");
                 });
@@ -1036,6 +1045,36 @@ namespace DALEfDB.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.Football.FootballLeague", "League")
+                        .WithMany("footballClubs")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
+                        .WithMany("CreatedFootballClubs")
+                        .HasForeignKey("UserCreatorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("League");
+
+                    b.Navigation("UserCreator");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
+                        .WithMany("CreatedFootballLeagues")
+                        .HasForeignKey("UserCreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserCreator");
+                });
+
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
                 {
                     b.HasOne("DALInterfaces.Models.User", "Author")
@@ -1197,6 +1236,11 @@ namespace DALEfDB.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
+                {
+                    b.Navigation("footballClubs");
+                });
+
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
                 {
                     b.Navigation("Ratings");
@@ -1252,6 +1296,10 @@ namespace DALEfDB.Migrations
                     b.Navigation("Collections");
 
                     b.Navigation("CreatedBuilds");
+
+                    b.Navigation("CreatedFootballClubs");
+
+                    b.Navigation("CreatedFootballLeagues");
 
                     b.Navigation("Ratings");
                 });
