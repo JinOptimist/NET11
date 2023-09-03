@@ -12,6 +12,8 @@ using DALEfDB.Repositories;
 using DALInterfaces.Models.Recipe;
 using Microsoft.Identity.Client;
 using DALEfDB.Repositories.Recipe;
+using DALInterfaces.Models.RockHall;
+using DALInterfaces.Repositories.RockHall;
 
 namespace DALEfDB
 {
@@ -32,6 +34,8 @@ namespace DALEfDB
                 FillGenres(scope.ServiceProvider);
                 FillMovies(scope.ServiceProvider);
                 FillCollections(scope.ServiceProvider);
+                FillRockMembers(scope.ServiceProvider);
+                FillRockBands(scope.ServiceProvider);
             }
         }
 
@@ -706,5 +710,67 @@ namespace DALEfDB
             };
         }
         #endregion
+        private void FillRockBands(IServiceProvider provider)
+        {
+            var rockBandRepository = provider.GetService<IRockBandRepository>();
+            if (!rockBandRepository.GetAll().Any())
+            {
+                var theOffspring = new RockBand
+                {
+                    FullName = "The Offspring",
+                    CreatorId = 1
+                };
+                rockBandRepository.Save(theOffspring);
+
+                for (int i = 0; i < MINIMUM_USER_COUNT; i++)
+                {
+                    var blink182 = new RockBand
+                    {
+                        FullName = $"Blink-18{i}",
+                        CreatorId = 1
+                    };
+                    rockBandRepository.Save(blink182);
+                }
+            }
+        }
+        private void FillRockMembers(IServiceProvider provider)
+        {
+            var rockMemberRepository = provider.GetService<IRockMemberRepository>();
+            if (rockMemberRepository.Count() < MINIMUM_USER_COUNT)
+            {
+                var paulMcCartney = new RockMember
+                {
+                    FullName = "Paul McCartney",
+                    EntryYear = 1996,
+                    YearOfBirth = 1996,
+                    Genre = "Pop Rock",
+                    CreatorId = 1
+                };
+                rockMemberRepository.Save(paulMcCartney);
+
+                var johnLenon = new RockMember
+                {
+                    FullName = "John Lenon",
+                    EntryYear = 1996,
+                    YearOfBirth = 1996,
+                    Genre = "Indi Rock",
+                    CreatorId = 1
+                };
+                rockMemberRepository.Save(johnLenon);
+
+                for (int i = 0; i < MINIMUM_USER_COUNT; i++)
+                {
+                    var slash = new RockMember
+                    {
+                        FullName = $"Slash {i}",
+                        EntryYear = 1996,
+                        YearOfBirth = 1996,
+                        Genre = "Indi Rock",
+                        CreatorId = 1
+                    };
+                    rockMemberRepository.Save(slash);
+                }
+            }
+        }
     }
 }

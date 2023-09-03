@@ -1,12 +1,12 @@
-﻿using DALInterfaces.Repositories;
-using DALInterfaces.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using GamerShop.Models.RockHall;
 using BusinessLayerInterfaces.RockHallServices;
-using BusinessLayer.RockHallServices;
-using BusinessLayerInterfaces.BusinessModels.RockHall;
 using Microsoft.AspNetCore.Authorization;
 using GamerShop.Services;
+using BusinessLayerInterfaces.BusinessModels.RockHall.RockMember;
+using Microsoft.AspNetCore.Diagnostics;
+using GamerShop.Models.Users;
+using BusinessLayerInterfaces.BusinessModels;
 
 namespace GamerShop.Controllers.RockHallController
 {
@@ -14,31 +14,45 @@ namespace GamerShop.Controllers.RockHallController
     {
         private IRockMemberServices _rockMemberServices;
         private IAuthService _authService;
+        private IPaginatorService _paginatorService;
 
-        public RockHallController(IRockMemberServices rockMemberServices, IAuthService authService)
+        public RockHallController(IRockMemberServices rockMemberServices, IAuthService authService, IPaginatorService paginatorService)
         {
             _rockMemberServices = rockMemberServices;
             _authService = authService;
+            _paginatorService = paginatorService;
         }
 
-        [HttpGet]
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Menu()
         {
-            var viewModel = _rockMemberServices
-                .GetAll()
-                .Select(blmMember => new InfoMemberViewModel
-                {
-                    Id = blmMember.Id,
-                    FullName = blmMember.FullName,
-                    Genre = blmMember.Genre,
-                    YearOfBirth = blmMember.YearOfBirth,
-                    EntryYear = blmMember.EntryYear,
-                    CreatorName = blmMember.CreatorName
-                })
-                .ToList();
+            return View();
+        }
 
+        [Authorize]
+        public IActionResult Index(int page = 1, int perPage = 5)
+        {
+
+            var viewModel = _paginatorService
+                .GetPaginatorViewModel(_rockMemberServices,
+                                       MapRockMemberGetBlmToInfoMemberViewModel,
+                                       page,
+                                       perPage);
             return View(viewModel);
+        }
+
+        private InfoMemberViewModel MapRockMemberGetBlmToInfoMemberViewModel(RockMemberGetBlm rockMember)
+        {
+            return new InfoMemberViewModel
+            {
+                Id = rockMember.Id,
+                FullName = rockMember.FullName,
+                EntryYear = rockMember.EntryYear,
+                YearOfBirth = rockMember.YearOfBirth,
+                Genre = rockMember.Genre,
+                CreatorName = rockMember.CreatorName,
+                CurrentBandName = rockMember.CurrentBandName,
+            };
         }
 
         public IActionResult Delete(int id)

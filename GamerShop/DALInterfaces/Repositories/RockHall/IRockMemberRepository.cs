@@ -1,9 +1,9 @@
-﻿using DALInterfaces.Models;
+﻿using DALInterfaces.Models.RockHall;
 
-namespace DALInterfaces.Repositories
+namespace DALInterfaces.Repositories.RockHall
 {
     public interface IRockMemberRepository : IBaseRepository<RockMember>
     {
-        
+
     }
 }
