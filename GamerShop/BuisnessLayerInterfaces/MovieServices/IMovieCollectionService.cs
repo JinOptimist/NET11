@@ -9,4 +9,6 @@ public interface IMovieCollectionService
     List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByDate();
 
     void CreateMovieCollection(MovieCollectionBlmForCreate movieCollectionBlmForCreate);
+
+    MovieCollectionPaginatorBlm GetMovieCollectionPaginatorBlm(int page, int perPage);
 }

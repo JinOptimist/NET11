@@ -41,6 +41,35 @@ public class MovieCollectionController : Controller
     }
 
     [HttpGet]
+    public IActionResult ShowAll(int page = 1, int perPage = 5)
+    {
+        var movieCollectionPaginatorBlm = _collectionService.GetMovieCollectionPaginatorBlm(page, perPage);
+        var additionalPageNumber = movieCollectionPaginatorBlm.Count % movieCollectionPaginatorBlm.PerPage == 0? 0 : 1;
+        var availablePages = Enumerable
+            .Range(1, movieCollectionPaginatorBlm.Count / movieCollectionPaginatorBlm.PerPage + additionalPageNumber)
+            .ToList();
+        var movieCollectionPaginatorViewModel = new MovieCollectionPaginatorViewModel
+        {
+            Page = movieCollectionPaginatorBlm.Page,
+            PerPage = movieCollectionPaginatorBlm.PerPage,
+            Count = movieCollectionPaginatorBlm.Count,
+            AvailablePages = availablePages,
+            Collections = movieCollectionPaginatorBlm
+                .Collections
+                .Select(m=>new ShowShortMovieCollectionViewModel
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    Description = m.Description,
+                    DateCreated = m.DateCreated,
+                    Rating = m.Rating
+                })
+                .ToList()
+        };
+        return View();
+    }
+
+    [HttpGet]
     [Authorize]
     public IActionResult Create()
     {

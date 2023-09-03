@@ -106,4 +106,26 @@ public class MovieCollectionService : IMovieCollectionService
         };
         _movieCollectionRepository.Save(movieCollectionToAdd);
     }
+
+    public MovieCollectionPaginatorBlm GetMovieCollectionPaginatorBlm(int page, int perPage)
+    {
+        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetMovieCollectionPaginatorDataModel (page, perPage);
+        return new MovieCollectionPaginatorBlm()
+        {
+            Page = movieCollectionPaginatorDataModel.Page,
+            PerPage = movieCollectionPaginatorDataModel.PerPage,
+            Count = movieCollectionPaginatorDataModel.Count,
+            Collections = movieCollectionPaginatorDataModel
+                .Collections
+                .Select(m=>new ShortMovieCollectionBlm
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    Description = m.Description,
+                    DateCreated = m.DateCreated,
+                    Rating = m.Rating
+                })
+                .ToList()
+        };
+    }
 }
