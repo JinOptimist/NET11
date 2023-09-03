@@ -14,31 +14,6 @@ namespace DALEfDB.Repositories.RockHall
         {
         }
 
-        public RockMemberPaginatorDataModel GetRockMemberPaginatorDataModel(int page, int perPage)
-        {
-            var count = _dbSet.Count();
-
-            var rockMembers = _dbSet
-                .Skip((page - 1) * perPage)
-                .Take(perPage)
-                .Select(dbRockMember => new RockMember
-                {
-                    Id = dbRockMember.Id,
-                    FullName = dbRockMember.FullName,
-                    EntryYear = dbRockMember.EntryYear,
-                    Genre = dbRockMember.Genre,
-                    YearOfBirth = dbRockMember.YearOfBirth,
-                    CreatorId = dbRockMember.CreatorId,
-                }).ToList();
-            
-            return new RockMemberPaginatorDataModel
-            {
-                Count = count,
-                Page = page,
-                PerPage = perPage,
-                RockMembers = rockMembers
-            };
-
-        }
+        
     }
 }

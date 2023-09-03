@@ -12,7 +12,7 @@ namespace GamerShop.Models.RockHall
         public int EntryYear { get; set; }
         public int YearOfBirth { get; set; }
         public string CreatorName { get; set; }
-        public string CurrentBand { get; set; }
+        public string CurrentBandName { get; set; }
 
     }
 }

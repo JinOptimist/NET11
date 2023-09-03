@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayerInterfaces.BusinessModels.RockHall.RockMember
 {
-    public class RockMemberPostBlm : BaseBandMemberBlm
+    public class RockMemberPostBlm : BaseRockMemberBlm
     {
         public int CreatorId { get; set; }
     }

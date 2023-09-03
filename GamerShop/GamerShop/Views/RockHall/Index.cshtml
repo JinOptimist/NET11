@@ -1,9 +1,9 @@
 ﻿@using GamerShop.Models.RockHall;
-@model PaginatorRockMemberViewModel
+@model PaginatorViewModel<InfoMemberViewModel>
 
 <div>
     <h1><u>Members of the Rock and Roll Hall of Fame:</u></h1><br />
-    @foreach (var rockMember in Model.RockMembers)
+    @foreach (var rockMember in Model.Items)
     {
         <div>
             <h2>
@@ -15,7 +15,7 @@
             <a asp-action="Delete" asp-controller="RockHall" asp-route-id="@rockMember.Id">Удалить</a>
         </div>
         <div>
-            @rockMember.FullName (Current Band : @rockMember.CurrentBand)
+            @rockMember.FullName (Current Band : @rockMember.CurrentBandName)
         </div>
         <div>
             Создал: @rockMember.CreatorName
