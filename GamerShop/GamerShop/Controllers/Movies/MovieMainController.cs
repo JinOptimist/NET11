@@ -1,4 +1,5 @@
-﻿using BusinessLayerInterfaces.MovieServices;
+﻿using BusinessLayerInterfaces.BusinessModels.Movies;
+using BusinessLayerInterfaces.MovieServices;
 using GamerShop.Models.Movies;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +15,10 @@ public class MovieMainController : Controller
     }
 
     [HttpGet]
-    public IActionResult Show()
+    public IActionResult Show(MovieCollectionSortCriteria filterCriteria = MovieCollectionSortCriteria.Newest)
     {
         var shortCollectionViewModels = _collectionService
-            .GetShortMovieCollectionSortedByDate()
+            .GetShortMovieCollectionSortedByCriteria(filterCriteria)
             .Select(shortCollectionBlm => new ShowShortMovieCollectionViewModel
             {
                 Id = shortCollectionBlm.Id,

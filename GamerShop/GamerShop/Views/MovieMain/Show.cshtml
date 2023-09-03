@@ -3,8 +3,19 @@
 <title>Подборки фильмов</title>
 
 <div class="containerPage">
-    <h2>Добро пожаловать на сайт с подборками фильмов.</h2>
-    <h3>Список подборок фильмов:</h3>
+    <div style="margin-bottom: 20px;">
+        <h2>Добро пожаловать на сайт с подборками фильмов.</h2>
+        <form asp-action="Show" method="get">
+
+            <label for="filterCriteria">Самые </label>
+            <select id="filterCriteria" name="filterCriteria">
+                <option value="Newest">новые</option>
+                <option value="Popular">популярные</option>
+            </select>
+            <button type="submit">Применить</button>
+        </form>
+    </div>
+
     @foreach (var collection in Model)
     {
         <div class="collection" onclick="window.location.href='@Url.Action("Show", "MovieCollection", new { id = collection.Id })';">
@@ -32,4 +43,8 @@
 
 @section Style{
     <link rel="stylesheet" href="~/css/movieMain-display-styles.css" />
+}
+@section Scripts
+    {
+    <script src="~/js/filterCriteria.js"></script>
 }

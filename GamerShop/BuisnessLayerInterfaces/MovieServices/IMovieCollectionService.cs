@@ -6,7 +6,7 @@ public interface IMovieCollectionService
 {
     MovieCollectionBlmForShow GetMovieCollectionById(int id);
 
-    List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByDate();
+    List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByCriteria(MovieCollectionSortCriteria filterCriteria);
 
     void CreateMovieCollection(MovieCollectionBlmForCreate movieCollectionBlmForCreate);
 

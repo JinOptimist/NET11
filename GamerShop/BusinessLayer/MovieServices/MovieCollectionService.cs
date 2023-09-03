@@ -54,11 +54,11 @@ public class MovieCollectionService : IMovieCollectionService
         return movieCollectionBlmForShow;
     }
 
-    public List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByDate()
+    public List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByCriteria(MovieCollectionSortCriteria filterCriteria)
     {
         //Данный метод предназначен для мапинга из Collection в ShortMovieCollectionDataModel. Оп передается в метод GetLimitedMovieCollectionsSortedByCriteria.
         ShortMovieCollectionDataModel MapToShortMovieCollectionDataModel(Collection collection) =>
-            new()   
+            new()
             {
                 Id = collection.Id,
                 Title = collection.Title,
@@ -70,23 +70,51 @@ public class MovieCollectionService : IMovieCollectionService
                     .Average()
             };
 
-        //Данный метод определяет критерий сортировки, который далее передается в метод GetLimitedMovieCollectionsSortedByCriteria.
-        IComparable GetSortingCriteria(Collection collection)
-            => collection.DateCreated;
+        switch (filterCriteria)
+        {
+            case MovieCollectionSortCriteria.Newest:
+                //Данный метод определяет критерий сортировки, который далее передается в метод GetLimitedMovieCollectionsSortedByCriteria.
+                IComparable GetSortingByDateCreated(Collection collection)
+                    => collection.DateCreated;
 
-        
-        var shortMovieCollectionsBlmSortedByDate = _movieCollectionRepository
-            .GetLimitedMovieCollectionsSortedByCriteria(OTPUTCOUNT, GetSortingCriteria, MapToShortMovieCollectionDataModel)
-            .Select(collection => new ShortMovieCollectionBlm
-            {
-                Id = collection.Id,
-                Title = collection.Title,
-                Description = collection.Description,
-                DateCreated = collection.DateCreated,
-                Rating = collection.Rating
-            })
-            .ToList();
-        return shortMovieCollectionsBlmSortedByDate;
+                var shortMovieCollectionsBlmSortedByDate = _movieCollectionRepository
+                    .GetLimitedMovieCollectionsSortedByCriteria(OTPUTCOUNT, GetSortingByDateCreated, MapToShortMovieCollectionDataModel)
+                    .Select(collection => new ShortMovieCollectionBlm
+                    {
+                        Id = collection.Id,
+                        Title = collection.Title,
+                        Description = collection.Description,
+                        DateCreated = collection.DateCreated,
+                        Rating = collection.Rating
+                    })
+                    .ToList();
+                return shortMovieCollectionsBlmSortedByDate;
+
+            case MovieCollectionSortCriteria.Popular:
+                //Данный метод определяет критерий сортировки, который далее передается в метод GetLimitedMovieCollectionsSortedByCriteria.
+                IComparable GetSortingByRating(Collection collection)
+                    => collection
+                        .Ratings.Where(rating => rating.CollectionId == collection.Id)
+                        .Select(rating => rating.Value)
+                        .DefaultIfEmpty(0)
+                        .Average();
+
+                var shortMovieCollectionsBlmSortedByRating = _movieCollectionRepository
+                    .GetLimitedMovieCollectionsSortedByCriteria(OTPUTCOUNT, GetSortingByRating, MapToShortMovieCollectionDataModel)
+                    .Select(collection => new ShortMovieCollectionBlm
+                    {
+                        Id = collection.Id,
+                        Title = collection.Title,
+                        Description = collection.Description,
+                        DateCreated = collection.DateCreated,
+                        Rating = collection.Rating
+                    })
+                    .ToList();
+                return shortMovieCollectionsBlmSortedByRating;
+
+            default:
+                throw new ArgumentException("Неподдерживаемый критерий сортировки", nameof(filterCriteria));
+        }
     }
 
     public void CreateMovieCollection(MovieCollectionBlmForCreate movieCollectionBlmForCreate)
@@ -109,7 +137,7 @@ public class MovieCollectionService : IMovieCollectionService
 
     public MovieCollectionPaginatorBlm GetMovieCollectionPaginatorBlm(int page, int perPage)
     {
-        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetMovieCollectionPaginatorDataModel (page, perPage);
+        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetMovieCollectionPaginatorDataModel(page, perPage);
         return new MovieCollectionPaginatorBlm()
         {
             Page = movieCollectionPaginatorDataModel.Page,
@@ -117,7 +145,7 @@ public class MovieCollectionService : IMovieCollectionService
             Count = movieCollectionPaginatorDataModel.Count,
             Collections = movieCollectionPaginatorDataModel
                 .Collections
-                .Select(m=>new ShortMovieCollectionBlm
+                .Select(m => new ShortMovieCollectionBlm
                 {
                     Id = m.Id,
                     Title = m.Title,
