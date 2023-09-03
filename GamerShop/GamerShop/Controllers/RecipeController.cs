@@ -12,59 +12,25 @@ namespace GamerShop.Controllers
 
 		private readonly IRecipeServices _recipeServices;
 		private readonly IReviewServices _reviewServices;
+        private readonly IPaginatorService _paginatorService;
         private readonly IAuthService _authService;
 
-		public RecipeController(IRecipeServices recipeServices, IAuthService authService, IReviewServices reviewServices)
-		{
-			_recipeServices = recipeServices;
-			_authService = authService;
-			_reviewServices = reviewServices;
-		}
-		
-		[Authorize]
+        public RecipeController(IRecipeServices recipeServices, 
+			IAuthService authService, 
+			IReviewServices reviewServices, 
+			IPaginatorService paginatorService)
+        {
+            _recipeServices = recipeServices;
+            _authService = authService;
+            _reviewServices = reviewServices;
+            _paginatorService = paginatorService;
+        }
+
+        [Authorize]
 		[HttpGet]
 		public IActionResult ShowAll(int page = 1, int perPage = 3)
 		{
-			var dataFromBl = _recipeServices.GetPaginatorRecipeBlm(page, perPage);
-			var addtionalPageNumber = dataFromBl.Count % dataFromBl.PerPage == 0
-				? 0
-				: 1;
-
-			var availablePages = Enumerable
-				.Range(1, dataFromBl.Count / dataFromBl.PerPage + addtionalPageNumber)
-				.ToList();
-
-			var currentUserId = _authService.GetCurrentUser().Id;
-			var viewModel = new PaginatorRecipeViewModel
-			{
-				Page = dataFromBl.Page,
-				PerPage = dataFromBl.PerPage,
-				Count = dataFromBl.Count,
-				AvailablePages = availablePages,
-				Recipes = dataFromBl
-					.Recipes
-					.Select(recipeBlm => new ShowRecipesViewModel
-					{
-						Id = recipeBlm.Id,
-						Title = recipeBlm.Title,
-						Description = recipeBlm.Title,
-						CookingTime = recipeBlm.CookingTime,
-						PreparationTime = recipeBlm.PreparationTime,
-						Servings = recipeBlm.Servings,
-						DifficultyLevel = recipeBlm.DifficultyLevel,
-						Cuisine = recipeBlm.Cuisine,
-						IsFavorite = _recipeServices.GetFavoriteByUser(currentUserId).Any(blm => blm.Id == recipeBlm.Id),
-						Reviews = _reviewServices.GetRecipeReviews(recipeBlm.Id).Select(reviewBlm => new DisplayReviewViewModel
-						{
-							Rating = reviewBlm.Rating,
-							Text = reviewBlm.Text,
-							Date = reviewBlm.Date,
-							RecipeId = reviewBlm.RecipeId,
-							Username = reviewBlm.Username
-						}).ToList()
-					})
-					.ToList()
-			};
+			var viewModel = _paginatorService.GetPaginatorViewModel(_recipeServices, Map, page, perPage);
 			return View(viewModel);
 		}
 
@@ -204,5 +170,30 @@ namespace GamerShop.Controllers
 			return RedirectToAction("ShowAll");
 		}
 
+
+		private ShowRecipesViewModel Map(RecipeBlm recipeBlm)
+		{
+            var currentUserId = _authService.GetCurrentUser().Id;
+            return new ShowRecipesViewModel
+			{
+				Id = recipeBlm.Id,
+				Title = recipeBlm.Title,
+				Description = recipeBlm.Title,
+				CookingTime = recipeBlm.CookingTime,
+				PreparationTime = recipeBlm.PreparationTime,
+				Servings = recipeBlm.Servings,
+				DifficultyLevel = recipeBlm.DifficultyLevel,
+				Cuisine = recipeBlm.Cuisine,
+				IsFavorite = _recipeServices.GetFavoriteByUser(currentUserId).Any(blm => blm.Id == recipeBlm.Id),
+				Reviews = _reviewServices.GetRecipeReviews(recipeBlm.Id).Select(reviewBlm => new DisplayReviewViewModel
+				{
+					Rating = reviewBlm.Rating,
+					Text = reviewBlm.Text,
+					Date = reviewBlm.Date,
+					RecipeId = reviewBlm.RecipeId,
+					Username = reviewBlm.Username
+				}).ToList()
+			};
+        }
 	}
 }
