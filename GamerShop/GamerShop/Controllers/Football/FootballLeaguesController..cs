@@ -3,6 +3,7 @@ using BusinessLayerInterfaces.FootballService;
 using GamerShop.Services;
 using GamerShop.Models.Football;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GamerShop.Controllers.Football
 {
@@ -16,7 +17,7 @@ namespace GamerShop.Controllers.Football
             _footballLeagueServices = footballLeagueServices;
             _authService = authService;
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult NewLeague()
         {
@@ -33,6 +34,7 @@ namespace GamerShop.Controllers.Football
                 FullName = footballLeague.FullName,
                 ShortName = footballLeague.ShortName,
                 Country = footballLeague.Counrty,
+                Creator = user
             });
 
             return View();

@@ -1,6 +1,8 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
+using DALInterfaces.DataModels.Football;
+using DALInterfaces.DataModels;
 using DALInterfaces.Models;
 using DALInterfaces.Models.Football;
 using DALInterfaces.Repositories;
@@ -29,7 +31,7 @@ namespace BusinessLayer.FootballService
                     FullName = x.Name,
                     ShortName = x.ShortName,
                     Country = x.Country,
-                    Creator = new UserBlm {Id = x.UserCreator.Id , Name = x.UserCreator.Name }
+                    Creator = new UserBlm { Id = x.UserCreator.Id, Name = x.UserCreator.Name }
                 });
 
         public void Save(FootballLeagueBLM footLeague)
@@ -40,7 +42,7 @@ namespace BusinessLayer.FootballService
                 Name = footLeague.FullName,
                 ShortName = footLeague.ShortName,
                 Country = footLeague.Country,
-                UserCreator = new User {  Id = footLeague.Creator.Id ,Name = footLeague.Creator.Name }
+                UserCreator = new User { Id = footLeague.Creator.Id, Name = footLeague.Creator.Name }
             });
         }
 
@@ -49,6 +51,46 @@ namespace BusinessLayer.FootballService
             _footballLeagueRepository.Remove(id);
         }
 
+        public PaginatorBlm<FootballLeagueBLM> GetPaginatorBlm(int page, int perPage)
+        {
+            var data = _footballLeagueRepository.GetPaginatorDataModel(MapDataToShortDataModel, page, perPage);
 
+            return new PaginatorBlm<FootballLeagueBLM>
+            {
+                Count = data.Count,
+                Page = data.Page,
+                PerPage = data.PerPage,
+                Items = data.Items.Select(x => new FootballLeagueBLM
+                {
+                    Id = x.Id,
+                    ShortName = x.ShortName,
+                    Country = x.Country,
+                    Creator = new UserBlm
+                    {
+                        Id = x.Creator.Id,
+                        Name = x.Creator.Name,
+                    },
+                    FullName = x.FullName,
+                }
+                ).ToList()
+            };
+        }
+
+        private ShortFootballLeagueDataModel MapDataToShortDataModel(FootballLeague footballLeague)
+        {
+            return new ShortFootballLeagueDataModel
+            {
+                Id = footballLeague.Id,
+                ShortName = footballLeague.ShortName,
+                Country = footballLeague.Country,
+                Creator = new UserDataModel
+                {
+                    Id = footballLeague.UserCreator.Id,
+                    Name = footballLeague.UserCreator.Name
+                },
+                FullName = footballLeague.Name
+            }
+             ;
+        }
     }
 }
