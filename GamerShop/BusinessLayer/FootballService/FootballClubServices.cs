@@ -43,7 +43,7 @@ namespace BusinessLayer.FootballServices
                 Name = footClub.Name,
                 Stadium = footClub.Stadium,
                 League = _footballLeagueRepository.Get(footClub.ShortFootballLeagueInfo.Id),
-                UserCreator = _userRepository.Get(footClub.Id)
+                UserCreator = _userRepository.Get(footClub.Creator.Id)
             });
         }
 

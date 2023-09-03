@@ -42,7 +42,7 @@ namespace BusinessLayer.FootballService
                 Name = footLeague.FullName,
                 ShortName = footLeague.ShortName,
                 Country = footLeague.Country,
-                UserCreator = new User { Id = footLeague.Creator.Id, Name = footLeague.Creator.Name }
+                UserCreator = _userRepository.Get(footLeague.Creator.Id)
             });
         }
 

@@ -1,4 +1,5 @@
-﻿using BusinessLayerInterfaces.BusinessModels.Football;
+﻿using BusinessLayer.FootballService;
+using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.Common;
 using BusinessLayerInterfaces.FootballService;
 using GamerShop.Models.Football;
@@ -6,34 +7,35 @@ using GamerShop.Services;
 using GamerShop.Services.Football;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.Football
 {
-    
+
     public class FootballClubsController : Controller
     {
         private IFootballServices<FootballClubBlm> _foootballClubsServices;
         private IAuthService _authService;
         private IPaginatorService _paginatorService;
+        private IFootballServices<FootballLeagueBLM> _footballLeagueBLMServices;
 
-
-        public FootballClubsController(IFootballServices<FootballClubBlm> foootballClubsService, IAuthService authService, IPaginatorService paginatorService)
+        public FootballClubsController(IFootballServices<FootballClubBlm> foootballClubsService, IAuthService authService, IPaginatorService paginatorService, IFootballServices<FootballLeagueBLM> footballLeagueBLMServices)
         {
             _foootballClubsServices = foootballClubsService;
             _authService = authService;
             _paginatorService = paginatorService;
+            _footballLeagueBLMServices = footballLeagueBLMServices;
         }
         [Authorize]
         [HttpGet]
         public IActionResult NewClub()
         {
 
-            return View();
+            return View(GetViewModelForNewClub());
         }
 
         [HttpPost]
-        public IActionResult NewClub(FootballClubViewModel footballClub)
+        public IActionResult NewClub(FootballClubViewModel<List<ShortFootballLeagueViewModel>> footballClub)
         {
             var user = _authService.GetCurrentUser();
 
@@ -44,12 +46,12 @@ namespace GamerShop.Controllers.Football
                 Creator = user,
                 ShortFootballLeagueInfo = new ShortFootballLeagueBLM
                 {
-                    Id = footballClub.FootballLeagueinfo.id,
-                    ShortName = footballClub.FootballLeagueinfo.ShortName
-                },
+                    Id = footballClub.SelectedLigue
+                   .First()
+                }
             });
 
-            return View();
+            return View(GetViewModelForNewClub());
         }
         public IActionResult ClubsList(int page = 1, int perPage = 10)
         {
@@ -66,8 +68,8 @@ namespace GamerShop.Controllers.Football
             return RedirectToAction("ClubsList", "FootballClubs");
         }
 
-        private FootballClubViewModel MapToFootClubViewModel(FootballClubBlm footballClubBlm)
-        => new FootballClubViewModel
+        private FootballClubViewModel<ShortFootballLeagueViewModel> MapToFootClubViewModel(FootballClubBlm footballClubBlm)
+        => new FootballClubViewModel<ShortFootballLeagueViewModel>
         {
             CreatorName = footballClubBlm.Creator.Name,
             Id = footballClubBlm.Id,
@@ -75,9 +77,19 @@ namespace GamerShop.Controllers.Football
             Name = footballClubBlm.Name,
             FootballLeagueinfo = new ShortFootballLeagueViewModel
             {
-                id = footballClubBlm.ShortFootballLeagueInfo.Id,
+                Id = footballClubBlm.ShortFootballLeagueInfo.Id,
                 ShortName = footballClubBlm.ShortFootballLeagueInfo.ShortName
             },
+
+        };
+        private FootballClubViewModel<List<ShortFootballLeagueViewModel>> GetViewModelForNewClub()
+        => new FootballClubViewModel<List<ShortFootballLeagueViewModel>>
+        {
+            FootballLeagueinfo = _footballLeagueBLMServices.GetAll().Select(x => new ShortFootballLeagueViewModel
+            {
+                Id = x.Id,
+                ShortName = x.ShortName
+            }).ToList(),
 
         };
     }

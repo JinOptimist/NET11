@@ -2,7 +2,7 @@
 
 namespace GamerShop.Models.Football
 {
-    public class FootballClubViewModel
+    public class FootballClubViewModel<T>
     {
         public int Id { get; set; }
         [Required]
@@ -11,6 +11,9 @@ namespace GamerShop.Models.Football
         public string Stadium { get; set; }
         public string CreatorName { get; set; }
         [Required]
-        public ShortFootballLeagueViewModel FootballLeagueinfo { get; set;}
+        public T FootballLeagueinfo { get; set; }
+        public IEnumerable<int> SelectedLigue { get; set; }
+
     }
+
 }

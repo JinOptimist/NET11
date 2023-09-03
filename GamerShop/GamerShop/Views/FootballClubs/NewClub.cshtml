@@ -1,5 +1,5 @@
 ﻿@using GamerShop.Models.Football;
-@model FootballClubViewModel
+@model FootballClubViewModel<List<ShortFootballLeagueViewModel>>
 
 @using (Html.BeginForm("NewClub", "FootballClubs", FormMethod.Post))
 {
@@ -12,12 +12,10 @@
             Stadium
             @Html.TextBoxFor(model => model.Stadium)
         </div>
-        <div>
-            League
-            @Html.TextBoxFor(model => model.FootballLeagueinfo.id)
-            League name
-            @Html.TextBoxFor(model => model.FootballLeagueinfo.ShortName)
 
+        <div>
+            <p>Select League</p>
+            @Html.DropDownListFor(model => model.SelectedLigue,new SelectList(Model.FootballLeagueinfo,"Id","ShortName"))
         </div>
 
         <div>

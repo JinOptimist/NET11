@@ -21,7 +21,7 @@ namespace GamerShop.Controllers.Football
         [HttpGet]
         public IActionResult NewLeague()
         {
-            return View();
+          return View();
         }
 
         [HttpPost]
@@ -34,7 +34,7 @@ namespace GamerShop.Controllers.Football
                 FullName = footballLeague.FullName,
                 ShortName = footballLeague.ShortName,
                 Country = footballLeague.Counrty,
-                Creator = user
+                Creator = user,
             });
 
             return View();
@@ -48,7 +48,7 @@ namespace GamerShop.Controllers.Football
                             Id = x.Id,
                             FullName = x.FullName,
                             ShortName = x.ShortName,
-                            Counrty = x.Country
+                            Counrty = x.Country                            
                         }).
                         ToList());
 
