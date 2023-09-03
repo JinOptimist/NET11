@@ -1,5 +1,6 @@
 ﻿using BusinessLayerInterfaces.BusinessModels.Movies;
 using BusinessLayerInterfaces.MovieServices;
+using DALInterfaces.DataModels.Movies;
 using DALInterfaces.Models.Movies;
 using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Movies;
@@ -55,23 +56,37 @@ public class MovieCollectionService : IMovieCollectionService
 
     public List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByDate()
     {
-        var shortMovieCollectionBlms = _movieCollectionRepository
-            .GetLimitedMovieCollectionSortedByCriteria(OTPUTCOUNT, collection => collection.DateCreated)
+        //Данный метод предназначен для мапинга из Collection в ShortMovieCollectionDataModel. Оп передается в метод GetLimitedMovieCollectionsSortedByCriteria.
+        ShortMovieCollectionDataModel MapToShortMovieCollectionDataModel(Collection collection) =>
+            new()   
+            {
+                Id = collection.Id,
+                Title = collection.Title,
+                Description = collection.Description,
+                DateCreated = collection.DateCreated,
+                Rating = collection.Ratings.Where(rating => rating.CollectionId == collection.Id)
+                    .Select(rating => rating.Value)
+                    .DefaultIfEmpty(0)
+                    .Average()
+            };
+
+        //Данный метод определяет критерий сортировки, который далее передается в метод GetLimitedMovieCollectionsSortedByCriteria.
+        IComparable GetSortingCriteria(Collection collection)
+            => collection.DateCreated;
+
+        
+        var shortMovieCollectionsBlmSortedByDate = _movieCollectionRepository
+            .GetLimitedMovieCollectionsSortedByCriteria(OTPUTCOUNT, GetSortingCriteria, MapToShortMovieCollectionDataModel)
             .Select(collection => new ShortMovieCollectionBlm
             {
                 Id = collection.Id,
                 Title = collection.Title,
                 Description = collection.Description,
                 DateCreated = collection.DateCreated,
-                Rating = collection
-                    .Ratings
-                    .Where(rating => rating.CollectionId == collection.Id)
-                    .Select(rating => rating.Value)
-                    .DefaultIfEmpty(0)
-                    .Average()
+                Rating = collection.Rating
             })
             .ToList();
-        return shortMovieCollectionBlms;
+        return shortMovieCollectionsBlmSortedByDate;
     }
 
     public void CreateMovieCollection(MovieCollectionBlmForCreate movieCollectionBlmForCreate)

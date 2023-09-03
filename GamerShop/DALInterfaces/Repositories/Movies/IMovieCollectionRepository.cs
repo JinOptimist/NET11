@@ -4,6 +4,6 @@ namespace DALInterfaces.Repositories.Movies;
 
 public interface IMovieCollectionRepository : IBaseRepository<Collection>
 {
-    IEnumerable<Collection> GetLimitedMovieCollectionSortedByCriteria(int count,
-        Func<Collection, IComparable> sortingCriteria);
+    IEnumerable<T> GetLimitedMovieCollectionsSortedByCriteria<T>(int count,
+        Func<Collection, IComparable> sortingCriteria, Func<Collection, T> projection);
 }
