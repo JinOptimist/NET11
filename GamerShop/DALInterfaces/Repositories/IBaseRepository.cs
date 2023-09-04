@@ -23,5 +23,7 @@ namespace DALInterfaces.Repositories
             Func<DbModel, DataModelTemplate> map,
             int page,
             int perPage);
+
+        DbModel GetLast();
     }
 }

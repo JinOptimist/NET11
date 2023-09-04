@@ -75,5 +75,13 @@ namespace DALEfDB.Repositories
                 Items = items
             };
         }
+
+        public DbModel GetLast()
+        {
+            var maxId = _dbSet
+                        .Select(x => x.Id)
+                        .Max();
+            return Get(maxId);
+        }
     }
 }

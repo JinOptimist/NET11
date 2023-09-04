@@ -59,12 +59,19 @@ namespace DALEfDB.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int");
 
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
                             SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                             b.Property<string>("Author")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
                             b.Property<string>("Name")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
@@ -77,6 +84,53 @@ namespace DALEfDB.Migrations
                             b.ToTable("Books");
                         });
 
+                    b.Property<int>("UserCreatorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeagueId");
+
+                    b.HasIndex("UserCreatorId");
+
+                    b.ToTable("FootballClubs");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserCreatorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserCreatorId");
+
+                    b.ToTable("FootballLeagues");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Hero", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
                     modelBuilder.Entity("DALInterfaces.Models.FootballClub", b =>
                         {
                             b.Property<int>("Id")
@@ -919,6 +973,10 @@ namespace DALEfDB.Migrations
 
                             SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.HasIndex("CurrentBandId");
+
+                    b.ToTable("RockMembers");
+                });
                             b.Property<int>("CreatorId")
                                 .HasColumnType("int");
 
@@ -990,6 +1048,43 @@ namespace DALEfDB.Migrations
                             b.Property<int>("FavoriteRecipesId")
                                 .HasColumnType("int");
 
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.Football.FootballLeague", "League")
+                        .WithMany("footballClubs")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
+                        .WithMany("CreatedFootballClubs")
+                        .HasForeignKey("UserCreatorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("League");
+
+                    b.Navigation("UserCreator");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
+                        .WithMany("CreatedFootballLeagues")
+                        .HasForeignKey("UserCreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserCreator");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.User", "Author")
+                        .WithMany("Collections")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                             b.Property<int>("UsersWhoLikeItId")
                                 .HasColumnType("int");
 
@@ -1000,6 +1095,209 @@ namespace DALEfDB.Migrations
                             b.ToTable("RecipeUser");
                         });
 
+                    b.Navigation("Collection");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Build", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.PcBuild.Case", "Case")
+                        .WithMany("Builds")
+                        .HasForeignKey("CaseId");
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Cooler", "Cooler")
+                        .WithMany("Builds")
+                        .HasForeignKey("CoolerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.User", "Creator")
+                        .WithMany("CreatedBuilds")
+                        .HasForeignKey("CreatorId");
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Gpu", "Gpu")
+                        .WithMany("Builds")
+                        .HasForeignKey("GpuId");
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Hdd", "Hdd")
+                        .WithMany("Builds")
+                        .HasForeignKey("HddId");
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Motherboard", "Motherboard")
+                        .WithMany("Builds")
+                        .HasForeignKey("MotherboardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Processor", "Processor")
+                        .WithMany("Builds")
+                        .HasForeignKey("ProcessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Psu", "Psu")
+                        .WithMany("Builds")
+                        .HasForeignKey("PsuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Ram", "Ram")
+                        .WithMany("Builds")
+                        .HasForeignKey("RamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.PcBuild.Ssd", "Ssd")
+                        .WithMany("Builds")
+                        .HasForeignKey("SsdId");
+
+                    b.Navigation("Case");
+
+                    b.Navigation("Cooler");
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Gpu");
+
+                    b.Navigation("Hdd");
+
+                    b.Navigation("Motherboard");
+
+                    b.Navigation("Processor");
+
+                    b.Navigation("Psu");
+
+                    b.Navigation("Ram");
+
+                    b.Navigation("Ssd");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.Recipe.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.User", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.Movies.Movie", "FavoriteMovie")
+                        .WithMany()
+                        .HasForeignKey("FavoriteMovieId");
+
+                    b.Navigation("FavoriteMovie");
+                });
+
+            modelBuilder.Entity("GenreMovie", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.Movies.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.Movies.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MoviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeUser", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.Recipe.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteRecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoLikeItId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
+                {
+                    b.Navigation("footballClubs");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
+                {
+                    b.Navigation("Ratings");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Case", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Cooler", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Gpu", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Hdd", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Motherboard", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Processor", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Psu", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ram", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ssd", b =>
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.User", b =>
+                {
+                    b.Navigation("Collections");
+
+                    b.Navigation("CreatedBuilds");
+
+                    b.Navigation("CreatedFootballClubs");
+
+                    b.Navigation("CreatedFootballLeagues");
+
+                    b.Navigation("Ratings");
+                });
                     modelBuilder.Entity("BuildUser", b =>
                         {
                             b.HasOne("DALInterfaces.Models.PcBuild.Build", null)

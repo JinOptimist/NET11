@@ -1,0 +1,20 @@
+﻿@using GamerShop.Models.RockHall;
+@model NewBandViewModel
+
+@using (Html.BeginForm("NewRockBand", "RockBand", FormMethod.Post))
+{
+    <div>
+        <!   FULL NAME>
+        <div>
+            @Html.LabelFor(model => model.FullName)
+
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.FullName)
+            @Html.ValidationMessageFor(model => model.FullName)
+        </div>
+        <div>
+            <input type="submit" value="Add" />
+        </div>
+    </div>
+}
