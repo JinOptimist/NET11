@@ -22,6 +22,7 @@ using DALEfDB.Repositories.Movies;
 using GamerShop.Services;
 using BusinessLayerInterfaces.BookServices;
 using BusinessLayer.BookServices;
+using DALEfDB.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,10 +57,7 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
-
-builder.Services.AddSingleton<IBookRepository>(x => null);
-builder.Services.AddScoped<IMovieRepository, DALEfDB.Repositories.MovieRepository>();
-builder.Services.AddScoped<IBookRepository, DALEfDB.Repositories.BookRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 builder.Services.AddSingleton<IRecipeRepository>(x => null);
 builder.Services.AddSingleton<IRockMemberRepository>(x => null);
