@@ -2,9 +2,20 @@
 
 <div>
 	сейчас на сайте следующие пользователи.
+	<div>
+		<input class="search-text" type='text' placeholder="search user name" />
+		<button class="search-button">search</button>
+	</div>
+
 	@foreach(var user in Model){
-		<div>
-			@user.Name (Favorite Movie : @user.FavoriteMovieName)
+		<div class="user-row">
+			<span class="name">@user.Name</span>
+			<span class="symbol">+</span>
+			<span class="movie-info">(Favorite Movie : @user.FavoriteMovieName)</span>
 		</div>
 	}
 </div>
+
+@section Style{
+	<link rel="stylesheet" href="~/css/home-index.css" />
+}
