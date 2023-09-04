@@ -1,7 +1,9 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.UserServices;
+using GamerShop.Controllers.AuthCustomAttribute;
 using GamerShop.Models.Users;
 using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
@@ -9,6 +11,7 @@ namespace GamerShop.Controllers
     public class UserController : Controller
 	{
 		private IUserService _userService;
+        private Services.IAuthService _authService;
 
         private IPaginatorService _paginatorService;
 
@@ -18,6 +21,7 @@ namespace GamerShop.Controllers
             _paginatorService = paginatorService;
         }
 
+        [Authorize]
         public IActionResult Index(int page = 1, int perPage = 10)
 		{
 			var viewModel = _paginatorService
@@ -35,5 +39,23 @@ namespace GamerShop.Controllers
 				AgeInDays = userBlm.AgeInDays,
 			};
         }
-	}
+
+        [AdultOnly]
+        public IActionResult LookAtSome18PlusPage()
+		{
+			return View();
+		}
+
+        [AdultOnly]
+        public IActionResult DoAtSome18PlusPage()
+        {
+            return View();
+        }
+
+        [AdultOnly]
+        public IActionResult FindAtSome18PlusPage()
+        {
+            return View();
+        }
+    }
 }

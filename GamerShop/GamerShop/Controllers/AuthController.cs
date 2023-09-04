@@ -33,8 +33,9 @@ namespace GamerShop.Controllers
 			var userId = _authService.GetUserIdByNameAndPassword(authViewModel.Login, authViewModel.Password);
 			if (userId == null)
 			{
-				throw new Exception("You try hack me");
-			}
+				ModelState.AddModelError(nameof(AuthViewModel.Login), "Не правильный пароль или логин");
+                return View(authViewModel);
+            }
 
 			var claims = new List<Claim>() {
 				new Claim("Id", userId.ToString()),
