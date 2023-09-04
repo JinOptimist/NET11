@@ -55,7 +55,7 @@ namespace DALEfDB.Migrations
                     b.ToTable("CollectionMovie");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.FootballClub", b =>
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,10 +63,7 @@ namespace DALEfDB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Creator")
+                    b.Property<int>("LeagueId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -77,9 +74,46 @@ namespace DALEfDB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserCreatorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("LeagueId");
+
+                    b.HasIndex("UserCreatorId");
+
                     b.ToTable("FootballClubs");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserCreatorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserCreatorId");
+
+                    b.ToTable("FootballLeagues");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Hero", b =>
@@ -916,6 +950,8 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentBandId");
+
                     b.ToTable("RockMembers");
                 });
 
@@ -1006,6 +1042,36 @@ namespace DALEfDB.Migrations
                         .HasForeignKey("MoviesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.Football.FootballLeague", "League")
+                        .WithMany("footballClubs")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
+                        .WithMany("CreatedFootballClubs")
+                        .HasForeignKey("UserCreatorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("League");
+
+                    b.Navigation("UserCreator");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
+                        .WithMany("CreatedFootballLeagues")
+                        .HasForeignKey("UserCreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserCreator");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
@@ -1169,6 +1235,11 @@ namespace DALEfDB.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
+                {
+                    b.Navigation("footballClubs");
+                });
+
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
                 {
                     b.Navigation("Ratings");
@@ -1224,6 +1295,10 @@ namespace DALEfDB.Migrations
                     b.Navigation("Collections");
 
                     b.Navigation("CreatedBuilds");
+
+                    b.Navigation("CreatedFootballClubs");
+
+                    b.Navigation("CreatedFootballLeagues");
 
                     b.Navigation("Ratings");
                 });

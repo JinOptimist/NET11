@@ -2,7 +2,9 @@
 using DALInterfaces.Models.Recipe;
 using DALInterfaces.Models.PcBuild;
 using DALInterfaces.Models.Movies;
+using DALInterfaces.Models.RockHall;
 using Microsoft.EntityFrameworkCore;
+using DALInterfaces.Models.Football;
 
 namespace DALEfDB
 {
@@ -35,6 +37,8 @@ namespace DALEfDB
         public DbSet<Cooler> Coolers { get; set; }
         public DbSet<Case> Cases { get; set; }
         public DbSet<Build> Builds { get; set; }
+        public DbSet<FootballLeague> FootballLeagues { get; set; }
+        public DbSet<RockBand> RockBands { get; set; }
 
         public WebContext() { }
 
@@ -64,6 +68,22 @@ namespace DALEfDB
             modelBuilder.Entity<Build>()
                 .HasMany(x => x.UsersWhoLikeIt)
                 .WithMany(x => x.LikedBuilds);
+
+            modelBuilder.Entity<FootballLeague>()
+                .HasMany(footclubs => footclubs.footballClubs)
+                .WithOne(footleagues => footleagues.League);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.CreatedFootballClubs)
+                .WithOne(x => x.UserCreator)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.CreatedFootballLeagues)
+                .WithOne(x => x.UserCreator);
+
+
+
         }
     }
 }

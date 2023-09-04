@@ -1,0 +1,24 @@
+﻿@using GamerShop.Models.Football;
+@model FootballLeagueViewModel
+
+@using (Html.BeginForm("NewLeague", "FootballLeagues", FormMethod.Post))
+{
+    <div>
+        <div>
+            Full Name
+            @Html.TextBoxFor(model => model.FullName)
+        </div>
+        <div>
+            Short Name
+            @Html.TextBoxFor(model => model.ShortName)
+        </div>
+        <div>
+            Counrty
+            @Html.TextBoxFor(model => model.Counrty)
+        </div>
+
+        <div>
+            <input type="submit" value="Записать" />
+        </div>
+    </div>
+}

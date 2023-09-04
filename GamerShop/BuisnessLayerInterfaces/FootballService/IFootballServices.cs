@@ -1,11 +1,13 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.Common;
+using DALInterfaces.Models.Football;
 
 namespace BusinessLayerInterfaces.FootballService
 {
-    public interface IFootballServices
+    public interface IFootballServices <T> : IPaginatorServices<T> 
     {
-        IEnumerable<FootballClubsBlm> GetAll();
-        void Save(FootballClubsBlm footClub);
+        IEnumerable<T> GetAll();
+        void Save(T item);
         void Delete(int id);
     }
 }

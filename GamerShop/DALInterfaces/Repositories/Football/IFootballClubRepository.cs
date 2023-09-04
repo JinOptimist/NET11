@@ -1,6 +1,6 @@
-﻿using DALInterfaces.Models;
+﻿using DALInterfaces.Models.Football;
 
-namespace DALInterfaces.Repositories
+namespace DALInterfaces.Repositories.Football
 {
     public interface IFootballClubRepository : IBaseRepository<FootballClub>
     {

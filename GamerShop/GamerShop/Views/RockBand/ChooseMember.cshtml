@@ -1,0 +1,29 @@
+﻿@using GamerShop.Models.RockHall
+@model ChooseBandGetViewModel
+
+@using (Html.BeginForm("ChooseMember", "RockBand", FormMethod.Post))
+{
+    <div>
+        <h4 style="color: #34495e">Choose BAND and MEMBER</h4>
+    </div>
+    <div class="d-flex">
+        <div style="width: 300px;">
+            <div style="height: 40px;">
+
+                @Html.DropDownList(nameof(ChooseBandPostViewModel.BandId), Model.AllBandsSelectListItem, new{ @class = "form-control" })
+
+            </div>
+        </div>
+        <div style="width: 300px; margin-left:40px">
+            <div style="height: 40px;">
+
+                @Html.DropDownList(nameof(ChooseBandPostViewModel.MemberId), Model.AllMembersSelectListItem, new{ @class = "form-control" })
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Выбрать" style="background-color: #3498db; color: #fff;
+         border: none; margin-top: 10px; cursor: pointer; border-radius: 4px;" />
+    </div>
+}

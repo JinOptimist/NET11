@@ -1,10 +1,21 @@
-﻿@model List<FootballClubViewModel>
+﻿@using  GamerShop.Models.Football;
+@model PaginatorViewModel<FootballClubViewModel<ShortFootballLeagueViewModel>>
 <div>
     Список клубов:
-    @foreach (var item in Model)
+    @foreach (var item in Model.Items)
     {
         <div>
             <p>Создал:@item.CreatorName: @item.Name <a class="del" href="~/FootballClubs/Remove?id=@item.Id">X</a></p>
         </div>
     }
+    <div class="pages">
+        @foreach (var pageNumber in Model.AvailablePages)
+        {
+            <a href="/FootballClubs/ClubsList?page=@pageNumber" class="page-button @(Model.Page == pageNumber ? "active" : "")">@pageNumber</a>
+        }
+    </div>
 </div>
+
+@section Style{
+    <link rel="stylesheet" href="~/css/_ClubList.css" />
+}
