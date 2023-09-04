@@ -1,7 +1,11 @@
-﻿using BusinessLayerInterfaces.BookServices;
+﻿using BusinessLayer.UserServices;
+using BusinessLayerInterfaces.BookServices;
+using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Books;
 using BusinessLayerInterfaces.UserServices;
 using GamerShop.Models.Books;
+using GamerShop.Models.Users;
+using GamerShop.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
@@ -9,29 +13,32 @@ namespace GamerShop.Controllers
     public class BooksController : Controller
     {
         private IBookServices _bookServices;
-        private IAuthService _authService;
+        private Services.IAuthService _authService;
+        private IPaginatorService _paginatorService;
 
-        public BooksController(IBookServices bookServices, IAuthService authService)
+        public BooksController(IBookServices bookServices, IPaginatorService paginatorService)
         {
             _bookServices = bookServices;
-            _authService = authService;
+            _paginatorService = paginatorService;
         }
 
         [HttpGet]
-        public IActionResult Books()
+        public IActionResult Books(int page = 1, int perPage = 5)
         {
-            var viewModel = _bookServices
-                .GetAll()
-                .Select(dbMember => new BookViewModel
-                {
-                    Id = dbMember.Id,
-                    Author = dbMember.Author,
-                    Name = dbMember.Name,
-                    YearOfIssue = dbMember.YearOfIssue
-                })
-                .ToList();
-
+                var viewModel = _paginatorService
+                    .GetPaginatorViewModel(_bookServices, MapBlmToViewModel, page, perPage);
             return View(viewModel);
+        }
+
+        private BookViewModel MapBlmToViewModel(BookGetBlm bookBlm)
+        {
+            return new BookViewModel
+            {
+                Id = bookBlm.Id,
+                Author = bookBlm.Author,
+                Name = bookBlm.Name,
+                YearOfIssue = bookBlm.YearOfIssue
+            };
         }
 
         public IActionResult Delete(int id)
