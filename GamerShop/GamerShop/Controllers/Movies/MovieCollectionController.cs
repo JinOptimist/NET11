@@ -13,13 +13,15 @@ public class MovieCollectionController : Controller
     private readonly IMovieCollectionService _collectionService;
     private readonly IMovieServices _movieServices;
     private readonly IAuthService _authService;
+    private readonly IPaginatorService _paginatorService;
 
     public MovieCollectionController(IMovieCollectionService collectionService, IMovieServices movieServices,
-        IAuthService authService)
+        IAuthService authService, IPaginatorService paginatorService)
     {
         _collectionService = collectionService;
         _movieServices = movieServices;
         _authService = authService;
+        _paginatorService = paginatorService;
     }
 
     [HttpGet]
@@ -43,30 +45,21 @@ public class MovieCollectionController : Controller
     [HttpGet]
     public IActionResult ShowAll(int page = 1, int perPage = 5)
     {
-        var movieCollectionPaginatorBlm = _collectionService.GetMovieCollectionPaginatorBlm(page, perPage);
-        var additionalPageNumber = movieCollectionPaginatorBlm.Count % movieCollectionPaginatorBlm.PerPage == 0? 0 : 1;
-        var availablePages = Enumerable
-            .Range(1, movieCollectionPaginatorBlm.Count / movieCollectionPaginatorBlm.PerPage + additionalPageNumber)
-            .ToList();
-        var movieCollectionPaginatorViewModel = new MovieCollectionPaginatorViewModel
+        var paginatorViewModel = _paginatorService
+            .GetPaginatorViewModel(_collectionService, MapBlmToViewModel, page, perPage);
+        
+        return View(paginatorViewModel);
+    }
+    private ShowShortMovieCollectionViewModel MapBlmToViewModel(ShortMovieCollectionBlm shortMovieCollectionBlm)
+    {
+        return new ShowShortMovieCollectionViewModel
         {
-            Page = movieCollectionPaginatorBlm.Page,
-            PerPage = movieCollectionPaginatorBlm.PerPage,
-            Count = movieCollectionPaginatorBlm.Count,
-            AvailablePages = availablePages,
-            Collections = movieCollectionPaginatorBlm
-                .Collections
-                .Select(m=>new ShowShortMovieCollectionViewModel
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Description = m.Description,
-                    DateCreated = m.DateCreated,
-                    Rating = m.Rating
-                })
-                .ToList()
+            Id = shortMovieCollectionBlm.Id,
+            Title = shortMovieCollectionBlm.Title,
+            Description = shortMovieCollectionBlm.Description,
+            DateCreated = shortMovieCollectionBlm.DateCreated,
+            Rating = shortMovieCollectionBlm.Rating
         };
-        return View(movieCollectionPaginatorViewModel);
     }
 
     [HttpGet]

@@ -1,6 +1,7 @@
 ﻿using DALInterfaces.DataModels.Movies;
 using DALInterfaces.Models.Movies;
 using DALInterfaces.Repositories.Movies;
+using Microsoft.EntityFrameworkCore;
 
 namespace DALEfDB.Repositories.Movies;
 
@@ -34,36 +35,8 @@ public class MovieCollectionRepository : BaseRepository<Collection>, IMovieColle
             .ToList();
     }
 
-    public MovieCollectionPaginatorDataModel GetMovieCollectionPaginatorDataModel(int page, int perPage)
+    protected override IQueryable<Collection> GetDbSetWithIncludeForPaginator()
     {
-        var count = _dbSet.Count();
-        var collections = _dbSet
-            .Skip((page - 1) * perPage)
-            .Take(perPage)
-            .Select(collection => new ShortMovieCollectionDataModel
-            {
-                Id = collection.Id,
-                Title = collection.Title,
-                Description = collection.Description,
-                DateCreated = collection.DateCreated,
-                Rating = collection.Ratings.Count == 0
-                    ? 0
-                    : collection
-                        .Ratings
-                        .Select(rating => rating.Value)
-                        .Average()
-
-
-            })
-            .ToList();
-
-        var movieCollectionPaginatorDataModel = new MovieCollectionPaginatorDataModel
-        {
-            Page = page,
-            PerPage = perPage,
-            Count = count,
-            Collections = collections
-        };
-        return movieCollectionPaginatorDataModel;
+        return _context.Collections.Include(x => x.Ratings);
     }
 }

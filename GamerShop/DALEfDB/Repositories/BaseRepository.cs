@@ -1,4 +1,5 @@
-﻿using DALInterfaces.Models;
+﻿using DALInterfaces.DataModels;
+using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,6 +47,33 @@ namespace DALEfDB.Repositories
         {
             _dbSet.AddRange(models);
             _context.SaveChanges();
+        }
+
+        protected virtual IQueryable<DbModel> GetDbSetWithIncludeForPaginator()
+        {
+            return _dbSet;
+        }
+
+        public virtual PaginatorDataModel<DataModelTemplate> GetPaginatorDataModel<DataModelTemplate>(
+            Func<DbModel, DataModelTemplate> map, 
+            int page, 
+            int perPage)
+        {
+            var count = _dbSet.Count();
+
+            var items = GetDbSetWithIncludeForPaginator()
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .Select(map)
+                .ToList();
+
+            return new PaginatorDataModel<DataModelTemplate>
+            {
+                Count = count,
+                Page = page,
+                PerPage = perPage,
+                Items = items
+            };
         }
     }
 }

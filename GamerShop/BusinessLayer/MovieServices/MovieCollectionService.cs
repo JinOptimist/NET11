@@ -1,4 +1,6 @@
-﻿using BusinessLayerInterfaces.BusinessModels.Movies;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Movies;
+using BusinessLayerInterfaces.Common;
 using BusinessLayerInterfaces.MovieServices;
 using DALInterfaces.DataModels.Movies;
 using DALInterfaces.Models.Movies;
@@ -135,16 +137,16 @@ public class MovieCollectionService : IMovieCollectionService
         _movieCollectionRepository.Save(movieCollectionToAdd);
     }
 
-    public MovieCollectionPaginatorBlm GetMovieCollectionPaginatorBlm(int page, int perPage)
+    public PaginatorBlm<ShortMovieCollectionBlm> GetPaginatorBlm(int page, int perPage)
     {
-        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetMovieCollectionPaginatorDataModel(page, perPage);
-        return new MovieCollectionPaginatorBlm()
+        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetPaginatorDataModel(Map, page, perPage);
+        return new PaginatorBlm<ShortMovieCollectionBlm>()
         {
             Page = movieCollectionPaginatorDataModel.Page,
             PerPage = movieCollectionPaginatorDataModel.PerPage,
             Count = movieCollectionPaginatorDataModel.Count,
-            Collections = movieCollectionPaginatorDataModel
-                .Collections
+            Items = movieCollectionPaginatorDataModel
+                .Items
                 .Select(m => new ShortMovieCollectionBlm
                 {
                     Id = m.Id,
@@ -154,6 +156,22 @@ public class MovieCollectionService : IMovieCollectionService
                     Rating = m.Rating
                 })
                 .ToList()
+        };
+    }
+    private ShortMovieCollectionDataModel Map(Collection collection)
+    {
+        return new ShortMovieCollectionDataModel
+        {
+            Id = collection.Id,
+            Title = collection.Title,
+            Description = collection.Description,
+            DateCreated = collection.DateCreated,
+            Rating = collection.Ratings.Count == 0
+                ? 0
+                : collection
+                    .Ratings
+                    .Select(rating => rating.Value)
+                    .Average()
         };
     }
 }
