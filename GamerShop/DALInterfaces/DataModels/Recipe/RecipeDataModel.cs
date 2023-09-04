@@ -24,7 +24,5 @@ namespace DALInterfaces.DataModels.Recipe
 		public int CreatedByUserId { get; set; }
 
 		public DateTime CreatedOn { get; set; }
-
-		public virtual List<User> UsersWhoLikeIt { get; set; }
 	}
 }

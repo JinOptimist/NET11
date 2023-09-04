@@ -12,7 +12,7 @@ namespace DALInterfaces.Models
 
         public virtual Movie? FavoriteMovie { get; set; }
 
-        public virtual List<Recipe.Recipe> FavoriteRecipes { get; set; }
+        public virtual ICollection<Recipe.Recipe> FavoriteRecipes { get; set; }
         public virtual ICollection<Build>? CreatedBuilds { get; set; }
         public virtual ICollection<Build>? LikedBuilds { get; set; }
 
