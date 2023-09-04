@@ -1,4 +1,6 @@
-﻿using BusinessLayerInterfaces.BusinessModels.Movies;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Movies;
+using BusinessLayerInterfaces.Common;
 using BusinessLayerInterfaces.MovieServices;
 using DALInterfaces.DataModels.Movies;
 using DALInterfaces.Models.Movies;
@@ -144,6 +146,28 @@ public class MovieCollectionService : IMovieCollectionService
             PerPage = movieCollectionPaginatorDataModel.PerPage,
             Count = movieCollectionPaginatorDataModel.Count,
             Collections = movieCollectionPaginatorDataModel
+                .Collections
+                .Select(m => new ShortMovieCollectionBlm
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    Description = m.Description,
+                    DateCreated = m.DateCreated,
+                    Rating = m.Rating
+                })
+                .ToList()
+        };
+    }
+
+    public PaginatorBlm<ShortMovieCollectionBlm> GetPaginatorBlm(int page, int perPage)
+    {
+        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetMovieCollectionPaginatorDataModel(page, perPage);
+        return new PaginatorBlm<ShortMovieCollectionBlm>()
+        {
+            Page = movieCollectionPaginatorDataModel.Page,
+            PerPage = movieCollectionPaginatorDataModel.PerPage,
+            Count = movieCollectionPaginatorDataModel.Count,
+            Items = movieCollectionPaginatorDataModel
                 .Collections
                 .Select(m => new ShortMovieCollectionBlm
                 {
