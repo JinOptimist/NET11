@@ -84,9 +84,6 @@ public class MovieCollectionController : Controller
     [Authorize]
     public IActionResult Create(CreateMovieCollectionViewModel createMovieCollectionViewModel)
     {
-        if (!createMovieCollectionViewModel.AvailableMovies.Any(movie => movie.Selected))
-            ModelState.AddModelError("AvailableMovies", "Необходимо выбрать хотя бы один фильм.");
-
         if (!ModelState.IsValid) return View(createMovieCollectionViewModel);
 
         var movieCollectionBlmForCreate = new MovieCollectionBlmForCreate
