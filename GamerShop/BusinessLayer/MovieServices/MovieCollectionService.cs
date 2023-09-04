@@ -137,16 +137,16 @@ public class MovieCollectionService : IMovieCollectionService
         _movieCollectionRepository.Save(movieCollectionToAdd);
     }
 
-    public MovieCollectionPaginatorBlm GetMovieCollectionPaginatorBlm(int page, int perPage)
+    public PaginatorBlm<ShortMovieCollectionBlm> GetPaginatorBlm(int page, int perPage)
     {
-        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetMovieCollectionPaginatorDataModel(page, perPage);
-        return new MovieCollectionPaginatorBlm()
+        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetPaginatorDataModel(Map, page, perPage);
+        return new PaginatorBlm<ShortMovieCollectionBlm>()
         {
             Page = movieCollectionPaginatorDataModel.Page,
             PerPage = movieCollectionPaginatorDataModel.PerPage,
             Count = movieCollectionPaginatorDataModel.Count,
-            Collections = movieCollectionPaginatorDataModel
-                .Collections
+            Items = movieCollectionPaginatorDataModel
+                .Items
                 .Select(m => new ShortMovieCollectionBlm
                 {
                     Id = m.Id,
@@ -158,26 +158,20 @@ public class MovieCollectionService : IMovieCollectionService
                 .ToList()
         };
     }
-
-    public PaginatorBlm<ShortMovieCollectionBlm> GetPaginatorBlm(int page, int perPage)
+    private ShortMovieCollectionDataModel Map(Collection collection)
     {
-        var movieCollectionPaginatorDataModel = _movieCollectionRepository.GetMovieCollectionPaginatorDataModel(page, perPage);
-        return new PaginatorBlm<ShortMovieCollectionBlm>()
+        return new ShortMovieCollectionDataModel
         {
-            Page = movieCollectionPaginatorDataModel.Page,
-            PerPage = movieCollectionPaginatorDataModel.PerPage,
-            Count = movieCollectionPaginatorDataModel.Count,
-            Items = movieCollectionPaginatorDataModel
-                .Collections
-                .Select(m => new ShortMovieCollectionBlm
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Description = m.Description,
-                    DateCreated = m.DateCreated,
-                    Rating = m.Rating
-                })
-                .ToList()
+            Id = collection.Id,
+            Title = collection.Title,
+            Description = collection.Description,
+            DateCreated = collection.DateCreated,
+            Rating = collection.Ratings.Count == 0
+                ? 0
+                : collection
+                    .Ratings
+                    .Select(rating => rating.Value)
+                    .Average()
         };
     }
 }

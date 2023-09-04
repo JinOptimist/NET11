@@ -10,6 +10,4 @@ public interface IMovieCollectionService : IPaginatorServices<ShortMovieCollecti
     List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByCriteria(MovieCollectionSortCriteria filterCriteria);
 
     void CreateMovieCollection(MovieCollectionBlmForCreate movieCollectionBlmForCreate);
-
-    MovieCollectionPaginatorBlm GetMovieCollectionPaginatorBlm(int page, int perPage);
 }
