@@ -11,7 +11,7 @@ namespace DALEfDB
     public class WebContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Book> Books { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Rating> Ratings { get; set; }

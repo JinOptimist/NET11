@@ -26,6 +26,9 @@ using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayer.FootballService;
 using DALInterfaces.Repositories.RockHall;
 using DALEfDB.Repositories.RockHall;
+using BusinessLayer.BookServices;
+using BusinessLayerInterfaces.BookServices;
+using DALEfDB.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,8 +65,7 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IFootballLeagueRepository, FootballLeaguesRepository>();
 builder.Services.AddScoped<IRockBandRepository, RockBandRepository>();
-
-builder.Services.AddSingleton<IBookRepository>(x => null);
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
@@ -73,6 +75,7 @@ builder.Services.AddScoped<IFootballServices<FootballClubBlm>, FootballClubServi
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<IReviewServices, ReviewServices>();
 builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
+builder.Services.AddScoped<IBookServices, BookServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
 builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, BusinessLayer.UserServices.AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
