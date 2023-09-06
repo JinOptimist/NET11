@@ -37,22 +37,13 @@ namespace GamerShop.Controllers
                 return View(authViewModel);
             }
 
-			var claims = new List<Claim>() {
-				new Claim("Id", userId.ToString()),
-				new Claim("TimeOfLogin", DateTime.Now.Hour + ""),
-				new Claim(ClaimTypes.AuthenticationMethod, "WebAuthSmile")
-			};
+			AuthOnServer(userId.ToString());
 
-            var identity = new ClaimsIdentity(claims, "WebAuthSmile");
-
-            var principal = new ClaimsPrincipal(identity);
-
-			HttpContext.SignInAsync(principal).Wait();
-
-            return View();
+            return RedirectToAction("Privacy", "Home");
         }
 
-		[HttpGet]
+        
+        [HttpGet]
 		public IActionResult Register()
 		{
 			return View();
@@ -75,13 +66,37 @@ namespace GamerShop.Controllers
 
 			_authService.Save(dbUser);
 
-			return View();
+            AuthOnServer(dbUser.Id.ToString());
+
+            return RedirectToAction("Privacy", "Home");
 		}
 
-		public IActionResult Remove(int id)
+		public IActionResult Logout()
+		{
+            HttpContext.SignOutAsync().Wait();
+			return Redirect("/");
+        }
+
+        public IActionResult Remove(int id)
         {
             _authService.Remove(id);
             return RedirectToAction("Index", "Home");
         }
+
+        private void AuthOnServer(string userId)
+        {
+            var claims = new List<Claim>() {
+                new Claim("Id", userId),
+                new Claim("TimeOfLogin", DateTime.Now.Hour + ""),
+                new Claim(ClaimTypes.AuthenticationMethod, "WebAuthSmile")
+            };
+
+            var identity = new ClaimsIdentity(claims, "WebAuthSmile");
+
+            var principal = new ClaimsPrincipal(identity);
+
+            HttpContext.SignInAsync(principal).Wait();
+        }
+
     }
 }

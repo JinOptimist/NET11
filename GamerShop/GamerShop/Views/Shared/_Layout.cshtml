@@ -25,19 +25,29 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Home/Index">Home</a>
                         </li>
+                      
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Home/Privacy">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Auth/Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Auth/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Auth/Register">Register</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" href="/Recipe/ShowAll">Recipes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Auth/Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Auth/Register">Register</a>
-                        </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" href="/Recipe/ShowAll">Recipes</a>
-	                    </li>
-                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/BaldursGate/CharacterCreation">Create Hero</a>
                         </li>
                         <li class="nav-item">
@@ -83,12 +93,12 @@
         </main>
     </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2023 - GamerShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        @RenderSection("AdditionalInfoInFooter", false)
-    </div>
-</footer>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - GamerShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            @RenderSection("AdditionalInfoInFooter", false)
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
