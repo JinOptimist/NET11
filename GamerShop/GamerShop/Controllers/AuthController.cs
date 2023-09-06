@@ -1,6 +1,6 @@
 ﻿using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Models;
-using GamerShop.Models;
+using GamerShop.Models.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -23,25 +23,24 @@ namespace GamerShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(AuthViewModel authViewModel)
+        public IActionResult Login(LoginViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(authViewModel);
+                return View(viewModel);
             }
 
-			var userId = _authService.GetUserIdByNameAndPassword(authViewModel.Login, authViewModel.Password);
+			var userId = _authService.GetUserIdByNameAndPassword(viewModel.Login, viewModel.Password);
 			if (userId == null)
 			{
-				ModelState.AddModelError(nameof(AuthViewModel.Login), "Не правильный пароль или логин");
-                return View(authViewModel);
+				ModelState.AddModelError(nameof(LoginViewModel.Login), "Не правильный пароль или логин");
+                return View(viewModel);
             }
 
 			AuthOnServer(userId.ToString());
 
             return RedirectToAction("Privacy", "Home");
         }
-
         
         [HttpGet]
 		public IActionResult Register()
@@ -50,14 +49,14 @@ namespace GamerShop.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Register(AuthViewModel authViewModel)
+		public IActionResult Register(RegisterViewModel authViewModel)
 		{
 			if (!ModelState.IsValid)
 			{
 				return View(authViewModel);
 			}
 
-			var dbUser = new User()
+            var dbUser = new User()
 			{
 				Name = authViewModel.Login,
 				Password = authViewModel.Password,

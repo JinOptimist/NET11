@@ -1,40 +1,4 @@
-﻿$(document).ready(function () {
-    $('.user-row .symbol').click(function () {
-        if ($(this).text() == '+') {
-            $(this).text('-');
-        } else {
-            $(this).text('+');
-        }
-        
-        $(this).toggleClass('blue');
-
-        $(this)
-            .closest('.user-row') // parent
-            .find('.movie-info')
-            .toggle(); // child
-    });
-
-    $('.search-button').click();
-
-    $('.search-text').on("keyup", runSearch);
-
-    function runSearch() {
-        const userSearchText = $('.search-text').val();
-        $('.user-row .name')
-            .each(function () {
-                const row = $(this)
-                    .closest('.user-row');
-                if ($(this).text().indexOf(userSearchText) < 0) {
-                    row.css('opacity', '0.5');
-                } else {
-                    row.css('opacity', '1');
-                }
-            })
-    }
-});
-
-
-//let user = {};
+﻿//let user = {};
 //user.age = 123;
 //user.name = 'Jon';
 

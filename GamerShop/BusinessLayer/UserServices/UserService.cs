@@ -34,7 +34,10 @@ namespace BusinessLayer.UserServices
             };
         }
 
-		private UserDataModel MapUserToUserDataModel(User dbUser)
+        public bool IsUserNameExist(string name)
+            => _userRepository.IsUserNameExist(name);
+
+        private UserDataModel MapUserToUserDataModel(User dbUser)
 		{
             return new UserDataModel
             {

@@ -1,16 +1,15 @@
 ﻿using GamerShop.Models.CustomValidationAttribute;
 using System.ComponentModel.DataAnnotations;
 
-namespace GamerShop.Models
+namespace GamerShop.Models.Auth
 {
-    public class AuthViewModel
+    public class RegisterViewModel
     {
         [Required]
-        [AtLeastOneCapitalAtLeastOneNotCapital]
+        [UniqName(ErrorMessage = "Имя уже используется")]
         public string Login { get; set; }
 
         [Required]
-        [MaxLength(10)]
         [AtLeastOneCapitalAtLeastOneNotCapital(ErrorMessage = "Хотя бы одну большую букву")]
         public string Password { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.UserServices;
+using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 
 namespace BusinessLayer.UserServices
@@ -17,12 +18,7 @@ namespace BusinessLayer.UserServices
 			=> _userRepository
 				.GetAll()
 				.Take(5)
-				.Select(x => new UserBlm
-				{
-					Id = x.Id,
-					Name = x.Name,
-					FavoriteMovieName = x.FavoriteMovie?.Title ?? "---"
-				});
+				.Select(Map);
 
 		public UserBlm GetUserById(int id)
 		{
@@ -31,6 +27,21 @@ namespace BusinessLayer.UserServices
 			{
 				Id = userDb.Id,
 				Name = userDb.Name,
+			};
+		}
+
+		public IEnumerable<UserBlm> GetUsersBySearchString(string search, int count = 5)
+			=> _userRepository
+				.GetUsersBySearchString(search, count)
+				.Select(Map);
+
+		private UserBlm Map(User user)
+		{
+			return new UserBlm
+			{
+				Id = user.Id,
+				Name = user.Name,
+				FavoriteMovieName = user.FavoriteMovie?.Title ?? "---"
 			};
 		}
 	}

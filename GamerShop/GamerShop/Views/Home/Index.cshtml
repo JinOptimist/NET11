@@ -1,21 +1,32 @@
 ﻿@model List<IndexViewModel>
 
 <div>
-	сейчас на сайте следующие пользователи.
-	<div>
-		<input class="search-text" type='text' placeholder="search user name" />
-		<button class="search-button">search</button>
-	</div>
+    На сайте зарегестрированны следующие пользователи.
+    <div>
+        <input class="search-text" type='text' placeholder="Введи имя пользователя" />
+    </div>
 
-	@foreach(var user in Model){
-		<div class="user-row">
-			<span class="name">@user.Name</span>
-			<span class="symbol">+</span>
-			<span class="movie-info">(Favorite Movie : @user.FavoriteMovieName)</span>
-		</div>
-	}
+    <div class="users">
+        @foreach (var user in Model)
+        {
+            <div class="user-row">
+                <span class="name">@user.Name</span>
+                <span class="symbol">+</span>
+                <span class="movie-info">(Favorite Movie : @user.FavoriteMovieName)</span>
+            </div>
+        }
+    </div>
+    <div class="user-row template">
+        <span class="name"></span>
+        <span class="symbol">+</span>
+        <span class="movie-info">(Favorite Movie : <span class="favorite-movie-name"></span>)</span>
+    </div>
 </div>
 
 @section Style{
-	<link rel="stylesheet" href="~/css/home-index.css" />
+    <link rel="stylesheet" href="~/css/home-index.css" />
+}
+
+@section Scripts{
+    <script src="~/js/Home/index.js"></script>
 }

@@ -7,5 +7,7 @@ namespace BusinessLayerInterfaces.UserServices
         IEnumerable<UserBlm> GetLastLoginUsers();
 
 		UserBlm GetUserById(int id);
+
+		IEnumerable<UserBlm> GetUsersBySearchString(string search, int count = 5);
 	}
 }
