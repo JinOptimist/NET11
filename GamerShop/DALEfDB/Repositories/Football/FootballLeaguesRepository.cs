@@ -8,15 +8,16 @@ namespace DALEfDB.Repositories.Football
     {
         public FootballLeaguesRepository(WebContext context) : base(context) { }
 
-        public IEnumerable<ShortFootballLeagueDataModel> GetAllFromCountry(string Country)
+        public IEnumerable<ShortFootballLeagueDataModel> GetAllFromCountry(string country)
         => _dbSet
+           .Where(x => x.Country == country)
            .Select(x => new ShortFootballLeagueDataModel
             {
                 Id = x.Id,
                 Country = x.Country,
                 ShortName = x.ShortName
             })
-           .Where(x => x.Country == Country);
+           .ToList();
 
     }
 }

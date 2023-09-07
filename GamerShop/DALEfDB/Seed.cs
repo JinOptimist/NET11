@@ -782,9 +782,9 @@ namespace DALEfDB
             var footballClubRepository = serviceProvider.GetService<IFootballClubRepository>();
             var footballLeagueRepository = serviceProvider.GetService<IFootballLeagueRepository>();
             var userRepository = serviceProvider.GetService<IUserRepository>();
-            if (footballClubRepository.Count() == 0 & footballLeagueRepository.Count() == 0)
+            if (!footballClubRepository.Any()  & !footballLeagueRepository.Any())
             {
-                new GetInfoForFootballClub(footballClubRepository, footballLeagueRepository , userRepository).GetSaveAndParseFootballLuagesAndClubs(5);
+                new FootballGenerator(footballClubRepository, footballLeagueRepository , userRepository).FillInfoAboutLeagues(5);
             }
 
 

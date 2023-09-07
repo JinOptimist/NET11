@@ -7,40 +7,37 @@ using DALInterfaces.Repositories.Football;
 
 namespace GamerShop.Services.Football
 {
-    public class GetInfoForFootballClub
+    public class FootballGenerator
     {
 
-        private string TitleUrl = "https://www.globalfootballrankings.com";
+        const string TitleUrl = "https://www.globalfootballrankings.com";
 
-        IFootballLeagueRepository _footballLeagueRepository;
-        IFootballClubRepository _footballClubRepository;
-        IUserRepository _userRepository;
-        User Creator;
+        private IFootballLeagueRepository _footballLeagueRepository;
+        private IFootballClubRepository _footballClubRepository;
+        private IUserRepository _userRepository;
+        private User Creator;
 
-        public GetInfoForFootballClub(IFootballClubRepository footballClubRepository, IFootballLeagueRepository footballLeagueRepository, IUserRepository userRepository)
+        public FootballGenerator(IFootballClubRepository footballClubRepository, IFootballLeagueRepository footballLeagueRepository, IUserRepository userRepository)
         {
             _footballLeagueRepository = footballLeagueRepository;
             _footballClubRepository = footballClubRepository;
             _userRepository = userRepository;
-            Creator = _userRepository.GetAll().First(x => x.Name == "Admin");
+            Creator = _userRepository.GetUserByName("Admin") ?? _userRepository.Get(1);
         }
 
-        public void GetSaveAndParseFootballLuagesAndClubs(int countLeague)
+        public void FillInfoAboutLeagues(int countLeague)
         {
             IDocument titlePage = GetPage(TitleUrl).Result;
 
             var itemSelector = titlePage.QuerySelectorAll("td");
+            var itemList = itemSelector
+                           .Where(x => x.IsFirstChild())
+                           .Take(countLeague)
+                           .ToList();
 
-            foreach (var item in itemSelector)
+            for (int i = 0; i < itemList.Count(); i++)
             {
-                if (!item.IsFirstChild())
-                {
-                    continue;
-                }
-                if (countLeague == 0)
-                {
-                    break;
-                }
+                var item = itemList[i];
                 var ligName = item.QuerySelector("a");
                 var ligCountry = item.QuerySelector("span").GetAttribute("title");
                 _footballLeagueRepository.Save(new FootballLeague
@@ -50,30 +47,28 @@ namespace GamerShop.Services.Football
                     ShortName = ligName.TextContent,
                     UserCreator = Creator
                 });
-                GetAndParceClubs($"{TitleUrl}{ligName.GetAttribute("href")}", _footballLeagueRepository.GetLast());
-                countLeague--;
-            };
+                FillInfoAboutClubs($"{TitleUrl}{ligName.GetAttribute("href")}", _footballLeagueRepository.GetLast());
+
+            }
 
         }
 
 
-        private void GetAndParceClubs(string url, FootballLeague footballLeague)
+        private void FillInfoAboutClubs(string url, FootballLeague footballLeague)
         {
             var clubs = new List<FootballClub>();
             IDocument titlePage = GetPage(url).Result;
-            var itemSelector = titlePage.QuerySelectorAll("td");
-            foreach (var item in itemSelector)
+            var itemList = titlePage.QuerySelectorAll("td")
+                                    .Where(x => x.IsFirstChild() & !x.TextContent.Contains("Best"))
+                                    .ToList();
+
+
+            for (int i = 0; i < itemList.Count(); i++)
             {
-                if (!item.IsFirstChild())
-                {
-                    continue;
-                }
-                if (item.TextContent.IndexOf("Best") != -1)
-                {
-                    continue;
-                }
+                var item = itemList[i];
                 var club = item.QuerySelector("a");
                 var name = club.TextContent;
+                
                 clubs.Add(new FootballClub
                 {
                     Name = name,
@@ -82,9 +77,9 @@ namespace GamerShop.Services.Football
                     UserCreator = Creator
                 });
 
-
             }
             _footballClubRepository.SaveRange(clubs);
+
         }
 
         public async Task<IDocument> GetPage(string url)
