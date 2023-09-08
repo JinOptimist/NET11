@@ -3,15 +3,17 @@ using BusinessLayerInterfaces.FootballService;
 using GamerShop.Services;
 using GamerShop.Models.Football;
 using Microsoft.AspNetCore.Mvc;
+using GamerShop.Controllers.Attributes;
 using Microsoft.AspNetCore.Authorization;
 
 namespace GamerShop.Controllers.Football
 {
+    [ViewLayout("_FootballLayout")]
     public class FootballLeaguesController : Controller
     {
         private IFootballServices<FootballLeagueBLM> _footballLeagueServices;
         private IAuthService _authService;
-
+        
         public FootballLeaguesController(IFootballServices<FootballLeagueBLM> footballLeagueServices, IAuthService authService)
         {
             _footballLeagueServices = footballLeagueServices;

@@ -1,5 +1,10 @@
 ﻿@using GamerShop.Models.Football;
+@using GamerShop.Services;
 @model FootballClubViewModel<List<ShortFootballLeagueViewModel>>
+
+@{
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
 
 @using (Html.BeginForm("NewClub", "FootballClubs", FormMethod.Post))
 {

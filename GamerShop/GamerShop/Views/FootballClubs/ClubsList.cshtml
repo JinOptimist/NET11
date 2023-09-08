@@ -1,5 +1,11 @@
 ﻿@using  GamerShop.Models.Football;
+@using GamerShop.Services;
 @model PaginatorViewModel<FootballClubViewModel<ShortFootballLeagueViewModel>>
+
+@{
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName??Layout;
+}
+
 <div>
     Список клубов:
     @foreach (var item in Model.Items)

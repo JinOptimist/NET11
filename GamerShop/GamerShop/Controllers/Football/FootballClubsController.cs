@@ -1,17 +1,14 @@
-﻿using BusinessLayer.FootballService;
-using BusinessLayerInterfaces.BusinessModels.Football;
-using BusinessLayerInterfaces.Common;
+﻿using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
+using GamerShop.Controllers.Attributes;
 using GamerShop.Models.Football;
 using GamerShop.Services;
-using GamerShop.Services.Football;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.Football
 {
-
+    [ViewLayout("_FootballLayout")]
     public class FootballClubsController : Controller
     {
         private IFootballServices<FootballClubBlm> _foootballClubsServices;
