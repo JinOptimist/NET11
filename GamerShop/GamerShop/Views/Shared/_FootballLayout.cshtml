@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GamerShop.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/_ClubList.css" asp-append-version="true" />
 
     @RenderSection("Style", false)
 </head>
@@ -25,44 +24,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Home/Index">Home</a>
                         </li>
-                      
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Home/Privacy">Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Auth/Logout">Logout</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Auth/Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Auth/Register">Register</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Recipe/ShowAll">Recipes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/BaldursGate/CharacterCreation">Create Hero</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/BaldursGate/CharacterList">Hero List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Books/Books">Books</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Books/Book">Book</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/RockHall/Menu">RockHall</a>
-                        </li>
-                        <partial name="_MovieMenuPartial" />
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/FootballClubs/NewClub">New Club</a>
                         </li>
@@ -74,13 +35,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/FootballLeagues/LeagueList">Leagues</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PCBuild</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item nav-link text-dark" href="/PCBuild/Index">Все сборки</a></li>
-                                <li><a class="dropdown-item nav-link text-dark" href="/PCBuild/CreateBuild">Создать сборку</a></li>
-                            </ul>
                         </li>
                     </ul>
                 </div>

@@ -1,5 +1,9 @@
 ﻿@using GamerShop.Models.Football;
+@using GamerShop.Services;
 @model List<FootballLeagueViewModel>
+@{
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
 <div>
     Лиги :
     @foreach (var item in Model)

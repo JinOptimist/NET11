@@ -1,5 +1,9 @@
 ﻿@using GamerShop.Models.Football;
+@using GamerShop.Services;
 @model FootballLeagueViewModel
+@{
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
 
 @using (Html.BeginForm("NewLeague", "FootballLeagues", FormMethod.Post))
 {
@@ -21,4 +25,7 @@
             <input type="submit" value="Записать" />
         </div>
     </div>
+}
+@section Style{
+    <link rel="stylesheet" href="~/css/_ClubList.css" />
 }
