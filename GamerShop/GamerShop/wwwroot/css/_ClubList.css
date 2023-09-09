@@ -21,3 +21,24 @@
 .pages {
     margin-top: 10px;
 }
+
+.active-page {
+    color: green
+}
+
+.shows div {
+    opacity: 0;
+}
+
+.page-item.active a {
+    background: none;
+    border-color: green
+}
+
+.page-item a {
+    color: #e2d8d8
+}
+
+    .page-item a:hover {
+        color: #198754
+    }
