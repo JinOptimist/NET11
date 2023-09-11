@@ -6,6 +6,7 @@ namespace GamerShop.Models.RockHall
     {
 
         [Required(ErrorMessage = "Пустая пустота, не надо так...")]
+        [IsNotPatrickSwayze]
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 

@@ -75,7 +75,7 @@ namespace GamerShop.Controllers.RockHall
 
         [Authorize]
         [HttpGet]
-        public IActionResult ChooseMember()
+        public IActionResult BandChooseMember()
         {
             var viewModel = new ChooseBandGetViewModel();
 
@@ -101,7 +101,7 @@ namespace GamerShop.Controllers.RockHall
 
         [Authorize]
         [HttpPost]
-        public IActionResult ChooseMember(ChooseBandPostViewModel viewModel)
+        public IActionResult BandChooseMember(ChooseBandPostViewModel viewModel)
         {
             _rockBandServices.ChooseMember(viewModel.BandId, viewModel.MemberId);
             return RedirectToAction("Index", "RockHall");

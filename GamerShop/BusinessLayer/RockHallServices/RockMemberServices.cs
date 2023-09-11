@@ -61,7 +61,7 @@ namespace BusinessLayer.RockHallServices
             {
                 Count = data.Count,
                 PerPage = data.PerPage,
-                Page = perPage,
+                Page = data.Page,
                 Items = data.Items.Select(rockMemberDataModel => new RockMemberGetBlm
                 {
                     Id = rockMemberDataModel.Id,

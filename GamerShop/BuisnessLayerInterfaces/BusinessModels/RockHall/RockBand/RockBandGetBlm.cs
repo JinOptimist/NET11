@@ -7,8 +7,10 @@ using BusinessLayerInterfaces.BusinessModels.RockHall.RockMember;
 
 namespace BusinessLayerInterfaces.BusinessModels.RockHall.RockBand
 {
-    public class RockBandGetBlm : BaseRockMemberBlm
+    public class RockBandGetBlm
     {
+        public int Id { get; set; }
+        public string FullName { get; set; }
         public string CreatorName { get; set; }
     }
 }

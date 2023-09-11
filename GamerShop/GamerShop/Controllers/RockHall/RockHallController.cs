@@ -7,6 +7,7 @@ using BusinessLayerInterfaces.BusinessModels.RockHall.RockMember;
 using Microsoft.AspNetCore.Diagnostics;
 using GamerShop.Models.Users;
 using BusinessLayerInterfaces.BusinessModels;
+using GamerShop.Controllers.RockHall;
 
 namespace GamerShop.Controllers.RockHallController
 {
@@ -29,7 +30,13 @@ namespace GamerShop.Controllers.RockHallController
             return View();
         }
 
+        public IActionResult IsNotAdmin()
+        {
+            return View();
+        }
+
         [Authorize]
+        [AdminOnly]
         public IActionResult Index(int page = 1, int perPage = 5)
         {
 

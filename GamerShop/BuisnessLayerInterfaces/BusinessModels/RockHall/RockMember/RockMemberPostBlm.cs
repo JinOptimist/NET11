@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace BusinessLayerInterfaces.BusinessModels.RockHall.RockMember
 {
-    public class RockMemberPostBlm : BaseRockMemberBlm
+    public class RockMemberPostBlm
     {
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string Genre { get; set; }
+        public int EntryYear { get; set; }
+        public int YearOfBirth { get; set; }
+        public string CurrentBandName { get; set; }
         public int CreatorId { get; set; }
     }
 }
