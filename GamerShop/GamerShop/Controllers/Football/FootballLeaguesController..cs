@@ -11,10 +11,10 @@ namespace GamerShop.Controllers.Football
     [ViewLayout("_FootballLayout")]
     public class FootballLeaguesController : Controller
     {
-        private IFootballServices<FootballLeagueBLM> _footballLeagueServices;
+        private IFootballLeagueServices _footballLeagueServices;
         private IAuthService _authService;
         
-        public FootballLeaguesController(IFootballServices<FootballLeagueBLM> footballLeagueServices, IAuthService authService)
+        public FootballLeaguesController(IFootballLeagueServices footballLeagueServices, IAuthService authService)
         {
             _footballLeagueServices = footballLeagueServices;
             _authService = authService;

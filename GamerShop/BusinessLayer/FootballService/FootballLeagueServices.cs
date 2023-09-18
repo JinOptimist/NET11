@@ -10,7 +10,7 @@ using DALInterfaces.Repositories.Football;
 
 namespace BusinessLayer.FootballService
 {
-    public class FootballLeagueServices : IFootballServices<FootballLeagueBLM>
+    public class FootballLeagueServices : IFootballLeagueServices
     {
         private IFootballLeagueRepository _footballLeagueRepository;
         private IUserRepository _userRepository;
@@ -92,5 +92,26 @@ namespace BusinessLayer.FootballService
             }
              ;
         }
+        public int Count()
+        => _footballLeagueRepository.Count();
+
+        public IEnumerable<ShortFootballLeagueBLM> Get(int skip, int count)
+        => _footballLeagueRepository
+          .Get(skip, count)
+          .Select(x => new ShortFootballLeagueBLM
+          {
+              Id = x.Id,
+              ShortName = x.ShortName
+          })
+          .ToList();
+
+        public IEnumerable<ShortFootballLeagueBLM> GetLimitedAmountLigues(int id)
+        => _footballLeagueRepository.GetLimitedAmountLigues(1)
+            .Select(x => new ShortFootballLeagueBLM
+            {
+                Id = x.Id,
+                ShortName = x.ShortName
+            }).ToList();
+
     }
 }

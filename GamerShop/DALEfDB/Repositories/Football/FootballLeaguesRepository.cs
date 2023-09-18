@@ -12,12 +12,33 @@ namespace DALEfDB.Repositories.Football
         => _dbSet
            .Where(x => x.Country == country)
            .Select(x => new ShortFootballLeagueDataModel
+           {
+               Id = x.Id,
+               Country = x.Country,
+               ShortName = x.ShortName
+           })
+           .ToList();
+
+        public IEnumerable<ShortFootballLeagueDataModel> Get(int skip, int count)
+        => _dbSet
+            .Skip(skip)
+            .Take(count)
+            .Select(x => new ShortFootballLeagueDataModel
             {
                 Id = x.Id,
                 Country = x.Country,
                 ShortName = x.ShortName
+            }
+            )
+            .ToList();
+        public IEnumerable<ShortFootballLeagueDataModel> GetLimitedAmountLigues(int count)
+        => _dbSet
+           .Take(count)
+           .Select(x => new ShortFootballLeagueDataModel
+            {
+                Id = x.Id,
+                ShortName = x.ShortName
             })
            .ToList();
-
     }
 }

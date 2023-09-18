@@ -9,7 +9,7 @@ using DALInterfaces.Repositories.Football;
 
 namespace BusinessLayer.FootballServices
 {
-    public class FootballClubServices : IFootballServices<FootballClubBlm>
+    public class FootballClubServices : IFootballClubService
     {
         private IFootballClubRepository _footballClubRepository;
         private IUserRepository _userRepository;

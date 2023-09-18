@@ -71,7 +71,7 @@ builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
 builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IBgServices, BgServices>();
-builder.Services.AddScoped<IFootballServices<FootballClubBlm>, FootballClubServices>();
+builder.Services.AddScoped<IFootballClubService, FootballClubServices>();
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<IReviewServices, ReviewServices>();
 builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
@@ -81,7 +81,7 @@ builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, Bu
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBuildServices, PcBuildServices>();
 builder.Services.AddScoped<IPaginatorService, PaginatorService>();
-builder.Services.AddScoped<IFootballServices<FootballLeagueBLM>, FootballLeagueServices>();
+builder.Services.AddScoped<IFootballLeagueServices, FootballLeagueServices>();
 builder.Services.AddScoped<IRockBandServices, RockBandServices>();
 
 builder.Services.AddHttpContextAccessor();
