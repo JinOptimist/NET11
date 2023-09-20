@@ -26,7 +26,7 @@ namespace DALEfDB.Repositories.RockHall
             base.Remove(id);
         }
 
-        public void ChooseFavorite(int bandId, int memberId)
+        public void ChooseMember(int bandId, int memberId)
         {
             var band = _dbSet.First(x => x.Id == bandId);
             var member = _context.RockMembers.First(x => x.Id == memberId);

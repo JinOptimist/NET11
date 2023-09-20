@@ -20,7 +20,7 @@ namespace BusinessLayer.RockHallServices
 
         public void ChooseMember(int bandId, int memberId)
         {
-            _rockBandRepository.ChooseFavorite(bandId, memberId);
+            _rockBandRepository.ChooseMember(bandId, memberId);
         }
 
         public IEnumerable<RockBandGetBlm> GetAll()

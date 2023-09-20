@@ -9,6 +9,6 @@ namespace DALInterfaces.Repositories.RockHall
 {
     public interface IRockBandRepository : IBaseRepository<RockBand>
     {
-        void ChooseFavorite(int bandId, int memberId);
+        void ChooseMember(int bandId, int memberId);
     }
 }
