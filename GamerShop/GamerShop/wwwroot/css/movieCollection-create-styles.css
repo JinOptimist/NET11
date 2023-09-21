@@ -51,3 +51,47 @@
     padding: 10px 20px;
     cursor: pointer;
 }
+
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-label {
+    margin-left: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.toggle-input {
+    width: 30px;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #ccc;
+    border-radius: 20px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+    /* Круглый маркер-переключатель */
+    .toggle-input::before {
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: transform 0.3s, background-color 0.3s;
+    }
+
+    /* Стиль для включенного переключателя */
+    .toggle-input:checked::before {
+        transform: translateX(10px);
+        background-color: #007bff;
+    }

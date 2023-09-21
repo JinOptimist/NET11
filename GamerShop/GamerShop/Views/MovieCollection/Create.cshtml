@@ -13,6 +13,19 @@
             @Html.LabelFor(m => m.Description, "Описание:", new {@class="form-label"})
             @Html.TextAreaFor(m=>m.Description, new {@class="form-textarea"})
         </div>
+
+
+        <div class="form-group">
+            <label class="form-label">Доступ:</label>
+            <div class="toggle-container">
+                <input type="checkbox" asp-for="IsPublic" id="toggle" class="toggle-input" checked>
+                <label class="toggle-label" for="toggle"></label>
+                <label class="toggle-text" data-on="Публичная подборка" data-off="Приватная подборка">Публичная подборка</label>
+            </div>
+        </div>
+
+
+
         <div class="form-group">
             <label class="form-label">Выберите фильмы:</label>
             <ul class="checkbox-group">
@@ -36,4 +49,8 @@
 
 @section Style{
     <link rel="stylesheet" href="~/css/movieCollection-create-styles.css">
-    }
+}
+@section Scripts
+{
+    <script src="~/js/toogle.js"></script>
+}
