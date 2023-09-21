@@ -5,6 +5,7 @@ public class Collection : BaseModel
     public string Title { get; set; }
     public string? Description { get; set; }
     public DateTime DateCreated { get; set; }
+    public bool IsPublic { get; set; }
 
     public int AuthorId { get; set; }
 

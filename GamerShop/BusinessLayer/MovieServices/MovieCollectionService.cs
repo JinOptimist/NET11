@@ -48,7 +48,6 @@ public class MovieCollectionService : IMovieCollectionService
             Movies = shortMovieBlm,
             Rating = movieCollection
                 .Ratings
-                .Where(rating => rating.CollectionId == movieCollection.Id)
                 .Select(r => r.Value)
                 .DefaultIfEmpty(0)
                 .Average()
@@ -126,6 +125,7 @@ public class MovieCollectionService : IMovieCollectionService
             Title = movieCollectionBlmForCreate.Title,
             Description = movieCollectionBlmForCreate.Description,
             DateCreated = DateTime.Now,
+            IsPublic = movieCollectionBlmForCreate.IsPublic,
             AuthorId = movieCollectionBlmForCreate.Author.Id,
             Author = _userRepository.Get(movieCollectionBlmForCreate.Author.Id),
             Movies = movieCollectionBlmForCreate

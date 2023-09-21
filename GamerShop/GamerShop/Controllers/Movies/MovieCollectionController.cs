@@ -90,6 +90,7 @@ public class MovieCollectionController : Controller
         {
             Title = createMovieCollectionViewModel.Title,
             Description = createMovieCollectionViewModel.Description,
+            IsPublic = createMovieCollectionViewModel.IsPublic,
             MoviesIds = createMovieCollectionViewModel
                 .AvailableMovies
                 .Where(s => s.Selected)

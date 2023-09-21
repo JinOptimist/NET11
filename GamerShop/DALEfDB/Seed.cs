@@ -666,6 +666,7 @@ namespace DALEfDB
                     Title = "10 лучших фильмов",
                     Description = "Лучшие фильмы всех времен.",
                     DateCreated = DateTime.Now,
+                    IsPublic = true,
                     AuthorId = user.Id,
                     Author = user,
                     Movies = new List<Movie>()

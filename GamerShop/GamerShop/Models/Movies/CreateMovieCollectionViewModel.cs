@@ -13,6 +13,8 @@ public class CreateMovieCollectionViewModel
     [StringLength(500, ErrorMessage = "Максимальная длина описания - 500 символов.")]
     public string? Description { get; set; }
 
+    public bool IsPublic { get; set; }
+
     [AtLeastOneMovieSelectedAttribute(ErrorMessage = "Необходимо выбрать хотя бы один фильм.")]
     public List<SelectListItem> AvailableMovies { get; set; }
 }

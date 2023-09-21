@@ -21,6 +21,7 @@ public class MovieCollectionRepository : BaseRepository<Collection>, IMovieColle
 
 
         return _dbSet
+            .Where(x=>x.IsPublic == true)       //ToDo: Подумать над универсальностью, может ли потребоваться для данного метода получать приватные записи и стоит ли вынести в переменную во входящий параметр определюющий включена ли фильтрация по публичным записям.
             .OrderByDescending(sortingCriteria)
             .Take(count)
             .Select(collection =>

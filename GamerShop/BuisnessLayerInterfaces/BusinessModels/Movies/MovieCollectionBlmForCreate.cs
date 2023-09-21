@@ -4,6 +4,7 @@ public class MovieCollectionBlmForCreate
 {
     public string Title { get; set; }
     public string? Description { get; set; }
+    public bool IsPublic { get; set; }
     public UserBlm Author { get; set; }
     public ICollection<int> MoviesIds { get; set; }
 }
