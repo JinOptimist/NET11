@@ -5,20 +5,22 @@
     <h1><u>Members of the Rock and Roll Hall of Fame:</u></h1><br />
     @foreach (var rockMember in Model.Items)
     {
-        <div>
-            <h2>
-                @rockMember.FullName
-            </h2>
-        </div>
-        <div>
-            Genre: @rockMember.Genre, Entry year: @rockMember.EntryYear, Year Of Birth: @rockMember.YearOfBirth
-            <a asp-action="Delete" asp-controller="RockHall" asp-route-id="@rockMember.Id">Удалить</a>
-        </div>
-        <div>
-            @rockMember.FullName (Current Band : @rockMember.CurrentBandName)
-        </div>
-        <div>
-            Создал: @rockMember.CreatorName
+        <div class="content">
+            <div class="title">
+                <h2>
+                    @rockMember.FullName
+                </h2>
+            </div>
+            <div>
+                Genre: @rockMember.Genre, Entry year: @rockMember.EntryYear, Year Of Birth: @rockMember.YearOfBirth
+                <a asp-action="Delete" asp-controller="RockHall" asp-route-id="@rockMember.Id">Удалить</a>
+            </div>
+            <div>
+                @rockMember.FullName (Current Band : @rockMember.CurrentBandName)
+            </div>
+            <div>
+                Создал: @rockMember.CreatorName
+            </div>
         </div>
     }
 </div>
@@ -39,4 +41,8 @@
 
 @section AdditionalInfoInFooter{
     <span class="info-footer"> All Rock Members: @Model.Count PerPage: @Model.PerPage</span>
+}
+
+@section Scripts{
+    <script src="~/js/RockHall/clickItem.js"></script>
 }
