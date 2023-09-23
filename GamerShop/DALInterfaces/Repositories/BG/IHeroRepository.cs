@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using DALInterfaces.Models;
 using DALInterfaces.Models.BG;
 
-namespace DALInterfaces.Repositories
+namespace DALInterfaces.Repositories.BG
 {
     public interface IHeroRepository : IBaseRepository<Heros>
     {
-      
+
     }
 }

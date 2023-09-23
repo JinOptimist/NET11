@@ -8,6 +8,7 @@ using BusinessLayerInterfaces.BusinessModels;
 using DALInterfaces.Models;
 using DALInterfaces.Models.BG;
 using DALInterfaces.Repositories;
+using DALInterfaces.Repositories.BG;
 
 namespace BusinessLayer.BgServices
 {

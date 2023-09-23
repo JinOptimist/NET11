@@ -29,6 +29,7 @@ using DALEfDB.Repositories.RockHall;
 using BusinessLayer.BookServices;
 using BusinessLayerInterfaces.BookServices;
 using DALEfDB.Repositories;
+using DALInterfaces.Repositories.BG;
 
 var builder = WebApplication.CreateBuilder(args);
 
