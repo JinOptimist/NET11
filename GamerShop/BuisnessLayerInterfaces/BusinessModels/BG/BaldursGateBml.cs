@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using DALInterfaces.Models;
 
-namespace BusinessLayerInterfaces.BusinessModels
+namespace BusinessLayerInterfaces.BusinessModels.BG
 {
-    public class BaldursGateBml 
+    public class BaldursGateBml
     {
         public int Id { get; set; }
         public string Name { get; set; }

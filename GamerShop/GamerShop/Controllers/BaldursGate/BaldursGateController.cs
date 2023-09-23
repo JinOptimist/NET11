@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using BusinessLayerInterfaces.BgServices;
 using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.BG;
 using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.BaldursGate
 {
@@ -19,11 +22,70 @@ namespace GamerShop.Controllers.BaldursGate
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult CharacterCreation()
         {
-            return View();
+            var allAtribute = _bgServices.GetAllAtribute();
+            var bgModel = new CreateHeroViewModel();
+            bgModel.Class = allAtribute
+                .Class
+                .Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+            bgModel.Race = allAtribute
+                .Race
+                .Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+            bgModel.Subrace = allAtribute
+                .Subrace
+                .Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+
+                })
+                .ToList();
+            bgModel.Origin = allAtribute
+                .Origin
+                .Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+            return View(bgModel);
+        }
+      
+
+        [HttpPost]
+        public IActionResult CharacterCreation(CreateHeroAnswerViewModel BgModel)
+        {
+            var user = _authService.GetCurrentUser().Id;
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("CharacterList", "BaldursGate");
+            }
+           var newHero = new NewBGBml()
+            {
+                Bone = BgModel.Bone,
+                Name = BgModel.Name,
+                ClassId = BgModel.ClassId,
+                RaceId = BgModel.RaceId,
+                SubraceId = BgModel.SubraceId,
+                OriginId = BgModel.OriginId,
+                CreatorId = user,
+            };
+            _bgServices.CreateNewHero(newHero);
+
+            return RedirectToAction("CharacterList", "BaldursGate");
         }
         public IActionResult CharacterList()
         {
@@ -35,28 +97,9 @@ namespace GamerShop.Controllers.BaldursGate
                     Id = x.Id,
                     Name = x.Name,
                     Class = x.Class,
-                    Creator_Name = x.CreatorId.Name,
+                    //Creator_Name = x.CreatorId.Name,
                 })
                 .ToList());
-        }
-
-        [HttpPost]
-        public IActionResult CharacterCreation(BaldursGateModel BgModel)
-        {
-            var user = _authService.GetCurrentUser();
-            _bgServices.Save(new BaldursGateBml()
-            {
-                Bone = BgModel.Bone,
-                Name = BgModel.Name,
-                Class = BgModel.Class,
-                Races = BgModel.Races,
-                Subrace = BgModel.Subrace,
-                Оrigin = BgModel.Оrigin,
-                CreatorId = user,
-            });
-
-
-            return View();
         }
         public IActionResult Remove(int id)
         {
