@@ -206,7 +206,7 @@ namespace DALEfDB
 
             }
 
-            if (raceRep.Count() <= 0)
+            if (raceRep.Count() <= 5)
             {
                 var race1 = new Race
                 {
@@ -219,6 +219,55 @@ namespace DALEfDB
                     Name = "Эльф"
                 };
                 raceRep.Save(race2);
+
+                var race3 = new Race
+                {
+                    Name = "Человек"
+                };
+                raceRep.Save(race3);
+
+                var race4 = new Race
+                {
+                    Name = "Гитьян"
+                };
+                raceRep.Save(race4);
+
+                var race5 = new Race
+                {
+                    Name = "Дроу"
+                };
+                raceRep.Save(race5);
+
+                var race6 = new Race
+                {
+                    Name = "Халфинг"
+                };
+                raceRep.Save(race6);
+
+                var race7 = new Race
+                {
+                    Name = "Полуэльф"
+                };
+                raceRep.Save(race7);
+
+                var race8 = new Race
+                {
+                    Name = "Дварф"
+                };
+                raceRep.Save(race8);
+
+                var race9 = new Race
+                {
+                    Name = "Драконорожденный"
+                };
+                raceRep.Save(race9);
+
+                var race10 = new Race
+                {
+                    Name = "Полуорк"
+                };
+                raceRep.Save(race10);
+
             }
 
             if (subraceRep.Count() <= 0)
@@ -226,33 +275,130 @@ namespace DALEfDB
                 var subrace1 = new Subrace
                 {
                     Name = "Асмодей",
+                    Race = raceRep.Get(1002)
 
                 };
                 subraceRep.Save(subrace1);
 
                 var subrace2 = new Subrace
                 {
-                    Name = "Мефистофел"
+                    Name = "Мефистофел",
+                    Race = raceRep.Get(1002)
                 };
                 subraceRep.Save(subrace2);
 
                 var subrace3 = new Subrace
                 {
-                    Name = "Зариэль"
+                    Name = "Зариэль",
+                    Race = raceRep.Get(1002)
                 };
                 subraceRep.Save(subrace3);
 
                 var subrace4 = new Subrace
                 {
-                    Name = "Высший эльф"
+                    Name = "Высший эльф",
+                    Race = raceRep.Get(1003)
                 };
                 subraceRep.Save(subrace4);
 
                 var subrace5 = new Subrace
                 {
-                    Name = "Лесной эльф"
+                    Name = "Лесной эльф",
+                    Race = raceRep.Get(1003)
                 };
                 subraceRep.Save(subrace5);
+
+                var subrace6 = new Subrace
+                {
+                    Name = "Дроу Ллос",
+                    Race = raceRep.Get(1006)
+                };
+                subraceRep.Save(subrace6);
+
+                var subrace7 = new Subrace
+                {
+                    Name = "Дроу Селдарина",
+                    Race = raceRep.Get(1006)
+                };
+                subraceRep.Save(subrace7);
+
+                var subrace8 = new Subrace
+                {
+                    Name = "Золотой дварф",
+                    Race = raceRep.Get(1009)
+                };
+                subraceRep.Save(subrace8);
+
+                var subrace9 = new Subrace
+                {
+                    Name = "Щитовый дварф",
+                    Race = raceRep.Get(1009)
+                };
+                subraceRep.Save(subrace9);
+
+                var subrace10 = new Subrace
+                {
+                    Name = "Двергар",
+                    Race = raceRep.Get(1009)
+                };
+                subraceRep.Save(subrace10);
+
+                var subrace11 = new Subrace
+                {
+                    Name = "Высший полуэльф",
+                    Race = raceRep.Get(1008)
+                };
+                subraceRep.Save(subrace11);
+
+                var subrace12 = new Subrace
+                {
+                    Name = "Лесной полуэльф",
+                    Race = raceRep.Get(1008)
+                };
+                subraceRep.Save(subrace12);
+
+                var subrace13 = new Subrace
+                {
+                    Name = "Полуэльф-дроу",
+                    Race = raceRep.Get(1008)
+                };
+                subraceRep.Save(subrace13);
+
+                var subrace14 = new Subrace
+                {
+                    Name = "Легконогий полурослик",
+                    Race = raceRep.Get(1007)
+                };
+                subraceRep.Save(subrace14);
+
+                var subrace15 = new Subrace
+                {
+                    Name = "Крепкосердечный полурослик",
+                    Race = raceRep.Get(1007)
+                };
+                subraceRep.Save(subrace15);
+
+                var subrace16 = new Subrace
+                {
+                    Name = "Черный дракон",
+                    Race = raceRep.Get(1010)
+                };
+                subraceRep.Save(subrace16);
+
+                var subrace17 = new Subrace
+                {
+                    Name = "Синий дракон",
+                    Race = raceRep.Get(1010)
+                };
+                subraceRep.Save(subrace17);
+
+                var subrace18 = new Subrace
+                {
+                    Name = "Зеленый  дракон",
+                    Race = raceRep.Get(1010)
+                };
+                subraceRep.Save(subrace18);
+
             }
 
             if (originRep.Count() <= 0)
@@ -268,6 +414,26 @@ namespace DALEfDB
                     History = "Я был изгнан на три года. Из-за пережитых лишений, я стал ненавидеть самого себя, теперь мне доставляет удовольствие, когда в мой адрес говорят оскорбительные слова."
                 };
                 originRep.Save(origin2);
+
+                var origin3 = new Оrigin
+                {
+                    History = "Я серьезно заболел, из-за болезни я обнаружил в себе вторую личность, которая хочеть уничтожить меня."
+                };
+                originRep.Save(origin3);
+
+                var origin4 = new Оrigin
+                {
+                    History = "На меня объявил охоту служитель культа. Поводом стали мои неудачи в искусстве."
+                };
+                originRep.Save(origin4);
+
+                var origin5 = new Оrigin
+                {
+                    History = "Я был заключен в тюрьму на шеть лет. Из-за пережитых лишений, я стал верить в несуществующие вещи, я рискую потерять состояние."
+                };
+                originRep.Save(origin5);
+
+
             }
         }
 
