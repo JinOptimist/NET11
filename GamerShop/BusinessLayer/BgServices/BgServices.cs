@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessLayerInterfaces.BgServices;
 using BusinessLayerInterfaces.BusinessModels;
 using DALInterfaces.Models;
+using DALInterfaces.Models.BG;
 using DALInterfaces.Repositories;
 
 namespace BusinessLayer.BgServices
@@ -26,10 +27,10 @@ namespace BusinessLayer.BgServices
                 .GetAll()
                 .Select(x => new BaldursGateBml
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Class = x.Class,
-                    CreatorId = new UserBlm { Name = _userRepository.Get(x.CreatorId).Name},
+                    //Id = x.Id,
+                    //Name = x.Name,
+                    //Class = x.Class,
+                    //CreatorId = new UserBlm { Name = _userRepository.Get(x.CreatorId).Name},
                    
                 });
             
@@ -41,15 +42,15 @@ namespace BusinessLayer.BgServices
 
         public void Save(BaldursGateBml BgBml)
         {
-            _heroRepository.Save(new Hero
+            _heroRepository.Save(new Heros
             {
-                Bone = BgBml.Bone,
-                Name = BgBml.Name,
-                Class = BgBml.Class,
-                Races = BgBml.Races,
-                Subrace = BgBml.Subrace,
-                Оrigin = BgBml.Оrigin,
-                CreatorId = BgBml.CreatorId.Id
+                //Bone = BgBml.Bone,
+                //Name = BgBml.Name,
+                //Class = BgBml.Class,
+                //Race = BgBml.Races,
+                //Subrace = BgBml.Subrace,
+                //Оrigin = BgBml.Оrigin,
+                //CreatorId = BgBml.CreatorId.Id
             });
         }
     }
