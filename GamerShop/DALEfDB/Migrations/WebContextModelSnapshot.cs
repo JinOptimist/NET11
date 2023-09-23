@@ -26,1282 +26,1343 @@ namespace DALEfDB.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("BuildUser", b =>
-            {
-                b.Property<int>("LikedBuildsId")
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("LikedBuildsId")
+                        .HasColumnType("int");
 
-                b.Property<int>("UsersWhoLikeItId")
-                    .HasColumnType("int");
+                    b.Property<int>("UsersWhoLikeItId")
+                        .HasColumnType("int");
 
-                b.HasKey("LikedBuildsId", "UsersWhoLikeItId");
+                    b.HasKey("LikedBuildsId", "UsersWhoLikeItId");
 
-                b.HasIndex("UsersWhoLikeItId");
+                    b.HasIndex("UsersWhoLikeItId");
 
-                b.ToTable("BuildUser");
-            });
+                    b.ToTable("BuildUser");
+                });
 
             modelBuilder.Entity("CollectionMovie", b =>
-            {
-                b.Property<int>("CollectionsId")
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("CollectionsId")
+                        .HasColumnType("int");
 
-                b.Property<int>("MoviesId")
-                    .HasColumnType("int");
+                    b.Property<int>("MoviesId")
+                        .HasColumnType("int");
 
-                b.HasKey("CollectionsId", "MoviesId");
+                    b.HasKey("CollectionsId", "MoviesId");
 
-                b.HasIndex("MoviesId");
+                    b.HasIndex("MoviesId");
 
-                b.ToTable("CollectionMovie");
-            });
+                    b.ToTable("CollectionMovie");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearOfIssue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int>("LeagueId")
-                    .HasColumnType("int");
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Stadium")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Stadium")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("UserCreatorId")
-                    .HasColumnType("int");
+                    b.Property<int>("UserCreatorId")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("LeagueId");
+                    b.HasIndex("LeagueId");
 
-                b.HasIndex("UserCreatorId");
+                    b.HasIndex("UserCreatorId");
 
-                b.ToTable("FootballClubs");
-            });
+                    b.ToTable("FootballClubs");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<string>("Country")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ShortName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("UserCreatorId")
-                    .HasColumnType("int");
+                    b.Property<int>("UserCreatorId")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("UserCreatorId");
+                    b.HasIndex("UserCreatorId");
 
-                b.ToTable("FootballLeagues");
-            });
+                    b.ToTable("FootballLeagues");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Hero", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int>("Bone")
-                    .HasColumnType("int");
+                    b.Property<int>("Bone")
+                        .HasColumnType("int");
 
-                b.Property<string>("Class")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("CreatorId")
-                    .HasColumnType("int");
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Races")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Races")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Subrace")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Subrace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Оrigin")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Оrigin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Heros");
-            });
+                    b.ToTable("Heros");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int>("AuthorId")
-                    .HasColumnType("int");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
-                b.Property<DateTime>("DateCreated")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Title")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorId");
 
-                b.ToTable("Collections");
-            });
+                    b.ToTable("Collections");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Genre", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Genres");
-            });
+                    b.ToTable("Genres");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Movie", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<string>("Country")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Description")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Director")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Director")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("Duration")
-                    .HasColumnType("int");
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
 
-                b.Property<double>("Rating")
-                    .HasColumnType("float");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
-                b.Property<int>("ReleaseYear")
-                    .HasColumnType("int");
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
 
-                b.Property<string>("Title")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Movies");
-            });
+                    b.ToTable("Movies");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Rating", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int>("CollectionId")
-                    .HasColumnType("int");
+                    b.Property<int>("CollectionId")
+                        .HasColumnType("int");
 
-                b.Property<int>("UserId")
-                    .HasColumnType("int");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                b.Property<int>("Value")
-                    .HasColumnType("int");
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("CollectionId");
+                    b.HasIndex("CollectionId");
 
-                b.HasIndex("UserId");
+                    b.HasIndex("UserId");
 
-                b.ToTable("Ratings");
-            });
+                    b.ToTable("Ratings");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Build", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int?>("CaseId")
-                    .HasColumnType("int");
+                    b.Property<int?>("CaseId")
+                        .HasColumnType("int");
 
-                b.Property<int>("CoolerId")
-                    .HasColumnType("int");
+                    b.Property<int>("CoolerId")
+                        .HasColumnType("int");
 
-                b.Property<int?>("CreatorId")
-                    .HasColumnType("int");
+                    b.Property<int?>("CreatorId")
+                        .HasColumnType("int");
 
-                b.Property<DateTime>("DateOfCreate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime>("DateOfCreate")
+                        .HasColumnType("datetime2");
 
-                b.Property<int?>("GpuId")
-                    .HasColumnType("int");
+                    b.Property<int?>("GpuId")
+                        .HasColumnType("int");
 
-                b.Property<int?>("GpusCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("GpusCount")
+                        .HasColumnType("int");
 
-                b.Property<int?>("HddCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("HddCount")
+                        .HasColumnType("int");
 
-                b.Property<int?>("HddId")
-                    .HasColumnType("int");
+                    b.Property<int?>("HddId")
+                        .HasColumnType("int");
 
-                b.Property<bool>("IsPrivate")
-                    .HasColumnType("bit");
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
 
-                b.Property<string>("Label")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("MotherboardId")
-                    .HasColumnType("int");
+                    b.Property<int>("MotherboardId")
+                        .HasColumnType("int");
 
-                b.Property<string>("PasswordForViewing")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("PasswordForViewing")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("PhotosPath")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("PhotosPath")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<int>("ProcessorId")
-                    .HasColumnType("int");
+                    b.Property<int>("ProcessorId")
+                        .HasColumnType("int");
 
-                b.Property<int>("PsuId")
-                    .HasColumnType("int");
+                    b.Property<int>("PsuId")
+                        .HasColumnType("int");
 
-                b.Property<int?>("RamCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("RamCount")
+                        .HasColumnType("int");
 
-                b.Property<int>("RamId")
-                    .HasColumnType("int");
+                    b.Property<int>("RamId")
+                        .HasColumnType("int");
 
-                b.Property<int>("Rating")
-                    .HasColumnType("int");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
-                b.Property<int?>("SsdCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("SsdCount")
+                        .HasColumnType("int");
 
-                b.Property<int?>("SsdId")
-                    .HasColumnType("int");
+                    b.Property<int?>("SsdId")
+                        .HasColumnType("int");
 
-                b.Property<bool>("isVirtual")
-                    .HasColumnType("bit");
+                    b.Property<bool>("isVirtual")
+                        .HasColumnType("bit");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("CaseId");
+                    b.HasIndex("CaseId");
 
-                b.HasIndex("CoolerId");
+                    b.HasIndex("CoolerId");
 
-                b.HasIndex("CreatorId");
+                    b.HasIndex("CreatorId");
 
-                b.HasIndex("GpuId");
+                    b.HasIndex("GpuId");
 
-                b.HasIndex("HddId");
+                    b.HasIndex("HddId");
 
-                b.HasIndex("MotherboardId");
+                    b.HasIndex("MotherboardId");
 
-                b.HasIndex("ProcessorId");
+                    b.HasIndex("ProcessorId");
 
-                b.HasIndex("PsuId");
+                    b.HasIndex("PsuId");
 
-                b.HasIndex("RamId");
+                    b.HasIndex("RamId");
 
-                b.HasIndex("SsdId");
+                    b.HasIndex("SsdId");
 
-                b.ToTable("Builds");
-            });
+                    b.ToTable("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Case", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("MaxCpuCollerHeight")
-                    .HasColumnType("int");
+                    b.Property<int?>("MaxCpuCollerHeight")
+                        .HasColumnType("int");
 
-                b.Property<int?>("MaxGpuLength")
-                    .HasColumnType("int");
+                    b.Property<int?>("MaxGpuLength")
+                        .HasColumnType("int");
 
-                b.Property<string>("MaxMotherboardSize")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("MaxMotherboardSize")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("MaxPsuLength")
-                    .HasColumnType("int");
+                    b.Property<int?>("MaxPsuLength")
+                        .HasColumnType("int");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("Type")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Cases");
-            });
+                    b.ToTable("Cases");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Cooler", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("DissipatedPower")
-                    .HasColumnType("int");
+                    b.Property<int?>("DissipatedPower")
+                        .HasColumnType("int");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("Height")
-                    .HasColumnType("int");
+                    b.Property<int?>("Height")
+                        .HasColumnType("int");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("Socket")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Socket")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Coolers");
-            });
+                    b.ToTable("Coolers");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Gpu", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<float?>("BaseFrequency")
-                    .HasColumnType("real");
+                    b.Property<float?>("BaseFrequency")
+                        .HasColumnType("real");
 
-                b.Property<string>("Chip")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Chip")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("DirectXSupport")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("DirectXSupport")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<float?>("MaxFrequency")
-                    .HasColumnType("real");
+                    b.Property<float?>("MaxFrequency")
+                        .HasColumnType("real");
 
-                b.Property<int?>("MemoryBusWidth")
-                    .HasColumnType("int");
+                    b.Property<int?>("MemoryBusWidth")
+                        .HasColumnType("int");
 
-                b.Property<string>("MemoryType")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("MemoryType")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("PciExpressVersion")
-                    .HasColumnType("int");
+                    b.Property<int?>("PciExpressVersion")
+                        .HasColumnType("int");
 
-                b.Property<string>("PowerConnectors")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("PowerConnectors")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("PowerConsumption")
-                    .HasColumnType("int");
+                    b.Property<int?>("PowerConsumption")
+                        .HasColumnType("int");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<int?>("RecommendedPsuPowerConsumption")
-                    .HasColumnType("int");
+                    b.Property<int?>("RecommendedPsuPowerConsumption")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Gpus");
-            });
+                    b.ToTable("Gpus");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Hdd", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int?>("Capacity")
-                    .HasColumnType("int");
+                    b.Property<int?>("Capacity")
+                        .HasColumnType("int");
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FormFactor")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FormFactor")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Interface")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Interface")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<int?>("ReadingSpeed")
-                    .HasColumnType("int");
+                    b.Property<int?>("ReadingSpeed")
+                        .HasColumnType("int");
 
-                b.Property<int?>("WritingSpeed")
-                    .HasColumnType("int");
+                    b.Property<int?>("WritingSpeed")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Hddss");
-            });
+                    b.ToTable("Hddss");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Motherboard", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<string>("Chipset")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Chipset")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FormFactor")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FormFactor")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("M2SlotsCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("M2SlotsCount")
+                        .HasColumnType("int");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("MaxMemoryCapacity")
-                    .HasColumnType("int");
+                    b.Property<int?>("MaxMemoryCapacity")
+                        .HasColumnType("int");
 
-                b.Property<int?>("MemorySlotsCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("MemorySlotsCount")
+                        .HasColumnType("int");
 
-                b.Property<string>("MemoryType")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("MemoryType")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("PciExVersion")
-                    .HasColumnType("int");
+                    b.Property<int?>("PciExVersion")
+                        .HasColumnType("int");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<string>("ProcessorType")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ProcessorType")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("Socket")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Socket")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Motherboards");
-            });
+                    b.ToTable("Motherboards");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Processor", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<float?>("BaseFrequency")
-                    .HasColumnType("real");
+                    b.Property<float?>("BaseFrequency")
+                        .HasColumnType("real");
 
-                b.Property<int?>("CoreCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("CoreCount")
+                        .HasColumnType("int");
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<float?>("MaxFrequency")
-                    .HasColumnType("real");
+                    b.Property<float?>("MaxFrequency")
+                        .HasColumnType("real");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("PciExVersion")
-                    .HasColumnType("int");
+                    b.Property<int?>("PciExVersion")
+                        .HasColumnType("int");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("RamSupporting")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("RamSupporting")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Socket")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Socket")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("Tdp")
-                    .HasColumnType("int");
+                    b.Property<int?>("Tdp")
+                        .HasColumnType("int");
 
-                b.Property<int?>("TechProcess")
-                    .HasColumnType("int");
+                    b.Property<int?>("TechProcess")
+                        .HasColumnType("int");
 
-                b.Property<int?>("ThreadsCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("ThreadsCount")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Processors");
-            });
+                    b.ToTable("Processors");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Psu", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FormFactor")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FormFactor")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("Power")
-                    .HasColumnType("int");
+                    b.Property<int>("Power")
+                        .HasColumnType("int");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Psus");
-            });
+                    b.ToTable("Psus");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ram", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("Frequency")
-                    .HasColumnType("int");
+                    b.Property<int?>("Frequency")
+                        .HasColumnType("int");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("KitCapacity")
-                    .HasColumnType("int");
+                    b.Property<int?>("KitCapacity")
+                        .HasColumnType("int");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int?>("ModuleCapacity")
-                    .HasColumnType("int");
+                    b.Property<int?>("ModuleCapacity")
+                        .HasColumnType("int");
 
-                b.Property<int?>("ModuleCount")
-                    .HasColumnType("int");
+                    b.Property<int?>("ModuleCount")
+                        .HasColumnType("int");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("Type")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Rams");
-            });
+                    b.ToTable("Rams");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ssd", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int?>("Capacity")
-                    .HasColumnType("int");
+                    b.Property<int?>("Capacity")
+                        .HasColumnType("int");
 
-                b.Property<string>("Description")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FormFactor")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FormFactor")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Interface")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Interface")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Manufacturer")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Model")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ModelGroupe")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ModelGroupe")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<decimal>("Price")
-                    .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                b.Property<DateTime?>("ProductionDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ProductionDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<int?>("ReadingSpeed")
-                    .HasColumnType("int");
+                    b.Property<int?>("ReadingSpeed")
+                        .HasColumnType("int");
 
-                b.Property<int?>("Size")
-                    .HasColumnType("int");
+                    b.Property<int?>("Size")
+                        .HasColumnType("int");
 
-                b.Property<int?>("WritingSpeed")
-                    .HasColumnType("int");
+                    b.Property<int?>("WritingSpeed")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Ssds");
-            });
+                    b.ToTable("Ssds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Recipe", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int>("CookingTime")
-                    .HasColumnType("int");
+                    b.Property<int>("CookingTime")
+                        .HasColumnType("int");
 
-                b.Property<int>("CreatedByUserId")
-                    .HasColumnType("int");
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
 
-                b.Property<DateTime>("CreatedOn")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("Cuisine")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Cuisine")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Description")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("DifficultyLevel")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("DifficultyLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Instructions")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Instructions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("PreparationTime")
-                    .HasColumnType("int");
+                    b.Property<int>("PreparationTime")
+                        .HasColumnType("int");
 
-                b.Property<int>("Servings")
-                    .HasColumnType("int");
+                    b.Property<int>("Servings")
+                        .HasColumnType("int");
 
-                b.Property<string>("Title")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Recipes");
-            });
+                    b.ToTable("Recipes");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<double>("Rating")
-                    .HasColumnType("float");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
-                b.Property<int>("RecipeId")
-                    .HasColumnType("int");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
-                b.Property<DateTime>("ReviewDate")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime>("ReviewDate")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("ReviewText")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ReviewText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("UserId")
-                    .HasColumnType("int");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("RecipeId");
+                    b.HasIndex("RecipeId");
 
-                b.HasIndex("UserId");
+                    b.HasIndex("UserId");
 
-                b.ToTable("Reviews");
-            });
+                    b.ToTable("Reviews");
+                });
 
-            modelBuilder.Entity("DALInterfaces.Models.RockMember", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+            modelBuilder.Entity("DALInterfaces.Models.RockHall.RockBand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<int>("CreatorId")
-                    .HasColumnType("int");
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
 
-                b.Property<int>("EntryYear")
-                    .HasColumnType("int");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("FullName")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                b.Property<string>("Genre")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.ToTable("RockBands");
+                });
 
-                b.Property<int>("YearOfBirth")
-                    .HasColumnType("int");
+            modelBuilder.Entity("DALInterfaces.Models.RockHall.RockMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.HasIndex("CurrentBandId");
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
 
-                b.ToTable("RockMembers");
-            });
+                    b.Property<int?>("CurrentBandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearOfBirth")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrentBandId");
+
+                    b.ToTable("RockMembers");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.User", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                b.Property<DateTime>("Birthday")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
 
-                b.Property<int?>("FavoriteMovieId")
-                    .HasColumnType("int");
+                    b.Property<int?>("FavoriteMovieId")
+                        .HasColumnType("int");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Password")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("FavoriteMovieId");
+                    b.HasIndex("FavoriteMovieId");
 
-                b.ToTable("Users");
-            });
+                    b.ToTable("Users");
+                });
 
             modelBuilder.Entity("GenreMovie", b =>
-            {
-                b.Property<int>("GenresId")
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("GenresId")
+                        .HasColumnType("int");
 
-                b.Property<int>("MoviesId")
-                    .HasColumnType("int");
+                    b.Property<int>("MoviesId")
+                        .HasColumnType("int");
 
-                b.HasKey("GenresId", "MoviesId");
+                    b.HasKey("GenresId", "MoviesId");
 
-                b.HasIndex("MoviesId");
+                    b.HasIndex("MoviesId");
 
-                b.ToTable("GenreMovie");
-            });
+                    b.ToTable("GenreMovie");
+                });
 
             modelBuilder.Entity("RecipeUser", b =>
-            {
-                b.Property<int>("FavoriteRecipesId")
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("FavoriteRecipesId")
+                        .HasColumnType("int");
 
-                b.Property<int>("UsersWhoLikeItId")
-                    .HasColumnType("int");
+                    b.Property<int>("UsersWhoLikeItId")
+                        .HasColumnType("int");
 
-                b.HasKey("FavoriteRecipesId", "UsersWhoLikeItId");
+                    b.HasKey("FavoriteRecipesId", "UsersWhoLikeItId");
 
-                b.HasIndex("UsersWhoLikeItId");
+                    b.HasIndex("UsersWhoLikeItId");
 
-                b.ToTable("RecipeUser");
-            });
+                    b.ToTable("RecipeUser");
+                });
 
             modelBuilder.Entity("BuildUser", b =>
-            {
-                b.HasOne("DALInterfaces.Models.PcBuild.Build", null)
-                    .WithMany()
-                    .HasForeignKey("LikedBuildsId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.PcBuild.Build", null)
+                        .WithMany()
+                        .HasForeignKey("LikedBuildsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.User", null)
-                    .WithMany()
-                    .HasForeignKey("UsersWhoLikeItId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.HasOne("DALInterfaces.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoLikeItId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("CollectionMovie", b =>
-            {
-                b.HasOne("DALInterfaces.Models.Movies.Collection", null)
-                    .WithMany()
-                    .HasForeignKey("CollectionsId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.Movies.Collection", null)
+                        .WithMany()
+                        .HasForeignKey("CollectionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.Movies.Movie", null)
-                    .WithMany()
-                    .HasForeignKey("MoviesId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.HasOne("DALInterfaces.Models.Movies.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MoviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
-            {
-                b.HasOne("DALInterfaces.Models.Football.FootballLeague", "League")
-                    .WithMany("footballClubs")
-                    .HasForeignKey("LeagueId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.Football.FootballLeague", "League")
+                        .WithMany("footballClubs")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.User", "UserCreator")
-                    .WithMany("CreatedFootballClubs")
-                    .HasForeignKey("UserCreatorId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
+                        .WithMany("CreatedFootballClubs")
+                        .HasForeignKey("UserCreatorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("League");
+                    b.Navigation("League");
 
-                b.Navigation("UserCreator");
-            });
+                    b.Navigation("UserCreator");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
-            {
-                b.HasOne("DALInterfaces.Models.User", "UserCreator")
-                    .WithMany("CreatedFootballLeagues")
-                    .HasForeignKey("UserCreatorId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
+                        .WithMany("CreatedFootballLeagues")
+                        .HasForeignKey("UserCreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("UserCreator");
-            });
+                    b.Navigation("UserCreator");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
-            {
-                b.HasOne("DALInterfaces.Models.User", "Author")
-                    .WithMany("Collections")
-                    .HasForeignKey("AuthorId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.User", "Author")
+                        .WithMany("Collections")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Author");
-            });
+                    b.Navigation("Author");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Rating", b =>
-            {
-                b.HasOne("DALInterfaces.Models.Movies.Collection", "Collection")
-                    .WithMany("Ratings")
-                    .HasForeignKey("CollectionId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.Movies.Collection", "Collection")
+                        .WithMany("Ratings")
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.User", "User")
-                    .WithMany("Ratings")
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DALInterfaces.Models.User", "User")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Collection");
+                    b.Navigation("Collection");
 
-                b.Navigation("User");
-            });
+                    b.Navigation("User");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Build", b =>
-            {
-                b.HasOne("DALInterfaces.Models.PcBuild.Case", "Case")
-                    .WithMany("Builds")
-                    .HasForeignKey("CaseId");
+                {
+                    b.HasOne("DALInterfaces.Models.PcBuild.Case", "Case")
+                        .WithMany("Builds")
+                        .HasForeignKey("CaseId");
 
-                b.HasOne("DALInterfaces.Models.PcBuild.Cooler", "Cooler")
-                    .WithMany("Builds")
-                    .HasForeignKey("CoolerId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DALInterfaces.Models.PcBuild.Cooler", "Cooler")
+                        .WithMany("Builds")
+                        .HasForeignKey("CoolerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.User", "Creator")
-                    .WithMany("CreatedBuilds")
-                    .HasForeignKey("CreatorId");
+                    b.HasOne("DALInterfaces.Models.User", "Creator")
+                        .WithMany("CreatedBuilds")
+                        .HasForeignKey("CreatorId");
 
-                b.HasOne("DALInterfaces.Models.PcBuild.Gpu", "Gpu")
-                    .WithMany("Builds")
-                    .HasForeignKey("GpuId");
+                    b.HasOne("DALInterfaces.Models.PcBuild.Gpu", "Gpu")
+                        .WithMany("Builds")
+                        .HasForeignKey("GpuId");
 
-                b.HasOne("DALInterfaces.Models.PcBuild.Hdd", "Hdd")
-                    .WithMany("Builds")
-                    .HasForeignKey("HddId");
+                    b.HasOne("DALInterfaces.Models.PcBuild.Hdd", "Hdd")
+                        .WithMany("Builds")
+                        .HasForeignKey("HddId");
 
-                b.HasOne("DALInterfaces.Models.PcBuild.Motherboard", "Motherboard")
-                    .WithMany("Builds")
-                    .HasForeignKey("MotherboardId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DALInterfaces.Models.PcBuild.Motherboard", "Motherboard")
+                        .WithMany("Builds")
+                        .HasForeignKey("MotherboardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.PcBuild.Processor", "Processor")
-                    .WithMany("Builds")
-                    .HasForeignKey("ProcessorId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DALInterfaces.Models.PcBuild.Processor", "Processor")
+                        .WithMany("Builds")
+                        .HasForeignKey("ProcessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.PcBuild.Psu", "Psu")
-                    .WithMany("Builds")
-                    .HasForeignKey("PsuId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DALInterfaces.Models.PcBuild.Psu", "Psu")
+                        .WithMany("Builds")
+                        .HasForeignKey("PsuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.PcBuild.Ram", "Ram")
-                    .WithMany("Builds")
-                    .HasForeignKey("RamId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DALInterfaces.Models.PcBuild.Ram", "Ram")
+                        .WithMany("Builds")
+                        .HasForeignKey("RamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.PcBuild.Ssd", "Ssd")
-                    .WithMany("Builds")
-                    .HasForeignKey("SsdId");
+                    b.HasOne("DALInterfaces.Models.PcBuild.Ssd", "Ssd")
+                        .WithMany("Builds")
+                        .HasForeignKey("SsdId");
 
-                b.Navigation("Case");
+                    b.Navigation("Case");
 
-                b.Navigation("Cooler");
+                    b.Navigation("Cooler");
 
-                b.Navigation("Creator");
+                    b.Navigation("Creator");
 
-                b.Navigation("Gpu");
+                    b.Navigation("Gpu");
 
-                b.Navigation("Hdd");
+                    b.Navigation("Hdd");
 
-                b.Navigation("Motherboard");
+                    b.Navigation("Motherboard");
 
-                b.Navigation("Processor");
+                    b.Navigation("Processor");
 
-                b.Navigation("Psu");
+                    b.Navigation("Psu");
 
-                b.Navigation("Ram");
+                    b.Navigation("Ram");
 
-                b.Navigation("Ssd");
-            });
+                    b.Navigation("Ssd");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
-            {
-                b.HasOne("DALInterfaces.Models.Recipe.Recipe", "Recipe")
-                    .WithMany()
-                    .HasForeignKey("RecipeId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.Recipe.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.User", "User")
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DALInterfaces.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Recipe");
+                    b.Navigation("Recipe");
 
-                b.Navigation("User");
-            });
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.RockHall.RockMember", b =>
+                {
+                    b.HasOne("DALInterfaces.Models.RockHall.RockBand", "CurrentBand")
+                        .WithMany("MembersOfTheGroup")
+                        .HasForeignKey("CurrentBandId");
+
+                    b.Navigation("CurrentBand");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.User", b =>
-            {
-                b.HasOne("DALInterfaces.Models.Movies.Movie", "FavoriteMovie")
-                    .WithMany()
-                    .HasForeignKey("FavoriteMovieId");
+                {
+                    b.HasOne("DALInterfaces.Models.Movies.Movie", "FavoriteMovie")
+                        .WithMany()
+                        .HasForeignKey("FavoriteMovieId");
 
-                b.Navigation("FavoriteMovie");
-            });
+                    b.Navigation("FavoriteMovie");
+                });
 
             modelBuilder.Entity("GenreMovie", b =>
-            {
-                b.HasOne("DALInterfaces.Models.Movies.Genre", null)
-                    .WithMany()
-                    .HasForeignKey("GenresId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.Movies.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.Movies.Movie", null)
-                    .WithMany()
-                    .HasForeignKey("MoviesId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.HasOne("DALInterfaces.Models.Movies.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MoviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("RecipeUser", b =>
-            {
-                b.HasOne("DALInterfaces.Models.Recipe.Recipe", null)
-                    .WithMany()
-                    .HasForeignKey("FavoriteRecipesId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DALInterfaces.Models.Recipe.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteRecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DALInterfaces.Models.User", null)
-                    .WithMany()
-                    .HasForeignKey("UsersWhoLikeItId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.HasOne("DALInterfaces.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoLikeItId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
-            {
-                b.Navigation("footballClubs");
-            });
+                {
+                    b.Navigation("footballClubs");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
-            {
-                b.Navigation("Ratings");
-            });
+                {
+                    b.Navigation("Ratings");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Case", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Cooler", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Gpu", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Hdd", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Motherboard", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Processor", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Psu", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ram", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ssd", b =>
-            {
-                b.Navigation("Builds");
-            });
+                {
+                    b.Navigation("Builds");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.RockHall.RockBand", b =>
+                {
+                    b.Navigation("MembersOfTheGroup");
+                });
 
             modelBuilder.Entity("DALInterfaces.Models.User", b =>
-            {
-                b.Navigation("Collections");
+                {
+                    b.Navigation("Collections");
 
-                b.Navigation("CreatedBuilds");
+                    b.Navigation("CreatedBuilds");
 
-                b.Navigation("CreatedFootballClubs");
+                    b.Navigation("CreatedFootballClubs");
 
-                b.Navigation("CreatedFootballLeagues");
+                    b.Navigation("CreatedFootballLeagues");
 
-                b.Navigation("Ratings");
-            });
+                    b.Navigation("Ratings");
+                });
 #pragma warning restore 612, 618
         }
     }
