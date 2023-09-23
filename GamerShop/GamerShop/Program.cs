@@ -30,6 +30,7 @@ using BusinessLayer.BookServices;
 using BusinessLayerInterfaces.BookServices;
 using DALEfDB.Repositories;
 using DALInterfaces.Repositories.BG;
+using DALEfDB.Repositories.BG;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +50,11 @@ builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.Recipe.Recipe
 builder.Services.AddScoped<IReviewRepository, DALEfDB.Repositories.Recipe.ReviewRepository>();
 builder.Services.AddScoped<IRockMemberRepository, RockMemberRepository>();
 builder.Services.AddScoped<IFootballClubRepository, FootballClubRepository>();
-builder.Services.AddScoped<IHeroRepository, DALEfDB.Repositories.BgRepository>();
+builder.Services.AddScoped<IHeroRepository, HeroRepository>();
+builder.Services.AddScoped<IClassRepository, ClassRepository>();
+builder.Services.AddScoped<IOriginRepository, OriginRepository>();
+builder.Services.AddScoped<IRaceRepository, RaceRepository>();
+builder.Services.AddScoped<ISubraceRepository, SubraceRepository>();
 builder.Services.AddScoped<IBuildRepository, BuildRepository>();
 builder.Services.AddScoped<IGpuRepository, GpuRepository>();
 builder.Services.AddScoped<IHddRepository, HddRepository>();

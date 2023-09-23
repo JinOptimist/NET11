@@ -225,7 +225,8 @@ namespace DALEfDB
             {
                 var subrace1 = new Subrace
                 {
-                    Name = "Асмодей"
+                    Name = "Асмодей",
+
                 };
                 subraceRep.Save(subrace1);
 
