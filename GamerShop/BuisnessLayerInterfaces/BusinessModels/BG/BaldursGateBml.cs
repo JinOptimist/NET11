@@ -17,7 +17,7 @@ namespace BusinessLayerInterfaces.BusinessModels.BG
         public string Оrigin { get; set; }
         public int Bone { get; set; }
 
-        public UserBlm CreatorId { get; set; }
+        public int CreatorId { get; set; }
 
     }
 }

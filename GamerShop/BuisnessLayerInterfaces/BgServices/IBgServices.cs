@@ -16,5 +16,6 @@ namespace BusinessLayerInterfaces.BgServices
 
         public AllAtributeForAddingBml GetAllAtribute();
         void CreateNewHero(NewBGBml  NewBGBml);
+        CharacterListBml GetCharacterListBml(int page,int perPage);
     }
 }

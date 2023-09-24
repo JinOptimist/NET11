@@ -102,18 +102,33 @@ namespace BusinessLayer.BgServices
             _heroRepository.Save(HeroDB);
         }
 
+        public CharacterListBml GetCharacterListBml(int page, int perPage)
+        {
+            var data = _heroRepository.GetHeroPaginatorDataModel(page, perPage);
+            return new CharacterListBml
+            {
+                Count = data.Count,
+                Page = data.Page,
+                PerPage = data.PerPage,
+                HerList = data.Heros
+                    .Select(m => new BaldursGateBml
+                    {
+                        Id = m.Id,
+                        Name = m.Name,
+                        Class = m.Class,
+                        Races = m.Races,
+                        Subrace = m.Subrace,
+                        Bone = m.Bone,
+                        Оrigin = m.Оrigin,
+                        CreatorId = m.CreatorId,
+                    }).ToList()
+            };
+        }
+
         public IEnumerable<BaldursGateBml> GetAllHero()
-            => _heroRepository
-                .GetAll()
-                .Select(x => new BaldursGateBml
-                {
-                    //Id = x.Id,
-                    //Name = x.Name,
-                    //Class = x.Class,
-                    //CreatorId = new UserBlm { Name = _userRepository.Get(x.CreatorId).Name},
-                   
-                });
-            
+        {
+            throw new NotImplementedException();
+        }
 
         void IBgServices.Remove(int id)
         {

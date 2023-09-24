@@ -125,10 +125,12 @@ namespace DALEfDB
 
         private void FillHeroAtribute(IServiceProvider provider)
         {
+            var userRepository = provider.GetService<IUserRepository>();
             var classRep = provider.GetService<IClassRepository>();
             var raceRep = provider.GetService<IRaceRepository>();
             var subraceRep = provider.GetService<ISubraceRepository>();
             var originRep = provider.GetService<IOriginRepository>();
+            var heroRep =provider.GetService<IHeroRepository>();
 
             if (classRep.Count() <= 0)
             {
@@ -435,7 +437,27 @@ namespace DALEfDB
 
 
             }
+            Random rnd = new Random();
+            if (heroRep.Count() <= 0)
+            {
+                for (int i = 0; i < 50; i++)
+                {
+                    var Hero = new Heros
+                    {
+                        Name = "Киборг Убийца" +i,
+                        Bone = rnd.Next(1,20),
+                        Class = classRep.Get(rnd.Next(1,12)),
+                        Race = raceRep.Get(rnd.Next(1002,1011)),
+                        Subrace = subraceRep.Get(rnd.Next(6,23)),
+                        UserCreator = userRepository.GetAll().First(),
+                        Оrigin = originRep.Get(rnd.Next(3,7))
+
+                    };
+                    heroRep.Save(Hero);
+                }
+            }
         }
+
 
         private void FillPcComponents(IServiceProvider provider)
         {

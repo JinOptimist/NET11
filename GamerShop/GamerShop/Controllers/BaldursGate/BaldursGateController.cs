@@ -87,19 +87,24 @@ namespace GamerShop.Controllers.BaldursGate
 
             return RedirectToAction("CharacterList", "BaldursGate");
         }
-        public IActionResult CharacterList()
+        public IActionResult CharacterList(int page =1, int perPage = 10)
         {
             //Я овощ
-            return View(_bgServices
-                .GetAllHero()
-                .Select(x => new BaldursGateModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Class = x.Class,
-                    //Creator_Name = x.CreatorId.Name,
-                })
-                .ToList());
+            var data = _bgServices.GetCharacterListBml(page, perPage);
+            var addPageNum = data.Count % data.PerPage == 0 ? 0 : 1;
+            var availablePages = Enumerable
+                .Range(1, data.Count / data.PerPage + addPageNum)
+                .ToList();
+            var BgModel = new PaginatorHeroViewModel
+            {
+                Page = data.Page,
+                PerPage = data.PerPage,
+                AvailablePages = availablePages,
+                Count = data.Count,
+                HeroList = data.HeroList
+                    .Select(m => HeroListViewModel)
+            };
+            return View(BgModel);
         }
         public IActionResult Remove(int id)
         {
