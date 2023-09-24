@@ -102,7 +102,17 @@ namespace GamerShop.Controllers.BaldursGate
                 AvailablePages = availablePages,
                 Count = data.Count,
                 HeroList = data.HeroList
-                    .Select(m => HeroListViewModel)
+                    .Select(m => new HeroListViewModel
+                    {
+                        Name = m.Name,
+                        Class = m.Class,
+                        Subrace = m.Subrace,
+                        Bone = m.Bone,
+                        Оrigin = m.Оrigin,
+                        CreatorId = m.CreatorId,
+                        Races = m.Races,
+
+                    }).ToList()
             };
             return View(BgModel);
         }

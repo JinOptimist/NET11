@@ -110,13 +110,13 @@ namespace BusinessLayer.BgServices
                 Count = data.Count,
                 Page = data.Page,
                 PerPage = data.PerPage,
-                HerList = data.Heros
+                HeroList = data.Heros
                     .Select(m => new BaldursGateBml
                     {
                         Id = m.Id,
                         Name = m.Name,
                         Class = m.Class,
-                        Races = m.Races,
+                        Races = m.Race,
                         Subrace = m.Subrace,
                         Bone = m.Bone,
                         Оrigin = m.Оrigin,

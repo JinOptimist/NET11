@@ -1,11 +1,10 @@
-
-@model List<GamerShop.Models.BaldursGate.BaldursGateModel>
+@model GamerShop.Models.BaldursGate.PaginatorHeroViewModel
 
 <div>
     Новые персонажи.
-    @foreach(var hero in Model){
+    @foreach(var hero in Model.HeroList){
         <div>
-          <h1>Пользователь @hero.Creator_Name: Создал персонажа @hero.Name <a class="del" href="~/BaldursGate/Remove?id=@hero.Id">X</a></h1>  
+          <h1>Пользователь @hero.Name: Создал персонажа @hero.Name <a class="del" href="~/BaldursGate/Remove?">X</a></h1>  
         </div>
 
 
