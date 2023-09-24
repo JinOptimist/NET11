@@ -31,4 +31,23 @@ public class MovieMainController : Controller
 
         return View(shortCollectionViewModels);
     }
+
+    [HttpGet]
+    public IActionResult UpdateMovieCollectionList(MovieCollectionSortCriteria filterCriteria = MovieCollectionSortCriteria.Newest)
+    {
+        var shortCollectionViewModels = _collectionService
+            .GetShortMovieCollectionSortedByCriteria(filterCriteria)
+            .Select(shortCollectionBlm => new ShowShortMovieCollectionViewModel
+            {
+                Id = shortCollectionBlm.Id,
+                Title = shortCollectionBlm.Title,
+                Description = shortCollectionBlm.Description,
+                DateCreated = shortCollectionBlm.DateCreated,
+                Rating = shortCollectionBlm.Rating
+            })
+            .ToList();
+
+        return PartialView("_MovieCollectionList", shortCollectionViewModels);
+    }
+
 }

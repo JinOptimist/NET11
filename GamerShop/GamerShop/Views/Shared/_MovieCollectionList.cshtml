@@ -1,0 +1,23 @@
+﻿@foreach (var collection in Model)
+{
+    <div class="collection" onclick="window.location.href='@Url.Action("Show", "MovieCollection", new { id = collection.Id })';">
+        <div class="collection-title">
+            @collection.Title
+        </div>
+        <div class="collection-date">
+            @collection.DateCreated.ToShortDateString()
+        </div>
+        <div class="collection-rating">
+            <span>Рейтинг:</span>
+            <b class="rating-value @(collection.Rating > 7 ? "good" : "bad")">
+                @collection.Rating
+            </b>
+        </div>
+        @if (!string.IsNullOrEmpty(collection.Description))
+        {
+            <div class="description">
+                @collection.Description
+            </div>
+        }
+    </div>
+}

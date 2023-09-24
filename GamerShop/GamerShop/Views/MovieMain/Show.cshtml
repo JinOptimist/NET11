@@ -5,40 +5,15 @@
 <div class="containerPage">
     <div style="margin-bottom: 20px;">
         <h2>Добро пожаловать на сайт с подборками фильмов.</h2>
-        <form asp-action="Show" method="get">
 
             <label for="filterCriteria">Самые </label>
             <select id="filterCriteria" name="filterCriteria">
                 <option value="Newest">новые</option>
                 <option value="Popular">популярные</option>
             </select>
-            <button type="submit">Применить</button>
-        </form>
     </div>
-
-    @foreach (var collection in Model)
-    {
-        <div class="collection" onclick="window.location.href='@Url.Action("Show", "MovieCollection", new { id = collection.Id })';">
-            <div class="collection-title">
-                @collection.Title
-            </div>
-            <div class="collection-date">
-                @collection.DateCreated.ToShortDateString()
-            </div>
-            <div class="collection-rating">
-                <span>Рейтинг:</span>
-                <b class="rating-value @(collection.Rating > 7 ? "good" : "bad")">
-                    @collection.Rating
-                </b>
-            </div>
-            @if (!string.IsNullOrEmpty(collection.Description))
-            {
-                <div class="description">
-                    @collection.Description
-                </div>
-            }
-        </div>
-    }
+    
+    <div id="movieCollectionList"></div>
 </div>
 
 @section Style{
