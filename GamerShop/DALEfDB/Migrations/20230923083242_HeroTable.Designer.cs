@@ -4,6 +4,7 @@ using DALEfDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20230923083242_HeroTable")]
+    partial class HeroTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +40,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UsersWhoLikeItId");
 
-                    b.ToTable("BuildUser", (string)null);
+                    b.ToTable("BuildUser");
                 });
 
             modelBuilder.Entity("CollectionMovie", b =>
@@ -52,7 +55,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("MoviesId");
 
-                    b.ToTable("CollectionMovie", (string)null);
+                    b.ToTable("CollectionMovie");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.BG.Class", b =>
@@ -69,7 +72,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Class", (string)null);
+                    b.ToTable("Class");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.BG.Heros", b =>
@@ -85,9 +88,6 @@ namespace DALEfDB.Migrations
 
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -117,7 +117,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("ОriginId");
 
-                    b.ToTable("Heros", (string)null);
+                    b.ToTable("Heros");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.BG.Race", b =>
@@ -134,7 +134,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Race", (string)null);
+                    b.ToTable("Race");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.BG.Subrace", b =>
@@ -156,7 +156,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("RaceId");
 
-                    b.ToTable("Subrace", (string)null);
+                    b.ToTable("Subrace");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.BG.Оrigin", b =>
@@ -173,7 +173,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Оrigin", (string)null);
+                    b.ToTable("Оrigin");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Book", b =>
@@ -197,7 +197,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
@@ -228,7 +228,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserCreatorId");
 
-                    b.ToTable("FootballClubs", (string)null);
+                    b.ToTable("FootballClubs");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
@@ -258,7 +258,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserCreatorId");
 
-                    b.ToTable("FootballLeagues", (string)null);
+                    b.ToTable("FootballLeagues");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
@@ -286,7 +286,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Collections", (string)null);
+                    b.ToTable("Collections");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Genre", b =>
@@ -303,7 +303,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Movie", b =>
@@ -341,7 +341,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Rating", b =>
@@ -367,7 +367,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Build", b =>
@@ -467,7 +467,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("SsdId");
 
-                    b.ToTable("Builds", (string)null);
+                    b.ToTable("Builds");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Case", b =>
@@ -517,7 +517,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cases", (string)null);
+                    b.ToTable("Cases");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Cooler", b =>
@@ -561,7 +561,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coolers", (string)null);
+                    b.ToTable("Coolers");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Gpu", b =>
@@ -626,7 +626,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Gpus", (string)null);
+                    b.ToTable("Gpus");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Hdd", b =>
@@ -676,7 +676,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hddss", (string)null);
+                    b.ToTable("Hddss");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Motherboard", b =>
@@ -738,7 +738,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Motherboards", (string)null);
+                    b.ToTable("Motherboards");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Processor", b =>
@@ -801,7 +801,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Processors", (string)null);
+                    b.ToTable("Processors");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Psu", b =>
@@ -842,7 +842,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Psus", (string)null);
+                    b.ToTable("Psus");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ram", b =>
@@ -892,7 +892,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rams", (string)null);
+                    b.ToTable("Rams");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ssd", b =>
@@ -945,7 +945,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ssds", (string)null);
+                    b.ToTable("Ssds");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Recipe", b =>
@@ -993,7 +993,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes", (string)null);
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
@@ -1026,7 +1026,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.RockHall.RockBand", b =>
@@ -1046,7 +1046,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RockBands", (string)null);
+                    b.ToTable("RockBands");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.RockHall.RockMember", b =>
@@ -1081,7 +1081,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("CurrentBandId");
 
-                    b.ToTable("RockMembers", (string)null);
+                    b.ToTable("RockMembers");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.User", b =>
@@ -1110,7 +1110,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("FavoriteMovieId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("GenreMovie", b =>
@@ -1125,7 +1125,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("MoviesId");
 
-                    b.ToTable("GenreMovie", (string)null);
+                    b.ToTable("GenreMovie");
                 });
 
             modelBuilder.Entity("RecipeUser", b =>
@@ -1140,7 +1140,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UsersWhoLikeItId");
 
-                    b.ToTable("RecipeUser", (string)null);
+                    b.ToTable("RecipeUser");
                 });
 
             modelBuilder.Entity("BuildUser", b =>

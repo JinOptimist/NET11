@@ -1,3 +1,4 @@
+using DALInterfaces.Models.BG;
 using DALInterfaces.Models.PcBuild;
 
 using DALInterfaces.Models.Movies;
@@ -21,6 +22,7 @@ namespace DALInterfaces.Models
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<FootballClub> CreatedFootballClubs { get; set; }
         public virtual ICollection<FootballLeague> CreatedFootballLeagues { get; set; }
+        public virtual ICollection<Heros> CreaterHeroes { get; set; }
 
     }
 }

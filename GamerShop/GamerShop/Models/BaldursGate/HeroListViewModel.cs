@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DALInterfaces.Models
+﻿namespace GamerShop.Models.BaldursGate
 {
-    public class Hero : BaseModel
+    public class HeroListViewModel
     {
-
         public string Name { get; set; }
         public string Races { get; set; }
         public string Subrace { get; set; }
