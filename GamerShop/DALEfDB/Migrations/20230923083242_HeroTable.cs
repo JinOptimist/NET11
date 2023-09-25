@@ -10,6 +10,9 @@ namespace DALEfDB.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Heros");
+
             migrationBuilder.CreateTable(
                 name: "Оrigin",
                 columns: table => new
