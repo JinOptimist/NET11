@@ -45,5 +45,11 @@ namespace DALEfDB.Repositories
 				.Take(count)
 				.ToList();
 		}
+
+        public User? GetUserByName(string name)
+        {
+           return _dbSet.FirstOrDefault(x => x.Name == name);
+        }
+
 	}
 }

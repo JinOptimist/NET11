@@ -16,13 +16,13 @@ namespace DALEfDB.Repositories
             _dbSet = context.Set<DbModel>();
         }
 
-		public int Count()
-		    => _dbSet.Count();
+        public int Count()
+            => _dbSet.Count();
 
         public virtual DbModel Get(int id)
             => _dbSet.First(x => x.Id == id);
 
-		public virtual IEnumerable<DbModel> GetAll()
+        public virtual IEnumerable<DbModel> GetAll()
             => _dbSet.ToList();
 
         public virtual void Remove(int id)
@@ -55,8 +55,8 @@ namespace DALEfDB.Repositories
         }
 
         public virtual PaginatorDataModel<DataModelTemplate> GetPaginatorDataModel<DataModelTemplate>(
-            Func<DbModel, DataModelTemplate> map, 
-            int page, 
+            Func<DbModel, DataModelTemplate> map,
+            int page,
             int perPage)
         {
             var count = _dbSet.Count();
@@ -77,11 +77,12 @@ namespace DALEfDB.Repositories
         }
 
         public DbModel GetLast()
-        {
-            var maxId = _dbSet
-                        .Select(x => x.Id)
-                        .Max();
-            return Get(maxId);
-        }
+         => _dbSet
+            .OrderBy(x => x.Id)
+            .Last();
+        public bool Any()
+         => _dbSet
+            .Any();
+
     }
 }

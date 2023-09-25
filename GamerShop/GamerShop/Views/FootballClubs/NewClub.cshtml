@@ -1,25 +1,44 @@
 ﻿@using GamerShop.Models.Football;
+@using GamerShop.Services;
 @model FootballClubViewModel<List<ShortFootballLeagueViewModel>>
+
+@{
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
 
 @using (Html.BeginForm("NewClub", "FootballClubs", FormMethod.Post))
 {
-    <div>
-        <div>
-            Name
-            @Html.TextBoxFor(model => model.Name)
-        </div>
-        <div>
-            Stadium
-            @Html.TextBoxFor(model => model.Stadium)
-        </div>
 
-        <div>
-            <p>Select League</p>
-            @Html.DropDownListFor(model => model.SelectedLigue,new SelectList(Model.FootballLeagueinfo,"Id","ShortName"))
-        </div>
-
-        <div>
-            <input type="submit" value="Записать" />
-        </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" name="Name">
+        <label for="floatingInput">Club name </label>
     </div>
+
+    <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" name="Stadium">
+        <label for="floatingPassword">Stadium name</label>
+    </div>
+
+    <select class="selectpicker" name="SelectedLigue" onfocus='this.size=6;' onblur='this.size=6;' onfocusout='this.size=null;' onchange='this.size=6; this.blur();'>
+
+        @foreach (var item in Model.FootballLeagueinfo)
+        {
+            <option value="@item.Id">@item.ShortName</option>
+        }
+
+         <option class = "more" value=""></option>
+ 
+    </select>
+
+    <div class="submit">
+        <input type="submit" value="Записать" />
+    </div>
+}
+@section Style{
+    <link rel="stylesheet" href="~/css/Football/NewClub.css" />
+    <link rel="stylesheet" href="~/css/Football/GeneralFootball.css" />
+ }
+@section Scripts{
+    <script src="~/js/Football/NewClub.js"></script>
+    <script src="~/js/Football/Nav.js"></script>
 }
