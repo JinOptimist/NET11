@@ -24,7 +24,7 @@ namespace DALEfDB
 
         public DbSet<RockMember> RockMembers { get; set; }
 
-        public DbSet<Heros> Hero { get; set; }
+        public DbSet<Heros> Heros { get; set; }
 
         public DbSet<FootballClub> FootballClubs { get; set; }
 
