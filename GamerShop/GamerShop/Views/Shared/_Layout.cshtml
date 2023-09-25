@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using GamerShop.Services
+@inject IAuthService authService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,7 +31,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Home/Privacy">Profile</a>
+                                <a class="nav-link text-dark" href="/User/Profile">Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="/Auth/Logout">Logout</a>
@@ -72,6 +75,12 @@
                                 <li><a class="dropdown-item nav-link text-dark" href="/PCBuild/CreateBuild">Создать сборку</a></li>
                             </ul>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <img class="avatar" src="@authService.GetAvatar()" />
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

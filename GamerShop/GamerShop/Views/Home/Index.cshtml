@@ -10,6 +10,7 @@
         @foreach (var user in Model)
         {
             <div class="user-row">
+                <img src="/img/avatars/@(user.Id).jpg" alt="No avatars yet" class="avatar" />
                 <span class="name">@user.Name</span>
                 <span class="symbol">+</span>
                 <span class="movie-info">(Favorite Movie : @user.FavoriteMovieName)</span>

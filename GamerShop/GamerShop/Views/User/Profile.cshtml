@@ -1,0 +1,17 @@
+﻿@using GamerShop.Models.Users
+
+@model ProfileViewModel
+
+<div>
+    Profile
+
+    @*<form enctype="multipart/form-data"></form>*@
+    @using (Html.BeginForm("Profile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(x => x.Id)
+
+        <input name="Avatar" type="file" />
+
+        <input type="submit" value="Upload avatar" />
+    }
+</div>

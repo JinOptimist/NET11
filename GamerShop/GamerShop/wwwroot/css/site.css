@@ -16,3 +16,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.avatar {
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+}

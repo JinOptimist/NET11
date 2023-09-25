@@ -45,33 +45,8 @@ builder.Services
 			option.LoginPath = "/Auth/Login";
 		});
 
-builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
-builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.Recipe.RecipeRepository>();
-builder.Services.AddScoped<IReviewRepository, DALEfDB.Repositories.Recipe.ReviewRepository>();
-builder.Services.AddScoped<IRockMemberRepository, RockMemberRepository>();
-builder.Services.AddScoped<IFootballClubRepository, FootballClubRepository>();
-builder.Services.AddScoped<IHeroRepository, HeroRepository>();
-builder.Services.AddScoped<IClassRepository, ClassRepository>();
-builder.Services.AddScoped<IOriginRepository, OriginRepository>();
-builder.Services.AddScoped<IRaceRepository, RaceRepository>();
-builder.Services.AddScoped<ISubraceRepository, SubraceRepository>();
-builder.Services.AddScoped<IBuildRepository, BuildRepository>();
-builder.Services.AddScoped<IGpuRepository, GpuRepository>();
-builder.Services.AddScoped<IHddRepository, HddRepository>();
-builder.Services.AddScoped<ISsdRepository, SsdRepository>();
-builder.Services.AddScoped<ICaseRepository, CaseRepository>();
-builder.Services.AddScoped<IMotherboardRepository, MotherboardRepository>();
-builder.Services.AddScoped<ICoolerRepository, CoolerRepository>();
-builder.Services.AddScoped<IRamRepository, RamRepository>();
-builder.Services.AddScoped<IPsuRepository, PsuRepository>();
-builder.Services.AddScoped<IProcessorRepository, ProcessorRepository>();
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IRatingRepository, RatingRepository>();
-builder.Services.AddScoped<IFootballLeagueRepository, FootballLeaguesRepository>();
-builder.Services.AddScoped<IRockBandRepository, RockBandRepository>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
+//AutoDiResolver.AutoRepositoryResolve(builder.Services);
+builder.Services.AutoRepositoryResolve();
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
