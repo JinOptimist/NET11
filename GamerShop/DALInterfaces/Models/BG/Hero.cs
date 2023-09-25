@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DALInterfaces.Models.BG
 {
-    public class Heros : BaseModel
+    public class Hero : BaseModel
     {
 
         public string Name { get; set; }
