@@ -17,6 +17,7 @@ namespace DALInterfaces.Models.BG
         public virtual Class  Class{ get; set; }
         public virtual Оrigin Оrigin { get; set; }
         public virtual User UserCreator { get; set; }
+        public string? ImagePath { get; set; }
 
     }
 }

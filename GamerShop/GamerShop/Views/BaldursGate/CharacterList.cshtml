@@ -1,12 +1,52 @@
 @model GamerShop.Models.BaldursGate.PaginatorHeroViewModel
-
+@section Style{
+    <link rel="stylesheet" href="~/css/BG/HeroList.css" />
+}
+@section Scripts{
+    <script src="~/js/BG/HeroNavigation.js"></script>
+}
 <div>
-    Новые персонажи.
-    @foreach(var hero in Model.HeroList){
-        <div>
-          <h1>Пользователь @hero.Name: Создал персонажа @hero.Name <a class="del" href="~/BaldursGate/Remove?">X</a></h1>  
-        </div>
-
-
-    }
+    <h3>Все Персонажи</h3>
 </div>
+@{
+    <div>
+        <div>
+            @foreach (var Hero in Model.HeroList)
+            {
+                <div class="Box">
+                    <div class="card h-150 border-dark mb-3">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title">Герой @Hero.Name</h5>
+                            <p class="card-text">Класс @Hero.Class</p>
+                            <p class="card-text">Раса @Hero.Races</p>
+                            <p class="card-text">Подраса @Hero.Subrace</p>
+                            <p class="card-text">Счасливое число @Hero.Bone</p>
+                            <p class="card-text">Предыстория @Hero.Оrigin</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <nav aria-label="paginator">
+        <ul class="pagination modal-5">
+            <li class="page-item">
+                <a class="prev fa fa-arrow-left" href="@(Model.Page == 1 ?"#":$"/BaldursGate/CharacterList?page={Model.Page-1}")"> &laquo; </a>
+            </li>
+            @foreach (var pageNumber in Model.AvailablePages)
+            {
+                <li class="page-item @(Model.Page == pageNumber ? " active" : "")">
+                    <a class="page-link" href="/BaldursGate/CharacterList?page=@pageNumber">@pageNumber</a>
+                </li>
+            }
+            <li class="page-item">
+                <a class="next fa fa-arrow-right" href="@(Model.Page == Model.AvailablePages.Count() ? "#" : $"/BaldursGate/CharacterList?page={Model.Page+1}")"> &raquo;</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="pages">
+    </div>
+
+}

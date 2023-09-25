@@ -450,7 +450,8 @@ namespace DALEfDB
                         Race = raceRep.Get(rnd.Next(1002,1011)),
                         Subrace = subraceRep.Get(rnd.Next(6,23)),
                         UserCreator = userRepository.GetAll().First(),
-                        Оrigin = originRep.Get(rnd.Next(3,7))
+                        Оrigin = originRep.Get(rnd.Next(3,7)),
+                     //   ImagePath = "/img/"
 
                     };
                     heroRep.Save(Hero);
