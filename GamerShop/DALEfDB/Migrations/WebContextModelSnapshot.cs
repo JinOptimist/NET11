@@ -117,7 +117,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("ОriginId");
 
-                    b.ToTable("Heros");
+                    b.ToTable("Hero");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.BG.Race", b =>
