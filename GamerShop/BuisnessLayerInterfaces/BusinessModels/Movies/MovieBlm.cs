@@ -10,4 +10,5 @@ public class MovieBlm
     public string Country { get; set; }
     public int Duration { get; set; }
     public string Genres { get; set; }
+    public string FilmAdaptationOf { get; set; }
 }

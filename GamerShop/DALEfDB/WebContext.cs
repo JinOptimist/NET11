@@ -5,6 +5,7 @@ using DALInterfaces.Models.Movies;
 using DALInterfaces.Models.RockHall;
 using Microsoft.EntityFrameworkCore;
 using DALInterfaces.Models.Football;
+using DALInterfaces.Models.Books;
 
 namespace DALEfDB
 {
@@ -82,7 +83,9 @@ namespace DALEfDB
                 .HasMany(x => x.CreatedFootballLeagues)
                 .WithOne(x => x.UserCreator);
 
-
+            modelBuilder.Entity<Book>()
+                .HasMany(book => book.FilmAdaptations)
+                .WithOne(movie => movie.FilmAdaptationOf);
 
         }
     }

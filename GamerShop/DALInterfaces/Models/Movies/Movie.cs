@@ -1,4 +1,6 @@
-﻿namespace DALInterfaces.Models.Movies;
+﻿using DALInterfaces.Models.Books;
+
+namespace DALInterfaces.Models.Movies;
 
 public class Movie : BaseModel
 {
@@ -12,4 +14,5 @@ public class Movie : BaseModel
 
     public virtual ICollection<Genre> Genres { get; set; }
     public virtual ICollection<Collection> Collections { get; set; }
+    public virtual Book? FilmAdaptationOf { get; set; }
 }

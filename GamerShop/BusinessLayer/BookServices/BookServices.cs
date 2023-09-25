@@ -1,9 +1,11 @@
 ﻿using BusinessLayerInterfaces.BookServices;
 using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Books;
+using BusinessLayerInterfaces.BusinessModels.Movies;
+using BusinessLayerInterfaces.MovieServices;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.DataModels.Books;
-using DALInterfaces.Models;
+using DALInterfaces.Models.Books;
 using DALInterfaces.Repositories;
 
 namespace BusinessLayer.BookServices
@@ -12,11 +14,13 @@ namespace BusinessLayer.BookServices
     {
         private IBookRepository _bookRepository;
         private IHomeServices _homeServices;
+        private IMovieRepository _movieRepository;
 
-        public BookServices(IBookRepository bookRepository, IHomeServices homeServices)
+        public BookServices(IBookRepository bookRepository, IHomeServices homeServices, IMovieRepository movieRepository)
         {
             _bookRepository = bookRepository;
             _homeServices = homeServices;
+            _movieRepository = movieRepository;
         }
 
         public IEnumerable<BookGetBlm> GetAll()
@@ -26,7 +30,11 @@ namespace BusinessLayer.BookServices
                    Id = dbMember.Id,
                    Author = dbMember.Author,
                    Name = dbMember.Name,
-                   YearOfIssue = dbMember.YearOfIssue
+                   YearOfIssue = dbMember.YearOfIssue,
+                   FilmAdaptations = string.Join(", ", dbMember
+                       .FilmAdaptations
+                       .Select(c => c.Title)
+                       .ToList())
                })
                .ToList();
 
@@ -36,7 +44,8 @@ namespace BusinessLayer.BookServices
             {
                 Author = bookBlm.Author,
                 Name = bookBlm.Name,
-                YearOfIssue = bookBlm.YearOfIssue
+                YearOfIssue = bookBlm.YearOfIssue,
+                FilmAdaptations= new MovieBlm { Title = _bookRepository.Get(x.).Name },
             };
 
             _bookRepository.Save(bookMemberDb);

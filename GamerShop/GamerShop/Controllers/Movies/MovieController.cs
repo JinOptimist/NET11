@@ -6,9 +6,9 @@ namespace GamerShop.Controllers.Movies;
 
 public class MovieController : Controller
 {
-    private readonly IMovieServices _movieServices;
+    private readonly IMovieRepository _movieServices;
 
-    public MovieController(IMovieServices movieServices)
+    public MovieController(IMovieRepository movieServices)
     {
         _movieServices = movieServices;
     }

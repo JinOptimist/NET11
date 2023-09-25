@@ -8,6 +8,7 @@
         <div>
             @book.Author
             @book.Name
+            @book.FilmAdaptations
             <a asp-action="Delete" asp-controller="Books" asp-route-id="@book.Id">Удалить</a>
         </div>
     }

@@ -1,4 +1,6 @@
-﻿namespace BusinessLayerInterfaces.BusinessModels.Books
+﻿using BusinessLayerInterfaces.BusinessModels.Movies;
+
+namespace BusinessLayerInterfaces.BusinessModels.Books
 {
     public class BookGetBlm
     { 
@@ -7,5 +9,6 @@
         public string Name { get; set; }
         public int YearOfIssue { get; set; }
         public string CreatorName { get; set; }
+        public List<MovieBlm> FilmAdaptations { get; set; }
     }
 }

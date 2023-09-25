@@ -37,7 +37,8 @@ namespace GamerShop.Controllers
                 Id = bookBlm.Id,
                 Author = bookBlm.Author,
                 Name = bookBlm.Name,
-                YearOfIssue = bookBlm.YearOfIssue
+                YearOfIssue = bookBlm.YearOfIssue,
+                FilmAdaptations = bookBlm.FilmAdaptations
             };
         }
 
@@ -65,7 +66,11 @@ namespace GamerShop.Controllers
             {
                 Author = newBookViewModel.Author,
                 Name = newBookViewModel.Name,
-                YearOfIssue = newBookViewModel.YearOfIssue
+                YearOfIssue = newBookViewModel.YearOfIssue,
+                FilmAdaptations = string.Join(", ", newBookViewModel
+                       .FilmAdaptations
+                       .Select(c => c.Title)
+                       .ToList())
             };
 
             _bookServices.Save(bookMemberDb);

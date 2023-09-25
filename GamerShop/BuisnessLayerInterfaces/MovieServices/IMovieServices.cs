@@ -2,7 +2,7 @@
 
 namespace BusinessLayerInterfaces.MovieServices;
 
-public interface IMovieServices
+public interface IMovieRepository
 {
     MovieBlm GetMovieBlm(int id);
     List<ShortMovieBlmToAddInCollection> GetAvailableMoviesForSelection();

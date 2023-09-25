@@ -59,7 +59,7 @@ builder.Services.AddScoped<ICoolerRepository, CoolerRepository>();
 builder.Services.AddScoped<IRamRepository, RamRepository>();
 builder.Services.AddScoped<IPsuRepository, PsuRepository>();
 builder.Services.AddScoped<IProcessorRepository, ProcessorRepository>();
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<DALInterfaces.Repositories.Movies.IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
@@ -68,7 +68,7 @@ builder.Services.AddScoped<IRockBandRepository, RockBandRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
-builder.Services.AddScoped<IMovieServices, MovieServices>();
+builder.Services.AddScoped<BusinessLayerInterfaces.MovieServices.IMovieRepository, MovieServices>();
 builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IBgServices, BgServices>();
 builder.Services.AddScoped<IFootballServices<FootballClubBlm>, FootballClubServices>();

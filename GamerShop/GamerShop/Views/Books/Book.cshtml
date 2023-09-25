@@ -17,6 +17,18 @@
             @Html.TextBoxFor(model => model.YearOfIssue)
         </div>
         <div>
+            @Html.ListBox("", Model.FilmAdaptations.ConvertAll(a =>
+        {
+            return new SelectListItem()
+            {
+                Text = a.ToString(),
+                Value = a.ToString(),
+                Selected = false
+            };
+        }), "")
+        @*@Html.TextBoxFor(model => model.FilmAdaptations)*@
+        </div>
+        <div>
             <input type="submit" value="Добавить" />
         </div>
     </div>

@@ -1,4 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+
+using BusinessLayerInterfaces.BusinessModels.Movies;
+using DALInterfaces.Models.Movies;
+using GamerShop.Models.Movies;
+using System.ComponentModel.DataAnnotations;
 
 namespace GamerShop.Models.Books
 {
@@ -9,5 +14,6 @@ namespace GamerShop.Models.Books
         [Required]
         public string Name { get; set; }
         public int YearOfIssue { get; set; }
+        public List<Movie> FilmAdaptations { get; set; }
     }
 }

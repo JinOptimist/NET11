@@ -4,11 +4,11 @@ using DALInterfaces.Repositories.Movies;
 
 namespace BusinessLayer.MovieServices;
 
-public class MovieServices : IMovieServices
+public class MovieServices : BusinessLayerInterfaces.MovieServices.IMovieRepository
 {
-    private readonly IMovieRepository _movieRepository;
+    private readonly DALInterfaces.Repositories.Movies.IMovieRepository _movieRepository;
 
-    public MovieServices(IMovieRepository movieRepository)
+    public MovieServices(DALInterfaces.Repositories.Movies.IMovieRepository movieRepository)
     {
         _movieRepository = movieRepository;
     }
@@ -28,7 +28,8 @@ public class MovieServices : IMovieServices
             Genres = string.Join(", ", movieDataModel
                 .Genres
                 .Select(c => c.Name)
-                .ToList())
+                .ToList()),
+            FilmAdaptationOf = movieDataModel.FilmAdaptationOf.Name
         };
         return movieBlm;
     }

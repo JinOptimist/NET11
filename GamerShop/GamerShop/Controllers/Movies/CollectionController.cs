@@ -10,10 +10,10 @@ namespace GamerShop.Controllers.Movies;
 public class CollectionController : Controller
 {
     private readonly ICollectionService _collectionService;
-    private readonly IMovieServices _movieServices;
+    private readonly IMovieRepository _movieServices;
     private readonly IAuthService _authService;
 
-    public CollectionController(ICollectionService collectionService, IMovieServices movieServices, IAuthService authService)
+    public CollectionController(ICollectionService collectionService, IMovieRepository movieServices, IAuthService authService)
     {
         _collectionService = collectionService;
         _movieServices = movieServices;
