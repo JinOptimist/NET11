@@ -208,7 +208,7 @@ namespace DALEfDB
 
             }
 
-            if (raceRep.Count() <= 5)
+            if (raceRep.Count() <= 0)
             {
                 var race1 = new Race
                 {
@@ -277,7 +277,7 @@ namespace DALEfDB
                 var subrace1 = new Subrace
                 {
                     Name = "Асмодей",
-                    Race = raceRep.Get(1002)
+                    Race = raceRep.Get(1)
 
                 };
                 subraceRep.Save(subrace1);
@@ -285,119 +285,119 @@ namespace DALEfDB
                 var subrace2 = new Subrace
                 {
                     Name = "Мефистофел",
-                    Race = raceRep.Get(1002)
+                    Race = raceRep.Get(1)
                 };
                 subraceRep.Save(subrace2);
 
                 var subrace3 = new Subrace
                 {
                     Name = "Зариэль",
-                    Race = raceRep.Get(1002)
+                    Race = raceRep.Get(1)
                 };
                 subraceRep.Save(subrace3);
 
                 var subrace4 = new Subrace
                 {
                     Name = "Высший эльф",
-                    Race = raceRep.Get(1003)
+                    Race = raceRep.Get(2)
                 };
                 subraceRep.Save(subrace4);
 
                 var subrace5 = new Subrace
                 {
                     Name = "Лесной эльф",
-                    Race = raceRep.Get(1003)
+                    Race = raceRep.Get(2)
                 };
                 subraceRep.Save(subrace5);
 
                 var subrace6 = new Subrace
                 {
                     Name = "Дроу Ллос",
-                    Race = raceRep.Get(1006)
+                    Race = raceRep.Get(5)
                 };
                 subraceRep.Save(subrace6);
 
                 var subrace7 = new Subrace
                 {
                     Name = "Дроу Селдарина",
-                    Race = raceRep.Get(1006)
+                    Race = raceRep.Get(5)
                 };
                 subraceRep.Save(subrace7);
 
                 var subrace8 = new Subrace
                 {
                     Name = "Золотой дварф",
-                    Race = raceRep.Get(1009)
+                    Race = raceRep.Get(8)
                 };
                 subraceRep.Save(subrace8);
 
                 var subrace9 = new Subrace
                 {
                     Name = "Щитовый дварф",
-                    Race = raceRep.Get(1009)
+                    Race = raceRep.Get(8)
                 };
                 subraceRep.Save(subrace9);
 
                 var subrace10 = new Subrace
                 {
                     Name = "Двергар",
-                    Race = raceRep.Get(1009)
+                    Race = raceRep.Get(8)
                 };
                 subraceRep.Save(subrace10);
 
                 var subrace11 = new Subrace
                 {
                     Name = "Высший полуэльф",
-                    Race = raceRep.Get(1008)
+                    Race = raceRep.Get(7)
                 };
                 subraceRep.Save(subrace11);
 
                 var subrace12 = new Subrace
                 {
                     Name = "Лесной полуэльф",
-                    Race = raceRep.Get(1008)
+                    Race = raceRep.Get(7)
                 };
                 subraceRep.Save(subrace12);
 
                 var subrace13 = new Subrace
                 {
                     Name = "Полуэльф-дроу",
-                    Race = raceRep.Get(1008)
+                    Race = raceRep.Get(7)
                 };
                 subraceRep.Save(subrace13);
 
                 var subrace14 = new Subrace
                 {
                     Name = "Легконогий полурослик",
-                    Race = raceRep.Get(1007)
+                    Race = raceRep.Get(6)
                 };
                 subraceRep.Save(subrace14);
 
                 var subrace15 = new Subrace
                 {
                     Name = "Крепкосердечный полурослик",
-                    Race = raceRep.Get(1007)
+                    Race = raceRep.Get(6)
                 };
                 subraceRep.Save(subrace15);
 
                 var subrace16 = new Subrace
                 {
                     Name = "Черный дракон",
-                    Race = raceRep.Get(1010)
+                    Race = raceRep.Get(9)
                 };
                 subraceRep.Save(subrace16);
 
                 var subrace17 = new Subrace
                 {
                     Name = "Синий дракон",
-                    Race = raceRep.Get(1010)
+                    Race = raceRep.Get(9)
                 };
                 subraceRep.Save(subrace17);
 
                 var subrace18 = new Subrace
                 {
                     Name = "Зеленый  дракон",
-                    Race = raceRep.Get(1010)
+                    Race = raceRep.Get(9)
                 };
                 subraceRep.Save(subrace18);
 
@@ -447,10 +447,10 @@ namespace DALEfDB
                         Name = "Киборг Убийца" +i,
                         Bone = rnd.Next(1,20),
                         Class = classRep.Get(rnd.Next(1,12)),
-                        Race = raceRep.Get(rnd.Next(1002,1011)),
-                        Subrace = subraceRep.Get(rnd.Next(6,23)),
+                        Race = raceRep.Get(rnd.Next(1,10)),
+                        Subrace = subraceRep.Get(rnd.Next(1,18)),
                         UserCreator = userRepository.GetAll().First(),
-                        Оrigin = originRep.Get(rnd.Next(3,7)),
+                        Оrigin = originRep.Get(rnd.Next(1,5)),
                      //   ImagePath = "/img/"
 
                     };
