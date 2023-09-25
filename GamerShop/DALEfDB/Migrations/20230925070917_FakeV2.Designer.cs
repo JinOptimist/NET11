@@ -4,6 +4,7 @@ using DALEfDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20230925070917_FakeV2")]
+    partial class FakeV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +40,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UsersWhoLikeItId");
 
-                    b.ToTable("BuildUser", (string)null);
+                    b.ToTable("BuildUser");
                 });
 
             modelBuilder.Entity("CollectionMovie", b =>
@@ -52,128 +55,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("MoviesId");
 
-                    b.ToTable("CollectionMovie", (string)null);
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.BG.Class", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Class", (string)null);
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.BG.Heros", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Bone")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClassId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RaceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubraceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserCreatorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ОriginId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClassId");
-
-                    b.HasIndex("RaceId");
-
-                    b.HasIndex("SubraceId");
-
-                    b.HasIndex("UserCreatorId");
-
-                    b.HasIndex("ОriginId");
-
-                    b.ToTable("Heros", (string)null);
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.BG.Race", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Race", (string)null);
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.BG.Subrace", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RaceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RaceId");
-
-                    b.ToTable("Subrace", (string)null);
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.BG.Оrigin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("History")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Оrigin", (string)null);
+                    b.ToTable("CollectionMovie");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Book", b =>
@@ -197,7 +79,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
@@ -228,7 +110,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserCreatorId");
 
-                    b.ToTable("FootballClubs", (string)null);
+                    b.ToTable("FootballClubs");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballLeague", b =>
@@ -258,7 +140,46 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserCreatorId");
 
-                    b.ToTable("FootballLeagues", (string)null);
+                    b.ToTable("FootballLeagues");
+                });
+
+            modelBuilder.Entity("DALInterfaces.Models.Hero", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Bone")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Races")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subrace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Оrigin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Heros");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Collection", b =>
@@ -286,7 +207,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Collections", (string)null);
+                    b.ToTable("Collections");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Genre", b =>
@@ -303,7 +224,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Movie", b =>
@@ -341,7 +262,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Movies.Rating", b =>
@@ -367,7 +288,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Build", b =>
@@ -467,7 +388,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("SsdId");
 
-                    b.ToTable("Builds", (string)null);
+                    b.ToTable("Builds");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Case", b =>
@@ -517,7 +438,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cases", (string)null);
+                    b.ToTable("Cases");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Cooler", b =>
@@ -561,7 +482,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coolers", (string)null);
+                    b.ToTable("Coolers");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Gpu", b =>
@@ -626,7 +547,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Gpus", (string)null);
+                    b.ToTable("Gpus");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Hdd", b =>
@@ -676,7 +597,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hddss", (string)null);
+                    b.ToTable("Hddss");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Motherboard", b =>
@@ -738,7 +659,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Motherboards", (string)null);
+                    b.ToTable("Motherboards");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Processor", b =>
@@ -801,7 +722,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Processors", (string)null);
+                    b.ToTable("Processors");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Psu", b =>
@@ -842,7 +763,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Psus", (string)null);
+                    b.ToTable("Psus");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ram", b =>
@@ -892,7 +813,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rams", (string)null);
+                    b.ToTable("Rams");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.PcBuild.Ssd", b =>
@@ -945,7 +866,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ssds", (string)null);
+                    b.ToTable("Ssds");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Recipe", b =>
@@ -993,7 +914,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes", (string)null);
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Recipe.Review", b =>
@@ -1026,7 +947,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.RockHall.RockBand", b =>
@@ -1046,7 +967,7 @@ namespace DALEfDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RockBands", (string)null);
+                    b.ToTable("RockBands");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.RockHall.RockMember", b =>
@@ -1081,7 +1002,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("CurrentBandId");
 
-                    b.ToTable("RockMembers", (string)null);
+                    b.ToTable("RockMembers");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.User", b =>
@@ -1110,7 +1031,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("FavoriteMovieId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("GenreMovie", b =>
@@ -1125,7 +1046,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("MoviesId");
 
-                    b.ToTable("GenreMovie", (string)null);
+                    b.ToTable("GenreMovie");
                 });
 
             modelBuilder.Entity("RecipeUser", b =>
@@ -1140,7 +1061,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("UsersWhoLikeItId");
 
-                    b.ToTable("RecipeUser", (string)null);
+                    b.ToTable("RecipeUser");
                 });
 
             modelBuilder.Entity("BuildUser", b =>
@@ -1171,58 +1092,6 @@ namespace DALEfDB.Migrations
                         .HasForeignKey("MoviesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.BG.Heros", b =>
-                {
-                    b.HasOne("DALInterfaces.Models.BG.Class", "Class")
-                        .WithMany()
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALInterfaces.Models.BG.Race", "Race")
-                        .WithMany()
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALInterfaces.Models.BG.Subrace", "Subrace")
-                        .WithMany()
-                        .HasForeignKey("SubraceId");
-
-                    b.HasOne("DALInterfaces.Models.User", "UserCreator")
-                        .WithMany("CreaterHeroes")
-                        .HasForeignKey("UserCreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALInterfaces.Models.BG.Оrigin", "Оrigin")
-                        .WithMany()
-                        .HasForeignKey("ОriginId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Race");
-
-                    b.Navigation("Subrace");
-
-                    b.Navigation("UserCreator");
-
-                    b.Navigation("Оrigin");
-                });
-
-            modelBuilder.Entity("DALInterfaces.Models.BG.Subrace", b =>
-                {
-                    b.HasOne("DALInterfaces.Models.BG.Race", "Race")
-                        .WithMany()
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Race");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.Football.FootballClub", b =>
@@ -1494,8 +1363,6 @@ namespace DALEfDB.Migrations
                     b.Navigation("CreatedFootballClubs");
 
                     b.Navigation("CreatedFootballLeagues");
-
-                    b.Navigation("CreaterHeroes");
 
                     b.Navigation("Ratings");
                 });
