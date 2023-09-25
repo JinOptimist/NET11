@@ -72,7 +72,7 @@ namespace DALEfDB.Migrations
                     b.ToTable("Class");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.BG.Hero", b =>
+            modelBuilder.Entity("DALInterfaces.Models.BG.Heros", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -117,7 +117,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("ОriginId");
 
-                    b.ToTable("Hero");
+                    b.ToTable("Heros");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.BG.Race", b =>
@@ -1173,7 +1173,7 @@ namespace DALEfDB.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.BG.Hero", b =>
+            modelBuilder.Entity("DALInterfaces.Models.BG.Heros", b =>
                 {
                     b.HasOne("DALInterfaces.Models.BG.Class", "Class")
                         .WithMany()

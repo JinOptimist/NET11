@@ -89,7 +89,7 @@ namespace BusinessLayer.BgServices
             var Subrace = _subraceRepository.Get(newBGBml.SubraceId);
             var Origin = _originRepository.Get(newBGBml.OriginId);
 
-            var HeroDB = new Hero()
+            var HeroDB = new Heros()
             {
                 UserCreator = _userRepository.Get(newBGBml.CreatorId),
                 Name = newBGBml.Name,
@@ -137,7 +137,7 @@ namespace BusinessLayer.BgServices
 
         public void Save(BaldursGateBml BgBml)
         {
-            _heroRepository.Save(new Hero
+            _heroRepository.Save(new Heros
             {
                 //Bone = BgBml.Bone,
                 //Name = BgBml.Name,

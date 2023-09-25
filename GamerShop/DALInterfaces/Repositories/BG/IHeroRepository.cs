@@ -9,7 +9,7 @@ using DALInterfaces.Models.BG;
 
 namespace DALInterfaces.Repositories.BG
 {
-    public interface IHeroRepository : IBaseRepository<Hero>
+    public interface IHeroRepository : IBaseRepository<Heros>
     {
         HeroPaginatorDataModel GetHeroPaginatorDataModel(int page,int perPage);
     }

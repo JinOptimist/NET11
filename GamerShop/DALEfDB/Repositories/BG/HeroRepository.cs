@@ -5,7 +5,7 @@ using DALInterfaces.Repositories.BG;
 
 namespace DALEfDB.Repositories.BG
 {
-    public class HeroRepository : BaseRepository<Hero>, IHeroRepository
+    public class HeroRepository : BaseRepository<Heros>, IHeroRepository
     {
         public HeroRepository(WebContext context) : base(context) { }
         public HeroPaginatorDataModel GetHeroPaginatorDataModel(int page, int perPage)

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALEfDB.Migrations
 {
     [DbContext(typeof(WebContext))]
-    [Migration("20230925115150_HeroTable")]
+    [Migration("20230923083242_HeroTable")]
     partial class HeroTable
     {
         /// <inheritdoc />
@@ -75,7 +75,7 @@ namespace DALEfDB.Migrations
                     b.ToTable("Class");
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.BG.Hero", b =>
+            modelBuilder.Entity("DALInterfaces.Models.BG.Heros", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,9 +88,6 @@ namespace DALEfDB.Migrations
 
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -120,7 +117,7 @@ namespace DALEfDB.Migrations
 
                     b.HasIndex("ОriginId");
 
-                    b.ToTable("Hero");
+                    b.ToTable("Heros");
                 });
 
             modelBuilder.Entity("DALInterfaces.Models.BG.Race", b =>
@@ -1176,7 +1173,7 @@ namespace DALEfDB.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DALInterfaces.Models.BG.Hero", b =>
+            modelBuilder.Entity("DALInterfaces.Models.BG.Heros", b =>
                 {
                     b.HasOne("DALInterfaces.Models.BG.Class", "Class")
                         .WithMany()

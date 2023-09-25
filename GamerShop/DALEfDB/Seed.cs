@@ -442,7 +442,7 @@ namespace DALEfDB
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    var Hero = new Hero
+                    var Hero = new Heros
                     {
                         Name = "Киборг Убийца" +i,
                         Bone = rnd.Next(1,20),
