@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALEfDB", "DALEfDB\DALEfDB.csproj", "{C0D014AE-7AEC-48EE-B096-E469608F0ADA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayerTests", "BusinessLayerTests\BusinessLayerTests.csproj", "{9CBB3320-3474-4DE8-A35F-07F3F9A7EFA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamerShopTests", "GamerShopTests\GamerShopTests.csproj", "{4162C370-CBEF-4AA3-AC42-D8F5B1601C95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{C0D014AE-7AEC-48EE-B096-E469608F0ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0D014AE-7AEC-48EE-B096-E469608F0ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0D014AE-7AEC-48EE-B096-E469608F0ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CBB3320-3474-4DE8-A35F-07F3F9A7EFA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CBB3320-3474-4DE8-A35F-07F3F9A7EFA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CBB3320-3474-4DE8-A35F-07F3F9A7EFA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CBB3320-3474-4DE8-A35F-07F3F9A7EFA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4162C370-CBEF-4AA3-AC42-D8F5B1601C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4162C370-CBEF-4AA3-AC42-D8F5B1601C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4162C370-CBEF-4AA3-AC42-D8F5B1601C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4162C370-CBEF-4AA3-AC42-D8F5B1601C95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
