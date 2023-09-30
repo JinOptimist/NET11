@@ -1,4 +1,5 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
+﻿using System.Linq.Expressions;
+using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Movies;
 using BusinessLayerInterfaces.Common;
 using BusinessLayerInterfaces.MovieServices;
@@ -174,4 +175,33 @@ public class MovieCollectionService : IMovieCollectionService
                     .Average()
         };
     }
+
+
+    public PaginatorBlm<ShortMovieCollectionBlm> GetPaginatorBlmWithFilter(
+        Expression<Func<Collection, bool>> filter, // Параметр фильтра
+        int page,
+        int perPage)
+    {
+        var movieCollectionPaginatorDataModel = _movieCollectionRepository
+            .GetPaginatorDataModelWithFilter(Map, filter, page, perPage); // Используем метод с фильтром
+
+        return new PaginatorBlm<ShortMovieCollectionBlm>()
+        {
+            Page = movieCollectionPaginatorDataModel.Page,
+            PerPage = movieCollectionPaginatorDataModel.PerPage,
+            Count = movieCollectionPaginatorDataModel.Count,
+            Items = movieCollectionPaginatorDataModel
+                .Items
+                .Select(m => new ShortMovieCollectionBlm
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    Description = m.Description,
+                    DateCreated = m.DateCreated,
+                    Rating = m.Rating
+                })
+                .ToList()
+        };
+    }
+
 }

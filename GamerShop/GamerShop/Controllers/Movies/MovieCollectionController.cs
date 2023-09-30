@@ -5,6 +5,8 @@ using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq.Expressions;
+using DALInterfaces.Models.Movies;
 
 namespace GamerShop.Controllers.Movies;
 
@@ -45,9 +47,14 @@ public class MovieCollectionController : Controller
     [HttpGet]
     public IActionResult ShowAll(int page = 1, int perPage = 5)
     {
-        var paginatorViewModel = _paginatorService
-            .GetPaginatorViewModel(_collectionService, MapBlmToViewModel, page, perPage);
-        
+        var filter = (Expression<Func<Collection, bool>>)(x => x.IsPublic == true);
+        var paginatorViewModel = _paginatorService.GetPaginatorViewModelWithFilter(
+            _collectionService,
+            MapBlmToViewModel,
+            filter, // Передаем фильтр
+            page,
+            perPage);
+
         return View(paginatorViewModel);
     }
     private ShowShortMovieCollectionViewModel MapBlmToViewModel(ShortMovieCollectionBlm shortMovieCollectionBlm)

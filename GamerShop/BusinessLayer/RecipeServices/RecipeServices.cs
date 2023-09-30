@@ -1,9 +1,12 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
+﻿using System.Linq.Expressions;
+using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Movies;
 using BusinessLayerInterfaces.BusinessModels.Recipe;
 using BusinessLayerInterfaces.BusinessModels.Users;
 using BusinessLayerInterfaces.RecipeServices;
 using DALInterfaces.DataModels.Recipe;
 using DALInterfaces.Models;
+using DALInterfaces.Models.Movies;
 using DALInterfaces.Models.Recipe;
 using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Recipe;
@@ -151,7 +154,13 @@ namespace BusinessLayer.RecipeServices
             };
         }
 
-		private RecipeDataModel Map(Recipe dbRecipe)
+        public PaginatorBlm<RecipeBlm> GetPaginatorBlmWithFilter(Expression<Func<Collection, bool>> filter, int page, int perPage)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private RecipeDataModel Map(Recipe dbRecipe)
 		{
 			return new RecipeDataModel
 			{
