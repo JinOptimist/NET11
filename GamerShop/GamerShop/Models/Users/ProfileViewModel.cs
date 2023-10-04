@@ -5,5 +5,9 @@
         public int Id { get; set; }
 
         public IFormFile Avatar { get; set; }
+
+        public decimal? CurrentJobProgress { get; set; }
+
+        public bool IsFileReady { get; set; }
     }
 }

@@ -14,4 +14,12 @@
 
         <input type="submit" value="Upload avatar" />
     }
+
+    <div>
+        Current job is done to @Model.CurrentJobProgress % 
+        @if (Model.IsFileReady)
+        {
+            <a href="/User/DownloadReport" target="_blank">download</a>
+        }
+    </div>
 </div>
