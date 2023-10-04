@@ -1,29 +1,42 @@
 ﻿@model List<IndexViewModel>
 
-<div>
-    На сайте зарегестрированны следующие пользователи.
-    <div>
-        <input class="search-text" type='text' placeholder="Введи имя пользователя" />
-    </div>
+<div class="home-index-wraper">
+    <div class="userInfo">
+        На сайте зарегестрированны следующие пользователи.
+        <div>
+            <input class="search-text" type='text' placeholder="Введи имя пользователя" />
+        </div>
 
-    <div class="users">
-        @foreach (var user in Model)
-        {
-            <div class="user-row">
-                <img src="/img/avatars/@(user.Id).jpg" alt="No avatars yet" class="avatar" />
-                <span class="name">@user.Name</span>
-                <span class="symbol">+</span>
-                <span class="movie-info">(Favorite Movie : @user.FavoriteMovieName)</span>
+        <div class="users">
+            @foreach (var user in Model)
+            {
+                <div class="user-row">
+                    <img src="/img/avatars/@(user.Id).jpg" alt="No avatars yet" class="avatar" />
+                    <span class="name">@user.Name</span>
+                    <span class="symbol">+</span>
+                    <span class="movie-info">(Favorite Movie : @user.FavoriteMovieName)</span>
+                </div>
+            }
+        </div>
+        <div class="user-row template">
+            <span class="name"></span>
+            <span class="symbol">+</span>
+            <span class="movie-info">(Favorite Movie : <span class="favorite-movie-name"></span>)</span>
+        </div>
+        <div>
+            <a href="/User/GeneratePdfWithUserNames" target="_blank">Get PDF</a>
+        </div>
+    </div>
+    <div class="chat-wraper">
+        <div class="messages">
+            <div class="message template">
+                <span class="user-name">User</span>
+                <span class="message-text">Nice to meet you</span>
             </div>
-        }
-    </div>
-    <div class="user-row template">
-        <span class="name"></span>
-        <span class="symbol">+</span>
-        <span class="movie-info">(Favorite Movie : <span class="favorite-movie-name"></span>)</span>
-    </div>
-    <div>
-        <a href="/User/GeneratePdfWithUserNames" target="_blank">Get PDF</a>
+        </div>
+        <div>
+            <input id="newMessage" placeholder="Enter message here" />
+        </div>
     </div>
 </div>
 
@@ -33,4 +46,5 @@
 
 @section Scripts{
     <script src="~/js/Home/index.js"></script>
+    <script src="~/js/Home/chat.js"></script>
 }

@@ -31,6 +31,7 @@ using BusinessLayerInterfaces.BookServices;
 using DALEfDB.Repositories;
 using DALInterfaces.Repositories.BG;
 using DALEfDB.Repositories.BG;
+using GamerShop.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,12 +39,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services
-	.AddAuthentication("WebAuthSmile")
-	.AddCookie("WebAuthSmile",
-		option =>
-		{
-			option.LoginPath = "/Auth/Login";
-		});
+    .AddAuthentication("WebAuthSmile")
+    .AddCookie("WebAuthSmile",
+        option =>
+        {
+            option.LoginPath = "/Auth/Login";
+        });
 
 //AutoDiResolver.AutoRepositoryResolve(builder.Services);
 builder.Services.AutoRepositoryResolve();
@@ -67,6 +68,7 @@ builder.Services.AddScoped<IRockBandServices, RockBandServices>();
 builder.Services.AddScoped<IPdfGeneratorService, PdfGeneratorService>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSignalR();
 
 var dbContextResolver = new Startup();
 dbContextResolver.RegisterDbContext(builder.Services);
@@ -78,9 +80,9 @@ new Seed().Fill(app.Services);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -89,12 +91,18 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // ��� ��?
+app.UseAuthentication(); // Who I am
 
-app.UseAuthorization(); // ����� �� ����?
+app.UseAuthorization(); // Is it allow for me?
+
+app.UseEndpoints(endpoint =>
+{
+    endpoint.MapHub<ChatHub>("/chat");
+    endpoint.MapHub<NotificationHub>("/notification");
+});
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

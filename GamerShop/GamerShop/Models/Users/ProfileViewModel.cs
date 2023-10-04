@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
 
+        public string Name { get; set; }
+
         public IFormFile Avatar { get; set; }
 
         public decimal? CurrentJobProgress { get; set; }

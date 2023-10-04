@@ -1,10 +1,12 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.UserServices;
 using GamerShop.Controllers.AuthCustomAttribute;
+using GamerShop.Hubs;
 using GamerShop.Models.Users;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GamerShop.Controllers
 {
@@ -15,6 +17,7 @@ namespace GamerShop.Controllers
         private IWebHostEnvironment _webHostEnvironment;
         private Services.IAuthService _authService;
         private IPdfGeneratorService _pdfGeneratorService;
+        private IHubContext<NotificationHub> _notificationHub;
 
         private IPaginatorService _paginatorService;
 
@@ -24,13 +27,15 @@ namespace GamerShop.Controllers
             IPaginatorService paginatorService,
             IWebHostEnvironment webHostEnvironment,
             Services.IAuthService authService,
-            IPdfGeneratorService pdfGeneratorService)
+            IPdfGeneratorService pdfGeneratorService,
+            IHubContext<NotificationHub> notificationHub)
         {
             _userService = userService;
             _paginatorService = paginatorService;
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;
             _pdfGeneratorService = pdfGeneratorService;
+            _notificationHub = notificationHub;
         }
 
 
@@ -44,8 +49,10 @@ namespace GamerShop.Controllers
         [HttpGet]
         public IActionResult Profile()
         {
+            var currentUser = _authService.GetCurrentUser();
             var viewModel = new ProfileViewModel();
-            var currentUserId = _authService.GetCurrentUser().Id;
+            viewModel.Name = currentUser.Name;
+            var currentUserId = currentUser.Id;
             if (!_currentPdfJobs.ContainsKey(currentUserId))
             {
                 return View(viewModel);
@@ -56,6 +63,7 @@ namespace GamerShop.Controllers
             decimal allUserCountDec = pdfGenerator.AllUserCount;
             viewModel.CurrentJobProgress = Math.Round(perfomedUserCountDec / allUserCountDec, 2) * 100;
             viewModel.IsFileReady = pdfGenerator.IsReady;
+            
 
             return View(viewModel);
         }
@@ -114,6 +122,15 @@ namespace GamerShop.Controllers
             task.Start();
 
             return Json("We start the work");
+        }
+
+        public IActionResult NotifyAllUser(string message)
+        {
+            //TODO Save to DB log about sended message
+
+            _notificationHub.Clients.All.SendAsync("UrgentNotification", message);
+
+            return RedirectToAction("Profile");
         }
     }
 }

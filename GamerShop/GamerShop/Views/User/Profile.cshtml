@@ -3,7 +3,7 @@
 @model ProfileViewModel
 
 <div>
-    Profile
+    Profile @Model.Name
 
     @*<form enctype="multipart/form-data"></form>*@
     @using (Html.BeginForm("Profile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -20,6 +20,16 @@
         @if (Model.IsFileReady)
         {
             <a href="/User/DownloadReport" target="_blank">download</a>
+        }
+    </div>
+
+    <div>
+        @if (Model.Name == "Admin")
+        {
+            <form action="/User/NotifyAllUser">
+                <input id="message" name="message" placeholder="Enter message for all user here" />
+                <input type="submit" value="Send to all users"/>
+            </form>
         }
     </div>
 </div>
