@@ -1,18 +1,53 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.avatar {
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+}
+
+.home-index-wraper {
+    display: flex;
+}
+
+.template {
+    display: none;
+}
+
+.user-name {
+    min-width: 100px;
+    display: inline-block;
+    color: blue;
+}
+
+.messages {
+    border: 1px red solid;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px;
+}
+
+    .messages .message:nth-child(2n) {
+        background: #e8e4e4;
+    }
+
+#newMessage {
+    margin-left: 10px;
 }

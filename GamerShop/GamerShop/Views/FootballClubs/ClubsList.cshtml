@@ -1,21 +1,51 @@
-﻿@using  GamerShop.Models.Football;
+﻿@using GamerShop.Models.Football;
+@using GamerShop.Services;
 @model PaginatorViewModel<FootballClubViewModel<ShortFootballLeagueViewModel>>
-<div>
-    Список клубов:
+
+@{
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
+<h2> Список клубов:</h2>
+<div class="shows">
+
     @foreach (var item in Model.Items)
     {
         <div>
-            <p>Создал:@item.CreatorName: @item.Name <a class="del" href="~/FootballClubs/Remove?id=@item.Id">X</a></p>
+            <p class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-html="true" data-bs-title="Доп.инфо"
+               data-bs-content="<p> Создал: @item.CreatorName <a class='del' href='/FootballClubs/Remove?id=@item.Id'>X</a> </p>">
+                @item.Name
+            </p>
         </div>
+
     }
-    <div class="pages">
+</div>
+
+<nav aria-label="paginator">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="@(Model.Page == 1 ?"#":$"/FootballClubs/ClubsList?page={Model.Page-1}")"> &laquo; </a>
+         </li>
         @foreach (var pageNumber in Model.AvailablePages)
         {
-            <a href="/FootballClubs/ClubsList?page=@pageNumber" class="page-button @(Model.Page == pageNumber ? "active" : "")">@pageNumber</a>
+            <li class="page-item @(Model.Page == pageNumber ? " active" : "")">
+                <a class="page-link" href="/FootballClubs/ClubsList?page=@pageNumber">@pageNumber</a>
+            </li>
         }
-    </div>
+        <li class="page-item">
+            <a class="page-link" href="@(Model.Page == Model.AvailablePages.Count() ? "#" : $"/FootballClubs/ClubsList?page={Model.Page+1}")"> &raquo;</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="pages">
 </div>
 
 @section Style{
-    <link rel="stylesheet" href="~/css/_ClubList.css" />
+    <link rel="stylesheet" href="~/css/Football/ClubList.css" />
+    <link rel="stylesheet" href="~/css/Football/GeneralFootball.css" />
+
+}
+@section Scripts{
+    <script src="~/js/Football/ClubList.js"></script>
+    <script src="~/js/Football/Nav.js"></script>
 }

@@ -25,5 +25,7 @@ namespace DALInterfaces.Repositories
             int perPage);
 
         DbModel GetLast();
+
+        bool Any();
     }
 }
