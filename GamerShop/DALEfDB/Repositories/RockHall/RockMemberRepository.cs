@@ -1,10 +1,6 @@
 ﻿using DALInterfaces.Models.RockHall;
 using DALInterfaces.Repositories.RockHall;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DALEfDB.Repositories.RockHall
 {
@@ -14,6 +10,11 @@ namespace DALEfDB.Repositories.RockHall
         {
         }
 
-        
+        protected override IQueryable<RockMember> GetDbSetWithIncludeForPaginator()
+        {
+            return _context.RockMembers.Include(x => x.CurrentBand);
+        }
+
+
     }
 }
