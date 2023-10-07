@@ -1,9 +1,7 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Recipe;
-using BusinessLayerInterfaces.BusinessModels.Users;
 using BusinessLayerInterfaces.RecipeServices;
 using DALInterfaces.DataModels.Recipe;
-using DALInterfaces.Models;
 using DALInterfaces.Models.Recipe;
 using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Recipe;
@@ -151,7 +149,8 @@ namespace BusinessLayer.RecipeServices
             };
         }
 
-		private RecipeDataModel Map(Recipe dbRecipe)
+
+        private RecipeDataModel Map(Recipe dbRecipe)
 		{
 			return new RecipeDataModel
 			{

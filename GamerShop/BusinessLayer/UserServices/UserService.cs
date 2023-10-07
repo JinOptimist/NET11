@@ -1,7 +1,10 @@
-﻿using BusinessLayerInterfaces.BusinessModels;
+﻿using System.Linq.Expressions;
+using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Movies;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.DataModels;
 using DALInterfaces.Models;
+using DALInterfaces.Models.Movies;
 using DALInterfaces.Repositories;
 
 namespace BusinessLayer.UserServices
@@ -34,7 +37,7 @@ namespace BusinessLayer.UserServices
             };
         }
 
-		private UserDataModel MapUserToUserDataModel(User dbUser)
+        private UserDataModel MapUserToUserDataModel(User dbUser)
 		{
             return new UserDataModel
             {
