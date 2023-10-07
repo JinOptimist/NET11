@@ -37,11 +37,6 @@ namespace BusinessLayer.UserServices
             };
         }
 
-        public PaginatorBlm<UserBlm> GetPaginatorBlmWithFilter(Expression<Func<Collection, bool>> filter, int page, int perPage)
-        {
-            throw new NotImplementedException();
-        }
-
         private UserDataModel MapUserToUserDataModel(User dbUser)
 		{
             return new UserDataModel
