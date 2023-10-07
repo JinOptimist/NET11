@@ -2,6 +2,7 @@
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DALEfDB.Repositories
 {
@@ -54,6 +55,11 @@ namespace DALEfDB.Repositories
             return _dbSet;
         }
 
+        protected virtual IQueryable<DbModel> GetFiltered(Expression<Func<DbModel, bool>> filter)
+        {
+            return _dbSet.Where(filter);
+        }
+
         public virtual PaginatorDataModel<DataModelTemplate> GetPaginatorDataModel<DataModelTemplate>(
             Func<DbModel, DataModelTemplate> map, 
             int page, 
@@ -75,5 +81,30 @@ namespace DALEfDB.Repositories
                 Items = items
             };
         }
+
+        public virtual PaginatorDataModel<DataModelTemplate> GetPaginatorDataModelWithFilter<DataModelTemplate>(
+            Func<DbModel, DataModelTemplate> map,
+            Expression<Func<DbModel, bool>> filter,
+            int page,
+            int perPage)
+        {
+            var count = GetFiltered(filter).Count();
+
+            var items = GetDbSetWithIncludeForPaginator()
+                .Where(filter)
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .Select(map)
+                .ToList();
+
+            return new PaginatorDataModel<DataModelTemplate>
+            {
+                Count = count,
+                Page = page,
+                PerPage = perPage,
+                Items = items
+            };
+        }
+
     }
 }

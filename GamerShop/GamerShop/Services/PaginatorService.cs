@@ -1,16 +1,18 @@
-﻿using BusinessLayerInterfaces.Common;
+﻿using System.Linq.Expressions;
+using BusinessLayerInterfaces.Common;
+using DALInterfaces.Models;
 using GamerShop.Models;
 
 namespace GamerShop.Services
 {
     public class PaginatorService : IPaginatorService
     {
-        public PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModel<ViewModelTemplate, BlmTemplate>(
-            IPaginatorServices<BlmTemplate> services,
+        public PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModel<ViewModelTemplate, BlmTemplate, DbModel>(
+            IPaginatorServices<BlmTemplate, DbModel> services,
             Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm,
             int page,
             int perPage
-            )
+            ) where DbModel : BaseModel
         {
             var dataFromBl = services.GetPaginatorBlm(page, perPage);
 
@@ -37,6 +39,40 @@ namespace GamerShop.Services
 
             return viewModel;
         }
+
+        public PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModelWithFilter<ViewModelTemplate, BlmTemplate,
+            DbModel>(IPaginatorServices<BlmTemplate, DbModel> services,
+            Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm,
+            Expression<Func<DbModel, bool>> filter, // Параметр фильтра
+            int page,
+            int perPage
+        ) where DbModel : BaseModel
+        {
+            var dataFromBl = services.GetPaginatorBlmWithFilter(filter, page, perPage); // Используем новый метод с фильтром
+
+            var additionalPageNumber = dataFromBl.Count % dataFromBl.PerPage == 0
+                ? 0
+                : 1;
+
+            var availablePages = Enumerable
+                .Range(1, dataFromBl.Count / dataFromBl.PerPage + additionalPageNumber)
+                .ToList();
+
+            var viewModel = new PaginatorViewModel<ViewModelTemplate>
+            {
+                Page = dataFromBl.Page,
+                PerPage = dataFromBl.PerPage,
+                Count = dataFromBl.Count,
+                AvailablePages = availablePages,
+                Items = dataFromBl
+                    .Items
+                    .Select(blm => mapViewModelFromBlm(blm))
+                    .ToList()
+            };
+
+            return viewModel;
+        }
+
 
         public void Test()
         {
