@@ -1,9 +1,10 @@
 ﻿using BusinessLayerInterfaces.BusinessModels.Recipe;
 using BusinessLayerInterfaces.Common;
+using DALInterfaces.Models.Recipe;
 
 namespace BusinessLayerInterfaces.RecipeServices
 {
-    public interface IRecipeServices : IPaginatorServices<RecipeBlm>
+    public interface IRecipeServices : IPaginatorServices<RecipeBlm, Recipe>
     {
         IEnumerable<RecipeBlm> GetAll();
         void Save(RecipeBlm recipeBlm);
