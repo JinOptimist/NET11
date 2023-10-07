@@ -53,7 +53,7 @@ namespace BusinessLayer.RockHallServices
             _rockMemberRepository.Save(rockMemberDb);
         }
 
-        PaginatorBlm<RockMemberGetBlm> IPaginatorServices<RockMemberGetBlm>.GetPaginatorBlm(int page, int perPage)
+        PaginatorBlm<RockMemberGetBlm> IPaginatorServices<RockMemberGetBlm, RockMember>.GetPaginatorBlm(int page, int perPage)
         {
             var data = _rockMemberRepository.GetPaginatorDataModel(MapRockMemberToRockMemberDataModel, page, perPage);
 

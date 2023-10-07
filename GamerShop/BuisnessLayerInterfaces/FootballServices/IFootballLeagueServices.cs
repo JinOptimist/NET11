@@ -5,7 +5,7 @@ using DALInterfaces.Models.Football;
 
 namespace BusinessLayerInterfaces.FootballService
 {
-    public interface IFootballLeagueServices : IPaginatorServices<FootballLeagueBLM> 
+    public interface IFootballLeagueServices : IPaginatorServices<FootballLeagueBLM,FootballLeague> 
     {
         IEnumerable<FootballLeagueBLM> GetAll();
         void Save(FootballLeagueBLM item);
