@@ -51,7 +51,7 @@ public class MovieCollectionController : Controller
         var paginatorViewModel = _paginatorService.GetPaginatorViewModelWithFilter(
             _collectionService,
             MapBlmToViewModel,
-            filter, // Передаем фильтр
+            filter,
             page,
             perPage);
 

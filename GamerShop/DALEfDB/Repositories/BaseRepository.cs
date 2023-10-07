@@ -91,7 +91,7 @@ namespace DALEfDB.Repositories
             var count = GetFiltered(filter).Count();
 
             var items = GetDbSetWithIncludeForPaginator()
-                .Where(filter) // Применяем фильтр здесь
+                .Where(filter)
                 .Skip((page - 1) * perPage)
                 .Take(perPage)
                 .Select(map)
