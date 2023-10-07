@@ -32,6 +32,7 @@ using DALEfDB.Repositories;
 using DALInterfaces.Repositories.BG;
 using DALEfDB.Repositories.BG;
 using GamerShop.Hubs;
+using GamerShop.Hubs.Recipe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,6 +100,7 @@ app.UseEndpoints(endpoint =>
 {
     endpoint.MapHub<ChatHub>("/chat");
     endpoint.MapHub<NotificationHub>("/notification");
+    endpoint.MapHub<ReviewHub>("/recipe/review");
 });
 
 app.MapControllerRoute(
