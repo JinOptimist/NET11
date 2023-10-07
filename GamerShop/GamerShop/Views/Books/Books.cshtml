@@ -1,9 +1,9 @@
 ﻿@using GamerShop.Models.Books;
-@model List<BookViewModel>
+@model PaginatorViewModel<BookViewModel>
 
 <div>
     Список добавленых книг.
-    @foreach (var book in Model)
+    @foreach (var book in Model.Items)
     {
         <div>
             @book.Author
@@ -12,3 +12,9 @@
         </div>
     }
 </div>
+<ul class="pagination">
+    @foreach (var pageNumber in Model.AvailablePages)
+    {
+        <li class="page-item"><a class="page-link @(Model.Page == pageNumber ? "active" : "")" href="Books?page=@pageNumber">@pageNumber</a></li>
+    }
+</ul>

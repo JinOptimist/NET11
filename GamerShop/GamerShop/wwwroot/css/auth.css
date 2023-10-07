@@ -1,0 +1,11 @@
+﻿.free{
+    color: green;
+}
+
+.waiting{
+    color: blue
+}
+
+.error{
+    color: red;
+}

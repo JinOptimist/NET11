@@ -9,5 +9,9 @@ namespace DALInterfaces.Repositories
 		int? GetUserIdByNameAndPassword(string userName, string password);
 
         IEnumerable<Models.Recipe.Recipe> GetFavoriteByUser(int userId);
+        bool IsUserNameExist(string name);
+		IEnumerable<User> GetUsersBySearchString(string search, int count);
+        User? GetUserByName(string name);
+
 	}
 }

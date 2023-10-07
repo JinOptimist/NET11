@@ -1,6 +1,6 @@
 ﻿using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Models;
-using GamerShop.Models;
+using GamerShop.Models.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -23,50 +23,40 @@ namespace GamerShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(AuthViewModel authViewModel)
+        public IActionResult Login(LoginViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(authViewModel);
+                return View(viewModel);
             }
 
-			var userId = _authService.GetUserIdByNameAndPassword(authViewModel.Login, authViewModel.Password);
+			var userId = _authService.GetUserIdByNameAndPassword(viewModel.Login, viewModel.Password);
 			if (userId == null)
 			{
-				ModelState.AddModelError(nameof(AuthViewModel.Login), "Не правильный пароль или логин");
-                return View(authViewModel);
+				ModelState.AddModelError(nameof(LoginViewModel.Login), "Не правильный пароль или логин");
+                return View(viewModel);
             }
 
-			var claims = new List<Claim>() {
-				new Claim("Id", userId.ToString()),
-				new Claim("TimeOfLogin", DateTime.Now.Hour + ""),
-				new Claim(ClaimTypes.AuthenticationMethod, "WebAuthSmile")
-			};
+			AuthOnServer(userId.ToString());
 
-            var identity = new ClaimsIdentity(claims, "WebAuthSmile");
-
-            var principal = new ClaimsPrincipal(identity);
-
-			HttpContext.SignInAsync(principal).Wait();
-
-            return View();
+            return RedirectToAction("Privacy", "Home");
         }
-
-		[HttpGet]
+        
+        [HttpGet]
 		public IActionResult Register()
 		{
 			return View();
 		}
 
 		[HttpPost]
-		public IActionResult Register(AuthViewModel authViewModel)
+		public IActionResult Register(RegisterViewModel authViewModel)
 		{
 			if (!ModelState.IsValid)
 			{
 				return View(authViewModel);
 			}
 
-			var dbUser = new User()
+            var dbUser = new User()
 			{
 				Name = authViewModel.Login,
 				Password = authViewModel.Password,
@@ -75,13 +65,37 @@ namespace GamerShop.Controllers
 
 			_authService.Save(dbUser);
 
-			return View();
+            AuthOnServer(dbUser.Id.ToString());
+
+            return RedirectToAction("Privacy", "Home");
 		}
 
-		public IActionResult Remove(int id)
+		public IActionResult Logout()
+		{
+            HttpContext.SignOutAsync().Wait();
+			return Redirect("/");
+        }
+
+        public IActionResult Remove(int id)
         {
             _authService.Remove(id);
             return RedirectToAction("Index", "Home");
         }
+
+        private void AuthOnServer(string userId)
+        {
+            var claims = new List<Claim>() {
+                new Claim("Id", userId),
+                new Claim("TimeOfLogin", DateTime.Now.Hour + ""),
+                new Claim(ClaimTypes.AuthenticationMethod, "WebAuthSmile")
+            };
+
+            var identity = new ClaimsIdentity(claims, "WebAuthSmile");
+
+            var principal = new ClaimsPrincipal(identity);
+
+            HttpContext.SignInAsync(principal).Wait();
+        }
+
     }
 }

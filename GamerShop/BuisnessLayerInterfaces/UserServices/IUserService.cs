@@ -5,7 +5,9 @@ using DALInterfaces.Models;
 
 namespace BusinessLayerInterfaces.UserServices
 {
-	public interface IUserService : IPaginatorServices<UserBlm, User>
-	{
-	}
+    public interface IUserService : IPaginatorServices<UserBlm, User>
+    {
+        List<string> GetAllUserNames();
+        bool IsUserNameExist(string name);
+    }
 }

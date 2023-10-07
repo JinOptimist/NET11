@@ -30,5 +30,9 @@ namespace DALInterfaces.Repositories
             Expression<Func<DbModel, bool>> filter,
             int page,
             int perPage);
+
+        DbModel GetLast();
+
+        bool Any();
     }
 }

@@ -1,4 +1,5 @@
-﻿@model AuthViewModel
+﻿@using GamerShop.Models.Auth
+@model RegisterViewModel
 
 @using (Html.BeginForm("Register", "Auth", FormMethod.Post))
 {
@@ -7,6 +8,7 @@
             Login
             @Html.TextBoxFor(model => model.Login)
             @Html.ValidationMessageFor(x=>x.Login)
+            <span class="checkResult"></span>
         </div>
         <div>
             Password
@@ -15,6 +17,15 @@
         </div>
         <div>
             <input type="submit" value="Регистрация" />
+            <span class="checkResult"></span>
         </div>
     </div>
+}
+
+@section Scripts{
+    <script src="~/js/Auth/reigister.js"></script>
+}
+
+@section Style{
+    <link rel="stylesheet" href="~/css/auth.css" />
 }

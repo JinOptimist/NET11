@@ -1,13 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using GamerShop.Services
+@inject IAuthService authService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GamerShop</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/notification.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GamerShop.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/_ClubList.css" asp-append-version="true" />
 
     @RenderSection("Style", false)
 </head>
@@ -25,19 +29,29 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/Home/Index">Home</a>
                         </li>
+                      
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/User/Profile">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Auth/Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Auth/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Auth/Register">Register</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" href="/Recipe/ShowAll">Recipes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Auth/Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Auth/Register">Register</a>
-                        </li>
-	                    <li class="nav-item">
-		                    <a class="nav-link text-dark" href="/Recipe/ShowAll">Recipes</a>
-	                    </li>
-                         <li class="nav-item">
                             <a class="nav-link text-dark" href="/BaldursGate/CharacterCreation">Create Hero</a>
                         </li>
                         <li class="nav-item">
@@ -50,17 +64,11 @@
                             <a class="nav-link text-dark" href="/Books/Book">Book</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/RockHall/Index">All Rock Members</a>
+                            <a class="nav-link text-dark" href="/RockHall/Menu">RockHall</a>
                         </li>
+                        <partial name="_MovieMenuPartial" />
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/RockHall/NewRockMember">New Rock Member</a>
-                        </li>
-                            <partial name="_MovieMenuPartial" />
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/FootballClubs/NewClub">New Club</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/FootballClubs/ClubsList">Clubs</a>
+                            <a class="nav-link text-dark" href="/FootballClubs/ClubsList">Football</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PCBuild</a>
@@ -69,6 +77,12 @@
                                 <li><a class="dropdown-item nav-link text-dark" href="/PCBuild/CreateBuild">Создать сборку</a></li>
                             </ul>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <img class="avatar" src="@authService.GetAvatar()" />
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -80,12 +94,12 @@
         </main>
     </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2023 - GamerShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        @RenderSection("AdditionalInfoInFooter", false)
-    </div>
-</footer>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - GamerShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            @RenderSection("AdditionalInfoInFooter", false)
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

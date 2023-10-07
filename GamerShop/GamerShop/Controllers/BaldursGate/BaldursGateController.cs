@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using BusinessLayerInterfaces.BgServices;
 using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.BG;
 using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.BaldursGate
 {
@@ -19,44 +22,99 @@ namespace GamerShop.Controllers.BaldursGate
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult CharacterCreation()
         {
-            return View();
-        }
-        public IActionResult CharacterList()
-        {
-            //Я овощ
-            return View(_bgServices
-                .GetAllHero()
-                .Select(x => new BaldursGateModel
+            var allAtribute = _bgServices.GetAllAtribute();
+            var bgModel = new CreateHeroViewModel();
+            bgModel.Class = allAtribute
+                .Class
+                .Select(x => new SelectListItem()
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Class = x.Class,
-                    Creator_Name = x.CreatorId.Name,
+                    Text = x.Name,
+                    Value = x.Id.ToString()
                 })
-                .ToList());
+                .ToList();
+            bgModel.Race = allAtribute
+                .Race
+                .Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+            bgModel.Subrace = allAtribute
+                .Subrace
+                .Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+
+                })
+                .ToList();
+            bgModel.Origin = allAtribute
+                .Origin
+                .Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
+            return View(bgModel);
         }
+      
 
         [HttpPost]
-        public IActionResult CharacterCreation(BaldursGateModel BgModel)
+        public IActionResult CharacterCreation(CreateHeroAnswerViewModel BgModel)
         {
-            var user = _authService.GetCurrentUser();
-            _bgServices.Save(new BaldursGateBml()
+            var user = _authService.GetCurrentUser().Id;
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("CharacterList", "BaldursGate");
+            }
+           var newHero = new NewBGBml()
             {
                 Bone = BgModel.Bone,
                 Name = BgModel.Name,
-                Class = BgModel.Class,
-                Races = BgModel.Races,
-                Subrace = BgModel.Subrace,
-                Оrigin = BgModel.Оrigin,
+                ClassId = BgModel.ClassId,
+                RaceId = BgModel.RaceId,
+                SubraceId = BgModel.SubraceId,
+                OriginId = BgModel.OriginId,
                 CreatorId = user,
-            });
+            };
+            _bgServices.CreateNewHero(newHero);
 
+            return RedirectToAction("CharacterList", "BaldursGate");
+        }
+        public IActionResult CharacterList(int page =1, int perPage = 10)
+        {
+            //Я овощ
+            var data = _bgServices.GetCharacterListBml(page, perPage);
+            var addPageNum = data.Count % data.PerPage == 0 ? 0 : 1;
+            var availablePages = Enumerable
+                .Range(1, data.Count / data.PerPage + addPageNum)
+                .ToList();
+            var BgModel = new PaginatorHeroViewModel
+            {
+                Page = data.Page,
+                PerPage = data.PerPage,
+                AvailablePages = availablePages,
+                Count = data.Count,
+                HeroList = data.HeroList
+                    .Select(m => new HeroListViewModel
+                    {
+                        Name = m.Name,
+                        Class = m.Class,
+                        Subrace = m.Subrace,
+                        Bone = m.Bone,
+                        Оrigin = m.Оrigin,
+                        CreatorId = m.CreatorId,
+                        Races = m.Races,
 
-            return View();
+                    }).ToList()
+            };
+            return View(BgModel);
         }
         public IActionResult Remove(int id)
         {

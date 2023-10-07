@@ -1,0 +1,38 @@
+﻿@using GamerShop.Models.Football;
+@using GamerShop.Services;
+@model FootballLeagueViewModel
+@{
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
+
+@using (Html.BeginForm("NewLeague", "FootballLeagues", FormMethod.Post))
+{
+    <div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="FullName">
+            <label for="floatingInput">Full name </label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="ShortName">
+            <label for="floatingPassword">Short name</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="Counrty">
+            <label for="floatingPassword">Counrty</label>
+        </div>
+
+        <div class="submit">
+            <input type="submit" value="Записать" />
+        </div>
+    </div>
+}
+@section Style{
+    <link rel="stylesheet" href="~/css/Football/GeneralFootball.css" />
+    <link rel="stylesheet" href="~/css/Football/NewLeague.css" />
+}
+@section Scripts{
+    <script src="~/js/Football/Nav.js"></script>
+}

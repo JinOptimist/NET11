@@ -14,17 +14,27 @@ namespace GamerShop.Services
 			_httpContextAccessor = httpContextAccessor;
 		}
 
-		public UserBlm GetCurrentUser()
+        public string GetAvatar()
+        {
+			return $"/img/avatars/{GetIdStr()}.jpg";
+        }
+
+        public UserBlm GetCurrentUser()
 		{
-			var idStr = _httpContextAccessor
-				.HttpContext
-				.User
-				.Claims
-				.First(x => x.Type == "Id")
-				.Value;
-			var id = int.Parse(idStr);
+			var idStr = GetIdStr();
+            var id = int.Parse(idStr);
 			var user = _homeServices.GetUserById(id);
 			return user;
 		}
+
+		private string GetIdStr()
+		{
+			return _httpContextAccessor
+                .HttpContext
+                .User
+                .Claims
+                .First(x => x.Type == "Id")
+                .Value;
+        }
 	}
 }

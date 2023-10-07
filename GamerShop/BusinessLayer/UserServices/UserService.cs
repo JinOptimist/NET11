@@ -18,6 +18,11 @@ namespace BusinessLayer.UserServices
 			_userRepository = userRepository;
 		}
 
+        public List<string> GetAllUserNames()
+        {
+            return _userRepository.GetAll().Select(x => x.Name).ToList();
+        }
+
         public PaginatorBlm<UserBlm> GetPaginatorBlm(int page, int perPage)
         {
             var data = _userRepository.GetPaginatorDataModel(MapUserToUserDataModel, page, perPage);
@@ -36,6 +41,9 @@ namespace BusinessLayer.UserServices
                 }).ToList()
             };
         }
+
+        public bool IsUserNameExist(string name)
+            => _userRepository.IsUserNameExist(name);
 
         private UserDataModel MapUserToUserDataModel(User dbUser)
 		{
