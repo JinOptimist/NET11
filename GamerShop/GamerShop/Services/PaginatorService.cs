@@ -1,19 +1,18 @@
 ﻿using System.Linq.Expressions;
-using BusinessLayerInterfaces.BusinessModels.Movies;
 using BusinessLayerInterfaces.Common;
-using DALInterfaces.Models.Movies;
+using DALInterfaces.Models;
 using GamerShop.Models;
 
 namespace GamerShop.Services
 {
     public class PaginatorService : IPaginatorService
     {
-        public PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModel<ViewModelTemplate, BlmTemplate>(
-            IPaginatorServices<BlmTemplate> services,
+        public PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModel<ViewModelTemplate, BlmTemplate, DbModel>(
+            IPaginatorServices<BlmTemplate, DbModel> services,
             Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm,
             int page,
             int perPage
-            )
+            ) where DbModel : BaseModel
         {
             var dataFromBl = services.GetPaginatorBlm(page, perPage);
 
@@ -41,13 +40,13 @@ namespace GamerShop.Services
             return viewModel;
         }
 
-        public PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModelWithFilter<ViewModelTemplate, BlmTemplate>(
-            IPaginatorServices<BlmTemplate> services,
+        public PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModelWithFilter<ViewModelTemplate, BlmTemplate,
+            DbModel>(IPaginatorServices<BlmTemplate, DbModel> services,
             Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm,
-            Expression<Func<Collection, bool>> filter, // Параметр фильтра
+            Expression<Func<DbModel, bool>> filter, // Параметр фильтра
             int page,
             int perPage
-        )
+        ) where DbModel : BaseModel
         {
             var dataFromBl = services.GetPaginatorBlmWithFilter(filter, page, perPage); // Используем новый метод с фильтром
 
