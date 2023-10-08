@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\img\avatars\" />
+    <Folder Include="wwwroot\img\RockHall\" />
     <Folder Include="wwwroot\js\Auth\" />
     <Folder Include="wwwroot\reports\" />
   </ItemGroup>

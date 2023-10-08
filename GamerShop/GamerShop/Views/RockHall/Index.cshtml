@@ -1,26 +1,33 @@
 ﻿@using GamerShop.Models.RockHall;
 @model PaginatorViewModel<InfoMemberViewModel>
 
-<div>
+<div class="main-container">
     <h1><u>Members of the Rock and Roll Hall of Fame:</u></h1><br />
     @foreach (var rockMember in Model.Items)
     {
-        <div class="content">
-            <div class="title">
-                <h2>
-                    @rockMember.FullName
-                </h2>
-            </div>
-            <div>
-                Genre: @rockMember.Genre, Entry year: @rockMember.EntryYear, Year Of Birth: @rockMember.YearOfBirth
-                <a asp-action="Delete" asp-controller="RockHall" asp-route-id="@rockMember.Id">Удалить</a>
-            </div>
-            <div>
-                @rockMember.FullName (Current Band : @rockMember.CurrentBandName)
-            </div>
-            <div>
-                Создал: @rockMember.CreatorName
-            </div>
+        <div >
+            <span class="flex-container">
+                <div class="title">
+                    <h2>
+                        @rockMember.FullName
+                    </h2>
+                </div>
+                <div class="description">
+                    Genre: @rockMember.Genre, Entry year: @rockMember.EntryYear, Year Of Birth: @rockMember.YearOfBirth
+                    <span class="delete-link">
+                        <a asp-action="Delete" asp-controller="RockHall" asp-route-id="@rockMember.Id">🗑</a>
+                    </span>
+                    <div>
+                        @rockMember.FullName (Current Band : @rockMember.CurrentBandName)
+                    </div>
+                    <div>
+                        Создал: @rockMember.CreatorName
+                    </div>
+                </div>
+                
+            </span>
+            
+            
         </div>
     }
 </div>

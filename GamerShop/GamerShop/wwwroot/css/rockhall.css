@@ -1,10 +1,10 @@
 ﻿.page-button {
-    border: 1px hidden;
-    border-radius: 30%;
+    border: 1px;
+    border-color: #c39a72e3;
     text-decoration: none;
     color: blue;
     padding: 8px;
-    background: #f2f2f2;
+    background: black;
 }
 
     .page-button.active {
@@ -15,7 +15,6 @@
 .pages {
     margin-top: 60px;
     text-align: center;
-    
 }
 
 .info-footer {
@@ -23,3 +22,36 @@
     color: red;
     font-weight: 900;
 }
+
+h1 {
+    color: goldenrod;
+    font-style: italic;
+}
+
+body {
+    background-image: url('../img/RockHall/background.jpg');
+    background-size: contain;
+}
+
+.flex-container {
+    background-color: #c39a72e3;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+}
+
+.flex-container .description {
+    display:none;
+}
+
+.delete-link a {
+    color: dimgrey;
+    text-decoration: underline;
+}
+
+    .delete-link a:hover {
+        color: goldenrod;
+        text-shadow:inherit;
+        text-decoration: none;
+    }
