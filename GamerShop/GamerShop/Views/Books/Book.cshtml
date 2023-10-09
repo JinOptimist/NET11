@@ -1,4 +1,5 @@
-﻿@using GamerShop.Models.Books;
+﻿@using DALInterfaces.Models.Books;
+@using GamerShop.Models.Books;
 @model NewBookViewModel
 
 @using (Html.BeginForm("Book", "Books", FormMethod.Post))
@@ -10,7 +11,7 @@
         </div>
         <div>
             Автор
-            @Html.TextBoxFor(model => model.Author)
+            @Html.DropDownList(nameof(NewBookViewModel.Authors), Model.Authors, new{ @class = "form-control" })
         </div>
         <div>
             Год выпуска

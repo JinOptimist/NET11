@@ -28,7 +28,8 @@ using DALInterfaces.Repositories.RockHall;
 using DALEfDB.Repositories.RockHall;
 using BusinessLayer.BookServices;
 using BusinessLayerInterfaces.BookServices;
-using DALEfDB.Repositories;
+using DALEfDB.Repositories.Books;
+using DALInterfaces.Repositories.Books;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +67,7 @@ builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IFootballLeagueRepository, FootballLeaguesRepository>();
 builder.Services.AddScoped<IRockBandRepository, RockBandRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();

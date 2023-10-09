@@ -1,7 +1,7 @@
-﻿using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+﻿using DALInterfaces.Models.Books;
+using DALInterfaces.Repositories.Books;
 
-namespace DALEfDB.Repositories
+namespace DALEfDB.Repositories.Books
 {
     public class BookRepository : BaseRepository<Book>, IBookRepository
     {

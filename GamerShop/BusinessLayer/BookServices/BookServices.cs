@@ -1,10 +1,12 @@
-﻿using BusinessLayerInterfaces.BookServices;
+﻿
+
+using BusinessLayerInterfaces.BookServices;
 using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Books;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.DataModels.Books;
-using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+using DALInterfaces.Models.Books;
+using DALInterfaces.Repositories.Books;
 
 namespace BusinessLayer.BookServices
 {
@@ -12,29 +14,29 @@ namespace BusinessLayer.BookServices
     {
         private IBookRepository _bookRepository;
         private IHomeServices _homeServices;
+        private IAuthorServices _authorServices;
 
-        public BookServices(IBookRepository bookRepository, IHomeServices homeServices)
+        public BookServices(IBookRepository bookRepository, IHomeServices homeServices, IAuthorServices authorServices)
         {
             _bookRepository = bookRepository;
             _homeServices = homeServices;
+            _authorServices = authorServices;
         }
 
         public IEnumerable<BookGetBlm> GetAll()
-            => _bookRepository.GetAll()
-               .Select(dbMember => new BookGetBlm
-               {
-                   Id = dbMember.Id,
-                   Author = dbMember.Author,
-                   Name = dbMember.Name,
-                   YearOfIssue = dbMember.YearOfIssue
-               })
-               .ToList();
+            => _bookRepository.GetAll().Select(dbMember => new BookGetBlm
+            {
+                Id = dbMember.Id,
+                Name = dbMember.Name,
+                YearOfIssue = dbMember.YearOfIssue,
+                Authors = _authorServices.GetAll().Where(x => dbMember.Authors.Select(a=> a.Id).Contains(x.Id)).ToList()
+            }).ToList();
 
         public void Save(BookPostBlm bookBlm)
         {
             var bookMemberDb = new Book()
             {
-                Author = bookBlm.Author,
+                Authors = ,
                 Name = bookBlm.Name,
                 YearOfIssue = bookBlm.YearOfIssue
             };
@@ -59,7 +61,7 @@ namespace BusinessLayer.BookServices
                 Items = data.Items.Select(bookDataModel => new BookGetBlm
                 {
                     Id = bookDataModel.Id,
-                    Author = bookDataModel.Author,
+                    Authors = _authorServices.GetAll().Where(x => bookDataModel.Authors.Select(a => a.Id).Contains(x.Id)).ToList(),
                     Name = bookDataModel.Name,
                     YearOfIssue = bookDataModel.YearOfIssue
 
@@ -72,7 +74,7 @@ namespace BusinessLayer.BookServices
             return new BookDataModel
             {
                 Id = dbBook.Id,
-                Author = dbBook.Author,
+                Authors = dbBook.Authors,
                 Name = dbBook.Name,
                 YearOfIssue = dbBook.YearOfIssue
             };
