@@ -1,0 +1,9 @@
+﻿.del {
+    color: red;
+    text-decoration: none;
+}
+
+.shows div {
+    opacity: 0;
+}
+

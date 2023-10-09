@@ -1,0 +1,29 @@
+﻿@using GamerShop.Models.Football;
+@using GamerShop.Services;
+@model List<FootballLeagueViewModel>
+@{
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
+
+<div class="shows">
+
+    @foreach (var item in Model)
+    {
+        <div>
+            <p class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-html="true" data-bs-title="Доп.инфо"
+               data-bs-content="<p> Полное название: @item.FullName  <a class='del'  href='~/FootballLeagues/Remove?id =@item.Id' >X</a> </p>">
+                @item.ShortName
+            </p>
+        </div>
+
+    }
+</div>
+
+@section Style{
+    <link rel="stylesheet" href="~/css/Football/LigueList.css" />
+    <link rel="stylesheet" href="~/css/Football/GeneralFootball.css" />
+}
+@section Scripts{
+    <script src="~/js/Football/LeagueList.js"></script>
+    <script src="~/js/Football/Nav.js"></script>
+}

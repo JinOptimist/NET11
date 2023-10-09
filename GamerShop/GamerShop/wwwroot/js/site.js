@@ -1,4 +1,34 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿//let user = {};
+//user.age = 123;
+//user.name = 'Jon';
 
-// Write your JavaScript code.
+//if (user) {
+//    console('+');
+//} else {
+//    console('-');
+//}
+
+//let numberStr = '123';
+//numberStr + 1
+
+//const test = '123';
+//test = '1';
+
+//function todoV1(a, b) {
+//    return (a + b) * 2;
+//}
+
+//let answer = todoV1(1, 4);
+
+//let todoV2 = function (a, b) {
+//    return (a + b) * 2;
+//}
+//let answer2 = todoV2(1, 4);
+
+//function sort(list, funcLyamda) {
+//    //for....
+//    //func(user);
+//}
+
+//sort([1, 2, 3], (x) => x.Id);
+//sort([1, 2, 3], function (user) { return user.Id });

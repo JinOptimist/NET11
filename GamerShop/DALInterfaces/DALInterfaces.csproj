@@ -9,5 +9,9 @@
   <ItemGroup>
     <Folder Include="DataModels\Movies\" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="1.0.4" />
+  </ItemGroup>
 
 </Project>

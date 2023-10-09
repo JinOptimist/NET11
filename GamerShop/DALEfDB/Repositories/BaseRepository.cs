@@ -1,4 +1,5 @@
-﻿using DALInterfaces.Models;
+﻿using DALInterfaces.DataModels;
+using DALInterfaces.Models;
 using DALInterfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,13 +16,13 @@ namespace DALEfDB.Repositories
             _dbSet = context.Set<DbModel>();
         }
 
-		public int Count()
-		    => _dbSet.Count();
+        public int Count()
+            => _dbSet.Count();
 
         public virtual DbModel Get(int id)
             => _dbSet.First(x => x.Id == id);
 
-		public virtual IEnumerable<DbModel> GetAll()
+        public virtual IEnumerable<DbModel> GetAll()
             => _dbSet.ToList();
 
         public virtual void Remove(int id)
@@ -47,5 +48,41 @@ namespace DALEfDB.Repositories
             _dbSet.AddRange(models);
             _context.SaveChanges();
         }
+
+        protected virtual IQueryable<DbModel> GetDbSetWithIncludeForPaginator()
+        {
+            return _dbSet;
+        }
+
+        public virtual PaginatorDataModel<DataModelTemplate> GetPaginatorDataModel<DataModelTemplate>(
+            Func<DbModel, DataModelTemplate> map,
+            int page,
+            int perPage)
+        {
+            var count = _dbSet.Count();
+
+            var items = GetDbSetWithIncludeForPaginator()
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .Select(map)
+                .ToList();
+
+            return new PaginatorDataModel<DataModelTemplate>
+            {
+                Count = count,
+                Page = page,
+                PerPage = perPage,
+                Items = items
+            };
+        }
+
+        public DbModel GetLast()
+         => _dbSet
+            .OrderBy(x => x.Id)
+            .Last();
+        public bool Any()
+         => _dbSet
+            .Any();
+
     }
 }

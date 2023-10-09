@@ -1,6 +1,7 @@
 ﻿using DALInterfaces.DataModels;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DALEfDB.Repositories
 {
@@ -22,34 +23,33 @@ namespace DALEfDB.Repositories
 				?.Id;
 		}
 
-		public UserPaginatorDataModel GetUserPaginatorDataModel(int page, int perPage)
+		public IEnumerable<DALInterfaces.Models.Recipe.Recipe> GetFavoriteByUser(int userId)
 		{
-			var count = _dbSet.Count();
-
-			var users = _dbSet
-				.Skip((page - 1) * perPage)
-				.Take(perPage)
-				.Select(dbUser => new UserDataModel
-				{
-					Id = dbUser.Id,
-					Name = dbUser.Name,
-					Birthday = dbUser.Birthday,
-					FavoriteMovieName = dbUser.FavoriteMovie == null ? null : dbUser.FavoriteMovie.Title
-				})
-				.ToList();
-
-			return new UserPaginatorDataModel
-			{
-				Count = count,
-				Page = page,
-				PerPage = perPage,
-				Users = users
-			};
+			return _dbSet.First(user => user.Id == userId).FavoriteRecipes;
 		}
-	
-        public IEnumerable<DALInterfaces.Models.Recipe.Recipe> GetFavoriteByUser(int userId)
+
+		protected override IQueryable<User> GetDbSetWithIncludeForPaginator()
+		{
+			return _context.Users.Include(x => x.FavoriteMovie);
+		}
+
+		public bool IsUserNameExist(string name)
+		{
+			return _dbSet.Any(x => x.Name == name);
+		}
+
+		public IEnumerable<User> GetUsersBySearchString(string search, int count)
+		{
+			return _dbSet
+				.Where(x => x.Name.Contains(search))
+				.Take(count)
+				.ToList();
+		}
+
+        public User? GetUserByName(string name)
         {
-            return _dbSet.First(user => user.Id == userId).FavoriteRecipes;
+           return _dbSet.FirstOrDefault(x => x.Name == name);
         }
-    }
+
+	}
 }

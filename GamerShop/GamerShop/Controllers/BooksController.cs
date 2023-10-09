@@ -1,39 +1,49 @@
-﻿using DALInterfaces.Models;
-using DALInterfaces.Repositories;
+﻿using BusinessLayer.UserServices;
+using BusinessLayerInterfaces.BookServices;
+using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.Books;
+using BusinessLayerInterfaces.UserServices;
 using GamerShop.Models.Books;
+using GamerShop.Models.Users;
+using GamerShop.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers
 {
     public class BooksController : Controller
     {
-        private IBookRepository _bookRepository;
+        private IBookServices _bookServices;
+        private Services.IAuthService _authService;
+        private IPaginatorService _paginatorService;
 
-        public BooksController(IBookRepository bookRepository)
+        public BooksController(IBookServices bookServices, IPaginatorService paginatorService)
         {
-            _bookRepository = bookRepository;
+            _bookServices = bookServices;
+            _paginatorService = paginatorService;
         }
 
         [HttpGet]
-        public IActionResult Books()
+        public IActionResult Books(int page = 1, int perPage = 5)
         {
-            var viewModel = _bookRepository
-                .GetAll()
-                .Select(dbMember => new BookViewModel
-                {
-                    Id = dbMember.Id,
-                    Author = dbMember.Author,
-                    Name = dbMember.Name,
-                    YearOfIssue = dbMember.YearOfIssue
-                })
-                .ToList();
-
+                var viewModel = _paginatorService
+                    .GetPaginatorViewModel(_bookServices, MapBlmToViewModel, page, perPage);
             return View(viewModel);
+        }
+
+        private BookViewModel MapBlmToViewModel(BookGetBlm bookBlm)
+        {
+            return new BookViewModel
+            {
+                Id = bookBlm.Id,
+                Author = bookBlm.Author,
+                Name = bookBlm.Name,
+                YearOfIssue = bookBlm.YearOfIssue
+            };
         }
 
         public IActionResult Delete(int id)
         {
-            _bookRepository.Remove(id);
+            _bookServices.Remove(id);
             return RedirectToAction("Books");
         }
 
@@ -51,14 +61,14 @@ namespace GamerShop.Controllers
                 return View(newBookViewModel);
             }
 
-            var bookMemberDb = new Book()
+            var bookMemberDb = new BookPostBlm()
             {
                 Author = newBookViewModel.Author,
                 Name = newBookViewModel.Name,
                 YearOfIssue = newBookViewModel.YearOfIssue
             };
 
-            _bookRepository.Save(bookMemberDb);
+            _bookServices.Save(bookMemberDb);
             return RedirectToAction("Books");
         }
     }

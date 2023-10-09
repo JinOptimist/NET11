@@ -1,0 +1,41 @@
+﻿.del {
+    color: red;
+    text-decoration: none;
+}
+
+.page-button {
+    border: 1px red solid;
+    padding: 7px;
+    border-radius: 10px;
+    margin: 1px;
+    text-decoration: none;
+    color: #000;
+    background: #f2f2f2;
+}
+
+    .page-button.active {
+        font-weight: 600;
+        background: #BBB;
+    }
+
+.pages {
+    margin-top: 10px;
+}
+
+
+.shows div {
+    opacity: 0;
+}
+
+.page-item.active a {
+    background: none;
+    border-color: green
+}
+
+.page-item a {
+    color: #e2d8d8
+}
+
+    .page-item a:hover {
+        color: #198754
+    }

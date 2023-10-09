@@ -4,8 +4,9 @@ using BusinessLayerInterfaces.Common;
 
 namespace BusinessLayerInterfaces.UserServices
 {
-	public interface IUserService : IPaginatorServices<UserBlm>
-	{
-		IndexBlm GetIndexBlm(int page, int perPage);
-	}
+    public interface IUserService : IPaginatorServices<UserBlm>
+    {
+        List<string> GetAllUserNames();
+        bool IsUserNameExist(string name);
+    }
 }

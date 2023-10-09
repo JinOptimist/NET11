@@ -1,0 +1,16 @@
+﻿.user-row .symbol {
+    cursor: pointer;
+    color: red;
+}
+
+    .user-row .symbol.blue {
+        color: blue;
+    }
+
+.user-row .movie-info {
+    display: none;
+}
+
+.template{
+    display: none;
+}
