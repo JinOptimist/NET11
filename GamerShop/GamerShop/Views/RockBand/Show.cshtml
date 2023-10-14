@@ -1,5 +1,10 @@
 ﻿@using GamerShop.Models.RockHall;
+@using GamerShop.Services;
 @model List<InfoBandViewModel>
+@{
+    ViewData["Title"] = "Show Bands";
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
 
 <div>
     <h1><u>Bands of the Rock and Roll Hall of Fame:</u></h1><br />

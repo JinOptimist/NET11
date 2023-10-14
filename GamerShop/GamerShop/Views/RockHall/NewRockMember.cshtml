@@ -1,6 +1,10 @@
 ﻿@using GamerShop.Models.RockHall;
+@using GamerShop.Services;
 @model NewMemberViewModel
-
+@{
+    ViewData["Title"] = "NewRockMember";
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
 @using (Html.BeginForm("NewRockMember", "RockHall", FormMethod.Post))
 {
     <div>

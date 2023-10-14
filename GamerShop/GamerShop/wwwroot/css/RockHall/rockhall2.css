@@ -28,11 +28,6 @@ h1 {
     font-style: italic;
 }
 
-body {
-    background-image: url('../img/RockHall/background.jpg');
-    background-size: contain;
-}
-
 .flex-container {
     background-color: #c39a72e3;
     border-radius: 10px;

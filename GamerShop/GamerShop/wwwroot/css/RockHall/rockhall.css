@@ -1,0 +1,8 @@
+﻿.backgroundImageLayout {
+    background-image: url(../../img/RockHall/background.jpg);
+    background-size: cover;    
+}
+
+.backgroundColorLayout {
+    background: rgba(0, 0, 0, 0.589);
+}

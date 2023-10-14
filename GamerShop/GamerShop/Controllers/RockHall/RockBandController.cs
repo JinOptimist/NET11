@@ -1,6 +1,7 @@
 ﻿using BusinessLayerInterfaces.BusinessModels.RockHall.RockBand;
 using BusinessLayerInterfaces.RockHallServices;
 using DALInterfaces.Models;
+using GamerShop.Controllers.Attributes;
 using GamerShop.Models.Movies;
 using GamerShop.Models.RockHall;
 using GamerShop.Services;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.RockHall
 {
+    [ViewLayout("_RockHallLayout")]
     public class RockBandController : Controller
     {
         private IRockBandServices _rockBandServices;

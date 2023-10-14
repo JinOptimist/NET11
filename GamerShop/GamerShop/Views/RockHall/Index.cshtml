@@ -1,11 +1,16 @@
 ﻿@using GamerShop.Models.RockHall;
+@using GamerShop.Services;
 @model PaginatorViewModel<InfoMemberViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = LayoutService.GetLayoutName(@ViewContext)?.LayoutName ?? Layout;
+}
 
 <div class="main-container">
     <h1><u>Members of the Rock and Roll Hall of Fame:</u></h1><br />
     @foreach (var rockMember in Model.Items)
     {
-        <div >
+        <div>
             <span class="flex-container">
                 <div class="title">
                     <h2>
@@ -24,10 +29,10 @@
                         Создал: @rockMember.CreatorName
                     </div>
                 </div>
-                
+
             </span>
-            
-            
+
+
         </div>
     }
 </div>
@@ -43,7 +48,7 @@
 
 
 @section Style{
-    <link rel="stylesheet" href="~/css/rockhall.css" />
+    <link rel="stylesheet" href="~/css/RockHall/rockhall2.css" />
 }
 
 @section AdditionalInfoInFooter{

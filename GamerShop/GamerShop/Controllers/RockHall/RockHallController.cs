@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Diagnostics;
 using GamerShop.Models.Users;
 using BusinessLayerInterfaces.BusinessModels;
 using GamerShop.Controllers.RockHall;
+using GamerShop.Controllers.Attributes;
 
 namespace GamerShop.Controllers.RockHallController
 {
+    [ViewLayout("_RockHallLayout")]
     public class RockHallController : Controller
     {
         private IRockMemberServices _rockMemberServices;
@@ -23,13 +25,6 @@ namespace GamerShop.Controllers.RockHallController
             _authService = authService;
             _paginatorService = paginatorService;
         }
-
-        [Authorize]
-        public IActionResult Menu()
-        {
-            return View();
-        }
-
         public IActionResult IsNotAdmin()
         {
             return View();
