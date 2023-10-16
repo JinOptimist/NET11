@@ -1,25 +1,22 @@
-﻿.page-button {
-    border: 1px;
-    border-color: #c39a72e3;
-    text-decoration: none;
-    color: blue;
-    padding: 8px;
-    background: black;
-}
+﻿
 
-    .page-button.active {
-        font-weight: 900;
-        background: #BBB;
+.active>.page-link {
+        color: black;
+        background:goldenrod;
+        border-color: black;
     }
 
-.pages {
-    margin-top: 60px;
-    text-align: center;
+.page-link {
+    color:goldenrod  
+}
+
+.page-link:hover {
+    color:chocolate  
 }
 
 .info-footer {
     margin-left: 20%;
-    color: red;
+    color: goldenrod;
     font-weight: 900;
 }
 

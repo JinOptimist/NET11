@@ -1,8 +1,26 @@
 ﻿.backgroundImageLayout {
     background-image: url(../../img/RockHall/background.jpg);
-    background-size: cover;    
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .backgroundColorLayout {
     background: rgba(0, 0, 0, 0.589);
+}
+
+.active-color {
+    color: crimson;
+    font: -webkit-control;
+    text-decoration: line-through;
+}
+
+#nav-color:hover {
+    color: rgb(53, 190, 110);
+   
+}
+
+li a span:hover {
+    color: rgb(53, 190, 110);
+    text-decoration: underline;
+    text-decoration-color: 53, 190, 110crimson;
 }

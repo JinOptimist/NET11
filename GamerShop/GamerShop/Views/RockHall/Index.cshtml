@@ -37,18 +37,21 @@
     }
 </div>
 
-<div>
-    <div class="pages">
+
+<nav aria-label="...">
+    <ul class="pagination pagination-sm">
         @foreach (var pageNumber in Model.AvailablePages)
         {
-            <a href="/RockHall/Index?page=@pageNumber" class="page-button @(Model.Page == pageNumber ? "active" : "")">@pageNumber</a>
+            <li class="page-item @(Model.Page == pageNumber ? "active" : "")">
+                <a href="/RockHall/Index?page=@pageNumber" class="page-link" >@pageNumber</a>
+            </li>
+            
         }
-    </div>
-</div>
-
+    </ul>
+</nav>
 
 @section Style{
-    <link rel="stylesheet" href="~/css/RockHall/rockhall2.css" />
+    <link rel="stylesheet" href="~/css/RockHall/index.css" />
 }
 
 @section AdditionalInfoInFooter{
