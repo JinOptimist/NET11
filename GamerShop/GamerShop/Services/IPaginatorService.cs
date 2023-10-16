@@ -1,5 +1,6 @@
 ﻿using BusinessLayerInterfaces.Common;
 using GamerShop.Models;
+using System.Collections;
 
 namespace GamerShop.Services
 {
@@ -7,8 +8,14 @@ namespace GamerShop.Services
     {
         PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModel<ViewModelTemplate, BlmTemplate>(
             IPaginatorServices<BlmTemplate> services,
-            Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm, 
+            Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm,
             int page,
             int perPage);
+        PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModel<ViewModelTemplate, BlmTemplate>(
+            IPaginatorServices<BlmTemplate> services,
+            Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm,
+            int page,
+            int perPage,
+            IEnumerable<FilterViewModel> filters);
     }
 }

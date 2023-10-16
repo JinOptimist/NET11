@@ -1,12 +1,13 @@
-﻿namespace GamerShop.Controllers.Attributes
-{
-    public class FilterAttribute : Attribute
-    {
-        public string Operation { get; set; }
+﻿using System;
 
-        public FilterAttribute(string operation)
+namespace GamerShop.Controllers.Attributes
+{
+    public class FilterAttribute : Attribute 
+    {
+  
+        public FilterAttribute ()
         {
-            Operation = operation;
         }
+ 
     }
 }

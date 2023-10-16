@@ -32,6 +32,7 @@ using DALEfDB.Repositories;
 using DALInterfaces.Repositories.BG;
 using DALEfDB.Repositories.BG;
 using GamerShop.Models.Football;
+using BusinessLayer.Filter.Football;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,7 +67,7 @@ builder.Services.AddScoped<IPaginatorService, PaginatorService>();
 builder.Services.AddScoped<IFootballLeagueServices, FootballLeagueServices>();
 builder.Services.AddScoped<IRockBandServices, RockBandServices>();
 builder.Services.AddScoped<IPdfGeneratorService, PdfGeneratorService>();
-builder.Services.AddScoped<IFilterService,FilterService>();
+builder.Services.AddScoped<IFootballClubFilter,FootballClubFilter>();
 
 builder.Services.AddHttpContextAccessor();
 

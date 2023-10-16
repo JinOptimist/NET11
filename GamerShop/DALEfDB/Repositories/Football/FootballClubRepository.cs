@@ -15,5 +15,6 @@ namespace DALEfDB.Repositories.Football
                 .Include(x => x.UserCreator)
                 .Include(x=>x.League);
         }
+
     }
 }

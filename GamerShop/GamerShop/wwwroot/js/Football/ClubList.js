@@ -24,5 +24,21 @@
         }
         return count
     }
+    $('.page-link').click( function () {
+
+        if ($.isNumeric(this.text)) {
+
+            document.getElementById('PageNumber').value = this.text
+        }
+        else
+        {
+            document.getElementById('PageNumber').value = this.children[0].textContent
+        }
+        $("form").first().trigger("submit");
+          
+    });
+    function getURLParameter(url, name) {
+        return (RegExp(name + '=' + '(.+?)(&|$)').exec(url) || [, null])[1];
+    }
 });
 

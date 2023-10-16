@@ -1,4 +1,6 @@
-﻿namespace GamerShop.Models
+﻿using System.Collections;
+
+namespace GamerShop.Models
 {
     public class PaginatorViewModel<ViewModelTemplate>
     {
@@ -8,5 +10,6 @@
         public int PerPage { get; set; }
 
         public List<ViewModelTemplate> Items { get; set; }
+        public List<FilterViewModel> Filters { get; set; }
     }
 }

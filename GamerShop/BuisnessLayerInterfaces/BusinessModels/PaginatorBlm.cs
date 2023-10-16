@@ -6,5 +6,6 @@
         public int Page { get; set; }
         public int PerPage { get; set; }
         public IEnumerable<T> Items { get; set; }
+        public IEnumerable<FilterModelBlm> Filters { get; set; }
     }
 }

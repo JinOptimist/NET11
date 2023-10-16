@@ -1,6 +1,7 @@
 ﻿using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
 using GamerShop.Controllers.Attributes;
+using GamerShop.Models;
 using GamerShop.Models.Football;
 using GamerShop.Models.RockHall;
 using GamerShop.Services;
@@ -17,16 +18,13 @@ namespace GamerShop.Controllers.Football
         private IAuthService _authService;
         private IPaginatorService _paginatorService;
         private IFootballLeagueServices _footballLeagueBLMServices;
-        private IFilterService _filterService;
 
-        public FootballClubsController(IFootballClubService foootballClubsService, IAuthService authService, IPaginatorService paginatorService, IFootballLeagueServices footballLeagueBLMServices,
-                                                                                                                                                                                IFilterService filterService)
+        public FootballClubsController(IFootballClubService foootballClubsService, IAuthService authService, IPaginatorService paginatorService, IFootballLeagueServices footballLeagueBLMServices)
         {
             _foootballClubsServices = foootballClubsService;
             _authService = authService;
             _paginatorService = paginatorService;
             _footballLeagueBLMServices = footballLeagueBLMServices;
-            _filterService = filterService;
         }
         [Authorize]
         [HttpGet]
@@ -54,11 +52,12 @@ namespace GamerShop.Controllers.Football
 
             return View(GetViewModelForNewClub());
         }
-        public IActionResult ClubsList(int page = 1, int perPage = 10, List<object> filters = null)
+        public IActionResult ClubsList(int page = 1, int perPage = 10, List<FilterViewModel> filters = null)
         {
 
             var viewModel = _paginatorService
-                           .GetPaginatorViewModel(_foootballClubsServices, MapToFootClubViewModel, page, perPage);
+                           .GetPaginatorViewModel(_foootballClubsServices, MapToFootClubViewModel, page, perPage
+                                                                       , filters);
             return View(viewModel);
 
         }
@@ -93,6 +92,11 @@ namespace GamerShop.Controllers.Football
             }).ToList(),
 
         };
+        private FootballClubViewModel<ShortFootballLeagueViewModel> GetEmptyFootClubModel()
+        {
+            return new FootballClubViewModel<ShortFootballLeagueViewModel>();
+        }
     }
+  
 
 }
