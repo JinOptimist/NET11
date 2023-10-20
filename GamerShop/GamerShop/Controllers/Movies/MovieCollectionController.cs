@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq.Expressions;
 using DALInterfaces.Models.Movies;
+using IronPdf.Pages;
 
 namespace GamerShop.Controllers.Movies;
 
@@ -45,18 +46,38 @@ public class MovieCollectionController : Controller
     }
 
     [HttpGet]
-    public IActionResult ShowAll(int page = 1, int perPage = 5)
+    public IActionResult ShowAll(int page = 1, int perPage = 5, string sortingCriteria = "Newest", bool isAscending = true)
     {
         var filter = (Expression<Func<Collection, bool>>)(x => x.IsPublic == true);
         var paginatorViewModel = _paginatorService.GetPaginatorViewModelWithFilter(
             _collectionService,
             MapBlmToViewModel,
             filter,
+            sortingCriteria,
             page,
-            perPage);
+            perPage,
+            isAscending);
 
         return View(paginatorViewModel);
     }
+
+    [HttpGet]
+    public IActionResult UpdateMovieCollectionList(string sortingCriteria, bool isAscending, int currentPage, int perPage)
+    {
+        var filter = (Expression<Func<Collection, bool>>)(x => x.IsPublic == true);
+        var paginatorViewModel = _paginatorService.GetPaginatorViewModelWithFilter(
+            _collectionService,
+            MapBlmToViewModel,
+            filter,
+            sortingCriteria,
+            currentPage, // Передайте текущую страницу
+        perPage, // Замените на значение вашей переменной perPage
+            isAscending);
+
+        return PartialView("_MovieCollectionList", paginatorViewModel);
+    }
+
+
     private ShowShortMovieCollectionViewModel MapBlmToViewModel(ShortMovieCollectionBlm shortMovieCollectionBlm)
     {
         return new ShowShortMovieCollectionViewModel

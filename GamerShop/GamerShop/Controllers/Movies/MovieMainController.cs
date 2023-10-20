@@ -15,7 +15,7 @@ public class MovieMainController : Controller
     }
 
     [HttpGet]
-    public IActionResult Show(MovieCollectionSortCriteria filterCriteria = MovieCollectionSortCriteria.Newest)
+    public IActionResult Show(string filterCriteria = "Newest")
     {
         var shortCollectionViewModels = _collectionService
             .GetShortMovieCollectionSortedByCriteria(filterCriteria)
@@ -33,7 +33,7 @@ public class MovieMainController : Controller
     }
 
     [HttpGet]
-    public IActionResult UpdateMovieCollectionList(MovieCollectionSortCriteria filterCriteria = MovieCollectionSortCriteria.Newest)
+    public IActionResult UpdateMovieCollectionList(string filterCriteria = "Newest")
     {
         var shortCollectionViewModels = _collectionService
             .GetShortMovieCollectionSortedByCriteria(filterCriteria)

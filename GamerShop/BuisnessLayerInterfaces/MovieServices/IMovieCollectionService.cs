@@ -22,7 +22,7 @@ public interface IMovieCollectionService : IPaginatorServices<ShortMovieCollecti
     /// </summary>
     /// <param name="filterCriteria">Sorting criteria for a list of movie collections.</param>
     /// <returns>A list of ShortMovieCollectionBlm representing brief information about movie collections.</returns>
-    List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByCriteria(MovieCollectionSortCriteria filterCriteria);
+    List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByCriteria(string filterCriteria);
 
     /// <summary>
     /// Create a new collection of movies with the given data.

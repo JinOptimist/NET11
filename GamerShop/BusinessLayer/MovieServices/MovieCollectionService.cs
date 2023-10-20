@@ -98,11 +98,42 @@ public class MovieCollectionService : IMovieCollectionService
 
     public PaginatorBlm<ShortMovieCollectionBlm> GetPaginatorBlmWithFilter(
         Expression<Func<Collection, bool>> filter,
+        string sortingCriteria,
         int page,
-        int perPage)
+        int perPage,
+        bool isAscending)
     {
+        Func<Collection, IComparable> funcSortingCriteria;
+
+        switch (sortingCriteria)
+        {
+            case "Newest":
+                funcSortingCriteria = collection =>
+                    collection
+                        .DateCreated;
+                break;
+
+            case "Popular":
+                funcSortingCriteria = collection =>
+                    collection
+                        .Ratings
+                        .Where(rating => rating.CollectionId == collection.Id)
+                        .Select(rating => rating.Value)
+                        .DefaultIfEmpty(0)
+                        .Average();
+                break;
+
+            case "Alphabetically":
+                funcSortingCriteria = collection =>
+                    collection
+                        .Title;
+                break;
+
+            default:
+                throw new ArgumentException("Неподдерживаемый критерий сортировки", nameof(sortingCriteria));
+        }
         var movieCollectionPaginatorDataModel = _movieCollectionRepository
-            .GetPaginatorDataModelWithFilter(Map, filter, page, perPage);
+            .GetPaginatorDataModelWithFilter(Map, filter, page, perPage, funcSortingCriteria, isAscending);
 
         return new PaginatorBlm<ShortMovieCollectionBlm>()
         {
@@ -140,7 +171,7 @@ public class MovieCollectionService : IMovieCollectionService
         };
     }
 
-    public List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByCriteria(MovieCollectionSortCriteria filterCriteria)
+    public List<ShortMovieCollectionBlm> GetShortMovieCollectionSortedByCriteria(string filterCriteria)
     {
         ShortMovieCollectionDataModel MapToShortMovieCollectionDataModel(Collection collection) =>
             new()
@@ -159,11 +190,11 @@ public class MovieCollectionService : IMovieCollectionService
 
         switch (filterCriteria)
         {
-            case MovieCollectionSortCriteria.Newest:
+            case "Newest":
                 sortingCriteria = collection => collection.DateCreated;
                 break;
 
-            case MovieCollectionSortCriteria.Popular:
+            case "Popular":
                 sortingCriteria = collection =>
                     collection
                         .Ratings
