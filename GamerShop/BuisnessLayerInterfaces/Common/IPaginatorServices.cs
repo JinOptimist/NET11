@@ -31,6 +31,7 @@ namespace BusinessLayerInterfaces.Common
         /// </remarks>
         PaginatorBlm<BlmTemplate> GetPaginatorBlmWithFilter(
             Expression<Func<DbModel, bool>> filter,
+            string sortingCriteria,
             int page,
             int perPage) => GetPaginatorBlm(page, perPage);
     }

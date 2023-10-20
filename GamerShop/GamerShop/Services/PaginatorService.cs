@@ -43,12 +43,13 @@ namespace GamerShop.Services
         public PaginatorViewModel<ViewModelTemplate> GetPaginatorViewModelWithFilter<ViewModelTemplate, BlmTemplate,
             DbModel>(IPaginatorServices<BlmTemplate, DbModel> services,
             Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm,
-            Expression<Func<DbModel, bool>> filter, // Параметр фильтра
+            Expression<Func<DbModel, bool>> filter,
+            string sortingCriteria,
             int page,
             int perPage
         ) where DbModel : BaseModel
         {
-            var dataFromBl = services.GetPaginatorBlmWithFilter(filter, page, perPage); // Используем новый метод с фильтром
+            var dataFromBl = services.GetPaginatorBlmWithFilter(filter, sortingCriteria, page, perPage); // Используем новый метод с фильтром
 
             var additionalPageNumber = dataFromBl.Count % dataFromBl.PerPage == 0
                 ? 0

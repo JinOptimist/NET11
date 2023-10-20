@@ -50,6 +50,7 @@ namespace GamerShop.Services
             IPaginatorServices<BlmTemplate, DbModel> services,
             Func<BlmTemplate, ViewModelTemplate> mapViewModelFromBlm,
             Expression<Func<DbModel, bool>> filter,
+            string sortingCriteria,
             int page,
             int perPage
         ) where DbModel : BaseModel;
