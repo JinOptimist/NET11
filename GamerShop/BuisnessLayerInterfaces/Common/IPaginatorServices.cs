@@ -33,6 +33,7 @@ namespace BusinessLayerInterfaces.Common
             Expression<Func<DbModel, bool>> filter,
             string sortingCriteria,
             int page,
-            int perPage) => GetPaginatorBlm(page, perPage);
+            int perPage,
+            bool isAscending) => GetPaginatorBlm(page, perPage);
     }
 }

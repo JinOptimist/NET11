@@ -46,10 +46,11 @@ namespace GamerShop.Services
             Expression<Func<DbModel, bool>> filter,
             string sortingCriteria,
             int page,
-            int perPage
+            int perPage,
+            bool isAscending
         ) where DbModel : BaseModel
         {
-            var dataFromBl = services.GetPaginatorBlmWithFilter(filter, sortingCriteria, page, perPage); // Используем новый метод с фильтром
+            var dataFromBl = services.GetPaginatorBlmWithFilter(filter, sortingCriteria, page, perPage, isAscending); // Используем новый метод с фильтром
 
             var additionalPageNumber = dataFromBl.Count % dataFromBl.PerPage == 0
                 ? 0

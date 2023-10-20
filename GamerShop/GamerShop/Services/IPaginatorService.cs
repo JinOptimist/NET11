@@ -52,7 +52,8 @@ namespace GamerShop.Services
             Expression<Func<DbModel, bool>> filter,
             string sortingCriteria,
             int page,
-            int perPage
+            int perPage,
+            bool isAscending
         ) where DbModel : BaseModel;
     }
 }
