@@ -86,12 +86,22 @@ namespace DALEfDB.Repositories
             Func<DbModel, DataModelTemplate> map,
             Expression<Func<DbModel, bool>> filter,
             int page,
-            int perPage)
+            int perPage,
+            Func<DbModel, IComparable> sortingCriteria,
+            bool isAscending)
         {
             var count = GetFiltered(filter).Count();
 
-            var items = GetDbSetWithIncludeForPaginator()
-                .Where(filter)
+            List<DataModelTemplate> items;
+
+            var query = GetDbSetWithIncludeForPaginator()
+                .Where(filter);
+
+            query = isAscending
+                ? query.OrderBy(sortingCriteria).AsQueryable()
+                : query.OrderByDescending(sortingCriteria).AsQueryable();
+
+            items = query
                 .Skip((page - 1) * perPage)
                 .Take(perPage)
                 .Select(map)

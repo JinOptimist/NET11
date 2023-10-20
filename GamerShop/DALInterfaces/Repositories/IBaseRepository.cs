@@ -29,7 +29,9 @@ namespace DALInterfaces.Repositories
             Func<DbModel, DataModelTemplate> map,
             Expression<Func<DbModel, bool>> filter,
             int page,
-            int perPage);
+            int perPage,
+            Func<DbModel, IComparable> sortingCriteria,
+            bool isAscending);
 
         DbModel GetLast();
 
