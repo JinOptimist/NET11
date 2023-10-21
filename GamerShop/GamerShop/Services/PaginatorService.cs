@@ -67,7 +67,9 @@ namespace GamerShop.Services
             var currentFilters = filters.Select(x => new FilterModelBlm
             {
                 PropName = x.PropName,
-                CurrentValue = x.CurrentValue,
+                CurrentValueBool = x.CurrentValueBool,
+                CurrentValueInt = x.CurrentValueInt,
+                CurrentValueStr = x.CurrentValueStr,
                 Expretion = x.NameForUser,
                 Comparemark = x.CompareMark
 
@@ -94,7 +96,7 @@ namespace GamerShop.Services
                     .Select(blm => mapViewModelFromBlm(blm))
                     //.Select(mapViewModelFromBlm)
                     .ToList(),
-                Filters = dataFromBl.Filters.Select(x => new FilterViewModel { CurrentValue =  x.CurrentValue, PropName = x.PropName , NameForUser = x.NameForUser }).ToList()
+                Filters = dataFromBl.Filters.Select(x => new FilterViewModel { CurrentValueInt =  x.CurrentValueInt, CurrentValueStr = x.CurrentValueStr, CurrentValueBool = x.CurrentValueBool, PropName = x.PropName , NameForUser = x.NameForUser }).ToList()
 
             };
 

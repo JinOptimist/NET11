@@ -94,12 +94,15 @@ namespace DALEfDB.Repositories
         {
             var count = _dbSet.Count();
             var items = GetDbSetWithIncludeForPaginator();
-            
+
 
             foreach (var filter in filters)
             {
 
-                if (filter.CurrentValue != null)
+                if (filter.CurrentValueBool != false
+                    || filter.CurrentValueStr != null
+                    || filter.CurrentValueInt != 0
+                    )
                 {
                     items = items.Where(filter.Expretion);
                 }

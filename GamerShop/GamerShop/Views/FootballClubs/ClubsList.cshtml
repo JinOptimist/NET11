@@ -25,8 +25,7 @@
                         <div class="form-check">
                             @Html.LabelFor(model => model.Filters[@i].NameForUser,Model.Filters[@i].NameForUser)
 
-                            @Html.TextBoxFor(model => model.Filters[@i].CurrentValue, "ТК", new { type = "number"})
-
+                            @Html.TextBoxFor(model => model.Filters[@i].CurrentValueInt, "ТК", new { type = "number"})
 
 
                             @Html.HiddenFor(model => model.Filters[@i].PropName,Model.Filters[@i].PropName)

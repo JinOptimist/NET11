@@ -86,7 +86,7 @@ namespace BusinessLayer.FootballServices
 
         public PaginatorBlm<FootballClubBlm> GetPaginatorBlm(int page, int perPage, IEnumerable<FilterModelBlm> filters)
         {
-            var allFilters = _footballClubFilter.GetAllFilters();
+            var allFilters = _footballClubFilter.GetAllFilters(filters.ToList());
            
             if (filters.Any())
             {
@@ -96,7 +96,9 @@ namespace BusinessLayer.FootballServices
                    (propDModel, propBlm) => new FilterDataModel
                    {
                        CompareMark  = propBlm.Comparemark ?? propDModel.CompareMark,
-                       CurrentValue = propBlm.CurrentValue as string,
+                       CurrentValueStr = propBlm.CurrentValueStr,
+                       CurrentValueInt = propBlm.CurrentValueInt,
+                       CurrentValueBool = propBlm.CurrentValueBool,
                        Expretion    = propDModel.Expretion,
                        ExpretionForDefultValue =  propDModel.ExpretionForDefultValue,
                        NameForUser = propDModel.NameForUser,
@@ -137,7 +139,16 @@ namespace BusinessLayer.FootballServices
                     }
 
                 }).ToList(),
-                Filters = allFilters.Select(x => new FilterModelBlm { CurrentValue = x.CurrentValue, Expretion = x.Expretion, ExpretionForDefultValue = x.ExpretionForDefultValue,PropName = x.PropName,NameForUser = x.NameForUser,Type =x.Type })
+                Filters = allFilters.Select(x => new FilterModelBlm 
+                {
+                    CurrentValueStr = x.CurrentValueStr,
+                    CurrentValueInt = x.CurrentValueInt,
+                    CurrentValueBool = x.CurrentValueBool,
+                    Expretion = x.Expretion, 
+                    ExpretionForDefultValue = x.ExpretionForDefultValue,
+                    PropName = x.PropName,
+                    NameForUser = x.NameForUser,
+                    Type =x.Type })
             };
         }
 

@@ -1,4 +1,5 @@
-﻿using DALInterfaces.DataModels;
+﻿using BusinessLayerInterfaces.BusinessModels;
+using DALInterfaces.DataModels;
 using System.Collections;
 
 namespace BusinessLayer.Filter.Football
@@ -13,7 +14,7 @@ namespace BusinessLayer.Filter.Football
 
             var filterModel = new FilterDataModel
             {
-                Expretion = (id >= 0) ? $"x => x.Id == {id}" : null,
+                Expretion =  $"x => x.Id == {id}",
                 PropName = "Id",
                 NameForUser = "Отфильтровать по ID",
                 ExpretionForDefultValue = expretionForGEtDefultValue,
@@ -30,7 +31,7 @@ namespace BusinessLayer.Filter.Football
 
             var filterModel = new FilterDataModel
             {
-                Expretion = (id >= 0) ? $"x => x.FootballLeagueinfo.Id == {id}" : null,
+                Expretion =  $"x => x.FootballLeagueinfo.Id == {id}",
                 PropName = "FootballLeagueinfo",
                 NameForUser = "Отфильтровать по лиги",
                 ExpretionForDefultValue = expretionForGEtDefultValue,
@@ -39,13 +40,20 @@ namespace BusinessLayer.Filter.Football
             return filterModel;
         }
 
-        public IEnumerable<FilterDataModel> GetAllFilters()
+        public IEnumerable<FilterDataModel> GetAllFilters(List<FilterModelBlm> filtersBlm)
         {
             List<FilterDataModel> filters = new List<FilterDataModel>();
 
-            filters.Add(Id());
-            filters.Add(FootballLeagueinfo());
-
+            if (filtersBlm.Count() != 0)
+            {
+                filters.Add(Id(filtersBlm.First(x => x.PropName == "Id").CurrentValueInt));
+                filters.Add(FootballLeagueinfo(filtersBlm.First(x => x.PropName == "FootballLeagueinfo").CurrentValueInt));
+            }
+            else 
+            {
+                filters.Add(Id());
+                filters.Add(FootballLeagueinfo());
+            }
             return filters;
 
 
