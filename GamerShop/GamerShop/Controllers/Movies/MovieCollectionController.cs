@@ -62,7 +62,7 @@ public class MovieCollectionController : Controller
     }
 
     [HttpGet]
-    public IActionResult UpdateMovieCollectionList(string sortingCriteria, bool isAscending, int currentPage, int perPage)
+    public IActionResult UpdateShowAll(int page = 1, int perPage = 5, string sortingCriteria = "Newest", bool isAscending = true)
     {
         var filter = (Expression<Func<Collection, bool>>)(x => x.IsPublic == true);
         var paginatorViewModel = _paginatorService.GetPaginatorViewModelWithFilter(
@@ -70,11 +70,11 @@ public class MovieCollectionController : Controller
             MapBlmToViewModel,
             filter,
             sortingCriteria,
-            currentPage, // Передайте текущую страницу
-        perPage, // Замените на значение вашей переменной perPage
+            page,
+            perPage,
             isAscending);
 
-        return PartialView("_MovieCollectionList", paginatorViewModel);
+        return PartialView("_UpdateShowAllPartialViewModel", paginatorViewModel);
     }
 
 

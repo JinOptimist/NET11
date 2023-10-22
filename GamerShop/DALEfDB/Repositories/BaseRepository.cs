@@ -94,8 +94,7 @@ namespace DALEfDB.Repositories
 
             List<DataModelTemplate> items;
 
-            var query = GetDbSetWithIncludeForPaginator()
-                .Where(filter);
+            var query = GetFiltered(filter);
 
             query = isAscending
                 ? query.OrderBy(sortingCriteria).AsQueryable()

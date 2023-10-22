@@ -1,0 +1,27 @@
+﻿@model PaginatorViewModel<GamerShop.Models.Movies.ShowShortMovieCollectionViewModel>
+
+@foreach (var collection in Model.Items)
+{
+    <div class="collection-item" onclick="window.location.href='@Url.Action("Show", "MovieCollection", new { id = collection.Id })';">
+        <h3>@collection.Title</h3>
+        <p>@collection.Description</p>
+        <p>Дата создания: @collection.DateCreated.ToShortDateString()</p>
+        <p>Рейтинг: <b class="rating-value @(collection.Rating > 7 ? "good" : "bad")">@collection.Rating</b></p>
+    </div>
+}
+
+<div class="pagination-wrapper">
+    <div class="pagination">
+        @foreach (var pageNumber in Model.AvailablePages)
+        {
+            if (pageNumber == Model.Page)
+            {
+                <span class="current-page">@pageNumber</span>
+            }
+            else
+            {
+                <a href="@Url.Action("ShowAll", "MovieCollection", new { page = pageNumber, perPage = Model.PerPage })" class="page-link">@pageNumber</a>
+            }
+        }
+    </div>
+</div>

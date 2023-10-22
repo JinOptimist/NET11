@@ -2,32 +2,29 @@
 
 <h2>Список подборок фильмов</h2>
 
-@foreach (var collection in Model.Items)
-{
-        <div class="collection-item" onclick="window.location.href='@Url.Action("Show", "MovieCollection", new { id = collection.Id })';">
-            <h3>@collection.Title</h3>
-            <p>@collection.Description</p>
-            <p>Дата создания: @collection.DateCreated.ToShortDateString()</p>
-            <p>Рейтинг: <b class="rating-value @(collection.Rating > 7 ? "good" : "bad")">@collection.Rating</b></p>
-        </div>
-}
+<label for="sorterCriteria">Сортировка:</label>
+<select id="sorterCriteria" name="sorterCriteria">
+    <option value="Newest">По дате</option>
+    <option value="Popular">По рейтигу</option>
+    <option value="Alphabetically">По названию</option>
+</select>
 
-<div class="pagination-wrapper">
-    <div class="pagination">
-        @foreach (var pageNumber in Model.AvailablePages)
-        {
-            if (pageNumber == Model.Page)
-            {
-                        <span class="current-page">@pageNumber</span>
-            }
-            else
-            {
-                        <a href="@Url.Action("ShowAll", "MovieCollection", new { page = pageNumber, perPage = Model.PerPage })" class="page-link">@pageNumber</a>
-            }
-        }
-    </div>
+<label for="sorterDirection">Направление сортировки:</label>
+<select id="sorterDirection" name="IsAscending">
+    <option value="True">По возрастанию</option>
+    <option value="False">По убыванию</option>
+</select>
+
+<div id="showAllContainer">
+    @Html.Partial("_UpdateShowAllPartialViewModel", Model)
 </div>
+
 
 @section Style {
         <link rel="stylesheet" href="~/css/movieCollections.css"/>
+}
+
+@section Scripts
+{
+    <script src="~/js/ShowAllFilterCriteria.js"></script>
 }
