@@ -10,7 +10,7 @@ namespace GamerShop.Controllers.RockHall
             var authService = context.HttpContext.RequestServices.GetService<IAuthService>();
             if(authService.GetCurrentUser().Name != "Admin")
             {
-                context.HttpContext.Response.Redirect("RockHall/IsNotAdmin");
+                context.HttpContext.Response.Redirect("IsNotAdmin");
             }
             base.OnActionExecuting(context);
         }

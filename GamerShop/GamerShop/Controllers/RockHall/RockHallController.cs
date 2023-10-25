@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using GamerShop.Models.RockHall;
+﻿using BusinessLayerInterfaces.BusinessModels.RockHall.RockMember;
 using BusinessLayerInterfaces.RockHallServices;
-using Microsoft.AspNetCore.Authorization;
-using GamerShop.Services;
-using BusinessLayerInterfaces.BusinessModels.RockHall.RockMember;
-using Microsoft.AspNetCore.Diagnostics;
-using GamerShop.Models.Users;
-using BusinessLayerInterfaces.BusinessModels;
-using GamerShop.Controllers.RockHall;
 using GamerShop.Controllers.Attributes;
+using GamerShop.Controllers.RockHall;
+using GamerShop.Models.RockHall;
+using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GamerShop.Controllers.RockHallController
 {
@@ -18,12 +15,14 @@ namespace GamerShop.Controllers.RockHallController
         private IRockMemberServices _rockMemberServices;
         private IAuthService _authService;
         private IPaginatorService _paginatorService;
+        private IWebHostEnvironment _webHostEnvironment;
 
-        public RockHallController(IRockMemberServices rockMemberServices, IAuthService authService, IPaginatorService paginatorService)
+        public RockHallController(IRockMemberServices rockMemberServices, IAuthService authService, IPaginatorService paginatorService, IWebHostEnvironment webHostEnvironment)
         {
             _rockMemberServices = rockMemberServices;
             _authService = authService;
             _paginatorService = paginatorService;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult IsNotAdmin()
         {
@@ -89,6 +88,34 @@ namespace GamerShop.Controllers.RockHallController
 
             _rockMemberServices.Save(rockMemberBlm);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult RockSettings()
+        {
+           /* var viewModel = new RockSettingsViewModel()
+            {
+                Id = _authService.GetCurrentUser().Id
+            };*/
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RockSettings(RockSettingsViewModel rockSettingsViewModel)
+        {
+            var fileName = "backgound1.jpg";
+            var path = Path.Combine(
+                _webHostEnvironment.WebRootPath,
+                "img",
+                "RockHall",
+                fileName);
+
+            using (var fs = new FileStream(path, FileMode.Create))
+            {
+                rockSettingsViewModel.Background.CopyTo(fs);
+            }
+            return View();
         }
     }
 }
