@@ -93,18 +93,13 @@ namespace GamerShop.Controllers.RockHallController
         [HttpGet]
         public IActionResult RockSettings()
         {
-           /* var viewModel = new RockSettingsViewModel()
-            {
-                Id = _authService.GetCurrentUser().Id
-            };*/
-
             return View();
         }
 
         [HttpPost]
         public IActionResult RockSettings(RockSettingsViewModel rockSettingsViewModel)
         {
-            var fileName = "backgound1.jpg";
+            var fileName = "background.jpg";
             var path = Path.Combine(
                 _webHostEnvironment.WebRootPath,
                 "img",
