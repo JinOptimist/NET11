@@ -1,0 +1,12 @@
+﻿.form-floating {
+    margin-bottom: 16px;
+}
+
+.submit {
+    margin-left: 50%;
+}
+
+.form-control:focus {
+    border-color: green;
+    box-shadow: 0px 0px 0px;
+}

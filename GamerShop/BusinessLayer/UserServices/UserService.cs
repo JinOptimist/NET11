@@ -15,6 +15,11 @@ namespace BusinessLayer.UserServices
 			_userRepository = userRepository;
 		}
 
+        public List<string> GetAllUserNames()
+        {
+            return _userRepository.GetAll().Select(x => x.Name).ToList();
+        }
+
         public PaginatorBlm<UserBlm> GetPaginatorBlm(int page, int perPage)
         {
             var data = _userRepository.GetPaginatorDataModel(MapUserToUserDataModel, page, perPage);

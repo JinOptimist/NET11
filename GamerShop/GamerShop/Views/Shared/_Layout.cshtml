@@ -1,13 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using GamerShop.Services
+@inject IAuthService authService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GamerShop</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/notification.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GamerShop.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/_ClubList.css" asp-append-version="true" />
 
     @RenderSection("Style", false)
 </head>
@@ -29,7 +33,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Home/Privacy">Profile</a>
+                                <a class="nav-link text-dark" href="/User/Profile">Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="/Auth/Logout">Logout</a>
@@ -64,16 +68,7 @@
                         </li>
                         <partial name="_MovieMenuPartial" />
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/FootballClubs/NewClub">New Club</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/FootballClubs/ClubsList">Clubs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/FootballLeagues/NewLeague">New League</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/FootballLeagues/LeagueList">Leagues</a>
+                            <a class="nav-link text-dark" href="/FootballClubs/ClubsList">Football</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PCBuild</a>
@@ -82,6 +77,12 @@
                                 <li><a class="dropdown-item nav-link text-dark" href="/PCBuild/CreateBuild">Создать сборку</a></li>
                             </ul>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <img class="avatar" src="@authService.GetAvatar()" />
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

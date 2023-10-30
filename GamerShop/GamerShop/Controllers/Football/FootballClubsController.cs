@@ -1,25 +1,22 @@
-﻿using BusinessLayer.FootballService;
-using BusinessLayerInterfaces.BusinessModels.Football;
-using BusinessLayerInterfaces.Common;
+﻿using BusinessLayerInterfaces.BusinessModels.Football;
 using BusinessLayerInterfaces.FootballService;
+using GamerShop.Controllers.Attributes;
 using GamerShop.Models.Football;
 using GamerShop.Services;
-using GamerShop.Services.Football;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.Football
 {
-
+    [ViewLayout("_FootballLayout")]
     public class FootballClubsController : Controller
     {
-        private IFootballServices<FootballClubBlm> _foootballClubsServices;
+        private IFootballClubService _foootballClubsServices;
         private IAuthService _authService;
         private IPaginatorService _paginatorService;
-        private IFootballServices<FootballLeagueBLM> _footballLeagueBLMServices;
+        private IFootballLeagueServices _footballLeagueBLMServices;
 
-        public FootballClubsController(IFootballServices<FootballClubBlm> foootballClubsService, IAuthService authService, IPaginatorService paginatorService, IFootballServices<FootballLeagueBLM> footballLeagueBLMServices)
+        public FootballClubsController(IFootballClubService foootballClubsService, IAuthService authService, IPaginatorService paginatorService, IFootballLeagueServices footballLeagueBLMServices)
         {
             _foootballClubsServices = foootballClubsService;
             _authService = authService;
@@ -85,7 +82,8 @@ namespace GamerShop.Controllers.Football
         private FootballClubViewModel<List<ShortFootballLeagueViewModel>> GetViewModelForNewClub()
         => new FootballClubViewModel<List<ShortFootballLeagueViewModel>>
         {
-            FootballLeagueinfo = _footballLeagueBLMServices.GetAll().Select(x => new ShortFootballLeagueViewModel
+            FootballLeagueinfo = _footballLeagueBLMServices.GetLimitedAmountLigues(1) // to fill in the list by clicking 
+            .Select(x => new ShortFootballLeagueViewModel
             {
                 Id = x.Id,
                 ShortName = x.ShortName

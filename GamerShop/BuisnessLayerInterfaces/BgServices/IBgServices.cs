@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessLayerInterfaces.BusinessModels;
+using BusinessLayerInterfaces.BusinessModels.BG;
 
 namespace BusinessLayerInterfaces.BgServices
 {
@@ -13,5 +13,9 @@ namespace BusinessLayerInterfaces.BgServices
 
         void Remove(int id);
         void Save (BaldursGateBml BgBml);
+
+        public AllAtributeForAddingBml GetAllAtribute();
+        void CreateNewHero(NewBGBml  NewBGBml);
+        CharacterListBml GetCharacterListBml(int page,int perPage);
     }
 }

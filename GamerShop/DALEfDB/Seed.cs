@@ -14,8 +14,10 @@ using Microsoft.Identity.Client;
 using DALEfDB.Repositories.Recipe;
 using DALInterfaces.Repositories.Football;
 using System.Dynamic;
+using DALInterfaces.Models.BG;
 using GamerShop.Services.Football;
 using DALInterfaces.Models.RockHall;
+using DALInterfaces.Repositories.BG;
 using DALInterfaces.Repositories.RockHall;
 
 namespace DALEfDB
@@ -33,7 +35,7 @@ namespace DALEfDB
 
                 FillPcComponents(scope.ServiceProvider);
                 FillBuilds(scope.ServiceProvider);
-
+                FillHeroAtribute(scope.ServiceProvider);
                 FillGenres(scope.ServiceProvider);
                 FillMovies(scope.ServiceProvider);
                 FillCollections(scope.ServiceProvider);
@@ -120,6 +122,343 @@ namespace DALEfDB
                 }
             }
         }
+
+        private void FillHeroAtribute(IServiceProvider provider)
+        {
+            var userRepository = provider.GetService<IUserRepository>();
+            var classRep = provider.GetService<IClassRepository>();
+            var raceRep = provider.GetService<IRaceRepository>();
+            var subraceRep = provider.GetService<ISubraceRepository>();
+            var originRep = provider.GetService<IOriginRepository>();
+            var heroRep =provider.GetService<IHeroRepository>();
+
+            if (classRep.Count() <= 0)
+            {
+                var class1 = new Class
+                {
+                    Name = "Варвар"
+                };
+                classRep.Save(class1);
+
+                var class2 = new Class
+                {
+                    Name = "Бард "
+                };
+                classRep.Save(class2);
+
+                var class3 = new Class
+                {
+                    Name = "Жрец"
+                };
+                classRep.Save(class3);
+
+                var class4 = new Class
+                {
+                    Name = "Друид "
+                };
+                classRep.Save(class4);
+
+                var class5 = new Class
+                {
+                    Name = "Воин"
+                };
+                classRep.Save(class5);
+
+                var class6 = new Class
+                {
+                    Name = "Монах"
+                };
+                classRep.Save(class6);
+
+                var class7 = new Class
+                {
+                    Name = "Паладин"
+                };
+                classRep.Save(class7);
+
+                var class8 = new Class
+                {
+                    Name = "Следопыт"
+                };
+                classRep.Save(class8);
+
+                var class9 = new Class
+                {
+                    Name = "Плут"
+                };
+                classRep.Save(class9);
+
+                var class10 = new Class
+                {
+                    Name = "Чародей"
+                };
+                classRep.Save(class10);
+
+                var class11 = new Class
+                {
+                    Name = "Колдун"
+                };
+                classRep.Save(class11);
+
+                var class12 = new Class
+                {
+                    Name = "Волшебник"
+                };
+                classRep.Save(class12);
+
+            }
+
+            if (raceRep.Count() <= 0)
+            {
+                var race1 = new Race
+                {
+                    Name = "Тифлинг"
+                };
+                raceRep.Save(race1);
+
+                var race2 = new Race
+                {
+                    Name = "Эльф"
+                };
+                raceRep.Save(race2);
+
+                var race3 = new Race
+                {
+                    Name = "Человек"
+                };
+                raceRep.Save(race3);
+
+                var race4 = new Race
+                {
+                    Name = "Гитьян"
+                };
+                raceRep.Save(race4);
+
+                var race5 = new Race
+                {
+                    Name = "Дроу"
+                };
+                raceRep.Save(race5);
+
+                var race6 = new Race
+                {
+                    Name = "Халфинг"
+                };
+                raceRep.Save(race6);
+
+                var race7 = new Race
+                {
+                    Name = "Полуэльф"
+                };
+                raceRep.Save(race7);
+
+                var race8 = new Race
+                {
+                    Name = "Дварф"
+                };
+                raceRep.Save(race8);
+
+                var race9 = new Race
+                {
+                    Name = "Драконорожденный"
+                };
+                raceRep.Save(race9);
+
+                var race10 = new Race
+                {
+                    Name = "Полуорк"
+                };
+                raceRep.Save(race10);
+
+            }
+
+            if (subraceRep.Count() <= 0)
+            {
+                var subrace1 = new Subrace
+                {
+                    Name = "Асмодей",
+                    Race = raceRep.Get(1)
+
+                };
+                subraceRep.Save(subrace1);
+
+                var subrace2 = new Subrace
+                {
+                    Name = "Мефистофел",
+                    Race = raceRep.Get(1)
+                };
+                subraceRep.Save(subrace2);
+
+                var subrace3 = new Subrace
+                {
+                    Name = "Зариэль",
+                    Race = raceRep.Get(1)
+                };
+                subraceRep.Save(subrace3);
+
+                var subrace4 = new Subrace
+                {
+                    Name = "Высший эльф",
+                    Race = raceRep.Get(2)
+                };
+                subraceRep.Save(subrace4);
+
+                var subrace5 = new Subrace
+                {
+                    Name = "Лесной эльф",
+                    Race = raceRep.Get(2)
+                };
+                subraceRep.Save(subrace5);
+
+                var subrace6 = new Subrace
+                {
+                    Name = "Дроу Ллос",
+                    Race = raceRep.Get(5)
+                };
+                subraceRep.Save(subrace6);
+
+                var subrace7 = new Subrace
+                {
+                    Name = "Дроу Селдарина",
+                    Race = raceRep.Get(5)
+                };
+                subraceRep.Save(subrace7);
+
+                var subrace8 = new Subrace
+                {
+                    Name = "Золотой дварф",
+                    Race = raceRep.Get(8)
+                };
+                subraceRep.Save(subrace8);
+
+                var subrace9 = new Subrace
+                {
+                    Name = "Щитовый дварф",
+                    Race = raceRep.Get(8)
+                };
+                subraceRep.Save(subrace9);
+
+                var subrace10 = new Subrace
+                {
+                    Name = "Двергар",
+                    Race = raceRep.Get(8)
+                };
+                subraceRep.Save(subrace10);
+
+                var subrace11 = new Subrace
+                {
+                    Name = "Высший полуэльф",
+                    Race = raceRep.Get(7)
+                };
+                subraceRep.Save(subrace11);
+
+                var subrace12 = new Subrace
+                {
+                    Name = "Лесной полуэльф",
+                    Race = raceRep.Get(7)
+                };
+                subraceRep.Save(subrace12);
+
+                var subrace13 = new Subrace
+                {
+                    Name = "Полуэльф-дроу",
+                    Race = raceRep.Get(7)
+                };
+                subraceRep.Save(subrace13);
+
+                var subrace14 = new Subrace
+                {
+                    Name = "Легконогий полурослик",
+                    Race = raceRep.Get(6)
+                };
+                subraceRep.Save(subrace14);
+
+                var subrace15 = new Subrace
+                {
+                    Name = "Крепкосердечный полурослик",
+                    Race = raceRep.Get(6)
+                };
+                subraceRep.Save(subrace15);
+
+                var subrace16 = new Subrace
+                {
+                    Name = "Черный дракон",
+                    Race = raceRep.Get(9)
+                };
+                subraceRep.Save(subrace16);
+
+                var subrace17 = new Subrace
+                {
+                    Name = "Синий дракон",
+                    Race = raceRep.Get(9)
+                };
+                subraceRep.Save(subrace17);
+
+                var subrace18 = new Subrace
+                {
+                    Name = "Зеленый  дракон",
+                    Race = raceRep.Get(9)
+                };
+                subraceRep.Save(subrace18);
+
+            }
+
+            if (originRep.Count() <= 0)
+            {
+                var origin1 = new Оrigin
+                {
+                    History = "По ложному доносу бродячих артистов, одного из моих заклятых врагов, меня несправедливо обвинили в преступлении, которое я не совершал, теперь меня хотят казнить."
+                };
+                originRep.Save(origin1);
+
+                var origin2 = new Оrigin
+                {
+                    History = "Я был изгнан на три года. Из-за пережитых лишений, я стал ненавидеть самого себя, теперь мне доставляет удовольствие, когда в мой адрес говорят оскорбительные слова."
+                };
+                originRep.Save(origin2);
+
+                var origin3 = new Оrigin
+                {
+                    History = "Я серьезно заболел, из-за болезни я обнаружил в себе вторую личность, которая хочеть уничтожить меня."
+                };
+                originRep.Save(origin3);
+
+                var origin4 = new Оrigin
+                {
+                    History = "На меня объявил охоту служитель культа. Поводом стали мои неудачи в искусстве."
+                };
+                originRep.Save(origin4);
+
+                var origin5 = new Оrigin
+                {
+                    History = "Я был заключен в тюрьму на шеть лет. Из-за пережитых лишений, я стал верить в несуществующие вещи, я рискую потерять состояние."
+                };
+                originRep.Save(origin5);
+
+
+            }
+            Random rnd = new Random();
+            if (heroRep.Count() <= 0)
+            {
+                for (int i = 0; i < 50; i++)
+                {
+                    var Hero = new Heros
+                    {
+                        Name = "Киборг Убийца" +i,
+                        Bone = rnd.Next(1,20),
+                        Class = classRep.Get(rnd.Next(1,12)),
+                        Race = raceRep.Get(rnd.Next(1,10)),
+                        Subrace = subraceRep.Get(rnd.Next(1,18)),
+                        UserCreator = userRepository.GetAll().First(),
+                        Оrigin = originRep.Get(rnd.Next(1,5)),
+                     //   ImagePath = "/img/"
+
+                    };
+                    heroRep.Save(Hero);
+                }
+            }
+        }
+
 
         private void FillPcComponents(IServiceProvider provider)
         {
@@ -782,9 +1121,9 @@ namespace DALEfDB
             var footballClubRepository = serviceProvider.GetService<IFootballClubRepository>();
             var footballLeagueRepository = serviceProvider.GetService<IFootballLeagueRepository>();
             var userRepository = serviceProvider.GetService<IUserRepository>();
-            if (footballClubRepository.Count() == 0 & footballLeagueRepository.Count() == 0)
+            if (!footballClubRepository.Any()  & !footballLeagueRepository.Any())
             {
-                new GetInfoForFootballClub(footballClubRepository, footballLeagueRepository , userRepository).GetSaveAndParseFootballLuagesAndClubs(5);
+                new FootballGenerator(footballClubRepository, footballLeagueRepository , userRepository).FillInfoAboutLeagues(5);
             }
 
 

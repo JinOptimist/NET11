@@ -1,4 +1,5 @@
 ﻿using DALInterfaces.Models;
+using DALInterfaces.Models.BG;
 using DALInterfaces.Models.Recipe;
 using DALInterfaces.Models.PcBuild;
 using DALInterfaces.Models.Movies;
@@ -24,7 +25,7 @@ namespace DALEfDB
 
         public DbSet<RockMember> RockMembers { get; set; }
 
-        public DbSet<Hero> Heros { get; set; }
+        public DbSet<Heros> Heros { get; set; }
 
         public DbSet<FootballClub> FootballClubs { get; set; }
 

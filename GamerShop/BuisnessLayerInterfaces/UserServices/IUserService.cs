@@ -6,6 +6,7 @@ namespace BusinessLayerInterfaces.UserServices
 {
     public interface IUserService : IPaginatorServices<UserBlm>
     {
+        List<string> GetAllUserNames();
         bool IsUserNameExist(string name);
     }
 }

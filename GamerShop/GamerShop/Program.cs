@@ -28,6 +28,10 @@ using DALInterfaces.Repositories.RockHall;
 using DALEfDB.Repositories.RockHall;
 using BusinessLayer.BookServices;
 using BusinessLayerInterfaces.BookServices;
+using DALEfDB.Repositories;
+using DALInterfaces.Repositories.BG;
+using DALEfDB.Repositories.BG;
+using GamerShop.Hubs;
 using DALEfDB.Repositories.Books;
 using DALInterfaces.Repositories.Books;
 
@@ -37,43 +41,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services
-	.AddAuthentication("WebAuthSmile")
-	.AddCookie("WebAuthSmile",
-		option =>
-		{
-			option.LoginPath = "/Auth/Login";
-		});
+    .AddAuthentication("WebAuthSmile")
+    .AddCookie("WebAuthSmile",
+        option =>
+        {
+            option.LoginPath = "/Auth/Login";
+        });
 
-builder.Services.AddScoped<IUserRepository, DALEfDB.Repositories.UserRepository>();
-builder.Services.AddScoped<IRecipeRepository, DALEfDB.Repositories.Recipe.RecipeRepository>();
-builder.Services.AddScoped<IReviewRepository, DALEfDB.Repositories.Recipe.ReviewRepository>();
-builder.Services.AddScoped<IRockMemberRepository, RockMemberRepository>();
-builder.Services.AddScoped<IFootballClubRepository, FootballClubRepository>();
-builder.Services.AddScoped<IHeroRepository, DALEfDB.Repositories.BgRepository>();
-builder.Services.AddScoped<IBuildRepository, BuildRepository>();
-builder.Services.AddScoped<IGpuRepository, GpuRepository>();
-builder.Services.AddScoped<IHddRepository, HddRepository>();
-builder.Services.AddScoped<ISsdRepository, SsdRepository>();
-builder.Services.AddScoped<ICaseRepository, CaseRepository>();
-builder.Services.AddScoped<IMotherboardRepository, MotherboardRepository>();
-builder.Services.AddScoped<ICoolerRepository, CoolerRepository>();
-builder.Services.AddScoped<IRamRepository, RamRepository>();
-builder.Services.AddScoped<IPsuRepository, PsuRepository>();
-builder.Services.AddScoped<IProcessorRepository, ProcessorRepository>();
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IRatingRepository, RatingRepository>();
-builder.Services.AddScoped<IFootballLeagueRepository, FootballLeaguesRepository>();
-builder.Services.AddScoped<IRockBandRepository, RockBandRepository>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+//AutoDiResolver.AutoRepositoryResolve(builder.Services);
+builder.Services.AutoRepositoryResolve();
 
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddScoped<IMovieServices, MovieServices>();
 builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IBgServices, BgServices>();
-builder.Services.AddScoped<IFootballServices<FootballClubBlm>, FootballClubServices>();
+builder.Services.AddScoped<IFootballClubService, FootballClubServices>();
 builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<IReviewServices, ReviewServices>();
 builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
@@ -84,10 +66,12 @@ builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, Bu
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBuildServices, PcBuildServices>();
 builder.Services.AddScoped<IPaginatorService, PaginatorService>();
-builder.Services.AddScoped<IFootballServices<FootballLeagueBLM>, FootballLeagueServices>();
+builder.Services.AddScoped<IFootballLeagueServices, FootballLeagueServices>();
 builder.Services.AddScoped<IRockBandServices, RockBandServices>();
+builder.Services.AddScoped<IPdfGeneratorService, PdfGeneratorService>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSignalR();
 
 var dbContextResolver = new Startup();
 dbContextResolver.RegisterDbContext(builder.Services);
@@ -99,9 +83,9 @@ new Seed().Fill(app.Services);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -110,12 +94,18 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // ��� ��?
+app.UseAuthentication(); // Who I am
 
-app.UseAuthorization(); // ����� �� ����?
+app.UseAuthorization(); // Is it allow for me?
+
+app.UseEndpoints(endpoint =>
+{
+    endpoint.MapHub<ChatHub>("/chat");
+    endpoint.MapHub<NotificationHub>("/notification");
+});
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

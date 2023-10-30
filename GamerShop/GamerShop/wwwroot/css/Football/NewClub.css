@@ -1,0 +1,48 @@
+﻿.form-floating {
+    margin-bottom: 16px;
+}
+
+.form-select {
+    margin-bottom: 16px;
+}
+.submit {
+    margin-left: 50%;
+}
+
+.form-control:focus {
+    border-color: green;
+    box-shadow: 0px 0px 0px;
+}
+
+
+.form-select:focus {
+    border-color: green;
+    box-shadow: 0px 0px 0px;
+}
+.selectpicker {
+    display: block;
+    width: 100%;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23dee2e6' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border-color: none;
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    padding: .375rem 2.25rem .375rem .75rem;
+    margin-bottom: 16px;
+}
+    .selectpicker:focus {
+        background-image:none;
+    }
+
+.more {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23dee2e6' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: space;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+}
