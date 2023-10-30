@@ -1,10 +1,7 @@
 ﻿using BusinessLayerInterfaces.UserServices;
 using GamerShop.Models;
-using GamerShop.Models.Home;
-using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace GamerShop.Controllers
 {
