@@ -8,6 +8,6 @@
         public int YearOfBirth { get; set; }
         public int? YearOfDeath { get; set; }
 
-        public virtual List<BookGetBlm> Books { get; set; }
+        public virtual ICollection<ShortBookBlm> Books { get; set; }
     }
 }

@@ -8,12 +8,10 @@ namespace BusinessLayer.BookServices
     public class AuthorServices : IAuthorServices
     {
         private IAuthorRepository _authorRepository;
-        private IBookRepository _bookRepository;
 
-        public AuthorServices(IAuthorRepository authorRepository, IBookRepository bookRepository)
+        public AuthorServices(IAuthorRepository authorRepository)
         {
             _authorRepository = authorRepository;
-            _bookRepository = bookRepository;
         }
         public IEnumerable<AuthorBlm> GetAll()
             => _authorRepository.GetAll().Select(dbMember
@@ -24,7 +22,17 @@ namespace BusinessLayer.BookServices
                     LastName = dbMember.LastName,
                     YearOfBirth = dbMember.YearOfBirth,
                     YearOfDeath = dbMember.YearOfDeath,
-                    BooksIds = dbMember.Books.Select(x => x.Id).ToList(),
+                    Books = dbMember.Books.Select(x => new ShortBookBlm
+                    {
+                        Id=x.Id,
+                        Name=x.Name,
+                        Authors=x.Authors.Select(a=> new ShortAuthorBlm
+                        {
+                            Id = a.Id,
+                            FirstName=a.FirstName,
+                            LastName=a.LastName,
+                        }).ToList()
+                    }).ToList(),
                 }).ToList();
 
         public void Remove(int id)
@@ -41,7 +49,17 @@ namespace BusinessLayer.BookServices
                 LastName = authorBlm.LastName,
                 YearOfBirth = authorBlm.YearOfBirth,
                 YearOfDeath = authorBlm.YearOfDeath,
-                Books = 
+                Books = authorBlm.Books.Select(x => new Book
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Authors = x.Authors.Select(a => new Author
+                    {
+                        Id = a.Id,
+                        FirstName = a.FirstName,
+                        LastName = a.LastName,
+                    }).ToList()
+                }).ToList(),
             };
             _authorRepository.Save(bookMemberDb);
         }

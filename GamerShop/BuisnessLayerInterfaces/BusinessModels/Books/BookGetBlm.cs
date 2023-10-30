@@ -5,7 +5,6 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public int YearOfIssue { get; set; }
-        public string CreatorName { get; set; }
-        public virtual ICollection<int> AuthorsIds { get; set; }
+        public virtual ICollection<ShortAuthorBlm> Authors { get; set; }
     }
 }

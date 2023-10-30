@@ -40,12 +40,11 @@ namespace GamerShop.Controllers
             return new BookViewModel
             {
                 Id = bookBlm.Id,
-                Authors = bookBlm.AuthorsIds.Select(x =>
+                Authors = bookBlm.Authors.Select(x =>
                     new SelectListItem()
                     {
-                        Text = _authorRepository.Get(x).FirstName + " " + _authorRepository.Get(x).LastName,
-                        Value = x.ToString(),
-                        Selected = false
+                        Text = x.FirstName + " " + x.LastName,
+                        Value = x.Id.ToString()
                     }).ToList(),
                 Name = bookBlm.Name,
                 YearOfIssue = bookBlm.YearOfIssue
@@ -62,15 +61,11 @@ namespace GamerShop.Controllers
         public IActionResult Book()
         {
             var a = new NewBookViewModel();
-            a.Authors = _authorRepository.GetAll().ToList().ConvertAll(x =>
+            a.Authors = _authorRepository.GetAll().Select(x => new SelectListItem()
             {
-                return new SelectListItem()
-                {
-                    Text = x.FirstName + " " + x.LastName,
-                    Value = x.Id.ToString(),
-                    Selected = false
-                };
-            });
+                Text = x.FirstName + " " + x.LastName,
+                Value = x.Id.ToString()
+            }).ToList();
 
             return View(a);
         }
@@ -85,10 +80,19 @@ namespace GamerShop.Controllers
 
             var bookMemberDb = new BookPostBlm()
             {
-                AuthorsIds = newBookViewModel.Authors.Select(x => Convert.ToInt32(x.Value)).ToList(),
                 Name = newBookViewModel.Name,
-                YearOfIssue = newBookViewModel.YearOfIssue
-            };
+                YearOfIssue = newBookViewModel.YearOfIssue,
+                Authors = newBookViewModel.SelectedAuthors.Select(x =>
+                {
+                    var author = _authorRepository.Get(Convert.ToInt32(x));
+                    return new ShortAuthorBlm
+                    {
+                        Id = author.Id,
+                        FirstName = author.FirstName,
+                        LastName = author.LastName
+                    };
+                }).ToList()
+        };
             _bookServices.Save(bookMemberDb);
             return RedirectToAction("Books");
         }

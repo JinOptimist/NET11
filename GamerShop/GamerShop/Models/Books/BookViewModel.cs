@@ -7,6 +7,6 @@ namespace GamerShop.Models.Books
         public int Id { get; set; }
         public string Name { get; set; }
         public int YearOfIssue { get; set; }
-        public List<SelectListItem>? Authors { get; set; }
+        public List<SelectListItem> Authors { get; set; }
     }
 }

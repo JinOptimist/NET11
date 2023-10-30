@@ -8,8 +8,9 @@ namespace GamerShop.Models.Books
         [Required]
         public string Name { get; set; }
         public int YearOfIssue { get; set; }
+        public List<SelectListItem>? Authors { get; set; }
 
         [Required]
-        public List<SelectListItem> Authors { get; set; }
+        public IEnumerable<string> SelectedAuthors { get; set; }
     }
 }

@@ -78,6 +78,7 @@ builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<IReviewServices, ReviewServices>();
 builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
 builder.Services.AddScoped<IBookServices, BookServices>();
+builder.Services.AddScoped<IAuthorServices, AuthorServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
 builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, BusinessLayer.UserServices.AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
