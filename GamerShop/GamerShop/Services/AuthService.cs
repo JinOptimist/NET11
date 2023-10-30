@@ -27,14 +27,24 @@ namespace GamerShop.Services
 			return user;
 		}
 
-		private string GetIdStr()
+        public string GetUserName()
+        {
+            return _httpContextAccessor
+                .HttpContext
+                .User
+                .Claims
+                .FirstOrDefault(x => x.Type == "Name")
+                ?.Value;
+        }
+
+        public string GetIdStr()
 		{
 			return _httpContextAccessor
                 .HttpContext
                 .User
                 .Claims
-                .First(x => x.Type == "Id")
-                .Value;
+                .FirstOrDefault(x => x.Type == "Id")
+                ?.Value;
         }
 	}
 }

@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamerShopTests", "GamerShop
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskExample", "TaskExample\TaskExample.csproj", "{9544E21A-C057-4C86-B2A9-33C866722944}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamerShopTestE2E", "GamerShopTestE2E\GamerShopTestE2E.csproj", "{7545CE1E-E781-4DDA-8831-8F7C5160446E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamerShopTestE2E", "GamerShopTestE2E\GamerShopTestE2E.csproj", "{7545CE1E-E781-4DDA-8831-8F7C5160446E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApi", "ChatApi\ChatApi.csproj", "{15C966B6-FDD7-429B-962C-0B64DA4F320C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{7545CE1E-E781-4DDA-8831-8F7C5160446E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7545CE1E-E781-4DDA-8831-8F7C5160446E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7545CE1E-E781-4DDA-8831-8F7C5160446E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15C966B6-FDD7-429B-962C-0B64DA4F320C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15C966B6-FDD7-429B-962C-0B64DA4F320C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15C966B6-FDD7-429B-962C-0B64DA4F320C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15C966B6-FDD7-429B-962C-0B64DA4F320C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

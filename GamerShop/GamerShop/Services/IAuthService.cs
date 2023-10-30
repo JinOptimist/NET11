@@ -7,5 +7,9 @@ namespace GamerShop.Services
 		UserBlm GetCurrentUser();
 
 		string GetAvatar();
-	}
+
+		string GetIdStr();
+
+		string GetUserName();
+    }
 }

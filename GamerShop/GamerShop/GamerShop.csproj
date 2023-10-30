@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Home\" />
     <Folder Include="wwwroot\img\avatars\" />
     <Folder Include="wwwroot\js\Auth\" />
     <Folder Include="wwwroot\reports\" />

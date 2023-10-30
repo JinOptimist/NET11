@@ -8,17 +8,12 @@
     $('#newMessage').on("keyup", function (event) {
         if (event.which == 13) { // 13 == enter
             console.log('user press enter');
-
-            const message = $('#newMessage').val();
-            chatHub.invoke('AddNewMessage', message);
-
-            $('#newMessage').val('');
-
+            addMessage();
             event.preventDefault();
         }
     });
 
-    chatHub.on("SomeOneAddNewMessage", addMessageToChat);
+    chatHub.on("SomeOneAddNewMessage", someOneAddMessageToChat);
 
     chatHub.start();
 
@@ -26,16 +21,45 @@
         $.get('/api/Chat/GetLastMessages')
             .done(function (chatMessages) {
                 chatMessages.forEach(function (chatMesage) {
-                    addMessageToChat(chatMesage.userName, chatMesage.message);
+                    someOneAddMessageToChat(chatMesage.userName, chatMesage.message);
                 });
             });
     }
 
-    function addMessageToChat(userName, messageText) {
+    function someOneAddMessageToChat(userName, messageText) {
         const messageDiv = $(".message.template").clone();
         messageDiv.removeClass('template');
         messageDiv.find('.user-name').text(userName);
         messageDiv.find('.message-text').text(messageText);
         $('.messages').append(messageDiv);
+    }
+
+    function addMessage() {
+        const message = $('#newMessage').val();
+
+        chatHub.invoke('AddNewMessage', message);
+
+        const userId = $('#UserId').val();
+        const userName = $('#UserName').val();
+
+        const url = 'https://localhost:7250/addMessage';
+        const dateTimeNow = new Date().toISOString();
+        const data = {
+            "senderId": userId,
+            "senderName": userName,
+            "text": message,
+            "createDateTime": dateTimeNow
+        };
+
+        var json = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: url,
+            data: json,
+            dataType: "json"
+        });
+
+        $('#newMessage').val('');
     }
 });
