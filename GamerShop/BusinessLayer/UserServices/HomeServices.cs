@@ -49,11 +49,19 @@ namespace BusinessLayer.UserServices
 
 		public async Task<IEnumerable<MessageDto>> GetLastMessagesAsync()
 		{
-            var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync("https://localhost:7250/getMessages");
-            var json = await response.Content.ReadAsStringAsync();
-            var messages = JsonSerializer.Deserialize<List<MessageDto>>(json);
-			return messages;
+			try
+			{
+                var httpClient = new HttpClient();
+                var response = await httpClient.GetAsync("https://localhost:7250/getMessages");
+                var json = await response.Content.ReadAsStringAsync();
+                var messages = JsonSerializer.Deserialize<List<MessageDto>>(json);
+                return messages;
+            }
+			catch
+			{
+				// Add to log that chat api is dead
+				return null;
+			}
         }
 	}
 }
