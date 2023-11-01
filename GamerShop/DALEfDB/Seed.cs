@@ -19,6 +19,8 @@ using GamerShop.Services.Football;
 using DALInterfaces.Models.RockHall;
 using DALInterfaces.Repositories.BG;
 using DALInterfaces.Repositories.RockHall;
+using DALInterfaces.Repositories.Books;
+using DALInterfaces.Models.Books;
 
 namespace DALEfDB
 {
@@ -42,6 +44,9 @@ namespace DALEfDB
                 FillFootbal(scope.ServiceProvider);
                 FillRockMembers(scope.ServiceProvider);
                 FillRockBands(scope.ServiceProvider);
+
+                FillAuthors(scope.ServiceProvider);
+                FillBooks(scope.ServiceProvider);
             }
         }
 
@@ -1127,6 +1132,158 @@ namespace DALEfDB
             }
 
 
+        }
+
+        private void FillAuthors(IServiceProvider serviceProvider)
+        {
+            var authorsRepository = serviceProvider.GetService<IAuthorRepository>();
+            if(authorsRepository.Count() < 1)
+            {
+                var joanneRowling = new Author
+                {
+                    FirstName = "Joanne",
+                    LastName = "Rowling",
+                    YearOfBirth = 1965,
+                    YearOfDeath = null
+                };
+
+                var stephenKing = new Author
+                {
+                    FirstName = "Stephen",
+                    LastName = "King",
+                    YearOfBirth = 1947,
+                    YearOfDeath = null
+                };
+
+                var johnTolkien = new Author
+                {
+                    FirstName = "John",
+                    LastName = "Tolkien",
+                    YearOfBirth = 1892,
+                    YearOfDeath = 1973
+                };
+
+                var alexandreDumas = new Author
+                {
+                    FirstName = "Alexandre",
+                    LastName = "Dumas",
+                    YearOfBirth = 1802,
+                    YearOfDeath = 1870
+                };
+                var agathaChristie = new Author
+                {
+                    FirstName = "Agatha",
+                    LastName = "Christie",
+                    YearOfBirth = 1890,
+                    YearOfDeath = 1976
+                };
+                var mikhailBulgakov = new Author
+                {
+                    FirstName = "Mikhail",
+                    LastName = "Bulgakov",
+                    YearOfBirth = 1891,
+                    YearOfDeath = 1940
+                };
+
+                var victorHugo = new Author
+                {
+                    FirstName = "Victor",
+                    LastName = "Hugo",
+                    YearOfBirth = 1802,
+                    YearOfDeath = 1885
+                };
+
+                var oscarWilde = new Author
+                {
+                    FirstName = "Oscar",
+                    LastName = "Wilde",
+                    YearOfBirth = 1854,
+                    YearOfDeath = 1900
+                };
+
+                var jackLondon = new Author
+                {
+                    FirstName = "Jack",
+                    LastName = "London",
+                    YearOfBirth = 1867,
+                    YearOfDeath = 1916
+                };
+                var janeAusten = new Author
+                {
+                    FirstName = "Jane",
+                    LastName = "Austen",
+                    YearOfBirth = 1775,
+                    YearOfDeath = 1817
+                };
+
+                authorsRepository.SaveRange(new List<Author>{ 
+                    joanneRowling, stephenKing, johnTolkien, alexandreDumas, agathaChristie,
+                    mikhailBulgakov, victorHugo, oscarWilde, janeAusten, jackLondon });
+            }
+        }
+        private void FillBooks(IServiceProvider serviceProvider)
+        {
+            var authorsRepository = serviceProvider.GetService<IAuthorRepository>();
+            var booksRepository = serviceProvider.GetService<IBookRepository>();
+            if (booksRepository.Count() < 1)
+            {
+                var janeAusten = authorsRepository.GetAll().First(x => x.FirstName == "Jane" && x.LastName == "Austen");
+                if(janeAusten == null)
+                {
+                    var newJaneAusten = new Author
+                    {
+                        FirstName = "Jane",
+                        LastName = "Austen",
+                        YearOfBirth = 1775,
+                        YearOfDeath = 1817
+                    };
+                    authorsRepository.Save(newJaneAusten);
+                    janeAusten = authorsRepository.GetAll().First(x => x.FirstName == "Jane" && x.LastName == "Austen");
+                }
+                var prideAndPrejudice = new Book
+                {
+                    Authors = authorsRepository.GetAll().Where(x=> x.Id == janeAusten.Id).ToList(),
+                    Name = "Pride and Prejudice",
+                    YearOfIssue = 1813
+                };
+                booksRepository.Save(prideAndPrejudice);
+
+                var mikhailBulgakov = authorsRepository.GetAll().First(x => x.FirstName == "Mikhail" && x.LastName == "Bulgakov");
+
+                if (mikhailBulgakov == null)
+                {
+                    var newMikhailBulgakov = new Author
+                    {
+                        FirstName = "Mikhail",
+                        LastName = "Bulgakov",
+                        YearOfBirth = 1891,
+                        YearOfDeath = 1940
+                    };
+                    authorsRepository.Save(newMikhailBulgakov);
+                    mikhailBulgakov = authorsRepository.GetAll().First(x => x.FirstName == "Mikhail" && x.LastName == "Bulgakov");
+                }
+                var ivanVasilievich = new Book
+                {
+                    Authors = authorsRepository.GetAll().Where(x => x.Id == mikhailBulgakov.Id).ToList(),
+                    Name = "Ivan Vasilievich",
+                    YearOfIssue = 1936
+                };
+                booksRepository.Save(ivanVasilievich);
+                var heartOfADog = new Book
+                {
+                    Authors = authorsRepository.GetAll().Where(x => x.Id == mikhailBulgakov.Id).ToList(),
+                    Name = "Heart of a Dog",
+                    YearOfIssue = 1925
+                };
+                booksRepository.Save(heartOfADog);
+                var theMasterAndMargarita = new Book
+                {
+                    Authors = authorsRepository.GetAll().Where(x => x.Id == mikhailBulgakov.Id).ToList(),
+                    Name = "The Master and Margarita",
+                    YearOfIssue = 1928
+                };
+                booksRepository.Save(theMasterAndMargarita);
+            }
         }
     }
 }
