@@ -134,6 +134,7 @@ namespace BusinessLayer.BgServices
         {
             _heroRepository.Remove(id);
         }
+        
 
         public void Save(BaldursGateBml BgBml)
         {

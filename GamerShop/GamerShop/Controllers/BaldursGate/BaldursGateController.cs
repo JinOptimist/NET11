@@ -9,20 +9,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GamerShop.Controllers.BaldursGate
 {
-	public class BaldursGateController : Controller
+    [Authorize]
+    public class BaldursGateController : Controller
 
     {
         private IBgServices _bgServices;
+        private IWebHostEnvironment _webHostEnvironment;
         private IAuthService _authService;
 
-        public BaldursGateController(IBgServices bgServices, IAuthService authService)
+        public BaldursGateController(IBgServices bgServices, IAuthService authService, IWebHostEnvironment environment)
         {
+            _webHostEnvironment = environment;
             _bgServices = bgServices;
             _authService =  authService;
         }
 
-
-        [Authorize]
+       
         [HttpGet]
         public IActionResult CharacterCreation()
         {
@@ -69,6 +71,13 @@ namespace GamerShop.Controllers.BaldursGate
         public IActionResult CharacterCreation(CreateHeroAnswerViewModel BgModel)
         {
             var user = _authService.GetCurrentUser().Id;
+            //var fileName = $"{user}.jpg";
+            //var path = Path.Combine(_webHostEnvironment.WebRootPath,"img","BG",fileName);
+            //var a = BgModel.Avatar;
+            //using (var fs = new FileStream(path, FileMode.CreateNew))
+            //{
+            //    BgModel.Avatar.CopyTo(fs);
+            //}
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("CharacterList", "BaldursGate");
@@ -83,6 +92,7 @@ namespace GamerShop.Controllers.BaldursGate
                 OriginId = BgModel.OriginId,
                 CreatorId = user,
             };
+            
             _bgServices.CreateNewHero(newHero);
 
             return RedirectToAction("CharacterList", "BaldursGate");
@@ -116,11 +126,14 @@ namespace GamerShop.Controllers.BaldursGate
             };
             return View(BgModel);
         }
+
         public IActionResult Remove(int id)
         {
             _bgServices.Remove(id);
             return RedirectToAction("CharacterList", "BaldursGate");
         }
+
+      
 
     }
 }

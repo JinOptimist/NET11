@@ -1,8 +1,8 @@
 @using GamerShop.Models.BaldursGate
 @model GamerShop.Models.BaldursGate.CreateHeroViewModel
+@* <img src="/img/BG/@(Model.Id).jpg"/> *@
 
-
-@using (Html.BeginForm("CharacterCreation", "BaldursGate", FormMethod.Post))
+@using (Html.BeginForm("CharacterCreation", "BaldursGate", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="form-group">
         <label for="exampleFormControlInput1">Имя персонажа</label> 
@@ -28,5 +28,10 @@
         <label for="BoneInfo">Любимое число</label>
         @Html.TextBox(nameof(CreateHeroAnswerViewModel.Bone), "",new {@class = "form-control", type="text", id="BoneInfo"})
     </div>
+@*      @Html.HiddenFor(x => x.Id)
+
+    <input name="Avatar" type="file"/> *@
+
+
     <button type="submit" class="btn btn-primary">Создать Персонажа</button>
 }
