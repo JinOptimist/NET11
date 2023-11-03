@@ -66,6 +66,7 @@ builder.Services.AddScoped<IPaginatorService, PaginatorService>();
 builder.Services.AddScoped<IFootballLeagueServices, FootballLeagueServices>();
 builder.Services.AddScoped<IRockBandServices, RockBandServices>();
 builder.Services.AddScoped<IPdfGeneratorService, PdfGeneratorService>();
+builder.Services.AddScoped<IBGServiceGeneratorPDF, BGServiceGeneratorPDF>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSignalR();

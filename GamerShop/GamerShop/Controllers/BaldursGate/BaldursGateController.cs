@@ -16,12 +16,14 @@ namespace GamerShop.Controllers.BaldursGate
         private IBgServices _bgServices;
         private IWebHostEnvironment _webHostEnvironment;
         private IAuthService _authService;
+        private IBGServiceGeneratorPDF _bgServiceGeneratorPDF;
 
-        public BaldursGateController(IBgServices bgServices, IAuthService authService, IWebHostEnvironment environment)
+        public BaldursGateController(IBgServices bgServices, IAuthService authService, IWebHostEnvironment environment, IBGServiceGeneratorPDF bgServiceGenerator)
         {
             _webHostEnvironment = environment;
             _bgServices = bgServices;
             _authService =  authService;
+            _bgServiceGeneratorPDF = bgServiceGenerator;
         }
 
        
@@ -133,7 +135,19 @@ namespace GamerShop.Controllers.BaldursGate
             return RedirectToAction("CharacterList", "BaldursGate");
         }
 
-      
+        public IActionResult Report()
+        {
+            var path = "C:\\2\\file.pdf";
+            var heroName = _bgServices.GetHeroList();
+            var t = new Task(() => _bgServiceGeneratorPDF.Report(path,heroName));
+            t.Start();
+           
 
+           
+            //var fs = new FileStream(path, FileMode.Open);
+            //return File(fs, "application/pdf");
+
+            return Json("GODD JOB");
+         }
     }
 }

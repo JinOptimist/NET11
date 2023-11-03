@@ -39,6 +39,7 @@ namespace BusinessLayer.BgServices
             });
         }
 
+
         private IEnumerable<BaseAtributeBml> GetAllRace()
         {
             return _raceRepository.GetAll().Select(c => new BaseAtributeBml()
@@ -149,5 +150,10 @@ namespace BusinessLayer.BgServices
                 //CreatorId = BgBml.CreatorId.Id
             });
         }
+        public List<string> GetHeroList()
+        {
+            return _heroRepository.GetAll().Select(x => x.Name).ToList();
+        }
+        
     }
 }

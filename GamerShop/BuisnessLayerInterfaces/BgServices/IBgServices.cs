@@ -10,6 +10,7 @@ namespace BusinessLayerInterfaces.BgServices
     public interface IBgServices
     {
         IEnumerable<BaldursGateBml> GetAllHero();
+        List<string> GetHeroList();
 
         void Remove(int id);
         void Save (BaldursGateBml BgBml);
