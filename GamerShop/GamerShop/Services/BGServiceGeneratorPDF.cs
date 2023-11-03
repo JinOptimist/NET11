@@ -9,6 +9,10 @@ namespace GamerShop.Services
 
         public int AllheroCount { get; private set; }
 
+        public bool IsReady { get; private set; }
+
+        public string? ResultPath { get; private set; }
+
         public bool Report(string path,List<string> heroNames)
         {
             AllheroCount = heroNames.Count;
@@ -19,12 +23,15 @@ namespace GamerShop.Services
 
             foreach (var heroName in heroNames)
             {
-                html.Append($"<span>Hero: {heroName}</span>");
+                html.Append($"<p>Hero: {heroName}</p>");
                 heroCount++;
+                Thread.Sleep(200);
             }
 
             var file = pdf.RenderHtmlAsPdf(html.ToString());
             file.SaveAs(path);
+            ResultPath = path;
+            IsReady = true;
             return true;
 
         }

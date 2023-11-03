@@ -6,6 +6,7 @@ using BusinessLayerInterfaces.BusinessModels.BG;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO;
 
 namespace GamerShop.Controllers.BaldursGate
 {
@@ -18,6 +19,7 @@ namespace GamerShop.Controllers.BaldursGate
         private IAuthService _authService;
         private IBGServiceGeneratorPDF _bgServiceGeneratorPDF;
 
+        private static Dictionary<int,IBGServiceGeneratorPDF> PDFJobs = new Dictionary<int,IBGServiceGeneratorPDF>();
         public BaldursGateController(IBgServices bgServices, IAuthService authService, IWebHostEnvironment environment, IBGServiceGeneratorPDF bgServiceGenerator)
         {
             _webHostEnvironment = environment;
@@ -134,20 +136,53 @@ namespace GamerShop.Controllers.BaldursGate
             _bgServices.Remove(id);
             return RedirectToAction("CharacterList", "BaldursGate");
         }
+       
 
         public IActionResult Report()
         {
-            var path = "C:\\2\\file.pdf";
+            return View();
+
+        }
+
+        public IActionResult ReportCreate()
+        {
+            var userId = _authService.GetCurrentUser().Id;
+            var fileName = $"{userId}.pdf";
+            var path = Path.Combine(
+                _webHostEnvironment.WebRootPath,
+                "BGReports",
+                fileName);
             var heroName = _bgServices.GetHeroList();
-            var t = new Task(() => _bgServiceGeneratorPDF.Report(path,heroName));
+            var counthero = heroName.Count;
+            var t = new Task(() => _bgServiceGeneratorPDF.Report(path, heroName));
+            PDFJobs.Add(counthero, _bgServiceGeneratorPDF);
             t.Start();
-           
+            return RedirectToAction("Reportdecimal", "BaldursGate");
+        }
 
-           
-            //var fs = new FileStream(path, FileMode.Open);
-            //return File(fs, "application/pdf");
+        public IActionResult Reportdecimal()
+        {
+            var viewmodel = new ReportViewModel();
+            var heroCount = _bgServices.GetHeroList().Count;
+            if (!PDFJobs.ContainsKey(heroCount))
+            {
+                return View(viewmodel);
+            }
+            var pdfgen = PDFJobs[heroCount];
+            decimal dec1 = pdfgen.AllheroCount;
+            decimal dec2 = pdfgen.heroCount;
+            viewmodel.pdfJobs = Math.Round(dec2 / dec1, 2) * 100;
+            viewmodel.IsFileReady = pdfgen.IsReady;
 
-            return Json("GODD JOB");
-         }
+            return View(viewmodel);
+        }
+
+        public IActionResult Dowloadreport()
+        {
+            var heroCount = _bgServices.GetHeroList().Count;
+            var path = PDFJobs[heroCount].ResultPath;
+            var fileStream = new FileStream(path, FileMode.Open);
+            return File(fileStream, "application/pdf");
+        }
     }
 }
