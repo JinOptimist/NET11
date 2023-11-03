@@ -113,7 +113,7 @@ namespace GamerShop.Controllers.BaldursGate
                 Count = data.Count,
                 HeroList = data.HeroList
                     .Select(m => new HeroListViewModel
-                    {
+                    {   Id = m.Id,
                         Name = m.Name,
                         Class = m.Class,
                         Subrace = m.Subrace,
