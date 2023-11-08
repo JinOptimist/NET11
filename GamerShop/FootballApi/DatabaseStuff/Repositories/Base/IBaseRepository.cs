@@ -1,4 +1,5 @@
-﻿using ChatApi.DatabaseStuff.Models;
+﻿using FootballApi.DatabaseStuff.DataModels;
+using FootballApi.DatabaseStuff.Models;
 
 namespace FootballApi.Repositories
 {
@@ -21,5 +22,6 @@ namespace FootballApi.Repositories
         DbModel GetLast();
 
         bool Any();
+        PaginatorDataModel<DataModelTemplate> GetForPaginator<DataModelTemplate>(int page, int perPage, Func<DbModel, DataModelTemplate> map);
     }
 }

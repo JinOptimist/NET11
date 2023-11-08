@@ -1,6 +1,4 @@
-﻿using ChatApi.DatabaseStuff.Models;
-
-namespace FootballApi.DatabaseStuff.Models
+﻿namespace FootballApi.DatabaseStuff.Models
 {
     public class Club : BaseModel
     {

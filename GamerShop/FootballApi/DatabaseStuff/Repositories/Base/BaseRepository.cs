@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ChatApi.DatabaseStuff.Models;
 using FootballApi.Repositories;
+using FootballApi.DatabaseStuff.DataModels;
+using FootballApi.DatabaseStuff.Models;
 
 namespace FootballApi.DatabaseStuff.Repositories.Base
 {
@@ -61,6 +62,25 @@ namespace FootballApi.DatabaseStuff.Repositories.Base
         public bool Any()
          => _dbSet
             .Any();
+        public virtual PaginatorDataModel<DataModelTemplate> GetForPaginator <DataModelTemplate>(int page, int perPage, Func<DbModel, DataModelTemplate> map)
+        {
+            var count = _dbSet.Count();
+
+            var items = GetDbSetWithIncludeForPaginator()
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .Select(map)
+                .ToList();
+
+            return new PaginatorDataModel<DataModelTemplate>
+            {
+                Count = count,
+                Page = page,
+                PerPage = perPage,
+                Items = items
+            };
+
+        }
 
     }
 }

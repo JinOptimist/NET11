@@ -1,4 +1,4 @@
-﻿namespace DALInterfaces.Models
+﻿namespace FootballApi.DatabaseStuff.Models
 {
     public abstract class BaseModel
     {
