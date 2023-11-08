@@ -47,8 +47,8 @@ app.MapGet("/c", () =>
 
 app.MapGet("/getMessages", (ChatApiContext webContext) =>
 {
-    var messages = webContext.Messages.Take(10).ToList();
-    //var messages = FakeMessages.Messages.Take(10).ToList();
+    //var messages = webContext.Messages.Take(10).ToList();
+    var messages = FakeMessages.Messages.Take(10).ToList();
     var json = JsonSerializer.Serialize(messages);
     return json;
 });

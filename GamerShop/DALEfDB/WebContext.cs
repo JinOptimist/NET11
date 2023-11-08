@@ -87,7 +87,6 @@ namespace DALEfDB
             modelBuilder.Entity<Book>()
                 .HasMany(x => x.Authors)
                 .WithMany(x => x.Books);
-
         }
     }
 }

@@ -94,7 +94,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Who I am
+app.UseAuthentication(); // Who am I?
 
 app.UseAuthorization(); // Is it allow for me?
 
