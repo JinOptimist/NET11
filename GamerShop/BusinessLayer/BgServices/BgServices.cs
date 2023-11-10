@@ -146,6 +146,7 @@ namespace BusinessLayer.BgServices
                 //Subrace = BgBml.Subrace,
                 //Оrigin = BgBml.Оrigin,
                 //CreatorId = BgBml.CreatorId.Id
+
             });
         }
     }
