@@ -6,7 +6,10 @@
     @foreach (var book in Model.Items)
     {
         <div>
-            @book.Author
+            @foreach (var author in book.Authors)
+            {
+                @author.Text
+            }
             @book.Name
             <a asp-action="Delete" asp-controller="Books" asp-route-id="@book.Id">Удалить</a>
         </div>

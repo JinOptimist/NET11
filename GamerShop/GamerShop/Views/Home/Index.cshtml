@@ -1,4 +1,6 @@
-﻿@model List<IndexViewModel>
+﻿@using GamerShop.Services;
+@model List<IndexViewModel>
+@inject IAuthService authService
 
 <div class="home-index-wraper">
     <div class="userInfo">
@@ -27,6 +29,8 @@
             <a href="/User/GeneratePdfWithUserNames" target="_blank">Get PDF</a>
         </div>
     </div>
+    @Html.Hidden("UserId", authService.GetIdStr())
+    @Html.Hidden("UserName", authService.GetUserName())
     <div class="chat-wraper">
         <div class="messages">
             <div class="message template">

@@ -1,25 +1,30 @@
-﻿using BusinessLayer.UserServices;
+﻿using AngleSharp.Common;
+using BusinessLayer.UserServices;
 using BusinessLayerInterfaces.BookServices;
 using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Books;
 using BusinessLayerInterfaces.UserServices;
+using DALInterfaces.Repositories.Books;
 using GamerShop.Models.Books;
 using GamerShop.Models.Users;
 using GamerShop.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 
 namespace GamerShop.Controllers
 {
     public class BooksController : Controller
     {
         private IBookServices _bookServices;
-        private Services.IAuthService _authService;
         private IPaginatorService _paginatorService;
+        private IAuthorRepository _authorRepository;
 
-        public BooksController(IBookServices bookServices, IPaginatorService paginatorService)
+        public BooksController(IBookServices bookServices, IPaginatorService paginatorService, IAuthorRepository authorRepository)
         {
             _bookServices = bookServices;
             _paginatorService = paginatorService;
+            _authorRepository= authorRepository;
         }
 
         [HttpGet]
@@ -35,7 +40,12 @@ namespace GamerShop.Controllers
             return new BookViewModel
             {
                 Id = bookBlm.Id,
-                Author = bookBlm.Author,
+                Authors = bookBlm.Authors.Select(x =>
+                    new SelectListItem()
+                    {
+                        Text = x.FirstName + " " + x.LastName,
+                        Value = x.Id.ToString()
+                    }).ToList(),
                 Name = bookBlm.Name,
                 YearOfIssue = bookBlm.YearOfIssue
             };
@@ -50,7 +60,14 @@ namespace GamerShop.Controllers
         [HttpGet]
         public IActionResult Book()
         {
-            return View();
+            var a = new NewBookViewModel();
+            a.Authors = _authorRepository.GetAll().Select(x => new SelectListItem()
+            {
+                Text = x.FirstName + " " + x.LastName,
+                Value = x.Id.ToString()
+            }).ToList();
+
+            return View(a);
         }
 
         [HttpPost]
@@ -63,11 +80,19 @@ namespace GamerShop.Controllers
 
             var bookMemberDb = new BookPostBlm()
             {
-                Author = newBookViewModel.Author,
                 Name = newBookViewModel.Name,
-                YearOfIssue = newBookViewModel.YearOfIssue
-            };
-
+                YearOfIssue = newBookViewModel.YearOfIssue,
+                Authors = newBookViewModel.SelectedAuthors.Select(x =>
+                {
+                    var author = _authorRepository.Get(Convert.ToInt32(x));
+                    return new ShortAuthorBlm
+                    {
+                        Id = author.Id,
+                        FirstName = author.FirstName,
+                        LastName = author.LastName
+                    };
+                }).ToList()
+        };
             _bookServices.Save(bookMemberDb);
             return RedirectToAction("Books");
         }

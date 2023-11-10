@@ -1,4 +1,5 @@
-﻿@using GamerShop.Models.Books;
+﻿@using DALInterfaces.Models.Books;
+@using GamerShop.Models.Books;
 @model NewBookViewModel
 
 @using (Html.BeginForm("Book", "Books", FormMethod.Post))
@@ -10,7 +11,13 @@
         </div>
         <div>
             Автор
-            @Html.TextBoxFor(model => model.Author)
+            @*@Html.DropDownList(nameof(NewBookViewModel.Authors), new MultiSelectList(Model.Authors, "Selected", "Text"), new{ @class = "form-control" })*@
+
+            @*@Html.DropDownListFor(x => x.Authors, Model.Authors)*@
+            @Html.ListBoxFor(x => x.SelectedAuthors, new MultiSelectList(Model.Authors, "Value", "Text"), new{ @class = "form-control" }))
+            @*<x-multiselect data="Model.Authors"></x-multiselect>*@
+
+            @*@Html.ListBoxFor()*@
         </div>
         <div>
             Год выпуска
@@ -20,4 +27,11 @@
             <input type="submit" value="Добавить" />
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function () {
+            // The Name() of the MultiSelect is used to get its client-side instance.
+            var multiselect = $("#multiselect").data("kendoMultiSelect");
+        });
+    </script>
 }
