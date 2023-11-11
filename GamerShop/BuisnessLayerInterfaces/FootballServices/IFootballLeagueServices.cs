@@ -7,11 +7,11 @@ namespace BusinessLayerInterfaces.FootballService
 {
     public interface IFootballLeagueServices : IPaginatorServices<FootballLeagueBLM> 
     {
-        IEnumerable<FootballLeagueBLM> GetAll();
-        void Save(FootballLeagueBLM item);
-        void Delete(int id);
-        int Count();
-        IEnumerable<ShortFootballLeagueBLM> Get(int skip, int count);
-        IEnumerable<ShortFootballLeagueBLM> GetLimitedAmountLigues(int id);
+        Task<IEnumerable<FootballLeagueBLM>> GetAll();
+        Task Save(FootballLeagueBLM item);
+        Task Delete(int id);
+        Task<int> Count();
+        Task<IEnumerable<ShortFootballLeagueBLM>> Get(int skip, int count);
+        Task<IEnumerable<ShortFootballLeagueBLM>> GetLimitedAmountLigues(int id);
     }
 }

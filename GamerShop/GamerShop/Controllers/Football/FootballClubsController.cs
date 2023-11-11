@@ -81,8 +81,8 @@ namespace GamerShop.Controllers.Football
         };
         private FootballClubViewModel<List<ShortFootballLeagueViewModel>> GetViewModelForNewClub()
         => new FootballClubViewModel<List<ShortFootballLeagueViewModel>>
-        {
-            FootballLeagueinfo = _footballLeagueBLMServices.GetLimitedAmountLigues(1) // to fill in the list by clicking 
+        {   
+            FootballLeagueinfo = _footballLeagueBLMServices.GetLimitedAmountLigues(1).Result // to fill in the list by clicking 
             .Select(x => new ShortFootballLeagueViewModel
             {
                 Id = x.Id,

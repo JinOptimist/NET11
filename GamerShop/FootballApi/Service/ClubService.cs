@@ -18,15 +18,28 @@ namespace FootballApi.Service
             _leagueRepository = leagueRepository;
         }
 
-        public IEnumerable<Club> GetClubs()
+        public IEnumerable<ClubViewModel> GetClubs()
         {
-            return _clubRepository.GetAll();
+            return _clubRepository.GetAll().Select(x => new ClubViewModel
+            {
+                Id = x.Id,
+                IdUserCreator = x.IdUserCreator,
+                Name = x.Name,
+                Stadium = x.Stadium,
+                League = new ShortLeagueViewModel 
+                {
+                    Id = x.League.Id,
+                    ShortName = x.League.ShortName,
+                    Country  = x.League.Country
+                }
+            }); ;
         }
 
-        public PaginatorDataModel<ClubDataModel> GetForPaginator(int page, int perPage)
+        public PaginatorViewModel<ClubViewModel> GetForPaginator(int page, int perPage)
         {
+           var dataMode =  _clubRepository.GetForPaginator(page, perPage, MapToDataModel);
 
-            return _clubRepository.GetForPaginator(page, perPage, MapToDataModel);
+            return MapToView(dataMode);
 
         }
 
@@ -55,12 +68,33 @@ namespace FootballApi.Service
             Stadium = clubModel.Stadium,
             League = new ShortLeagueDataModel
             {
-                IdUserCreator = clubModel.League.IdUserCreator,
                 ShortName = clubModel.League.ShortName,
+                Id = clubModel.League.Id,
+                Country = clubModel.League.Country
 
             }
 
         };
 
+        private PaginatorViewModel<ClubViewModel> MapToView(PaginatorDataModel<ClubDataModel> dataModel)
+        => new PaginatorViewModel<ClubViewModel>
+        {
+            Count = dataModel.Count,
+            Page = dataModel.Page,
+            PerPage = dataModel.PerPage,
+            Items = dataModel.Items.Select(x => new ClubViewModel
+            {
+                IdUserCreator = x.IdUserCreator,
+                Name = x.Name,
+                Id = x.id,
+                Stadium = x.Stadium,
+                League = new ShortLeagueViewModel
+                {
+                    Id = x.League.Id,
+                    ShortName = x.League.ShortName,
+                    Country = x.League.Country
+                }
+            }).ToList(),
+        };
     }
 }

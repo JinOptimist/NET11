@@ -1,4 +1,5 @@
-﻿using FootballApi.DatabaseStuff.Models;
+﻿using FootballApi.DatabaseStuff.DataModels.Football;
+using FootballApi.DatabaseStuff.Models;
 
 namespace FootballApi.VIewModels
 {

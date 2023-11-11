@@ -7,8 +7,8 @@ namespace FootballApi.Service
 {
     public interface IClubService
     {
-        IEnumerable<Club> GetClubs();
-        PaginatorDataModel<ClubDataModel> GetForPaginator(int page, int perPage);
+        IEnumerable<ClubViewModel> GetClubs();
+        PaginatorViewModel<ClubViewModel> GetForPaginator(int page, int perPage);
         void Save(ClubViewModel footClub);
         void Delete(int id);
 
