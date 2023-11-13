@@ -2,6 +2,7 @@
 using BusinessLayerInterfaces.BusinessModels.Books;
 using BusinessLayerInterfaces.Common;
 using DALInterfaces.Models;
+using DALInterfaces.Models.Books;
 
 namespace BusinessLayerInterfaces.BookServices
 {
