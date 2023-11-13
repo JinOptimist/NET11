@@ -1,5 +1,4 @@
-﻿using DALInterfaces.DataModels.Football;
-using FootballApi.DatabaseStuff.DataModels.Football;
+﻿using FootballApi.DatabaseStuff.DataModels.Football;
 using FootballApi.DatabaseStuff.Models;
 using FootballApi.Repositories;
 using System.Collections.Generic;

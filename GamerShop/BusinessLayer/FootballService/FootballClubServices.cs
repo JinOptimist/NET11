@@ -4,12 +4,10 @@ using BusinessLayerInterfaces.Common;
 using BusinessLayerInterfaces.Common.Dtos;
 using BusinessLayerInterfaces.FootballService;
 using BusinessLayerInterfaces.FootballServices.Dtos;
-using DALInterfaces.DataModels;
-using DALInterfaces.DataModels.Football;
 using DALInterfaces.Models;
-using DALInterfaces.Models.Football;
 using DALInterfaces.Repositories;
-using DALInterfaces.Repositories.Football;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 using System.Text;
 using System.Text.Json;
 
@@ -18,10 +16,12 @@ namespace BusinessLayer.FootballServices
     public class FootballClubServices : IFootballClubService
     {
         private IUserRepository _userRepository;
+        private string host;
 
-        public FootballClubServices(IUserRepository userRepository)
+        public FootballClubServices(IUserRepository userRepository, IConfiguration config)
         {
             _userRepository = userRepository;
+            host = config.GetSection("Footballhost").Value;
         }
 
         public async Task<IEnumerable<FootballClubBlm>> GetAll()
@@ -29,7 +29,7 @@ namespace BusinessLayer.FootballServices
             try
             {
                 var httpClient = new HttpClient();
-                var response = await httpClient.GetAsync("https://localhost:7114/GetAll");
+                var response = await httpClient.GetAsync($"{host}GetAll");
                 var json = await response.Content.ReadAsStringAsync();
                 var answwer = JsonSerializer.Deserialize<List<FootballClubDto>>(json);
                 return answwer.Select(x => new FootballClubBlm
@@ -70,7 +70,7 @@ namespace BusinessLayer.FootballServices
                  
                 var httpClient = new HttpClient();
                 var data = new StringContent(JsonSerializer.Serialize(clubDto), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync("https://localhost:7114/Save", data);
+                var response = await httpClient.PostAsync($"{host}Save", data);
             
               
         }
@@ -78,13 +78,13 @@ namespace BusinessLayer.FootballServices
         public async Task Delete(int id)
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.DeleteAsync($"https://localhost:7114/Remove?id={id}");
+            var response = await httpClient.DeleteAsync($"{host}Remove?id={id}");
         }
 
         public async Task<PaginatorDto<FootballClubDto>> GetDataForPaginator(int page, int perPage)
         {
                 var httpClient = new HttpClient();
-                var response = await httpClient.GetAsync($"https://localhost:7114/GetClubsForPaginator?page={page}&perPage={perPage}");
+                var response = await httpClient.GetAsync($"{host}GetClubsForPaginator?page={page}&perPage={perPage}");
                 var json = await response.Content.ReadAsStringAsync();
                 var answer = JsonSerializer.Deserialize<PaginatorDto<FootballClubDto>>(json);
                 return answer;

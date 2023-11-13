@@ -1,5 +1,4 @@
-﻿using ChatApi.DatabaseStuff.Models;
-using FootballApi.Attributes;
+﻿using FootballApi.Attributes;
 using FootballApi.Service;
 using FootballApi.VIewModels;
 using Microsoft.AspNetCore.Mvc;

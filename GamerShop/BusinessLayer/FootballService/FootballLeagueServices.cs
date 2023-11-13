@@ -11,6 +11,8 @@ using BusinessLayerInterfaces.FootballServices.Dtos;
 using System.Text.Json;
 using System.Text;
 using BusinessLayerInterfaces.Common.Dtos;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace BusinessLayer.FootballService
 {
@@ -18,12 +20,14 @@ namespace BusinessLayer.FootballService
     {
         private IFootballLeagueRepository _footballLeagueRepository;
         private IUserRepository _userRepository;
+        private string host;
 
 
-        public FootballLeagueServices(IFootballLeagueRepository footballLeagueRepository, IUserRepository userRepository)
+        public FootballLeagueServices(IFootballLeagueRepository footballLeagueRepository, IUserRepository userRepository, IConfiguration config)
         {
             _footballLeagueRepository = footballLeagueRepository;
             _userRepository = userRepository;
+            host = config.GetSection("Footballhost").Value;
         }
 
         public async Task<IEnumerable<FootballLeagueBLM>> GetAll()
@@ -31,7 +35,7 @@ namespace BusinessLayer.FootballService
             try
             {
                 var httpClient = new HttpClient();
-                var response = await httpClient.GetAsync("https://localhost:7114/League/GetAll");
+                var response = await httpClient.GetAsync($"{host}League/GetAll");
                 var json = await response.Content.ReadAsStringAsync();
                 var answwer = JsonSerializer.Deserialize<List<FootballLeagueDto>>(json);
                 return answwer.Select(x => new FootballLeagueBLM
@@ -63,12 +67,12 @@ namespace BusinessLayer.FootballService
             };
             var httpClient = new HttpClient();
             var data = new StringContent(JsonSerializer.Serialize(leagueDto), Encoding.UTF8, "application/json");
-            await httpClient.PostAsync("https://localhost:7114/League/Save", data);
+            await httpClient.PostAsync($"{host}League/Save", data);
         }
         public async Task Delete(int id)
         {
             var httpClient = new HttpClient();
-            await httpClient.DeleteAsync($"https://localhost:7114/League/Delete?id={id}");
+            await httpClient.DeleteAsync($"{host}League/Delete?id={id}");
 
         }
 
@@ -113,7 +117,7 @@ namespace BusinessLayer.FootballService
         public async Task<IEnumerable<ShortFootballLeagueBLM>> GetLimitedAmountLigues(int amount=1)
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync($"https://localhost:7114/League/GetLimitedAmount?amount={amount}");
+            var response = await httpClient.GetAsync($"{host}League/GetLimitedAmount?amount={amount}");
             var json = await response.Content.ReadAsStringAsync();
             var answwer = JsonSerializer.Deserialize<List<ShortFootballLeagueDto>>(json);
             return answwer.Select(x => new ShortFootballLeagueBLM
@@ -128,7 +132,7 @@ namespace BusinessLayer.FootballService
         public async Task<int> Count()
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync("https://localhost:7114/League/Count");
+            var response = await httpClient.GetAsync($"{host}League/Count");
             var json = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<int>(json);
         }
@@ -136,7 +140,7 @@ namespace BusinessLayer.FootballService
         public async Task<IEnumerable<ShortFootballLeagueBLM>> Get(int skip, int count)
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync($"https://localhost:7114/League/Get?count={count}&skip={skip}");
+            var response = await httpClient.GetAsync($"{host}League/Get?count={count}&skip={skip}");
             var json = await response.Content.ReadAsStringAsync();
             var answwer = JsonSerializer.Deserialize<List<ShortFootballLeagueDto>>(json);
             return answwer.Select(x => new ShortFootballLeagueBLM
@@ -150,7 +154,7 @@ namespace BusinessLayer.FootballService
         private async Task<PaginatorDto<FootballLeagueDto>> GetDataForPaginator(int page, int perPage)
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync($"https://localhost:7114/League/GetForPaginator?page={page}&perPage={perPage}");
+            var response = await httpClient.GetAsync($"{host}League/GetForPaginator?page={page}&perPage={perPage}");
             var json = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<PaginatorDto<FootballLeagueDto>>(json);
 
