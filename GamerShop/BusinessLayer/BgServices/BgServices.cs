@@ -39,6 +39,7 @@ namespace BusinessLayer.BgServices
             });
         }
 
+
         private IEnumerable<BaseAtributeBml> GetAllRace()
         {
             return _raceRepository.GetAll().Select(c => new BaseAtributeBml()
@@ -134,6 +135,7 @@ namespace BusinessLayer.BgServices
         {
             _heroRepository.Remove(id);
         }
+        
 
         public void Save(BaldursGateBml BgBml)
         {
@@ -146,7 +148,13 @@ namespace BusinessLayer.BgServices
                 //Subrace = BgBml.Subrace,
                 //Оrigin = BgBml.Оrigin,
                 //CreatorId = BgBml.CreatorId.Id
+
             });
         }
+        public List<string> GetHeroList()
+        {
+            return _heroRepository.GetAll().Select(x => x.Name).ToList();
+        }
+        
     }
 }

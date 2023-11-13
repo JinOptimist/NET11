@@ -33,6 +33,7 @@
     <Folder Include="wwwroot\img\avatars\" />
     <Folder Include="wwwroot\js\Auth\" />
     <Folder Include="wwwroot\reports\" />
+    <Folder Include="wwwroot\BGReports\" />
   </ItemGroup>
 
 </Project>

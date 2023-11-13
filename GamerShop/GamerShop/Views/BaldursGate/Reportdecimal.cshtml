@@ -1,0 +1,25 @@
+﻿@using GamerShop.Models.BaldursGate
+
+@model ReportViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<div>
+    <a href="#" onclick="location.reload(); return false;">
+        Обновить страницу
+    </a>
+    <div>
+        JOB to @Model.pdfJobs %
+        @if (Model.IsFileReady)
+        {
+                <a href="/BaldursGate/Dowloadreport" target="_blank">Скачать</a>
+        }
+    </div>
+</div>
+</body>
+</html>
