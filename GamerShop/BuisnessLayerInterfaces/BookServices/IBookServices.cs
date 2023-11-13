@@ -10,6 +10,7 @@ namespace BusinessLayerInterfaces.BookServices
         IEnumerable<BookGetBlm> GetAll();
 
         void Save(BookPostBlm bookBlm);
+        void Update(BookPostBlm bookBlm);
 
         void Remove(int id);
     }

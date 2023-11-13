@@ -1,6 +1,5 @@
 ﻿using BusinessLayerInterfaces.UserServices;
 using GamerShop.Models;
-using GamerShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,8 +16,10 @@ namespace GamerShop.Controllers
 			_authService = authService;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
         {
+            var messages = await _homeServices.GetLastMessagesAsync();
+
             var viewModels = _homeServices
                 .GetLastLoginUsers()
 				.Select(blmUser => new IndexViewModel

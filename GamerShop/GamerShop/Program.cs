@@ -32,6 +32,8 @@ using DALEfDB.Repositories;
 using DALInterfaces.Repositories.BG;
 using DALEfDB.Repositories.BG;
 using GamerShop.Hubs;
+using DALEfDB.Repositories.Books;
+using DALInterfaces.Repositories.Books;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +60,7 @@ builder.Services.AddScoped<IRecipeServices, RecipeServices>();
 builder.Services.AddScoped<IReviewServices, ReviewServices>();
 builder.Services.AddScoped<IRockMemberServices, RockMemberServices>();
 builder.Services.AddScoped<IBookServices, BookServices>();
+builder.Services.AddScoped<IAuthorServices, AuthorServices>();
 builder.Services.AddScoped<GamerShop.Services.IAuthService, GamerShop.Services.AuthService>();
 builder.Services.AddScoped<BusinessLayerInterfaces.UserServices.IAuthService, BusinessLayer.UserServices.AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -91,7 +94,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Who I am
+app.UseAuthentication(); // Who am I?
 
 app.UseAuthorization(); // Is it allow for me?
 

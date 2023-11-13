@@ -1,7 +1,9 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.UserServices;
+using BusinessLayerInterfaces.UserServices.Dtos;
 using DALInterfaces.Models;
 using DALInterfaces.Repositories;
+using System.Text.Json;
 
 namespace BusinessLayer.UserServices
 {
@@ -44,5 +46,22 @@ namespace BusinessLayer.UserServices
 				FavoriteMovieName = user.FavoriteMovie?.Title ?? "---"
 			};
 		}
+
+		public async Task<IEnumerable<MessageDto>> GetLastMessagesAsync()
+		{
+			try
+			{
+                var httpClient = new HttpClient();
+                var response = await httpClient.GetAsync("https://localhost:7250/getMessages");
+                var json = await response.Content.ReadAsStringAsync();
+                var messages = JsonSerializer.Deserialize<List<MessageDto>>(json);
+                return messages;
+            }
+			catch
+			{
+				// Add to log that chat api is dead
+				return null;
+			}
+        }
 	}
 }

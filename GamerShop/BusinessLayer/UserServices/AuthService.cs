@@ -18,6 +18,11 @@ namespace BusinessLayer.UserServices
             return _userRepository.GetUserIdByNameAndPassword(userName, password);
         }
 
+        public string GetUserName(int userId)
+        {
+            return _userRepository.Get(userId).Name;
+        }
+
         public void Remove(int id)
         {
             _userRepository.Remove(id);

@@ -7,5 +7,6 @@ namespace BusinessLayerInterfaces.UserServices
         int? GetUserIdByNameAndPassword(string userName, string password);
         void Save(User user);
         void Remove(int id);
+        string GetUserName(int userId);
     }
 }

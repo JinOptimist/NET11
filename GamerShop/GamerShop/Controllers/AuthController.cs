@@ -37,7 +37,9 @@ namespace GamerShop.Controllers
                 return View(viewModel);
             }
 
-			AuthOnServer(userId.ToString());
+            var userName = _authService.GetUserName(userId.Value);
+
+			AuthOnServer(userId.ToString(), userName);
 
             return RedirectToAction("Privacy", "Home");
         }
@@ -65,7 +67,7 @@ namespace GamerShop.Controllers
 
 			_authService.Save(dbUser);
 
-            AuthOnServer(dbUser.Id.ToString());
+            AuthOnServer(dbUser.Id.ToString(), dbUser.Name);
 
             return RedirectToAction("Privacy", "Home");
 		}
@@ -82,10 +84,11 @@ namespace GamerShop.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private void AuthOnServer(string userId)
+        private void AuthOnServer(string userId, string userName)
         {
             var claims = new List<Claim>() {
                 new Claim("Id", userId),
+                new Claim("Name", userName),
                 new Claim("TimeOfLogin", DateTime.Now.Hour + ""),
                 new Claim(ClaimTypes.AuthenticationMethod, "WebAuthSmile")
             };
