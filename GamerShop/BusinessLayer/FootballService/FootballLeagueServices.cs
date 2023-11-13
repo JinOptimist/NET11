@@ -7,6 +7,12 @@ using DALInterfaces.Models;
 using DALInterfaces.Models.Football;
 using DALInterfaces.Repositories;
 using DALInterfaces.Repositories.Football;
+using BusinessLayerInterfaces.FootballServices.Dtos;
+using System.Text.Json;
+using System.Text;
+using BusinessLayerInterfaces.Common.Dtos;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace BusinessLayer.FootballService
 {
@@ -14,63 +20,78 @@ namespace BusinessLayer.FootballService
     {
         private IFootballLeagueRepository _footballLeagueRepository;
         private IUserRepository _userRepository;
+        private string host;
 
 
-        public FootballLeagueServices(IFootballLeagueRepository footballLeagueRepository, IUserRepository userRepository)
+        public FootballLeagueServices(IFootballLeagueRepository footballLeagueRepository, IUserRepository userRepository, IConfiguration config)
         {
             _footballLeagueRepository = footballLeagueRepository;
             _userRepository = userRepository;
+            host = config.GetSection("Footballhost").Value;
         }
 
-        public IEnumerable<FootballLeagueBLM> GetAll()
-         => _footballLeagueRepository
-                .GetAll()
-                .Select(x => new FootballLeagueBLM
+        public async Task<IEnumerable<FootballLeagueBLM>> GetAll()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                var response = await httpClient.GetAsync($"{host}League/GetAll");
+                var json = await response.Content.ReadAsStringAsync();
+                var answwer = JsonSerializer.Deserialize<List<FootballLeagueDto>>(json);
+                return answwer.Select(x => new FootballLeagueBLM
                 {
                     Id = x.Id,
                     FullName = x.Name,
-                    ShortName = x.ShortName,
                     Country = x.Country,
-                    Creator = new UserBlm { Id = x.UserCreator.Id, Name = x.UserCreator.Name }
-                });
+                    ShortName = x.ShortName,
+                    Creator = MapUserDalToBlm(_userRepository.Get(x.IdUserCreator))
 
-        public void Save(FootballLeagueBLM footLeague)
-        {
-
-            _footballLeagueRepository.Save(new FootballLeague
+                }).ToList();
+            }
+            catch
             {
+                // Add to log that chat api is dead
+                return null;
+            }
+
+        }
+        public async Task Save(FootballLeagueBLM footLeague)
+        {
+            var leagueDto = new FootballLeagueDto
+            {
+                Id = footLeague.Id,
+                Country = footLeague.Country,
+                IdUserCreator = footLeague.Creator.Id,
                 Name = footLeague.FullName,
                 ShortName = footLeague.ShortName,
-                Country = footLeague.Country,
-                UserCreator = _userRepository.Get(footLeague.Creator.Id)
-            });
+            };
+            var httpClient = new HttpClient();
+            var data = new StringContent(JsonSerializer.Serialize(leagueDto), Encoding.UTF8, "application/json");
+            await httpClient.PostAsync($"{host}League/Save", data);
         }
-
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _footballLeagueRepository.Remove(id);
+            var httpClient = new HttpClient();
+            await httpClient.DeleteAsync($"{host}League/Delete?id={id}");
+
         }
 
         public PaginatorBlm<FootballLeagueBLM> GetPaginatorBlm(int page, int perPage)
         {
-            var data = _footballLeagueRepository.GetPaginatorDataModel(MapDataToShortDataModel, page, perPage);
+            var data = GetDataForPaginator(page, perPage);
 
             return new PaginatorBlm<FootballLeagueBLM>
             {
-                Count = data.Count,
-                Page = data.Page,
-                PerPage = data.PerPage,
-                Items = data.Items.Select(x => new FootballLeagueBLM
+                Count = data.Result.Count,
+                Page = data.Result.Page,
+                PerPage = data.Result.PerPage,
+                Items = data.Result.Items.Select(x => new FootballLeagueBLM
                 {
                     Id = x.Id,
                     ShortName = x.ShortName,
                     Country = x.Country,
-                    Creator = new UserBlm
-                    {
-                        Id = x.Creator.Id,
-                        Name = x.Creator.Name,
-                    },
-                    FullName = x.FullName,
+                    Creator =  MapUserDalToBlm(_userRepository.Get(x.IdUserCreator)), 
+                    FullName = x.Name
                 }
                 ).ToList()
             };
@@ -92,26 +113,58 @@ namespace BusinessLayer.FootballService
             }
              ;
         }
-        public int Count()
-        => _footballLeagueRepository.Count();
 
-        public IEnumerable<ShortFootballLeagueBLM> Get(int skip, int count)
-        => _footballLeagueRepository
-          .Get(skip, count)
-          .Select(x => new ShortFootballLeagueBLM
-          {
-              Id = x.Id,
-              ShortName = x.ShortName
-          })
-          .ToList();
-
-        public IEnumerable<ShortFootballLeagueBLM> GetLimitedAmountLigues(int id)
-        => _footballLeagueRepository.GetLimitedAmountLigues(1)
-            .Select(x => new ShortFootballLeagueBLM
+        public async Task<IEnumerable<ShortFootballLeagueBLM>> GetLimitedAmountLigues(int amount=1)
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync($"{host}League/GetLimitedAmount?amount={amount}");
+            var json = await response.Content.ReadAsStringAsync();
+            var answwer = JsonSerializer.Deserialize<List<ShortFootballLeagueDto>>(json);
+            return answwer.Select(x => new ShortFootballLeagueBLM
             {
-                Id = x.Id,
-                ShortName = x.ShortName
+                Id= x.Id,
+                ShortName = x.ShortName,
+                
             }).ToList();
 
+        }
+
+        public async Task<int> Count()
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync($"{host}League/Count");
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<int>(json);
+        }
+
+        public async Task<IEnumerable<ShortFootballLeagueBLM>> Get(int skip, int count)
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync($"{host}League/Get?count={count}&skip={skip}");
+            var json = await response.Content.ReadAsStringAsync();
+            var answwer = JsonSerializer.Deserialize<List<ShortFootballLeagueDto>>(json);
+            return answwer.Select(x => new ShortFootballLeagueBLM
+            {
+                Id = x.Id,
+                ShortName = x.ShortName,
+                
+            }).ToList();
+        }
+
+        private async Task<PaginatorDto<FootballLeagueDto>> GetDataForPaginator(int page, int perPage)
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync($"{host}League/GetForPaginator?page={page}&perPage={perPage}");
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<PaginatorDto<FootballLeagueDto>>(json);
+
+
+        }
+        private UserBlm MapUserDalToBlm(User user)
+         => new UserBlm
+         {
+             Id = user.Id,
+             Name = user.Name,
+         };
     }
 }

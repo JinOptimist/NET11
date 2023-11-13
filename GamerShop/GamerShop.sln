@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApi", "ChatApi\ChatApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomApi", "RoomApi\RoomApi.csproj", "{C871EEDE-B7EA-4FE9-8BCC-F32FA7C2C4AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballApi", "FootballApi\FootballApi.csproj", "{E0606AC3-C2D9-48C8-9BDE-68248E9F5596}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{C871EEDE-B7EA-4FE9-8BCC-F32FA7C2C4AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C871EEDE-B7EA-4FE9-8BCC-F32FA7C2C4AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C871EEDE-B7EA-4FE9-8BCC-F32FA7C2C4AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0606AC3-C2D9-48C8-9BDE-68248E9F5596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0606AC3-C2D9-48C8-9BDE-68248E9F5596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0606AC3-C2D9-48C8-9BDE-68248E9F5596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0606AC3-C2D9-48C8-9BDE-68248E9F5596}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

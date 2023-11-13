@@ -1,107 +1,130 @@
 ﻿using BusinessLayerInterfaces.BusinessModels;
 using BusinessLayerInterfaces.BusinessModels.Football;
+using BusinessLayerInterfaces.Common;
+using BusinessLayerInterfaces.Common.Dtos;
 using BusinessLayerInterfaces.FootballService;
-using DALInterfaces.DataModels;
-using DALInterfaces.DataModels.Football;
-using DALInterfaces.Models.Football;
+using BusinessLayerInterfaces.FootballServices.Dtos;
+using DALInterfaces.Models;
 using DALInterfaces.Repositories;
-using DALInterfaces.Repositories.Football;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
+using System.Text;
+using System.Text.Json;
 
 namespace BusinessLayer.FootballServices
 {
     public class FootballClubServices : IFootballClubService
     {
-        private IFootballClubRepository _footballClubRepository;
         private IUserRepository _userRepository;
-        private IFootballLeagueRepository _footballLeagueRepository;
+        private string host;
 
-
-        public FootballClubServices(IFootballClubRepository footballClubRepository, IUserRepository userRepository, IFootballLeagueRepository footballLeagueRepository)
+        public FootballClubServices(IUserRepository userRepository, IConfiguration config)
         {
-            _footballClubRepository = footballClubRepository;
             _userRepository = userRepository;
-            _footballLeagueRepository = footballLeagueRepository;
+            host = config.GetSection("Footballhost").Value;
         }
 
-        public IEnumerable<FootballClubBlm> GetAll()
-         => _footballClubRepository
-                .GetAll()
-                .Select(x => new FootballClubBlm
+        public async Task<IEnumerable<FootballClubBlm>> GetAll()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                var response = await httpClient.GetAsync($"{host}GetAll");
+                var json = await response.Content.ReadAsStringAsync();
+                var answwer = JsonSerializer.Deserialize<List<FootballClubDto>>(json);
+                return answwer.Select(x => new FootballClubBlm
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Stadium = x.Stadium,
-                    Creator = new UserBlm { Name = x.UserCreator.Name },
-                    ShortFootballLeagueInfo = new ShortFootballLeagueBLM { Id = x.League.Id, ShortName = x.League.ShortName }
-                });
-
-        public void Save(FootballClubBlm footClub)
-        {
-
-            _footballClubRepository.Save(new FootballClub
-            {
-                Name = footClub.Name,
-                Stadium = footClub.Stadium,
-                League = _footballLeagueRepository.Get(footClub.ShortFootballLeagueInfo.Id),
-                UserCreator = _userRepository.Get(footClub.Creator.Id)
-            });
-        }
-
-        public void Delete(int id)
-        {
-            _footballClubRepository.Remove(id);
-        }
-
-        public PaginatorBlm<FootballClubBlm> GetPaginatorBlm(int page, int perPage)
-        {
-            var data = _footballClubRepository.GetPaginatorDataModel(MapDataToShortDataModel, page, perPage);
-
-            return new PaginatorBlm<FootballClubBlm>
-            {
-                Count = data.Count,
-                Page = data.Page,
-                PerPage = data.PerPage,
-                Items = data.Items.Select(x => new FootballClubBlm
-                {
-                    Name = x.Name,
-                    Stadium = x.Stadium,
-                    Id = x.id,
-                    Creator = new UserBlm
-                    {
-                        Id = x.UserCreator.Id,
-                        Name = x.UserCreator.Name
-                    },
+                    Creator = MapUserDalToBlm(_userRepository.Get(x.IdUserCreator)),
                     ShortFootballLeagueInfo = new ShortFootballLeagueBLM
                     {
                         Id = x.League.Id,
                         ShortName = x.League.ShortName,
                     }
 
-                }).ToList()
-            };
+                }).ToList();
+            }
+            catch
+            {
+                // Add to log that chat api is dead
+                return null;
+            }
         }
 
-        private FootClubDataModel MapDataToShortDataModel(FootballClub dbFootballClub)
+        public async Task Save(FootballClubBlm footClub)
         {
-            return new FootClubDataModel
+            var clubDto = new FootballClubDto
             {
-                id = dbFootballClub.Id,
-                Name = dbFootballClub.Name,
-                Stadium = dbFootballClub.Stadium,
-                UserCreator = new UserDataModel
+                Id = footClub.Id,
+                Name = footClub.Name,
+                Stadium = footClub.Stadium,
+                IdUserCreator = footClub.Creator.Id,
+                League = new ShortFootballLeagueDto
                 {
-                    Id = dbFootballClub.UserCreator.Id,
-                    Name = dbFootballClub.UserCreator.Name,
-                    Birthday = dbFootballClub.UserCreator.Birthday
-                },
-                League = new ShortFootballLeagueDataModel 
-                {
-                Id = dbFootballClub.League.Id,
-                Country = dbFootballClub.League.Country,
-                ShortName = dbFootballClub.League.ShortName,
+                    Id = footClub.ShortFootballLeagueInfo.Id,
+                    ShortName = footClub.ShortFootballLeagueInfo.ShortName
                 }
-   
             };
+                 
+                var httpClient = new HttpClient();
+                var data = new StringContent(JsonSerializer.Serialize(clubDto), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync($"{host}Save", data);
+            
+              
+        }
+
+        public async Task Delete(int id)
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.DeleteAsync($"{host}Remove?id={id}");
+        }
+
+        public async Task<PaginatorDto<FootballClubDto>> GetDataForPaginator(int page, int perPage)
+        {
+                var httpClient = new HttpClient();
+                var response = await httpClient.GetAsync($"{host}GetClubsForPaginator?page={page}&perPage={perPage}");
+                var json = await response.Content.ReadAsStringAsync();
+                var answer = JsonSerializer.Deserialize<PaginatorDto<FootballClubDto>>(json);
+                return answer;
+          
+        }
+
+        private UserBlm MapUserDalToBlm(User user)
+        => new UserBlm
+        {
+            Id = user.Id,
+            Name = user.Name,
+        };
+        private FootballClubBlm MapToBlm(FootballClubDto footballClubDto)
+        => new FootballClubBlm
+        {
+            Id = footballClubDto.Id,
+            Name = footballClubDto.Name,
+            Stadium = footballClubDto.Stadium,
+            Creator = MapUserDalToBlm(_userRepository.Get(footballClubDto.IdUserCreator)),
+            ShortFootballLeagueInfo = new ShortFootballLeagueBLM
+            {
+                Id = footballClubDto.League.Id,
+                ShortName = footballClubDto.League.ShortName,
+            }
+
+        };
+
+        PaginatorBlm<FootballClubBlm> IPaginatorServices<FootballClubBlm>.GetPaginatorBlm(int page, int perPage)
+        {
+            var data = GetDataForPaginator(page, perPage);
+
+             var paginator = new PaginatorBlm<FootballClubBlm>
+            {
+                Count = data.Result.Count,
+                Page = data.Result.Page,
+                PerPage = data.Result.PerPage,
+                Items = data.Result.Items.Select(x => MapToBlm(x)).ToList(),
+
+             };
+            return paginator;
         }
     }
 }

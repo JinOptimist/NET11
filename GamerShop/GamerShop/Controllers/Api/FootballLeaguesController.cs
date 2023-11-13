@@ -16,11 +16,11 @@ namespace GamerShop.Controllers.Api
             _footballLeagueServices = footballServices;
         }
         public int Count()
-        => _footballLeagueServices.Count();
+        => _footballLeagueServices.Count().Result;
 
         public IEnumerable<ShortFootballLeagueViewModel> Get(int skip, int count)
         => _footballLeagueServices
-            .Get(skip, count)
+            .Get(skip, count).Result
             .Select(x => new ShortFootballLeagueViewModel 
             {
               Id = x.Id ,

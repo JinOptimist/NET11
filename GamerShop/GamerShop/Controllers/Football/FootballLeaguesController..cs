@@ -44,7 +44,7 @@ namespace GamerShop.Controllers.Football
         public IActionResult LeagueList()
         {
             return View(_footballLeagueServices
-                        .GetAll()
+                        .GetAll().Result
                         .Select(x => new FootballLeagueViewModel
                         {
                             Id = x.Id,

@@ -78,7 +78,7 @@ var dbContextResolver = new Startup();
 dbContextResolver.RegisterDbContext(builder.Services);
 
 var app = builder.Build();
-
+builder.Configuration.AddJsonFile("HostsConfig.json");
 new Seed().Fill(app.Services);
 
 // Configure the HTTP request pipeline.
