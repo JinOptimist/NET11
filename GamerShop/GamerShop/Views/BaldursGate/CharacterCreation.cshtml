@@ -6,7 +6,8 @@
 {
     <div class="form-group">
         <label for="exampleFormControlInput1">Имя персонажа</label> 
-    @Html.TextBox(nameof(CreateHeroAnswerViewModel.Name), "",new {@class = "form-control", type="text", id="exampleFormControlInput1", placeholder="Дикий перец"})
+        @Html.TextBox(nameof(CreateHeroAnswerViewModel.Name), "",new { required = "required" , @class = "form-control", type="text", id="exampleFormControlInput1", placeholder="Дикий перец"})
+        @Html.ValidationMessageFor(model => model.Name)
     </div>
     <div class="form-group">
         <label for="ClassSelect">Класс:</label>
@@ -26,8 +27,9 @@
     </div>
     <div class="form-group">
         <label for="BoneInfo">Любимое число</label>
-        @Html.TextBox(nameof(CreateHeroAnswerViewModel.Bone), "",new {@class = "form-control", type="text", id="BoneInfo"})
-    </div>
+        @Html.TextBox(nameof(CreateHeroAnswerViewModel.Bone), "",new {@class = "form-control", type="text", id="BoneInfo", min = "1", required = "required"})
+        @Html.ValidationMessageFor(model => model.Bone)
+        </div>
 @*      @Html.HiddenFor(x => x.Id)
 
     <input name="Avatar" type="file"/> *@

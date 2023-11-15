@@ -10,9 +10,13 @@ namespace GamerShop.Models.BaldursGate
         //[Required]
         //[AtLeastOneCapitalAtLeastOneNotCapital(ErrorMessage = "Хотя бы одну большую букву")]
         public string Name { get; set; }
+      
         public int ClassId { get; set; }
+   
         public int RaceId { get; set; }
+
         public int SubraceId { get; set; }
+
         public int OriginId { get; set; }
         //[Required]
         public int Bone { get; set; }
