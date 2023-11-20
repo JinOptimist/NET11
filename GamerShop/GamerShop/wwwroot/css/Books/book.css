@@ -1,0 +1,46 @@
+﻿.book-list {
+    gap: 10px;
+    position: relative;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #fdfdfd;
+}
+
+.book-cover {
+    width: 20%;
+    height: 100%;
+}
+
+.book-basic-information {
+    padding: 5px;
+    width: 60%;
+}
+
+.function-buttons {
+    background-color: aqua;
+    width: 20%;
+}
+
+ul.separator {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    width: 100%;
+}
+ul.separator li {
+        border-right: 3px solid #ff0000;
+        padding-inline:10px;
+    }
+    ul.separator li:first-child {
+        padding-left: 0;
+    }
+ul.separator li:last-child {
+        border-right: 0;
+    }

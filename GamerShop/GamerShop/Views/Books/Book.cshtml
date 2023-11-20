@@ -11,13 +11,7 @@
         </div>
         <div>
             Автор
-            @*@Html.DropDownList(nameof(NewBookViewModel.Authors), new MultiSelectList(Model.Authors, "Selected", "Text"), new{ @class = "form-control" })*@
-
-            @*@Html.DropDownListFor(x => x.Authors, Model.Authors)*@
-            @Html.ListBoxFor(x => x.SelectedAuthors, new MultiSelectList(Model.Authors, "Value", "Text"), new{ @class = "form-control" }))
-            @*<x-multiselect data="Model.Authors"></x-multiselect>*@
-
-            @*@Html.ListBoxFor()*@
+            @Html.ListBoxFor(x => x.SelectedAuthors, new MultiSelectList(Model.Authors, "Value", "Text"), new{ @class = "form-control" })
         </div>
         <div>
             Год выпуска

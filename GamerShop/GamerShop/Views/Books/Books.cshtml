@@ -1,18 +1,27 @@
 ﻿@using GamerShop.Models.Books;
 @model PaginatorViewModel<BookViewModel>
 
-<div>
-    Список добавленых книг.
+<div class="book-list">
     @foreach (var book in Model.Items)
     {
-        <div>
-            @foreach (var author in book.Authors)
-            {
-                @author.Text
-            }
-            @book.Name
+        <div class="book-card">
+            <img class="book-cover"
+                src="/img/Books/book_red.svg"/>
+            <div class="book-basic-information">
+                <h3>@book.Name</h3>
+                    <ul class="separator">
+                    @foreach (var author in book.Authors)
+                    {
+                        <li>@author.Text</li>
+                    }
+                 </ul>
+                 <a>@book.YearOfIssue</a>
+            </div>
+            <div class="function-buttons">
             <a asp-action="Delete" asp-controller="Books" asp-route-id="@book.Id">Удалить</a>
+                </div>
         </div>
+
     }
 </div>
 <ul class="pagination">
@@ -21,3 +30,10 @@
         <li class="page-item"><a class="page-link @(Model.Page == pageNumber ? "active" : "")" href="Books?page=@pageNumber">@pageNumber</a></li>
     }
 </ul>
+@section Style{
+    <link rel="stylesheet" href="~/css/Books/book.css" />
+}
+
+@*<img src="/img/Books/book_red.svg"
+                     width="50"
+                     height="50"/>*@
