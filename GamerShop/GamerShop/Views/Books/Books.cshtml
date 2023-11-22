@@ -4,7 +4,7 @@
 <div class="book-list">
     @foreach (var book in Model.Items)
     {
-        <div class="book-card">
+        <div class="book-card" onclick="location.href='/Books/ShowBook/?id=@book.Id'">
             <img class="book-cover"
                 src="/img/Books/book_red.svg"/>
             <div class="book-basic-information">
@@ -17,9 +17,6 @@
                  </ul>
                  <a>@book.YearOfIssue</a>
             </div>
-            <div class="function-buttons">
-            <a asp-action="Delete" asp-controller="Books" asp-route-id="@book.Id">Удалить</a>
-                </div>
         </div>
 
     }
@@ -33,7 +30,3 @@
 @section Style{
     <link rel="stylesheet" href="~/css/Books/book.css" />
 }
-
-@*<img src="/img/Books/book_red.svg"
-                     width="50"
-                     height="50"/>*@

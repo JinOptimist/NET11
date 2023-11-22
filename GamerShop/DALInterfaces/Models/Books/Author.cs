@@ -14,6 +14,6 @@ namespace DALInterfaces.Models.Books
         public int YearOfBirth { get; set; }
         public int? YearOfDeath { get; set; }
 
-        public virtual IEnumerable<Book> Books { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

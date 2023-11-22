@@ -1,0 +1,28 @@
+﻿@using GamerShop.Models.Books;
+@model ShowBookViewModel
+
+<div>
+    <a class="button-link neutral-button" href="javascript:history.back()">BACK</a>
+    <div>
+        Book name
+        @Html.Raw(Model.Name)
+    </div>
+    <div>
+        Author(s)
+        <ul class="separator">
+        @foreach (var author in Model.Authors)
+        {
+            <li>@author.Text</li>
+        }
+        </ul>
+    </div>
+    <div>
+        Year of issue
+        @Html.Raw(Model.YearOfIssue)
+    </div>
+    <a class="button-link positive-button" onclick="location.href='/Books/EditBook/?id=@Model.Id'">EDIT</a>
+    <a class="button-link negative-button" asp-action="Delete" asp-controller="Books" asp-route-id="@Model.Id">DELETE</a>
+</div>
+@section Style{
+    <link rel="stylesheet" href="~/css/Books/book.css" />
+}

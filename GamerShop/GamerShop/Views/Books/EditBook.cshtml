@@ -1,0 +1,26 @@
+﻿@using GamerShop.Models.Books;
+@model EditBookViewModel
+@using (Html.BeginForm("EditBook", "Books", FormMethod.Post))
+{
+<div>
+        @Html.HiddenFor(model => model.Id)
+    <div>
+        Book name
+        @Html.TextBoxFor(model => model.Name)
+    </div>
+    <div>
+        Author(s)
+        @Html.ListBoxFor(x => x.SelectedAuthors, new MultiSelectList(Model.Authors, "Value", "Text"), new{ @class = "form-control" })
+    </div>
+    <div>
+        Year of issue
+        @Html.TextBoxFor(model => model.YearOfIssue)
+    </div>
+    <div>
+        <input class="button-link positive-button" type="submit" value="UPDATE" />
+    </div>
+</div>
+}
+@section Style{
+    <link rel="stylesheet" href="~/css/Books/book.css" />
+}

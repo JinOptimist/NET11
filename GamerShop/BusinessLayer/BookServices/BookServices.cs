@@ -98,18 +98,20 @@ namespace BusinessLayer.BookServices
 
         public void Update(BookPostBlm bookBlm)
         {
-            Book bookMemberDb;
+            Book bookMemberDb = new Book();
             //TODO: Make book unique
             if (bookBlm.Id==0) {
                 bookMemberDb = _bookRepository.GetAll().First(x => x.Name == bookBlm.Name && x.YearOfIssue == bookBlm.YearOfIssue);
             }
             else
             {
-                bookMemberDb = _bookRepository.Get(bookBlm.Id);
+                bookMemberDb.Id = bookBlm.Id;
                 bookMemberDb.Name = bookBlm.Name;
                 bookMemberDb.YearOfIssue = bookBlm.YearOfIssue;
             }
-            bookMemberDb.Authors = bookBlm.Authors.Select(x => _authorRepository.Get(x.Id)).ToList();
+            ////bookMemberDb.Authors = bookBlm.Authors.Select(x => _authorRepository.Get(x.Id)).ToList();
+            
+            bookMemberDb.Authors = _authorRepository.GetAll().Where(x => bookBlm.Authors.Select(z => z.Id).Contains(x.Id)).ToList();
 
             _bookRepository.Update(bookMemberDb);
         }

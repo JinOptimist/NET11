@@ -2,30 +2,26 @@
 @using GamerShop.Models.Books;
 @model NewBookViewModel
 
-@using (Html.BeginForm("Book", "Books", FormMethod.Post))
+@using (Html.BeginForm("NewBook", "Books", FormMethod.Post))
 {
     <div>
         <div>
-            Название книги
+            Book name
             @Html.TextBoxFor(model => model.Name)
         </div>
         <div>
-            Автор
+            Author(s)
             @Html.ListBoxFor(x => x.SelectedAuthors, new MultiSelectList(Model.Authors, "Value", "Text"), new{ @class = "form-control" })
         </div>
         <div>
-            Год выпуска
+            Year of issue
             @Html.TextBoxFor(model => model.YearOfIssue)
         </div>
         <div>
-            <input type="submit" value="Добавить" />
+            <input class="button-link positive-button" type="submit" value="SAVE"/>
         </div>
     </div>
-
-    <script type="text/javascript">
-        $(function () {
-            // The Name() of the MultiSelect is used to get its client-side instance.
-            var multiselect = $("#multiselect").data("kendoMultiSelect");
-        });
-    </script>
+}
+@section Style{
+    <link rel="stylesheet" href="~/css/Books/book.css" />
 }

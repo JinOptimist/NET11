@@ -6,8 +6,10 @@ using BusinessLayerInterfaces.BusinessModels.Books;
 using BusinessLayerInterfaces.UserServices;
 using DALInterfaces.Repositories.Books;
 using GamerShop.Models.Books;
+using GamerShop.Models.Recipe;
 using GamerShop.Models.Users;
 using GamerShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
@@ -58,7 +60,50 @@ namespace GamerShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult Book()
+        public IActionResult EditBook(int id)
+        {
+            var editBook = _bookServices.GetAll().First(x=>x.Id == id);
+            var selectedAuthors = editBook.Authors;
+            var viewModel = new EditBookViewModel()
+            {
+                Id = editBook.Id,
+                Name = editBook.Name,
+                YearOfIssue = editBook.YearOfIssue,
+                Authors = _authorRepository.GetAll().Select(x => new SelectListItem()
+                {
+                    Text = x.FirstName + " " + x.LastName,
+                    Value = x.Id.ToString(),
+                    Selected = editBook.Authors.Any(z => z.Id==x.Id)
+                }).ToList(),
+                SelectedAuthors= editBook.Authors.Select(x => x.Id.ToString()).ToList()
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult EditBook(EditBookViewModel editBookViewModel)
+        {
+            var bookBlm = new BookPostBlm()
+            {
+                Id= editBookViewModel.Id,
+                Name = editBookViewModel.Name,
+                YearOfIssue = editBookViewModel.YearOfIssue,
+                Authors = editBookViewModel.SelectedAuthors.Select(x =>
+                {
+                    var author = _authorRepository.Get(Convert.ToInt32(x));
+                    return new ShortAuthorBlm
+                    {
+                        Id = author.Id,
+                        FirstName = author.FirstName,
+                        LastName = author.LastName
+                    };
+                }).ToList()
+            };
+            _bookServices.Update(bookBlm);
+            return RedirectToAction("Books");
+        }
+
+        [HttpGet]
+        public IActionResult NewBook()
         {
             var a = new NewBookViewModel();
             a.Authors = _authorRepository.GetAll().Select(x => new SelectListItem()
@@ -71,7 +116,7 @@ namespace GamerShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Book(NewBookViewModel newBookViewModel)
+        public IActionResult NewBook(NewBookViewModel newBookViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -95,6 +140,26 @@ namespace GamerShop.Controllers
         };
             _bookServices.Save(bookMemberDb);
             return RedirectToAction("Books");
+        }
+
+        [HttpGet]
+        public IActionResult ShowBook(int id)
+        {
+            var bookBlm = _bookServices.GetAll().First(x => x.Id==id);
+            var viewModel = new ShowBookViewModel()
+            {
+                Id = bookBlm.Id,
+                Authors = bookBlm.Authors.Select(x =>
+                    new SelectListItem()
+                    {
+                        Text = x.FirstName + " " + x.LastName,
+                        Value = x.Id.ToString()
+                    }).ToList(),
+                Name = bookBlm.Name,
+                YearOfIssue = bookBlm.YearOfIssue
+            };
+
+            return View(viewModel);
         }
     }
 }

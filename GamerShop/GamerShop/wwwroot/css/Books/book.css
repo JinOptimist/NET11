@@ -1,6 +1,4 @@
 ﻿.book-list {
-    gap: 10px;
-    position: relative;
 }
 
 .book-card {
@@ -8,9 +6,16 @@
     flex-direction: row;
     border: 2px solid #ccc;
     padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
     box-sizing: border-box;
+    cursor: pointer;
     background-color: #fdfdfd;
 }
+
+    .book-card:hover {
+        border-color: #d40000;
+    }
 
 .book-cover {
     width: 20%;
@@ -19,12 +24,7 @@
 
 .book-basic-information {
     padding: 5px;
-    width: 60%;
-}
-
-.function-buttons {
-    background-color: aqua;
-    width: 20%;
+    width: 80%;
 }
 
 ul.separator {
@@ -43,4 +43,45 @@ ul.separator li {
     }
 ul.separator li:last-child {
         border-right: 0;
+    }
+
+.button-link {
+    display: inline-block;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 3px solid;
+    background-color: #ffffff;
+}
+
+.negative-button {
+    border-color: #d40000;
+    color: #d40000;
+}
+
+    .negative-button:hover {
+        background-color: #d40000;
+        color: #fdfdfd;
+    }
+
+.positive-button {
+    border-color: #00D441;
+    color: #00D441;
+}
+
+    .positive-button:hover {
+        background-color: #00D441;
+        color: #fdfdfd;
+    }
+
+.neutral-button {
+    border-color: #666666;
+    color: #666666;
+}
+
+    .neutral-button:hover {
+        background-color: #666666;
+        color: #fdfdfd;
     }
