@@ -1,4 +1,11 @@
-﻿.book-list {
+﻿.book-list-container {
+    min-width: 100%;
+    max-width: 100%;
+    background-size: cover;
+}
+
+.book-list {
+    gap:10px;
 }
 
 .book-card {
@@ -19,7 +26,6 @@
 
 .book-cover {
     width: 20%;
-    height: 100%;
 }
 
 .book-basic-information {
@@ -27,13 +33,35 @@
     width: 80%;
 }
 
+.pagination {
+    border-color: #666666;
+}
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-color: #666666;
+    }
+        .pagination a.active {
+            background-color: #d40000;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            border-color: #d40000;
+            color: #d40000;
+            background-color: white;
+        }
+
 ul.separator {
     list-style: none;
     display: flex;
     flex-direction: row;
     padding: 0px;
     width: 100%;
-}
+    }
 ul.separator li {
         border-right: 3px solid #ff0000;
         padding-inline:10px;

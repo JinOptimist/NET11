@@ -1,6 +1,6 @@
 ﻿@using GamerShop.Models.Books;
 @model PaginatorViewModel<BookViewModel>
-
+<body class="book-list-container">
 <div class="book-list">
     @foreach (var book in Model.Items)
     {
@@ -27,6 +27,10 @@
         <li class="page-item"><a class="page-link @(Model.Page == pageNumber ? "active" : "")" href="Books?page=@pageNumber">@pageNumber</a></li>
     }
 </ul>
+</body>
 @section Style{
     <link rel="stylesheet" href="~/css/Books/book.css" />
+}
+@section Scripts{
+    <script src="~/js/Books/book.js"></script>
 }

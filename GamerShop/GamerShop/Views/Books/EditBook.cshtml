@@ -3,6 +3,7 @@
 @using (Html.BeginForm("EditBook", "Books", FormMethod.Post))
 {
 <div>
+        <a class="button-link neutral-button" href="javascript:history.back()">BACK</a>
         @Html.HiddenFor(model => model.Id)
     <div>
         Book name
